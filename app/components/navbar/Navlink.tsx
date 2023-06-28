@@ -1,0 +1,131 @@
+'use client'
+
+import { AiOutlineDown } from "react-icons/ai"
+import { navlinks } from "@/app/constants"
+import { useState } from "react";
+import NavlinkItem from "./NavlinkItem";
+import Link from "next/link";
+
+const NavLink = () => {
+    const [openItemId, setOpenItemId] = useState<number | null>(null);
+    const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
+
+    const handleMenuToggle = (itemId: number) => {
+        if (openItemId === itemId) {
+            setOpenItemId(null);
+        } else {
+            setOpenItemId(itemId);
+        }
+    };
+
+    const handleDropdownMouseLeave = () => {
+        setIsDropdownHovered(false);
+    };
+
+    const handleWrapperMouseLeave = () => {
+        setOpenItemId(null);
+    };
+
+    return (
+        <ul className="
+                flex 
+                items-center 
+                list-none 
+                font-semibold
+                text-lg
+            "
+        >
+            {navlinks.map((item) => (
+                <li
+                    className="relative inline-flex"
+                    key={item.id}
+                >
+                    <div className="
+                            self-center
+                            box-border
+                            relative
+                        "
+                        onMouseLeave={handleWrapperMouseLeave}
+                    >
+                        {item.label !== "Pricing" ? (
+                            <button
+                                className="
+                                border-none
+                                px-1
+                                cursor-pointer
+                            "
+                                onClick={() => handleMenuToggle(item.id)}
+                                onMouseEnter={() => setOpenItemId(item.id)}
+                                onMouseLeave={handleDropdownMouseLeave}
+                                aria-haspopup="true"
+                                aria-expanded={openItemId === item.id ? "true" : "false"}
+                                aria-label={item.label}
+                                data-tag="menuToggleDiv"
+                                type="button"
+                            >
+                                <div className="
+                                        flex
+                                        flex-nowrap
+                                        flew-row
+                                        items-start
+                                    "
+                                >
+                                    <div className="pr-5 py-1">
+                                        <span>
+                                            {item.label}
+                                        </span>
+                                        <div className="inline-block ml-2">
+                                            <div className="
+                                                inline-flex 
+                                                items-center 
+                                                cursor-auto 
+                                                align-middle
+                                            "
+                                            >
+                                                <div className="
+                                                        inline-flex 
+                                                        items-center 
+                                                        cursor-auto 
+                                                        align-middle
+                                                    "
+                                                >
+                                                    <AiOutlineDown size={12} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        ) : (
+                            <Link href={item.href || ""} legacyBehavior>
+                                <a className="
+                                        border-none 
+                                        px-1 
+                                        cursor-pointer
+                                    "
+                                >
+                                    <div className="
+                                            flex 
+                                            flex-nowrap 
+                                            flew-row 
+                                            items-start
+                                        "
+                                    >
+                                        <div className="pr-5 py-1">
+                                            <span className="hover:underline">{item.label}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </Link>
+                        )}
+                        {(openItemId === item.id || isDropdownHovered) && (
+                            <NavlinkItem linkItem={item.linkItems} />
+                        )}
+                    </div>
+                </li>
+            ))}
+        </ul>
+    )
+}
+
+export default NavLink
