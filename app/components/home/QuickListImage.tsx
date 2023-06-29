@@ -1,10 +1,7 @@
+import { QuickListImageProps } from '@/types';
 import Image from 'next/image'
 import { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-
-interface QuickListImageProps {
-    src: string;
-}
 
 const QuickListImage: React.FC<QuickListImageProps> = ({
     src
@@ -42,6 +39,7 @@ const QuickListImage: React.FC<QuickListImageProps> = ({
                     top-0 
                     right-0 
                     m-4
+                    cursor-pointer
                 "
                 onClick={handleLikeClick}
             >

@@ -1,13 +1,6 @@
 'use client'
 
-interface QuickListOverviewProps {
-    title: string;
-    price: number;
-    timeOpen: string;
-    timeClose: string;
-    description: string;
-    isOdd: boolean;
-}
+import { QuickListOverviewProps } from "@/types"
 
 const QuickListOverview: React.FC<QuickListOverviewProps> = ({
     title,

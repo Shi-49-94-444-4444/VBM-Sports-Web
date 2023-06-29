@@ -5,7 +5,9 @@ import Image from 'next/image';
 const QuickBannerImage = () => {
     return (
         <div className="
-              bg-cover 
+              bg-contain
+              bg-no-repeat
+              bg-center
               w-full 
               h-3/4
               mt-10
@@ -68,8 +70,10 @@ const QuickBannerImage = () => {
                         >
                             <div className="
                                     relative 
-                                    w-[150px] 
-                                    h-[450px]
+                                    xl:w-[150px] 
+                                    xl:h-[450px]
+                                    lg:w-[100px] 
+                                    lg:h-[350px]
                                 "
                             >
                                 <Image
@@ -81,10 +85,13 @@ const QuickBannerImage = () => {
                             </div>
                             <div className="
                                     absolute 
-                                    w-[120px] 
-                                    h-[100px] 
                                     bottom-0 
-                                    left-14
+                                    xl:w-[120px] 
+                                    xl:h-[100px] 
+                                    xl:left-14
+                                    lg:w-[100px] 
+                                    lg:h-[70px]
+                                    lg:left-5
                                 "
                             >
                                 <Image

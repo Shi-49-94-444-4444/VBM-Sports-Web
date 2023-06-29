@@ -44,6 +44,7 @@ const BannerIntro = () => {
                         uppercase 
                         text-lg 
                         font-bold
+                        whitespace-nowrap
                     "
                     onClick={handleAdditionalButtonClick}
                     type="button"

@@ -1,11 +1,7 @@
 'use client'
 
+import { FormatHomePageProps } from "@/types"
 import Container from "../Container"
-
-interface FormatHomePageProps {
-    title: string;
-    subTitle?: string;
-}
 
 const FormatHomePage: React.FC<FormatHomePageProps> = ({
     title,

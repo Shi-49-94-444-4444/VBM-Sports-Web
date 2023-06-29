@@ -1,20 +1,8 @@
 'use client'
 
+import { QuickListItemProps } from "@/types";
 import QuickListImage from "./QuickListImage";
 import QuickListOverview from "./QuickListOverview";
-
-interface ListItem {
-    src: string;
-    title: string;
-    price: number;
-    timeOpen: string;
-    timeClose: string;
-    description: string;
-}
-
-interface QuickListItemProps {
-    listItems: ListItem[];
-}
 
 const QuickListItem: React.FC<QuickListItemProps> = ({ listItems }) => {
     const renderListItems = listItems

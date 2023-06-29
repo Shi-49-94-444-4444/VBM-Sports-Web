@@ -8,13 +8,18 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import '../../styles/swiper-custom.css'
+import '../../../styles/swiper-custom.css'
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const BannerImage = () => {
     return (
-        <div className="relative w-[700px] h-[400px]">
+        <div className="
+                relative 
+                w-[700px] 
+                h-[400px]
+            "
+        >
             <Swiper
                 spaceBetween={0}
                 slidesPerView={1}
@@ -25,7 +30,13 @@ const BannerImage = () => {
             >
                 {images.map((image, index) => (
                     <SwiperSlide key={index}>
-                        <div className="relative w-[600px] h-[400px] border-[10px]">
+                        <div className="
+                                relative 
+                                w-[600px] 
+                                h-[400px] 
+                                border-[10px]
+                            "
+                        >
                             <Image
                                 src={image}
                                 alt="Banner"

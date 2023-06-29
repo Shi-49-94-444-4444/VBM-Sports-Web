@@ -1,16 +1,7 @@
 'use client'
 
+import { NavlinkItemProps } from "@/types"
 import Link from "next/link"
-
-interface linkProps {
-    id: number
-    label: string,
-    href?: string
-}
-
-interface NavlinkItemProps {
-    linkItem?: linkProps[] 
-}
 
 const NavlinkItem: React.FC<NavlinkItemProps> = ({
     linkItem

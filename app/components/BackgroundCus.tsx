@@ -1,9 +1,6 @@
 'use client'
 
-interface BackgroundProps {
-    src: string;
-    children: React.ReactNode
-}
+import BackgroundProps from "@/types/backgroundCus"
 
 const Background: React.FC<BackgroundProps> = ({
     src,
@@ -13,8 +10,9 @@ const Background: React.FC<BackgroundProps> = ({
         <div className="
               absolute 
               inset-0 
-              bg-cover 
               bg-center 
+              bg-cover
+              bg-no-repeat
               w-full 
               h-full
             "
