@@ -1,18 +1,19 @@
 import React from 'react';
-import Container from '../Container';
+import Container from '../../Container';
 import Image from 'next/image';
 
 const QuickBannerImage = () => {
     return (
-        <div className="
-              bg-contain
-              bg-no-repeat
-              bg-center
-              w-full 
-              h-3/4
-              mt-10
-              flex
-              items-center
+        <div 
+            className="
+                bg-contain
+                bg-no-repeat
+                bg-center
+                w-full 
+                h-3/4
+                mt-10
+                flex
+                items-center
             "
             style={{
                 backgroundImage: "url('images/quickbanner.png')",

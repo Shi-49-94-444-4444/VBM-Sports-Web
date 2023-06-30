@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { postNew } from "@/app/constants";
-import Container from "../Container";
+import Container from "../../Container";
 import PostNewItem from "./PostNewItem";
 
-const PostNew = () => {
+const PostNewContent = () => {
     const [displayedItems, setDisplayedItems] = useState<Array<{ id: number; src: string; description: string; }>>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -42,4 +42,4 @@ const PostNew = () => {
     );
 };
 
-export default PostNew;
+export default PostNewContent;

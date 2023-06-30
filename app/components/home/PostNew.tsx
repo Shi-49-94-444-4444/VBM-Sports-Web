@@ -1,6 +1,5 @@
-
 import FormatHomePage from "./FormatHomePage";
-import PostNewContent from "./PostNewContent";
+import PostNewContent from "./PostNew/PostNewContent";
 
 const PostNew = () => {
     return (

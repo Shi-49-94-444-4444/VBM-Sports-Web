@@ -1,5 +1,6 @@
 import App from 'next/app';
 import Head from 'next/head';
+import "../app/globals.css";
 
 class MyApp extends App {
     render() {

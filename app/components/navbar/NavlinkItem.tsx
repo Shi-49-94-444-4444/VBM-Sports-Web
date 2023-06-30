@@ -29,8 +29,18 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
             "
         >
             <div className="p-4">
-                <div className="overflow-y-visible whitespace-normal -m-4">
-                    <ul className="list-none mt-2 text-left">
+                <div className="
+                        overflow-y-visible 
+                        whitespace-normal 
+                        -m-4
+                    "
+                >
+                    <ul className="
+                            list-none 
+                            mt-2 
+                            text-left
+                        "
+                    >
                         {linkItem && linkItem.map((item) => (
                             <li
                                 className="hover:bg-slate-200"
@@ -40,11 +50,11 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
                                     <Link
                                         href={item.href}
                                         className="
-                                    block 
-                                    cursor-pointer 
-                                    px-4 
-                                    py-2
-                                "
+                                            block 
+                                            cursor-pointer 
+                                            px-4 
+                                            py-2
+                                        "
                                     >
                                         {item.label}
                                     </Link>

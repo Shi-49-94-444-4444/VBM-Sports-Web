@@ -1,11 +1,19 @@
 'use client'
 
+import { useState } from "react"
 import { BiSearch } from "react-icons/bi"
 import { VscAccount } from "react-icons/vsc"
 import { IoIosNotificationsOutline } from "react-icons/io"
 import { MdOutlineManageAccounts } from "react-icons/md"
+import Link from "next/link"
 
 const Access = () => {
+    const [showToggle, setShowToggle] = useState(false);
+
+    const handleToggle = () => {
+        setShowToggle(!showToggle);
+    };
+
     return (
         <ul className="
                 flex 
@@ -36,8 +44,8 @@ const Access = () => {
                                     flex-grow-[2px] 
                                 "
                             >
-                                <form 
-                                    role="search" 
+                                <form
+                                    role="search"
                                     className="
                                         relative 
                                         flex 
@@ -89,7 +97,7 @@ const Access = () => {
                                                             text-sm 
                                                             w-52 
                                                             z-[900]
-                                                        " 
+                                                        "
                                                     />
                                                 </div>
                                             </div>
@@ -170,13 +178,15 @@ const Access = () => {
                 </div>
             </li>
             <li className="relative inline-flex">
-                <div className="
+                <div
+                    className="
                         border-box 
                         pl-4 
                         pr-0 
                         md:pl-5 
                         md:pr-5
                     "
+                    onClick={handleToggle}
                 >
                     <div className="
                             bg-transparent 
@@ -203,6 +213,47 @@ const Access = () => {
                         </div>
                     </div>
                 </div>
+                {showToggle && (
+                    <div className="
+                            absolute 
+                            top-8 
+                            left-5 
+                            bg-white 
+                            rounded-lg 
+                            shadow-md 
+                            py-2
+                        "
+                    >
+                        <ul className="space-y-2 list-none">
+                            <li className="hover:bg-slate-200">
+                                <Link
+                                    href="/login"
+                                    className="
+                                        block 
+                                        cursor-pointer 
+                                        px-4 
+                                        py-2
+                                    "
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            <li className="hover:bg-slate-200">
+                                <Link
+                                    href="/register"
+                                    className="
+                                        block 
+                                        cursor-pointer 
+                                        px-4 
+                                        py-2
+                                    "
+                                >
+                                    Register
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                )}
             </li>
         </ul>
     )

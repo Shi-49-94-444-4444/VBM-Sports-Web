@@ -1,5 +1,5 @@
 import { listItems } from "@/app/constants"
-import Container from "../Container"
+import Container from "../../Container"
 import QuickListItem from "./QuickListItem"
 
 const QuickListContent = () => {

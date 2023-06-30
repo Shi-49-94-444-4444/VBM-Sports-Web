@@ -1,6 +1,5 @@
-import React from 'react'
 import FormatHomePage from './FormatHomePage'
-import QuickBannerImage from './QuickBannerImage'
+import QuickBannerImage from './QuickBanner/QuickBannerImage'
 
 const QuickBanner = () => {
   return (

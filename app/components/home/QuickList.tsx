@@ -1,6 +1,6 @@
 
 import FormatHomePage from './FormatHomePage';
-import QuickListContent from './QuickListContent';
+import QuickListContent from './QuickList/QuickListContent';
 
 const QuickList = () => {
     return (

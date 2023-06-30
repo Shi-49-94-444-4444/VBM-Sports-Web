@@ -1,8 +1,7 @@
 
 import Container from '../Container'
-import BannerImage from './BannerImage'
-import BannerIntro from './BannerIntro'
-
+import BannerImage from './Banner/BannerImage'
+import BannerIntro from './Banner/BannerIntro'
 
 const Banner = () => {
     return (
