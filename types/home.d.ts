@@ -1,9 +1,24 @@
 export interface FormatHomePageProps {
     title: string;
-    subTitle?: string;
+}
+
+export interface QuickBannerTitle {
+    title: string;
+    subTitle: string;
+}
+export interface PostNewItem {
+    id: number;
+    src: string;
+    date: string;
+    title: string;
+}
+
+export interface PostNewContent {
+    listItem: PostNewItem[]
 }
 
 export interface QuickListItem {
+    id: number;
     src: string;
     title: string;
     price: number;
@@ -12,24 +27,6 @@ export interface QuickListItem {
     description: string;
 }
 
-export interface QuickListItemProps {
-    listItems: QuickListItem[];
-}
-
-export interface PostNewItemProps {
-    src: string;
-    description: string;
-}
-
-export interface QuickListImageProps {
-    src: string;
-}
-
-export interface QuickListOverviewProps {
-    title: string;
-    price: number;
-    timeOpen: string;
-    timeClose: string;
-    description: string;
-    isOdd: boolean;
+export interface QuickListContent {
+    listItem: QuickListItem[]
 }

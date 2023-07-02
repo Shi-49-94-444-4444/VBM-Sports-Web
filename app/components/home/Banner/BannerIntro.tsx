@@ -7,80 +7,80 @@ const BannerIntro = () => {
     };
 
     return (
-        <div className="
+        <div className="col-span-2 lg:pt-32 xl:pt-40">
+            <div className="
                 flex 
                 flex-col 
                 max-w-md 
                 text-white 
-                gap-3
+                gap-5
             "
-        >
-            <h1 className="
-                    text-5xl 
+            >
+                <h1 className="
+                    xl:text-5xl 
+                    lg:text-4xl
                     font-bold 
                     uppercase
                 "
-            >
-                Bạn muốn tìm sân để chơi cầu lông?
-            </h1>
-            <p className="opacity-60">
-                Nhưng bạn không biết nên chọn sân chơi nào phù hợp với giá tiền trả lời một cuộc phỏng vấn, 
-                Tổng thống Nga bày tỏ tự tin, khẳng định có thể hoàn thành mọi kế hoạch đề ra với chiến dịch 
-                quân sự tại Ukraine.
-            </p>
-            <form className="
-                    mt-auto 
+                >
+                    Bạn muốn tìm sân để chơi cầu lông?
+                </h1>
+                <p className="opacity-60">
+                    Nhưng bạn không biết nên chọn sân chơi nào phù hợp với giá tiền trả lời một cuộc phỏng vấn,
+                    Tổng thống Nga bày tỏ tự tin, khẳng định có thể hoàn thành mọi kế hoạch đề ra với chiến dịch
+                    quân sự tại Ukraine.
+                </p>
+                <form className="
                     flex 
-                    justify-center
                 "
-            >
-                <button
-                    className="
+                >
+                    <button
+                        className="
                         bg-navbar-cus 
                         text-white 
                         px-4 
                         py-4 
-                        rounded-3xl 
+                        rounded-full
                         uppercase 
-                        text-lg 
+                        text-sm 
                         font-bold
                         whitespace-nowrap
+                        cursor-pointer
                     "
-                    onClick={handleAdditionalButtonClick}
-                    type="button"
-                >
-                    <div className="
+                        onClick={handleAdditionalButtonClick}
+                        type="button"
+                    >
+                        <div className="
                             flex
                             flex-nowrap
                             flew-row
                             items-start
                         "
-                    >
-                        <span>
-                            Mời chọn khu vực
-                        </span>
-                        <div className="inline-block ml-2">
-                            <div className="
+                        >
+                            <span>
+                                Mời chọn khu vực
+                            </span>
+                            <div className="inline-block ml-2">
+                                <div className="
                                     inline-flex 
                                     items-center 
-                                    cursor-auto 
                                     align-middle
                                 "
-                            >
-                                <div className="
+                                >
+                                    <div className="
                                         inline-flex 
                                         items-center 
-                                        cursor-auto 
                                         align-middle
                                     "
-                                >
-                                    <AiOutlineDown size={20} />
+                                    >
+                                        <AiOutlineDown size={20} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </button>
-            </form>
+                    </button>
+                </form>
+            </div>
         </div>
     )
 }

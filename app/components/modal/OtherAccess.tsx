@@ -7,7 +7,7 @@ const OtherAccess = () => {
                 flex 
                 flex-row 
                 px-36 j
-                ustify-between 
+                justify-between 
                 cursor-pointer
             "
         >

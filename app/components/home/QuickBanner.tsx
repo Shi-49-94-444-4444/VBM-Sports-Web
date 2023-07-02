@@ -1,10 +1,10 @@
-import FormatHomePage from './FormatHomePage'
 import QuickBannerImage from './QuickBanner/QuickBannerImage'
+import QuickBannerTitle from './QuickBanner/QuickBannerTitle'
 
 const QuickBanner = () => {
   return (
     <>
-        <FormatHomePage 
+        <QuickBannerTitle
             title="Bạn muốn chơi thể thao?"
             subTitle="đến đây và hãy chơi"
         />

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { BiSearch } from "react-icons/bi"
 import { VscAccount } from "react-icons/vsc"
 import { IoIosNotificationsOutline } from "react-icons/io"
-import { MdOutlineManageAccounts } from "react-icons/md"
+import { IoSettingsOutline } from "react-icons/io5"
 import Link from "next/link"
 
 const Access = () => {
@@ -88,7 +88,8 @@ const Access = () => {
                                                     >
                                                         <BiSearch size={24} />
                                                     </div>
-                                                    <input className="
+                                                    <input
+                                                        className="
                                                             bg-search-cus 
                                                             border-0 
                                                             outline-none 
@@ -98,6 +99,7 @@ const Access = () => {
                                                             w-52 
                                                             z-[900]
                                                         "
+                                                        placeholder="Tìm kiếm"
                                                     />
                                                 </div>
                                             </div>
@@ -110,81 +112,12 @@ const Access = () => {
                 </div>
             </li>
             <li className="relative inline-flex">
-                <div className="
-                        border-box 
-                        pl-4 
-                        pr-1 
-                        md:pl-5
-                    "
-                >
-                    <div className="
-                            bg-transparent 
-                            border-none 
-                            cursor-pointer
-                        "
-                    >
-                        <div className="
-                                items-center 
-                                box-border 
-                                flex
-                            "
-                        >
-                            <div className="
-                                    self-center
-                                    items-center
-                                    inline-flex
-                                    cursor-pointer
-                                    align-middle
-                                "
-                            >
-                                <VscAccount size={30} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li className="relative inline-flex">
-                <div className="
-                        border-box 
-                        pl-4 
-                        pr-1 
-                        md:pl-5
-                    "
-                >
-                    <div className="
-                            bg-transparent 
-                            border-none 
-                            cursor-pointer
-                        "
-                    >
-                        <div className="
-                                items-center 
-                                box-border 
-                                flex
-                            "
-                        >
-                            <div className="
-                                    self-center
-                                    items-center
-                                    inline-flex
-                                    cursor-pointer
-                                    align-middle
-                                "
-                            >
-                                <IoIosNotificationsOutline size={30} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li className="relative inline-flex">
-                <div
+                <div 
                     className="
                         border-box 
                         pl-4 
-                        pr-0 
-                        md:pl-5 
-                        md:pr-5
+                        pr-1 
+                        md:pl-5
                     "
                     onClick={handleToggle}
                 >
@@ -208,7 +141,7 @@ const Access = () => {
                                     align-middle
                                 "
                             >
-                                <MdOutlineManageAccounts size={30} />
+                                <VscAccount size={24} />
                             </div>
                         </div>
                     </div>
@@ -254,6 +187,77 @@ const Access = () => {
                         </ul>
                     </div>
                 )}
+            </li>
+            <li className="relative inline-flex">
+                <div 
+                    className="
+                        border-box 
+                        pl-4 
+                        pr-1 
+                        md:pl-5
+                    "
+                >
+                    <div className="
+                            bg-transparent 
+                            border-none 
+                            cursor-pointer
+                        "
+                    >
+                        <div className="
+                                items-center 
+                                box-border 
+                                flex
+                            "
+                        >
+                            <div className="
+                                    self-center
+                                    items-center
+                                    inline-flex
+                                    cursor-pointer
+                                    align-middle
+                                "
+                            >
+                                <IoIosNotificationsOutline size={30} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li className="relative inline-flex">
+                <div
+                    className="
+                        border-box 
+                        pl-4 
+                        pr-0 
+                        md:pl-5 
+                        md:pr-5
+                    "
+                >
+                    <div className="
+                            bg-transparent 
+                            border-none 
+                            cursor-pointer
+                        "
+                    >
+                        <div className="
+                                items-center 
+                                box-border 
+                                flex
+                            "
+                        >
+                            <div className="
+                                    self-center
+                                    items-center
+                                    inline-flex
+                                    cursor-pointer
+                                    align-middle
+                                "
+                            >
+                                <IoSettingsOutline size={24} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
         </ul>
     )

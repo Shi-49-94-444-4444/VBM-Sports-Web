@@ -22,9 +22,9 @@ const Logo = () => {
                     self-center 
                     fill-transparent
                 "
-                height="100"
-                width="100"
-                src="/images/logo.png"
+                height="150"
+                width="150"
+                src="/images/logo_1.png"
             />
         </div>
     )

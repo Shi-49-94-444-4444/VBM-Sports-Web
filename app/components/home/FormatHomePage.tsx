@@ -5,55 +5,32 @@ import Container from "../Container"
 
 const FormatHomePage: React.FC<FormatHomePageProps> = ({
     title,
-    subTitle
 }) => {
     return (
         <div className="pt-16 my-4">
             <Container>
-                <div className="
+                <div className="space-y-4">
+                    <div className="
                         flex 
                         flex-row 
                         justify-between 
                         items-center
-                    "
-                >
-                    <div className="
-                            w-1/4 
-                            h-2 
-                            bg-orange-cus
-                        "
-                    ></div>
-                    <div className="
-                            flex
-                            flex-col
-                            justify-between 
-                            items-center
-                            gap-3
                         "
                     >
                         <h1 className="
-                            font-bold 
-                            text-4xl 
-                            uppercase
-                            text-center
-                            "
+                                font-semibold 
+                                text-3xl 
+                                uppercase
+                                text-center
+                                "
                         >
                             {title}
                         </h1>
-                        <h2 className="
-                            font-medium
-                            text-2xl
-                            "
-                        >
-                            {subTitle}
-                        </h2>
+                        <div className="cursor-pointer">
+                            Xem tất cả {">>>"}
+                        </div>
                     </div>
-                    <div className="
-                            w-1/4 
-                            h-2 
-                            bg-orange-cus
-                        "
-                    ></div>
+                    <div className="border-b-4 border-solid"></div>
                 </div>
             </Container>
         </div>

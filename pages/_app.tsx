@@ -10,7 +10,7 @@ class MyApp extends App {
             <>
                 <Head>
                     <title>Badminton yard</title>
-                    <link rel="icon" href="/images/logo.png" />
+                    <link rel="icon" href="/images/Vector.png" />
                 </Head>
                 <Component {...pageProps} />
             </>

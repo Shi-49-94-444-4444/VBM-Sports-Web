@@ -1,17 +1,16 @@
 import React from 'react';
 import Container from '../../Container';
-import Image from 'next/image';
 
 const QuickBannerImage = () => {
     return (
         <div 
             className="
-                bg-contain
+                relative
+                bg-cover
                 bg-no-repeat
                 bg-center
                 w-full 
-                h-3/4
-                mt-10
+                h-screen
                 flex
                 items-center
             "
@@ -61,46 +60,6 @@ const QuickBannerImage = () => {
                                 >
                                     Buy now
                                 </button>
-                            </div>
-                        </div>
-                        <div className="
-                                relative 
-                                flex 
-                                items-center
-                            "
-                        >
-                            <div className="
-                                    relative 
-                                    xl:w-[150px] 
-                                    xl:h-[450px]
-                                    lg:w-[100px] 
-                                    lg:h-[350px]
-                                "
-                            >
-                                <Image
-                                    src="/images/quickbanner_2.png"
-                                    alt="quickbanner"
-                                    layout="fill"
-                                    objectFit="cover"
-                                />
-                            </div>
-                            <div className="
-                                    absolute 
-                                    bottom-0 
-                                    xl:w-[120px] 
-                                    xl:h-[100px] 
-                                    xl:left-14
-                                    lg:w-[100px] 
-                                    lg:h-[70px]
-                                    lg:left-5
-                                "
-                            >
-                                <Image
-                                    src="/images/quickbanner_1.png"
-                                    alt="quickbanner"
-                                    layout="fill"
-                                    objectFit="cover"
-                                />
                             </div>
                         </div>
                     </div>

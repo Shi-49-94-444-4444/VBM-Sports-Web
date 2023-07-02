@@ -1,42 +1,25 @@
-import { listItems } from "@/app/constants"
-import Container from "../../Container"
+import { QuickListContent } from "@/types"
 import QuickListItem from "./QuickListItem"
+import Container from "../../Container"
 
-const QuickListContent = () => {
+const QuickListContent: React.FC<QuickListContent> = ({
+    listItem
+}) => {
     return (
         <Container>
-            <div className="
-                        flex 
-                        flex-col 
-                        relative 
-                        gap-y-20
-                    "
-            >
-                <QuickListItem
-                    listItems={listItems}
-                />
-            </div>
-            <div className="
-                        flex 
-                        justify-center 
-                        mt-20
-                    "
-            >
-                <button className="
-                            justify-center 
-                            items-center 
-                            uppercase 
-                            text-xl 
-                            font-semibold 
-                            bg-slate-300 
-                            text-white 
-                            px-6 
-                            py-2 
-                            rounded-full
-                        "
-                >
-                    Xem thêm
-                </button>
+            <div className="grid xl:grid-cols-3 md:grid-cols-2 gap-5">
+                {listItem.slice(0,6).map((item) => (
+                    <QuickListItem
+                        key={item.id}
+                        id={item.id}
+                        src={item.src}
+                        title={item.title}
+                        price={item.price}
+                        timeOpen={item.timeOpen}
+                        timeClose={item.timeClose}
+                        description={item.description}
+                    />
+                ))}
             </div>
         </Container>
     )

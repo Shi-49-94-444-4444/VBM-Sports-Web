@@ -27,13 +27,16 @@ const NavLink = () => {
     };
 
     return (
-        <ul className="
+        <ul
+            className="
                 flex 
                 items-center 
                 list-none 
+                text-sm
                 font-semibold
-                text-lg
+                gap-3
             "
+            onMouseLeave={handleWrapperMouseLeave}
         >
             {navlinks.map((item) => (
                 <li
@@ -45,9 +48,8 @@ const NavLink = () => {
                             box-border
                             relative
                         "
-                        onMouseLeave={handleWrapperMouseLeave}
                     >
-                        {item.label !== "Pricing" ? (
+                        {item.label !== "Giá tiền" ? (
                             <button
                                 className="
                                 border-none
@@ -68,9 +70,10 @@ const NavLink = () => {
                                         flex-nowrap
                                         flew-row
                                         items-start
+                                        hover:text-navbar-cus
                                     "
                                 >
-                                    <div className="pr-5 py-1">
+                                    <div className="pr-5 py-1 uppercase">
                                         <span>
                                             {item.label}
                                         </span>
@@ -109,9 +112,10 @@ const NavLink = () => {
                                             flex-nowrap 
                                             flew-row 
                                             items-start
+                                            hover:text-navbar-cus
                                         "
                                     >
-                                        <div className="pr-5 py-1">
+                                        <div className="pr-5 py-1 uppercase">
                                             <span className="hover:underline">{item.label}</span>
                                         </div>
                                     </div>

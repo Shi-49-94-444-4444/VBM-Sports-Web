@@ -10,18 +10,19 @@ const Footer = () => {
         bg-[#222222] 
         w-full 
         text-white
+        mt-20
       "
     >
       <Container>
         <div className="
             grid 
-            grid-cols-12 
+            grid-cols-12
             py-10 
             space-x-10
           "
         >
           <div className="
-              col-span-3 
+              col-span-5
               flex 
               flex-col 
               gap-5
@@ -57,7 +58,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="
-              col-span-3 
+              col-span-5
               flex 
               flex-col 
               gap-3
@@ -121,7 +122,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="
-              col-span-6 
+              col-span-2
               flex 
               justify-end 
               items-start 
@@ -150,6 +151,7 @@ const Footer = () => {
                   items-center 
                   px-2 
                   py-2
+                  whitespace-nowrap
                 "
               >
                 <div className="flex">
@@ -179,6 +181,7 @@ const Footer = () => {
                   items-center 
                   px-2 
                   py-2
+                  whitespace-nowrap
                 "
               >
                 <div className="flex">

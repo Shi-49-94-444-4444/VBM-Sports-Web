@@ -1,7 +1,7 @@
-import BannerImage from "./BannerImage";
 import BannerIntro from "./BannerIntro";
+import BannerImage from "./BannerImage";
 
 export {
-    BannerImage,
-    BannerIntro
+    BannerIntro,
+    BannerImage
 }

@@ -1,54 +1,21 @@
-'use client'
-
-import Image from 'next/image';
-import { images } from '@/app/constants';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import '../../../styles/swiper-custom.css'
-
-SwiperCore.use([Autoplay, Pagination, Navigation]);
+import Image from "next/image"
 
 const BannerImage = () => {
     return (
-        <div className="
-                relative 
-                w-[700px] 
-                h-[400px]
-            "
-        >
-            <Swiper
-                spaceBetween={0}
-                slidesPerView={1}
-                autoplay={{ delay: 3000 }}
-                pagination={{ clickable: true }}
-                navigation
-                loop={true}
-            >
-                {images.map((image, index) => (
-                    <SwiperSlide key={index}>
-                        <div className="
-                                relative 
-                                w-[600px] 
-                                h-[400px] 
-                                border-[10px]
-                            "
-                        >
-                            <Image
-                                src={image}
-                                alt="Banner"
-                                layout="fill"
-                                objectFit="cover"
-                            />
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+        <div className="col-span-3 absolute w-3/4 h-full bottom-0 right-0">
+            <div className="h-full flex justify-end">
+                <Image
+                    src="/images/banner.png"
+                    alt="Your Image"
+                    layout="responsive"
+                    objectFit="contain"
+                    objectPosition="bottom"
+                    height={400}
+                    width={400}
+                />
+            </div>
         </div>
-    );
-};
+    )
+}
 
-export default BannerImage;
+export default BannerImage
