@@ -4,7 +4,7 @@ import { NavlinkItemProps } from "@/types"
 import Link from "next/link"
 
 const NavlinkItem: React.FC<NavlinkItemProps> = ({
-    linkItem
+    linkItems
 }) => {
     return (
         <div
@@ -41,7 +41,7 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
                             text-left
                         "
                     >
-                        {linkItem && linkItem.map((item) => (
+                        {linkItems && linkItems.map((item) => (
                             <li
                                 className="hover:bg-slate-200"
                                 key={item.id}

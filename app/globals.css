@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .grid-row-start-2 {
+    grid-row-start: 2;
+  }
+
+  .grid-col-full {
+    grid-column: 1 / -1;
+  }
+
+  .flex-grow-2 {
+    flex-grow: 2
+  }
+}
+
 html,
 body,
 :root {

@@ -3,13 +3,13 @@ import QuickBannerTitle from './QuickBanner/QuickBannerTitle'
 
 const QuickBanner = () => {
   return (
-    <>
+    <div className="lg:block md:hidden hidden">
         <QuickBannerTitle
             title="Bạn muốn chơi thể thao?"
             subTitle="đến đây và hãy chơi"
         />
         <QuickBannerImage />
-    </>
+    </div>
   )
 }
 

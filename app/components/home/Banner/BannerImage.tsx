@@ -2,16 +2,33 @@ import Image from "next/image"
 
 const BannerImage = () => {
     return (
-        <div className="col-span-3 absolute w-3/4 h-full bottom-0 right-0">
-            <div className="h-full flex justify-end">
+        <div className="
+                col-span-3 
+                absolute 
+                w-2/4 
+                h-full 
+                bottom-0 
+                right-0 
+                hidden
+                lg:block
+                transition-all
+                duration-300
+            "
+        >
+            <div className="
+                    h-full 
+                    flex 
+                    justify-end
+                    transition-all
+                    duration-300
+                "
+            >
                 <Image
                     src="/images/banner.png"
                     alt="Your Image"
-                    layout="responsive"
+                    layout="fill"
                     objectFit="contain"
                     objectPosition="bottom"
-                    height={400}
-                    width={400}
                 />
             </div>
         </div>

@@ -29,19 +29,28 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             w-1/2
                             h-full
                             max-h-screen
-                            "
+                            hidden
+                            lg:block
+                            transition-all
+                            duration-300
+                        "
                         style={{
                             backgroundImage: `url(${src})`,
                         }}
                     ></div>
                     <div className="
-                            w-1/2 
+                            w-full
+                            md:px-40
+                            lg:w-1/2 
+                            lg:p-4
                             h-full 
                             max-h-screen 
                             flex 
                             bg-form-cus 
                             relative 
                             p-4
+                            transition-all
+                            duration-300
                         "
                     >
                         <div className="
@@ -56,6 +65,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                     text-black 
                                     text-3xl 
                                     absolute 
+                                    md:left-3
                                     top-3
                                 "
                             >
@@ -66,8 +76,8 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                 flex 
                                 flex-col 
                                 w-full 
-                                lg:px-8 
                                 xl:px-20 
+                                lg:px-8 
                                 justify-center 
                                 gap-5
                             "
@@ -83,9 +93,21 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                 </h1>
                             </div>
                             {subTitle}
-                            <div className="px-10 space-y-5">
+                            <div className="
+                                    px-10 
+                                    space-y-5
+                                    transition-all
+                                    duration-300
+                                "
+                            >
                                 {body}
-                                <div className="flex justify-center">
+                                <div className="
+                                        flex 
+                                        justify-center
+                                        transition-all
+                                        duration-300
+                                    "
+                                >
                                     <button className="
                                             bg-navbar-cus 
                                             text-white 
@@ -95,6 +117,8 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                             text-sm 
                                             py-2 
                                             rounded-md
+                                            transition-all
+                                            duration-300
                                         "
                                     >
                                         {titleButton}

@@ -15,17 +15,23 @@ const Footer = () => {
     >
       <Container>
         <div className="
-            grid 
+            grid
             grid-cols-12
             py-10 
-            space-x-10
+            gap-5
+            transition-all
+            duration-300
           "
         >
           <div className="
-              col-span-5
+              lg:col-span-5
+              md:col-span-6
+              col-span-12
               flex 
               flex-col 
               gap-5
+              transition-all 
+              duration-300
             "
           >
             <h1 className="
@@ -37,31 +43,35 @@ const Footer = () => {
               Thông Tin chung
             </h1>
             <div>
-              <span className="text-orange-cus">
+              <span className="text-orange-cus transition-all duration-300">
                 VNB Sports {' '}
               </span>
               Là hệ thống cửa hàng cầu lông với hơn 50 chi nhánh trên toàn quốc,
               cung cấp sỉ và lẻ các mặt hàng dụng cụ cầu lông từ phong trào tới chuyên nghiệp
             </div>
             <div>
-              <span className="text-orange-cus">
+              <span className="text-orange-cus transition-all duration-300">
                 Với sứ mệnh: {' '}
               </span>
               Với sứ mệnh: ”VNB cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
               người chơi thể thao để nâng cao sức khỏe của chính mình”
             </div>
             <div>
-              <span className="text-orange-cus">
+              <span className="text-orange-cus transition-all duration-300">
                 Tầm nhìn:  {' '}
               </span>
               ”Trở thành nhà phân phối và sản xuất thể thao lớn nhất Việt Nam ”
             </div>
           </div>
           <div className="
-              col-span-5
+              lg:col-span-5
+              md:col-span-6
+              col-span-12
               flex 
               flex-col 
               gap-3
+              transition-all 
+              duration-300
             "
           >
             <h1 className="
@@ -122,11 +132,13 @@ const Footer = () => {
             </div>
           </div>
           <div className="
-              col-span-2
+              lg:col-span-2
+              md:col-span-6
+              col-span-12
               flex 
-              justify-end 
-              items-start 
               mt-5
+              transition-all 
+              duration-300
             "
           >
             <div className="

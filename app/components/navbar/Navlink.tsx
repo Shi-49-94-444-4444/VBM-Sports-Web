@@ -29,6 +29,8 @@ const NavLink = () => {
     return (
         <ul
             className="
+                xl:pl-5
+                lg:pl-0
                 flex 
                 items-center 
                 list-none 
@@ -47,6 +49,8 @@ const NavLink = () => {
                             self-center
                             box-border
                             relative
+                            transition-all
+                            duration-300
                         "
                     >
                         {item.label !== "Giá tiền" ? (
@@ -123,7 +127,7 @@ const NavLink = () => {
                             </Link>
                         )}
                         {(openItemId === item.id || isDropdownHovered) && (
-                            <NavlinkItem linkItem={item.linkItems} />
+                            <NavlinkItem linkItems={item.linkItems} />
                         )}
                     </div>
                 </li>

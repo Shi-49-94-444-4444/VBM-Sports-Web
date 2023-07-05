@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
     onChange
 }) => {
     return (
-        <div className="gap-1">
+        <div className="gap-1 transition-all duration-300">
             {label && (
                 <label htmlFor={id} className="block text-left text-sm font-semibold">
                     {label}
@@ -55,6 +55,8 @@ const Input: React.FC<InputProps> = ({
                             text-base
                             py-3    
                             px-6
+                            transition-all
+                            duration-300
                         `
                     }
                 />

@@ -21,6 +21,7 @@ export interface QuickListItem {
     id: number;
     src: string;
     title: string;
+    date: string;
     price: number;
     timeOpen: string;
     timeClose: string;

@@ -15,11 +15,13 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                         flex-row 
                         justify-between 
                         items-center
+                        transition-all
+                        duration-300
                     "
                 >
                     <div className="
                             w-1/4 
-                            h-2 
+                            h-1 
                             bg-orange-cus
                         "
                     ></div>
@@ -32,10 +34,13 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                         "
                     >
                         <h1 className="
-                            font-semibold 
-                            text-3xl 
-                            uppercase
-                            text-center
+                                font-semibold 
+                                lg:text-3xl 
+                                text-xl
+                                uppercase
+                                text-center
+                                transition-all
+                                duration-300
                             "
                         >
                             {title}
@@ -50,7 +55,7 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                     </div>
                     <div className="
                             w-1/4 
-                            h-2 
+                            h-1
                             bg-orange-cus
                         "
                     ></div>

@@ -8,24 +8,40 @@ const Logo = () => {
 
     return (
         <div className="
-                flex
-                items-center
-                py-4
-                pr-4
-            "
-        >
-            <Image
-                onClick={() => router.push('/')}
-                alt="Logo"
-                className="
-                    cursor-pointer 
-                    self-center 
-                    fill-transparent
+                    flex
+                    items-center
+                    py-4
+                    pr-4
                 "
-                height="150"
-                width="150"
-                src="/images/logo_1.png"
-            />
+        >
+            <div className="hidden xl:block">
+                <Image
+                    onClick={() => router.push('/')}
+                    alt="Logo"
+                    className="
+                        cursor-pointer 
+                        self-center 
+                        fill-transparent
+                    "
+                    height="150"
+                    width="150"
+                    src="/images/logo_1.png"
+                />
+            </div>
+            <div className="hidden xl:hidden lg:block">
+                <Image
+                    onClick={() => router.push('/')}
+                    alt="Logo"
+                    className="
+                        cursor-pointer 
+                        self-center 
+                        fill-transparent
+                    "
+                    height="20"
+                    width="20"
+                    src="/images/Vector.png"
+                />
+            </div>
         </div>
     )
 }

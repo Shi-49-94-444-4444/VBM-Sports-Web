@@ -9,14 +9,15 @@ const Background: React.FC<BackgroundProps> = ({
     return (
         <div className="
                 relative
-                md:inset-0
+                inset-0
                 lg:inset-auto
-                xl:inset-auto
                 bg-center 
                 bg-cover
                 bg-no-repeat
-                w-full 
-                h-screen
+                w-auto 
+                h-auto
+                transition-all
+                duration-300
             "
             style={{
                 backgroundImage: `url(${src})`,

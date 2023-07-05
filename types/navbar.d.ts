@@ -1,9 +1,9 @@
-export interface linkProps {
+export interface linkItem {
     id: number
     label: string,
     href?: string
 }
 
 export interface NavlinkItemProps {
-    linkItem?: linkProps[] 
+    linkItems?: linkItem[] 
 }

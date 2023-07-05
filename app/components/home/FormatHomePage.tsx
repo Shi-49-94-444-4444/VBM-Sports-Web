@@ -11,18 +11,24 @@ const FormatHomePage: React.FC<FormatHomePageProps> = ({
             <Container>
                 <div className="space-y-4">
                     <div className="
-                        flex 
-                        flex-row 
-                        justify-between 
-                        items-center
+                            flex 
+                            flex-row 
+                            justify-between 
+                            items-center
+                            transition-all
+                            duration-300
                         "
                     >
                         <h1 className="
                                 font-semibold 
-                                text-3xl 
+                                lg:text-3xl
+                                md:text-2xl 
+                                text-xl
                                 uppercase
                                 text-center
-                                "
+                                transition-all
+                                duration-300
+                            "
                         >
                             {title}
                         </h1>

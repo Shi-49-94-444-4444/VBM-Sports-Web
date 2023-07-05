@@ -3,5 +3,5 @@ import BannerImage from "./BannerImage";
 
 export {
     BannerIntro,
-    BannerImage
+    BannerImage,
 }
