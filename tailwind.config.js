@@ -33,6 +33,11 @@ module.exports = {
       lineHeight: {
         xxs: "0.75rem",
       },
+      fontFamily: {
+        // helvetica: ['Helvetica-Regular', 'sans-serif'],
+        poppin: ['Poppins-Medium', 'sans-serif'],
+        // momo: ['ui-monospace', 'system-ui'],
+      },
     },
   },
   plugins: [],

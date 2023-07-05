@@ -23,6 +23,8 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                             w-1/4 
                             h-1 
                             bg-orange-cus
+                            hidden
+                            lg:block
                         "
                     ></div>
                     <div className="
@@ -31,11 +33,13 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                             justify-between 
                             items-center
                             gap-3
+                            w-full
                         "
                     >
                         <h1 className="
                                 font-semibold 
                                 lg:text-3xl 
+                                md:text-2xl
                                 text-xl
                                 uppercase
                                 text-center
@@ -47,7 +51,9 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                         </h1>
                         <h2 className="
                             font-medium
-                            text-2xl
+                            lg:text-2xl
+                            md:text-xl
+                            text-lg
                             "
                         >
                             {subTitle}
@@ -57,6 +63,8 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                             w-1/4 
                             h-1
                             bg-orange-cus
+                            hidden
+                            lg:block
                         "
                     ></div>
                 </div>

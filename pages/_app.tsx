@@ -1,6 +1,7 @@
 import App from 'next/app';
 import Head from 'next/head';
 import "../app/globals.css";
+import "../styles/fontPoppin.css"
 
 class MyApp extends App {
     render() {

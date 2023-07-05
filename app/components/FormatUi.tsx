@@ -87,6 +87,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                         text-black 
                                         text-4xl 
                                         font-extrabold 
+                                        font-mono
                                     "
                                 >
                                     {title}

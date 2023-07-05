@@ -8,7 +8,7 @@ const BannerImage = () => {
                 w-2/4 
                 h-full 
                 bottom-0 
-                right-0 
+                right-10 
                 hidden
                 lg:block
                 transition-all

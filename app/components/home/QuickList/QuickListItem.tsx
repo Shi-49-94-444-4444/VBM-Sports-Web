@@ -165,6 +165,8 @@ const QuickListItem: React.FC<QuickListItem> = ({
                                 border-2 
                                 rounded-full 
                                 border-navbar-cus 
+                                hover:text-white
+                                hover:bg-navbar-cus
                                 py-2 
                                 px-4
                             "

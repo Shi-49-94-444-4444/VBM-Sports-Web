@@ -65,7 +65,8 @@ const IsMobileSearch = () => {
                                     >
                                         <BiSearch size={24} />
                                     </div>
-                                    <input className="
+                                    <input 
+                                        className="
                                             w-full 
                                             bg-search-cus 
                                             outline-none 
@@ -76,6 +77,7 @@ const IsMobileSearch = () => {
                                             z-[900] 
                                             pl-2
                                         "
+                                        placeholder="Tìm Kiếm"
                                     />
                                 </div>
                             </div>

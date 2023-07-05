@@ -5,8 +5,10 @@ const QuickBannerImage = () => {
     return (
         <div className="
                 w-full 
-                xl:h-[600px] 
-                md:h-[500px] 
+                lg:h-[700px] 
+                md:h-[500px]
+                sm:h-[300px]
+                h-[250px]
                 flex 
                 items-center 
                 transition-all
@@ -36,7 +38,9 @@ const QuickBannerImage = () => {
                                     flex 
                                     flex-col 
                                     text-white 
-                                    gap-5 
+                                    lg:gap-5 
+                                    md:gap-3
+                                    gap-1
                                     justify-center
                                 "
                             >
@@ -92,6 +96,11 @@ const QuickBannerImage = () => {
                                             lg:text-base 
                                             lg:px-6
                                             lg:py-2
+                                            md:px-4
+                                            md:py-1
+                                            md:text-base
+                                            text-sm
+                                            px-3
                                             bg-navbar-cus
                                             rounded-full
                                             transition-all
