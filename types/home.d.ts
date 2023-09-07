@@ -1,5 +1,6 @@
 export interface FormatHomePageProps {
     title: string;
+    link: string;
 }
 
 export interface QuickBannerTitle {

@@ -2,9 +2,11 @@
 
 import { FormatHomePageProps } from "@/types"
 import Container from "../Container"
+import Link from "next/link"
 
 const FormatHomePage: React.FC<FormatHomePageProps> = ({
     title,
+    link
 }) => {
     return (
         <div className="pt-16 my-4">
@@ -33,7 +35,9 @@ const FormatHomePage: React.FC<FormatHomePageProps> = ({
                             {title}
                         </h1>
                         <div className="cursor-pointer">
-                            Xem tất cả {">>>"}
+                            <Link href={link}>
+                                Xem tất cả {">>>"}
+                            </Link>
                         </div>
                     </div>
                     <div className="border-b-4 border-solid"></div>

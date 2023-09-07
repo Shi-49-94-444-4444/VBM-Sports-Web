@@ -28,7 +28,6 @@ const Banner = () => {
                 </div>
             </Container>
         </Background>
-
     )
 }
 

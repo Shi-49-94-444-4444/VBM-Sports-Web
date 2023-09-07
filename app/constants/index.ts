@@ -58,73 +58,80 @@ export const images = [
 export const listItems = [
     {
         id: 1,
-        src: "/Images/item_1.jpg",
+        src: "/images/item_1.jpg",
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
         timeOpen: "6h00",
         timeClose: "18h30",
-        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn"
+        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn",
+        slot: 10
     },
     {
         id: 2,
-        src: "/Images/item_1.jpg",
+        src: "/images/item_1.jpg",
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
         timeOpen: "6h00",
         timeClose: "18h30",
-        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn lorem ipsum chỉ đơn giản là một đoạn văn"
+        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn lorem ipsum chỉ đơn giản là một đoạn văn",
+        slot: 10
     },
     {
         id: 3,
-        src: "/Images/item_1.jpg",
+        src: "/images/item_1.jpg",
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
         timeOpen: "6h00",
         timeClose: "18h30",
-        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn"
+        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn",
+        slot: 10
     },
     {
         id: 4,
-        src: "/Images/item_1.jpg",
+        src: "/images/item_1.jpg",
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
         timeOpen: "6h00",
         timeClose: "18h30",
-        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn lorem ipsum chỉ đơn giản là một đoạn văn"
+        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn lorem ipsum chỉ đơn giản là một đoạn văn",
+        slot: 10
     },
     {
         id: 5,
-        src: "/Images/item_1.jpg",
+        src: "/images/item_1.jpg",
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
         timeOpen: "6h00",
         timeClose: "18h30",
-        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn"
+        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn",
+        slot: 10
     },
     {
         id: 6,
-        src: "/Images/item_1.jpg",
+        src: "/images/item_1.jpg",
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
         timeOpen: "6h00",
         timeClose: "18h30",
-        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn"
+        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn",
+        slot: 10
     },
     {
         id: 7,
-        src: "/Images/item_1.jpg",
+        src: "/images/item_1.jpg",
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
         timeOpen: "6h00",
         timeClose: "18h30",
-        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn"
+        description: "Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn",
+        slot: 10
     }
 ]
 

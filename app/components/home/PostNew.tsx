@@ -7,7 +7,7 @@ import IsMobilePostNew from "./PostNew/IsMobilePostNew"
 const PostNew = () => {
     return (
         <>
-            <FormatHomePage title="Tin mới" />
+            <FormatHomePage title="Tin mới" link="/"/>
             <PostNewContent listItem={postNew}/>
             <IsMobilePostNew listItem={postNew}/>
         </>
