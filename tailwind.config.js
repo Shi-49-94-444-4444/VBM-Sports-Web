@@ -14,7 +14,7 @@ module.exports = {
         "gray-cus": "#D6D6D6",
         "gray-cus-2": "#333F51",
         "orange-cus": "#F84C35",
-        "form-cus": "#FFD89C"
+        "form-cus": "#FFD89C",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -35,7 +35,7 @@ module.exports = {
       },
       fontFamily: {
         // helvetica: ['Helvetica-Regular', 'sans-serif'],
-        poppin: ['Poppins-Medium', 'sans-serif'],
+        poppin: ["Poppins-Medium", "sans-serif"],
         // momo: ['ui-monospace', 'system-ui'],
       },
     },

@@ -6,9 +6,21 @@ export interface ProductItem {
     timeOpen: string;
     timeClose: string;
     description: string;
-    slot: number;
+    slot: number
 }
 
 export interface ProductItems {
     listItem: ProductItem[]
+}
+
+export interface FilterItem {
+    id: number;
+    title: string;
+    src: string;
+}
+
+export interface FilterCusProps {
+    id: number;
+    title: string;
+    listItem: FilterItem[]
 }

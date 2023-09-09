@@ -179,3 +179,165 @@ export const postNew = [
         description: "lLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of"
     },
 ]
+
+export const filterTitle = [
+    {
+        id: 1,
+        title: "Tỉnh",
+        list: [
+            {
+                id: 1,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 2,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 3,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 4,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 5,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 6,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 7,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 8,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 9,
+                title: "Thanh hóa",
+                src: "#",
+            },
+            {
+                id: 10,
+                title: "Thanh hóa",
+                src: "#",
+            }
+        ]
+    },
+    {
+        id: 2,
+        title: "Thời Gian",
+        list: [
+            {
+                id: 1,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 2,
+                title: "20h",
+                src: "#",
+            },
+            {
+                id: 3,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 4,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 5,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 6,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 7,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 8,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 9,
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: 10,
+                title: "10h",
+                src: "#",
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "Còn Chỗ",
+        list: [
+            {
+                id: 1,
+                title: "Còn",
+                src: "#",
+            },
+            {
+                id: 2,
+                title: "Hết",
+                src: "#",
+            },
+        ]
+    },
+    {
+        id: 4,
+        title: "Mức Giá",
+        list: [
+            {
+                id: 1,
+                title: "10000",
+                src: "#",
+            },
+            {
+                id: 2,
+                title: "10000",
+                src: "#",
+            },
+            {
+                id: 3,
+                title: "10000",
+                src: "#",
+            },
+            {
+                id: 4,
+                title: "10000",
+                src: "#",
+            },
+            {
+                id: 5,
+                title: "10000",
+                src: "#",
+            },
+        ]
+    }
+]

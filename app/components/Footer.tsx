@@ -10,7 +10,6 @@ const Footer = () => {
         bg-[#222222] 
         w-full 
         text-white
-        mt-20
       "
     >
       <Container>

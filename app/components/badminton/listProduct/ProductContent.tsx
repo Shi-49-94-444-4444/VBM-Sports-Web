@@ -29,6 +29,7 @@ const ProductContent: React.FC<ProductItem> = ({
                 h-auto
                 w-full
                 mb-4
+                relative
             "
             key={id}
         >
