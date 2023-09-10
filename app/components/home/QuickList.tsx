@@ -5,7 +5,7 @@ import QuickListContent from './QuickList/QuickListContent';
 const QuickList = () => {
     return (
         <>
-            <FormatHomePage title="CÁC SÂN GẦN ĐÂY" link="/listBadminton"/>
+            <FormatHomePage title="CÁC SÂN GẦN ĐÂY" link="/list_badminton"/>
             <QuickListContent listItem={listItems}/>
         </>
     );

@@ -1,21 +1,9 @@
+import { InputProps } from "@/types";
 import {
     FieldErrors,
     FieldValues,
     UseFormRegister,
 } from "react-hook-form";
-
-interface InputProps {
-    id?: string;
-    label?: string;
-    name?: string;
-    placeholder?: string;
-    value?: string | number;
-    type?: string;
-    disabled?: boolean;
-    register?: UseFormRegister<FieldValues>;
-    errors?: FieldErrors;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const Input: React.FC<InputProps> = ({
     id = "",
@@ -27,12 +15,13 @@ const Input: React.FC<InputProps> = ({
     register,
     disabled,
     errors,
-    onChange
+    onChange,
+    colorInput
 }) => {
     return (
         <div className="gap-1 transition-all duration-300">
             {label && (
-                <label htmlFor={id} className="block text-left text-sm font-semibold">
+                <label htmlFor={id} className="block text-left text-base font-medium text-white mb-3">
                     {label}
                 </label>
             )}
@@ -47,7 +36,7 @@ const Input: React.FC<InputProps> = ({
                     disabled={disabled}
                     onChange={onChange}
                     className={`
-                            bg-[#EDC991]
+                            ${colorInput}
                             w-full 
                             rounded-lg 
                             outline-none

@@ -1,8 +1,8 @@
 import Link from "next/link"
 import Background from "./BackgroundCus"
 import ClientOnly from "./ClinetOnly"
-import { IoMdArrowRoundBack } from "react-icons/io"
-import FormatUIProps from "@/types/formatUi"
+import { IoIosArrowRoundBack } from "react-icons/io"
+import { FormatUIProps } from "@/types"
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,
@@ -14,119 +14,73 @@ const FormatUI: React.FC<FormatUIProps> = ({
 }) => {
     return (
         <ClientOnly>
-            <Background src="/images/background.png">
+            <Background src={src}>
                 <div className="
+                        relative 
+                        w-auto 
+                        h-screen 
                         flex 
-                        items-stretch 
-                        h-screen p-4
+                        items-center 
+                        justify-center
                     "
                 >
-                    <div
-                        className="
-                            bg-cover
-                            bg-no-repeat
-                            bg-center
-                            w-1/2
-                            h-full
-                            max-h-screen
-                            hidden
-                            lg:block
-                            transition-all
-                            duration-300
-                        "
-                        style={{
-                            backgroundImage: `url(${src})`,
-                        }}
-                    ></div>
+                    <div className="absolute top-0 left-0 p-8">
+                        <div className="flex flex-row items-center space-x-1 cursor-pointer">
+                            <Link href="./" className="text-white">
+                                <IoIosArrowRoundBack size={40} />
+                            </Link>
+                            <div className="font-normal text-white">
+                                Back
+                            </div>
+                        </div>
+                    </div>
                     <div className="
-                            w-full
-                            md:px-40
-                            lg:w-1/2 
-                            lg:p-4
-                            h-full 
-                            max-h-screen 
-                            flex 
-                            bg-form-cus 
                             relative 
-                            p-4
-                            transition-all
-                            duration-300
+                            bg-white 
+                            bg-opacity-20 
+                            inset-0
+                            rounded-xl
+                            p-10
+                            w-[38rem]
                         "
                     >
-                        <div className="
-                                flex 
-                                justify-start 
-                                items-center
-                            "
-                        >
-                            <Link 
-                                href="./" 
-                                className="
-                                    text-black 
+                        <div className="flex flex-col gap-6">
+                            <h1 className="
+                                    text-navbar-cus 
                                     text-3xl 
-                                    absolute 
-                                    md:left-3
-                                    top-3
+                                    font-medium 
+                                    py-2
                                 "
                             >
-                                <IoMdArrowRoundBack size={30} />
-                            </Link>
-                        </div>
-                        <div className="
-                                flex 
-                                flex-col 
-                                w-full 
-                                xl:px-20 
-                                lg:px-8 
-                                justify-center 
-                                gap-5
-                            "
-                        >
-                            <div className="flex justify-center">
-                                <h1 className="
-                                        text-black 
-                                        text-4xl 
-                                        font-extrabold 
-                                        font-mono
-                                    "
-                                >
-                                    {title}
-                                </h1>
-                            </div>
-                            {subTitle}
-                            <div className="
-                                    px-10 
-                                    space-y-5
-                                    transition-all
-                                    duration-300
-                                "
-                            >
+                                {title}
+                            </h1>
+                            <div className="flex flex-col gap-5">
                                 {body}
-                                <div className="
-                                        flex 
-                                        justify-center
-                                        transition-all
-                                        duration-300
+                            </div>
+                            <div className="relative">
+                                <button className="
+                                        w-full 
+                                        bg-navbar-cus 
+                                        text-white 
+                                        font-semibold 
+                                        text-lg 
+                                        rounded-xl 
+                                        py-3
                                     "
                                 >
-                                    <button className="
-                                            bg-navbar-cus 
-                                            text-white 
-                                            uppercase 
-                                            w-full 
-                                            font-bold 
-                                            text-sm 
-                                            py-2 
-                                            rounded-md
-                                            transition-all
-                                            duration-300
-                                        "
-                                    >
+                                    <Link href="#">
                                         {titleButton}
-                                    </button>
-                                </div>
+                                    </Link>
+                                </button>
                             </div>
-                            {footer}
+                            {subTitle && (
+                                <div className="relative">
+                                    {subTitle}
+                                </div>
+                            )}
+                            <div className="relative">
+                                {footer}
+                            </div>
                         </div>
                     </div>
                 </div>

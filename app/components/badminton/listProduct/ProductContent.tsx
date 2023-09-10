@@ -1,5 +1,6 @@
 import { ProductItem } from "@/types"
 import Image from "next/image"
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
@@ -18,6 +19,13 @@ const ProductContent: React.FC<ProductItem> = ({
     const handleLikeClick = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
         setIsLiked(!isLiked);
+    };
+
+    const router = useRouter();
+
+    const handleDetailClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        router.push(`/detail_badminton/${id}`);
     };
 
     return (
@@ -159,7 +167,8 @@ const ProductContent: React.FC<ProductItem> = ({
                         </span>
                     </div>
                     <div>
-                        <button className="
+                        <button 
+                            className="
                                 uppercase 
                                 text-white 
                                 font-semibold
@@ -169,6 +178,7 @@ const ProductContent: React.FC<ProductItem> = ({
                                 h-12 
                                 rounded-xl
                             "
+                            onClick={handleDetailClick}
                         >
                             Đặt ngay
                         </button>

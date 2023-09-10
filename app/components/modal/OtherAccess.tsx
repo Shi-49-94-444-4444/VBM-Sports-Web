@@ -6,9 +6,7 @@ const OtherAccess = () => {
         <div className="
                 flex 
                 flex-row 
-                lg:px-36
-                px-40 
-                justify-between 
+                space-x-2
                 cursor-pointer
                 transition-all
                 duration-300
@@ -23,7 +21,7 @@ const OtherAccess = () => {
                 "
             >
                 <AiFillFacebook 
-                    size={30} 
+                    size={40} 
                     className="text-blue-600" 
                 />
             </div>
@@ -36,7 +34,7 @@ const OtherAccess = () => {
                     duration-300
                 "
             >
-                <FcGoogle size={30} />
+                <FcGoogle size={40} />
             </div>
             <div className="
                     flex justify-center 
@@ -47,7 +45,7 @@ const OtherAccess = () => {
                 "
             >
                 <AiOutlineTwitter 
-                    size={30} 
+                    size={40} 
                     className="text-blue-400" 
                 />
             </div>

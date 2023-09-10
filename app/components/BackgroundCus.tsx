@@ -1,6 +1,6 @@
 'use client'
 
-import BackgroundProps from "@/types/backgroundCus"
+import { BackgroundProps } from "@/types"
 
 const Background: React.FC<BackgroundProps> = ({
     src,

@@ -16,6 +16,7 @@ const IsMobilePostNew: React.FC<PostNewContent> = ({
                         grid 
                         grid-cols-1 
                         gap-3
+                        mb-5
                     "
                 >
                     {listItem.slice(0, 4).map((item) => (

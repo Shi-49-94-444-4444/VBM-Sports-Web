@@ -1,54 +1,49 @@
 
-import { FormatUI, Input, OtherAccess } from "@/app/components";
+import { FormatUI, Input } from "@/app/components";
 import Link from "next/link";
 
 const register = () => {
     const bodyContent = (
         <>
-            <div className="flex flex-row gap-3">
-                <Input
-                    label="Tên"
-                    placeholder="Nhập tên"
-                />
-                <Input
-                    label="Họ"
-                    placeholder="Nhập họ và tên đệm"
-                />
-            </div>
             <Input
-                label="Email *"
+                label="Họ và tên"
+                placeholder="Nhập họ và tên"
+                type="text"
+                colorInput="bg-inherit border-2 border-solid text-white"
+            />
+            <Input
+                label="Email"
                 placeholder="Nhập email"
                 type="mail"
+                colorInput="bg-inherit border-2 border-solid text-white"
             />
             <Input
                 label="Mật khẩu"
                 placeholder="Nhập mật khẩu"
-                type="mail"
+                type="password"
+                colorInput="bg-inherit border-2 border-solid text-white"
             />
             <Input
                 label="Xác nhận mật khẩu"
                 placeholder="Nhập lại mật khẩu"
-                type="mail"
+                type="password"
+                colorInput="bg-inherit border-2 border-solid text-white"
             />
         </>
-    )
-
-    const subTitleContent = (
-        <OtherAccess />
     )
 
     const footerContent = (
         <div className="
                 flex 
-                justify-center 
-                font-semibold 
-                text-sm
+                font-medium 
+                text-lg
+                text-white
             "
         >
-            Đã có tài khoản ? {' '}
-            <span className="text-red-500 cursor-pointer">
+            Đã có tài khoản? {'   '}
+            <span className="underline cursor-pointer">
                 <Link href="./login">
-                    Đăng nhập
+                    Đăng nhập ngay
                 </Link>
             </span>
         </div>
@@ -56,9 +51,8 @@ const register = () => {
 
     return (
         <FormatUI
-            src="/images/quickbanner.png"
+            src="/images/background_4.png"
             title="Đăng kí"
-            subTitle={subTitleContent}
             body={bodyContent}
             titleButton="Vào trang"
             footer={footerContent}

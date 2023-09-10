@@ -49,10 +49,10 @@ export const navlinks = [
 ]
 
 export const images = [
-    '/images/banner_1.jpg',
-    '/images/banner_2.jpg',
-    '/images/banner_3.jpg',
-    '/images/banner_4.jpg',
+    '/images/item_1.jpg',
+    '/images/item_2.png',
+    '/images/item_1.jpg',
+    '/images/item_2.png',
 ];
 
 export const listItems = [
