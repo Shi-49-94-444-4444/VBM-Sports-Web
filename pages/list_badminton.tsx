@@ -15,7 +15,7 @@ const listBadminton = () => {
                 <div className="py-10 text-center">
                     <h1 className="uppercase text-3xl font-semibold">Các sân cầu lông</h1>
                 </div>
-                <div className="grid grid-cols-5 gap-3">
+                <div className="grid grid-cols-4 gap-5">
                     <ProductFilter />
                     <ProductItems listItem={listItems} />
                 </div>

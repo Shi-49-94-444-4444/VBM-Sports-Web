@@ -1,22 +1,26 @@
 import { FormatUI, Input, OtherAccess } from "@/app/components";
-import Link from "next/link";
+import { AiFillMail } from "react-icons/ai";
+import Link from "next/link"; 
+import { BiSolidLockAlt } from "react-icons/bi";
 
 const login = () => {
     const bodyContent = (
         <>
             <Input
+                icon={<AiFillMail size={25} />}
                 label="Email"
                 name="mail"
-                placeholder="Nhập email"
+                placeholder="Nhập Email"
                 type="mail"
-                colorInput="bg-inherit border-2 border-solid text-white"
+                colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
             <Input
+                icon={<BiSolidLockAlt size={25} />}
                 label="Mật khẩu"
                 name="password"
                 placeholder="Nhập password"
                 type="password"
-                colorInput="bg-inherit border-2 border-solid text-white"
+                colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
             <div className="
                     font-semibold 
@@ -25,7 +29,7 @@ const login = () => {
                     text-white
                 "
             >
-                <Link href="./forgot_password">
+                <Link href="./forgot_password" className="focus:outline-none">
                     Quên mật khẩu ?
                 </Link>
             </div>
@@ -51,16 +55,17 @@ const login = () => {
             >
             </div>
             <div className="
-                flex 
-                font-medium 
-                text-lg
-                text-white
+                    flex 
+                    font-medium 
+                    text-lg
+                    text-white
+                    space-x-1
                 "
             >
-                Chưa có tài khoản?
+                <span>Chưa có tài khoản?</span>
                 <span className="underline cursor-pointer">
-                    <Link href="./register">
-                        {' '}Đăng ký ngay
+                    <Link href="./register" className="focus:outline-none">
+                        Đăng ký ngay
                     </Link>
                 </span>
             </div>

@@ -35,7 +35,8 @@ module.exports = {
       },
       fontFamily: {
         // helvetica: ['Helvetica-Regular', 'sans-serif'],
-        poppin: ["Poppins-Medium", "sans-serif"],
+        // poppin: ["Poppins-Medium", "sans-serif"],
+        inter: ["Inter-Medium", "sans-serif"],
         // momo: ['ui-monospace', 'system-ui'],
       },
     },

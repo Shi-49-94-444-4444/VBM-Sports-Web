@@ -3,6 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
+import ButtonCus from "../../ButtonCus";
 
 const ProductContent: React.FC<ProductItem> = ({
     id,
@@ -26,12 +27,13 @@ const ProductContent: React.FC<ProductItem> = ({
     const handleDetailClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         router.push(`/detail_badminton/${id}`);
+        console.log(id)
     };
 
     return (
         <div className="
                 grid 
-                grid-cols-12 
+                grid-cols-11 
                 border-2 
                 rounded-sm
                 h-auto
@@ -44,7 +46,7 @@ const ProductContent: React.FC<ProductItem> = ({
             <div className="col-span-5">
                 <div className="
                         relative
-                        pb-[85%]
+                        h-full
                         transition-all
                         duration-300
                         hover:scale-105
@@ -70,37 +72,11 @@ const ProductContent: React.FC<ProductItem> = ({
                             "
                         />
                     </div>
-                    <div className="
-                            absolute
-                            top-0
-                            left-0
-                            mx-4
-                        "
-                    >
-                        <div className="
-                                flex 
-                                bg-form-cus 
-                                h-14 
-                                w-10 
-                                justify-center
-                                items-center
-                            "
-                        >
-                            <div className="
-                                    text-red-500 
-                                    text-base 
-                                    font-medium
-                                "
-                            >
-                                20%
-                            </div>
-                        </div>
-                    </div>
                     <div
                         className="
                             absolute 
                             top-0 
-                            right-0 
+                            left-0 
                             m-4
                             cursor-pointer
                         "
@@ -108,7 +84,7 @@ const ProductContent: React.FC<ProductItem> = ({
                     >
                         {isLiked ? (
                             <AiFillHeart
-                                size={24}
+                                size={30}
                                 className="
                                     text-red-500 
                                     bg-white 
@@ -118,7 +94,7 @@ const ProductContent: React.FC<ProductItem> = ({
                             />
                         ) : (
                             <AiOutlineHeart
-                                size={24}
+                                size={30}
                                 className="
                                     text-red-500 
                                     bg-white 
@@ -130,7 +106,7 @@ const ProductContent: React.FC<ProductItem> = ({
                     </div>
                 </div>
             </div>
-            <div className="col-span-7 p-4">
+            <div className="col-span-6 p-4">
                 <div className="
                         flex 
                         flex-col 
@@ -167,21 +143,11 @@ const ProductContent: React.FC<ProductItem> = ({
                         </span>
                     </div>
                     <div>
-                        <button 
-                            className="
-                                uppercase 
-                                text-white 
-                                font-semibold
-                                text-lg 
-                                bg-navbar-cus 
-                                w-full 
-                                h-12 
-                                rounded-xl
-                            "
+                        <ButtonCus
+                            title="Đặt ngay"
+                            style="px-10 text-lg font-semibold"
                             onClick={handleDetailClick}
-                        >
-                            Đặt ngay
-                        </button>
+                        />
                     </div>
                 </div>
             </div>

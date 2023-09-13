@@ -9,10 +9,8 @@ import 'swiper/css/thumbs';
 SwiperCore.use([Thumbs, Autoplay]);
 
 const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
-    // State to track the active slide index
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore | null>(null);
 
-    // Callback function to get the Swiper instance
     const handleThumbsSwiper = (swiper: SwiperCore) => {
         if (!thumbsSwiper) {
             setThumbsSwiper(swiper);
@@ -21,7 +19,6 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
 
     return (
         <div>
-            {/* Main Swiper */}
             <Swiper
                 thumbs={{ swiper: thumbsSwiper }}
                 slidesPerView={1}
@@ -61,7 +58,6 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
                 ))}
             </Swiper>
 
-            {/* Thumbs Swiper */}
             <Swiper
                 onSwiper={handleThumbsSwiper}
                 spaceBetween={10}

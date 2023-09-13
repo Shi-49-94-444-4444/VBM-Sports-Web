@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from '../../Container';
+import ButtonCus from '../../ButtonCus';
 
 const QuickBannerImage = () => {
     return (
@@ -38,7 +39,6 @@ const QuickBannerImage = () => {
                                     flex 
                                     flex-col 
                                     text-white 
-                                    lg:gap-5 
                                     md:gap-3
                                     gap-1
                                     justify-center
@@ -58,39 +58,39 @@ const QuickBannerImage = () => {
                                     Vợt cầu lông
                                 </h1>
                                 <h2 className="
-                                        xl:text-3xl 
-                                        lg:text-2xl
-                                        md:text-xl
-                                        text-lg
+                                        xl:text-2xl 
+                                        lg:text-xl
+                                        md:text-lg
+                                        text-base
                                         font-medium
                                         transition-all
                                         duration-300
                                     "
                                 >
                                     mua ngay giảm{' '}
-                                    <span className="line-through">
+                                    <span className="line-through font-bold">
                                         100.000đ
                                     </span>
                                 </h2>
                                 <h2 className="
-                                        xl:text-3xl 
-                                        lg:text-2xl
-                                        md:text-xl
-                                        text-lg
+                                        xl:text-2xl 
+                                        lg:text-xl
+                                        md:text-lg
+                                        text-base
                                         font-medium
                                         transition-all
                                         duration-300
                                     "
                                 >
                                     bây giờ chỉ còn{' '}
-                                    <span className="text-red-600">
+                                    <span className="text-red-600 font-bold">
                                         450.000đ
                                     </span>
                                 </h2>
                                 <div>
-                                    <button className="
-                                            uppercase 
-                                            font-bold
+                                    <ButtonCus
+                                        title="Mua ngay"
+                                        style=" 
                                             xl:text-lg
                                             xl:px-10
                                             lg:text-base 
@@ -99,16 +99,9 @@ const QuickBannerImage = () => {
                                             md:px-4
                                             md:py-1
                                             md:text-base
-                                            text-sm
-                                            px-3
-                                            bg-navbar-cus
-                                            rounded-full
-                                            transition-all
-                                            duration-300
                                         "
-                                    >
-                                        Mua ngay
-                                    </button>
+                                        onClick={() => {}}
+                                    />
                                 </div>
                             </div>
                         </div>

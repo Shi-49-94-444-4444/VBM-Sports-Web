@@ -4,6 +4,7 @@ import Footer from "./Footer"
 import Input from "./Input"
 import FormatUI from "./FormatUi"
 import Container from "./Container"
+import ButtonCus from "./ButtonCus"
 
 export * from "./navbar"
 export * from "./home"
@@ -14,5 +15,6 @@ export {
     Footer,
     Input,
     FormatUI,
-    Container
+    Container,
+    ButtonCus
 }

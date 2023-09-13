@@ -23,17 +23,17 @@ const BannerIntro = () => {
                 "
             >
                 <h1 className="
-                    xl:text-5xl
-                    lg:text-4xl
-                    lg:text-left
-                    md:text-5xl
-                    text-4xl
-                    text-center
-                    font-bold 
-                    uppercase
-                    transition-all
-                    duration-300
-                "
+                        xl:text-5xl
+                        lg:text-4xl
+                        lg:text-left
+                        md:text-5xl
+                        text-4xl
+                        text-center
+                        font-bold 
+                        uppercase
+                        transition-all
+                        duration-300
+                    "
                 >
                     Bạn muốn tìm sân để chơi cầu lông?
                 </h1>
@@ -51,50 +51,52 @@ const BannerIntro = () => {
                     quân sự tại Ukraine.
                 </p>
                 <form className="
+                        relative
                         flex 
                         mt-10
                     "
                 >
                     <button
                         className="
-                        bg-navbar-cus 
-                        text-white 
-                        px-4 
-                        py-4 
-                        rounded-full
-                        uppercase 
-                        text-sm 
-                        font-bold
-                        whitespace-nowrap
-                        cursor-pointer
-                    "
+                            bg-navbar-cus 
+                            text-white 
+                            px-8 
+                            py-4 
+                            rounded-lg
+                            text-sm 
+                            font-bold
+                            whitespace-nowrap
+                            cursor-pointer
+                            flex
+                            items-center
+                        "
                         onClick={handleAdditionalButtonClick}
                         type="button"
                     >
                         <div className="
-                            flex
-                            flex-nowrap
-                            flew-row
-                            items-start
-                        "
+                                flex
+                                flex-nowrap
+                                flew-row
+                                items-start
+                            "
                         >
                             <span>
                                 Mời chọn khu vực
                             </span>
                             <div className="inline-block ml-2">
                                 <div className="
-                                    inline-flex 
-                                    items-center 
-                                    align-middle
-                                "
-                                >
-                                    <div className="
                                         inline-flex 
                                         items-center 
                                         align-middle
                                     "
+                                >
+                                    <div className="
+                                            inline-flex 
+                                            items-center 
+                                            align-middle
+                                        "
                                     >
-                                        <AiOutlineDown size={20} />
+                                        <AiOutlineDown size={15} />
                                     </div>
                                 </div>
                             </div>

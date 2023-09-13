@@ -11,17 +11,24 @@ export interface ContainerProps {
     children: React.ReactNode
 }
 
+export interface ButtonCusProps {
+    title: string,
+    style: string,
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
 export interface FormatUIProps {
     src: string,
     title: string,
     subTitle?: React.ReactElement,
     titleButton: string,
     body: React.ReactElement,
-    footer: React.ReactElement
+    footer?: React.ReactElement
 }
 
 export interface InputProps {
     id?: string;
+    icon?: React.ReactNode;
     label?: string;
     name?: string;
     placeholder?: string;

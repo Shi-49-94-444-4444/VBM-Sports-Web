@@ -7,6 +7,7 @@ import {
 
 const Input: React.FC<InputProps> = ({
     id = "",
+    icon,
     label,
     name,
     placeholder,
@@ -21,11 +22,16 @@ const Input: React.FC<InputProps> = ({
     return (
         <div className="gap-1 transition-all duration-300">
             {label && (
-                <label htmlFor={id} className="block text-left text-base font-medium text-white mb-3">
+                <label htmlFor={id} className="block text-left text-base font-semibold text-white mb-3">
                     {label}
                 </label>
             )}
-            <div className="relative flex items-center">
+            <div className="relative flex items-center  ">
+                {icon && (
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white-cus">
+                        {icon}
+                    </span>
+                )}
                 <input
                     id={id}
                     type={type}

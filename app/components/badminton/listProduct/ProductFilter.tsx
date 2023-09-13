@@ -1,5 +1,5 @@
 import { filterTitle } from "@/app/constants"
-import { FiFilter } from "react-icons/fi"
+import { FaFilter } from "react-icons/fa"
 import FilterCus from "./FilterCus"
 
 const ProductFilter = () => {
@@ -8,9 +8,9 @@ const ProductFilter = () => {
     return (
         <div className="col-span-1 flex flex-col gap-3">
             <div className="flex flex-row">
-                <div className="flex whitespace-nowrap">
-                    <FiFilter size={30} />
-                    <span className="text-xl">Bộ lọc tìm kiếm</span>
+                <div className="flex whitespace-nowrap items-center space-x-2">
+                    <FaFilter size={20} />
+                    <span className="text-xl font-semibold opacity-80">Bộ lọc tìm kiếm</span>
                 </div>
             </div>
             <div className="relative">

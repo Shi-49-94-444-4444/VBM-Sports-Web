@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { QuickListItem } from '@/types';
+import ButtonCus from '../../ButtonCus';
 
 const QuickListItem: React.FC<QuickListItem> = ({
     id,
@@ -45,7 +46,9 @@ const QuickListItem: React.FC<QuickListItem> = ({
                             top-0 
                             left-0 
                             w-full 
-                            h-full">
+                            h-full
+                        "
+                    >
                         <Image
                             src={src}
                             alt="QuickList"
@@ -91,7 +94,8 @@ const QuickListItem: React.FC<QuickListItem> = ({
                     </div>
                 </div>
                 <div className="
-                        p-4 flex 
+                        p-4 
+                        flex 
                         flex-col 
                         gap-3
                         transition-all
@@ -121,7 +125,7 @@ const QuickListItem: React.FC<QuickListItem> = ({
                     >
                         {price}đ/h
                     </h2>
-                    <h2 className=" 
+                    <div className=" 
                             whitespace-nowrap 
                             line-clamp-1 
                             space-x-3
@@ -148,7 +152,7 @@ const QuickListItem: React.FC<QuickListItem> = ({
                         >
                             {timeOpen} - {timeClose}
                         </span>
-                    </h2>
+                    </div>
                     <p className="
                             text-gray-500 
                             line-clamp-3
@@ -159,20 +163,11 @@ const QuickListItem: React.FC<QuickListItem> = ({
                         Mô tả ngắn: {description}
                     </p>
                     <div className="flex">
-                        <button className="
-                                text-navbar-cus 
-                                bg-white 
-                                border-2 
-                                rounded-full 
-                                border-navbar-cus 
-                                hover:text-white
-                                hover:bg-navbar-cus
-                                py-2 
-                                px-4
-                            "
-                        >
-                            Đặt ngay
-                        </button>
+                        <ButtonCus 
+                            title="Đặt ngay"
+                            style=""
+                            onClick={() => {}}
+                        />
                     </div>
                 </div>
             </div>

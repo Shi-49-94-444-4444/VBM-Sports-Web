@@ -23,6 +23,8 @@ const Logo = () => {
                         self-center 
                         fill-transparent
                     "
+                    objectFit="cover"
+                    objectPosition="center"
                     height="150"
                     width="150"
                     src="/images/logo_1.png"
@@ -37,6 +39,8 @@ const Logo = () => {
                         self-center 
                         fill-transparent
                     "
+                    objectFit="cover"
+                    objectPosition="center"
                     height="20"
                     width="20"
                     src="/images/Vector.png"

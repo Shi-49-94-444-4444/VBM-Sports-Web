@@ -17,7 +17,7 @@ const ProductItems: React.FC<ProductItems> = ({ listItem }) => {
     const visibleItems = listItem.slice(startIndex, endIndex);
 
     return (
-        <div className="col-span-4 h-auto w-full relative">
+        <div className="col-span-3 h-auto w-full relative">
             {visibleItems.map((item) => (
                 <ProductContent
                     key={item.id}
@@ -31,7 +31,7 @@ const ProductItems: React.FC<ProductItems> = ({ listItem }) => {
                     slot={item.slot}
                 />
             ))}
-            <div className="flex justify-end mt-10 text-xl font-semibold">
+            <div className="flex justify-end mt-10 text-base font-semibold">
                 <ReactPaginate
                     pageCount={pageCount}
                     pageRangeDisplayed={5}

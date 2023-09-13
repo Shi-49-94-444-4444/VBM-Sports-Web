@@ -1,4 +1,4 @@
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import Link from "next/link";
 import { useState } from "react";
 import { FilterCusProps } from "@/types";
@@ -21,16 +21,16 @@ const FilterCus: React.FC<FilterCusProps> = ({
                     border-2 
                     flex 
                     whitespace-nowrap 
-                    justify-evenly 
+                    justify-between
                     items-center 
-                    uppercase 
                     w-full 
                     text-bg
                     p-3
-                    shadow-lg
+                    rounded-md
                     transition-all
                     duration-500
                     focus:outline-none
+                    text-gray-600
                 "
                 type="button"
                 id="dropdownMenuButton"
@@ -40,7 +40,16 @@ const FilterCus: React.FC<FilterCusProps> = ({
             >
                 {title}
                 <span>
-                    {isDropdownOpen ? <AiOutlineUp size={15} /> : <AiOutlineDown size={15} />}
+                    {isDropdownOpen ?
+                        <AiFillCaretUp
+                            size={15}
+                            className="text-gray-400"
+                        />
+                        :
+                        <AiFillCaretDown
+                            size={15}
+                            className="text-gray-400"
+                        />}
                 </span>
             </button>
             <div id="dropdown"
@@ -55,6 +64,7 @@ const FilterCus: React.FC<FilterCusProps> = ({
                         text-bg 
                         font-semibold 
                         uppercase
+                        focus:outline-none
                     "
                     aria-labelledby="dropdownMenuButton"
                 >
@@ -66,9 +76,10 @@ const FilterCus: React.FC<FilterCusProps> = ({
                                     border-b-2 
                                     border-solid 
                                     block 
-                                    px-4 
-                                    py-4 
+                                    py-3 
                                     whitespace-nowrap
+                                    text-gray-600
+                                    focus:outline-none
                                 "
                             >
                                 {item.title}
