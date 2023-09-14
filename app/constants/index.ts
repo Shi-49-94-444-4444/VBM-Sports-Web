@@ -341,3 +341,231 @@ export const filterTitle = [
         ]
     }
 ]
+
+export const listUser = [
+    {
+        id: 1,
+        src: "/images/avatar.jpg",
+        name: "Tony Mack",
+        description: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn...",
+        skillLevel: 4,
+        rating: 3,
+        friendly: 4,
+        trusted: 5,
+        helpful: 2,
+        comments: [
+            {
+                id: 1,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 2,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 3,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 4,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            }
+        ]
+    },
+    {
+        id: 2,
+        src: "/images/avatar.jpg",
+        name: "Tony Mack",
+        description: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn...",
+        skillLevel: 4,
+        rating: 3,
+        friendly: 4,
+        trusted: 5,
+        helpful: 2,
+        comments: [
+            {
+                id: 1,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 2,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 3,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 4,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            }
+        ]
+    },
+    {
+        id: 3,
+        src: "/images/avatar.jpg",
+        name: "Tony Mack",
+        description: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn...",
+        skillLevel: 4,
+        rating: 3,
+        friendly: 4,
+        trusted: 5,
+        helpful: 2,
+        comments: [
+            {
+                id: 1,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 2,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 3,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 4,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            }
+        ]
+    },
+    {
+        id: 4,
+        src: "/images/avatar.jpg",
+        name: "Tony Mack",
+        description: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn...",
+        skillLevel: 4,
+        rating: 3,
+        friendly: 4,
+        trusted: 5,
+        helpful: 2,
+        comments: [
+            {
+                id: 1,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 2,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 3,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 4,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            }
+        ]
+    },
+    {
+        id: 5,
+        src: "/images/avatar.jpg",
+        name: "Tony Mack",
+        description: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn...",
+        skillLevel: 4,
+        rating: 3,
+        friendly: 4,
+        trusted: 5,
+        helpful: 2,
+        comments: [
+            {
+                id: 1,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 2,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 3,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            },
+            {
+                id: 4,
+                src: "/images/avatar.jpg",
+                name: "Shi",
+                rating: 4,
+                date: "16/08/2023",
+                comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
+            }
+        ]
+    },
+]

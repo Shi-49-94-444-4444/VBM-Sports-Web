@@ -1,23 +1,13 @@
 import Image from "next/image"
+import { Rating } from "../../modal"
+import { User } from "@/types"
 
-interface ProductItemOtherProps {
-    id: number;
-    src: string;
-    title: string;
-    description: string;
-    timeOpen: string;
-    timeClose: string;
-    slot: number;
-}
-
-const ProductItemOther: React.FC<ProductItemOtherProps> = ({
+const UserOther: React.FC<User> = ({
     id,
-    description,
-    slot,
     src,
-    timeClose,
-    timeOpen,
-    title
+    name,
+    description,
+    rating
 }) => {
     return (
         <div className="
@@ -47,7 +37,7 @@ const ProductItemOther: React.FC<ProductItemOtherProps> = ({
                     "
                 >
                     <Image
-                        src={src}
+                        src={src!}
                         alt="QuickList"
                         layout="fill"
                         objectFit="cover"
@@ -63,8 +53,6 @@ const ProductItemOther: React.FC<ProductItemOtherProps> = ({
                     flex 
                     flex-col 
                     gap-3
-                    transition-all
-                    duration-300
                 "
             >
                 <h1 className="
@@ -72,58 +60,31 @@ const ProductItemOther: React.FC<ProductItemOtherProps> = ({
                         font-semibold 
                         whitespace-nowrap 
                         line-clamp-1
-                        transition-all
-                        duration-300
                     "
                 >
-                    {title}
+                    {name}
                 </h1>
                 <p className="
                         text-gray-500 
                         line-clamp-4
-                        transition-all
-                        duration-300
                     "
                 >
                     Mô tả ngắn: {description}
                 </p>
-                <div className=" 
-                        whitespace-nowrap 
-                        line-clamp-1 
-                        space-x-3
-                        transition-all
-                        duration-300
-                    "
-                >
-                    <span className='text-gray-500'>
-                        Time:
-                    </span>
-                    <span className="
-                            text-black 
-                            font-semibold 
-                        "
-                    >
-                        {timeOpen} AM - {timeClose} PM
-                    </span>
-                </div>
                 <div className="
+                        flex
+                        flex-row
                         text-gray-500 
-                        line-clamp-4
-                        transition-all
-                        duration-300
-                        space-x-5
+                        space-x-3
+                        items-center
                     "
                 >
-                    <span>
-                        Slot:
-                    </span>
-                    <span className="text-black font-semibold">
-                        {slot}/30
-                    </span>
+                    <span>Rating:</span>
+                    <Rating rating={rating} maxStars={5} sizeCus={25} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default ProductItemOther
+export default UserOther

@@ -22,13 +22,13 @@ const ProductPostUser = () => {
                         items-center
                     "
                 >
-                    <div className="rounded-full">
+                    <div className="relative flex-shrink-0">
                         <Image
                             src="/images/avatar.jpg"
                             alt="avatar"
-                            width={100}
-                            height={100}
-                            objectFit="contain"
+                            objectFit="cover"
+                            width="100"
+                            height="100"
                             className="rounded-full"
                         />
                     </div>

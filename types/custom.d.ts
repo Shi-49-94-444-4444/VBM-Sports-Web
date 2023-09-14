@@ -15,6 +15,7 @@ export interface ButtonCusProps {
     title: string,
     style: string,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    icon?: Icon
 }
 
 export interface FormatUIProps {

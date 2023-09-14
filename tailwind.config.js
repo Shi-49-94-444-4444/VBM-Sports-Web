@@ -41,5 +41,21 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        ".title-custom": {
+          fontWeight: "600", 
+          fontSize: "1.875rem", 
+          "@screen md": {
+            fontSize: "1.25rem",
+          },
+          "@screen lg": {
+            fontSize: "1.5rem",
+          },
+          color: "#333",
+        },
+      });
+    },
+  ],
 };

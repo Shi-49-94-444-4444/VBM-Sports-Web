@@ -3,15 +3,19 @@ import { ButtonCusProps } from "@/types"
 const ButtonCus: React.FC<ButtonCusProps> = ({
     title,
     style,
-    onClick
+    onClick,
+    icon
 }) => {
     return (
         <button className={`
+                relative
+                flex
                 text-white 
                 bg-navbar-cus 
                 hover:text-white
                 hover:bg-navbar-cus
                 text-center
+                items-center
                 font-semibold
                 py-2
                 px-10
@@ -25,6 +29,11 @@ const ButtonCus: React.FC<ButtonCusProps> = ({
             onClick={onClick}
         >
             {title}
+            {icon && (
+                <span className="ml-3">
+                    {icon}
+                </span>
+            )}
         </button>
     )
 }
