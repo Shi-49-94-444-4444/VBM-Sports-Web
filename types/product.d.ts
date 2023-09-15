@@ -1,6 +1,10 @@
+export interface Images {
+    id: number;
+    src: string
+}
 export interface Product {
     id: number;
-    src?: string;
+    image?: Images[];
     title?: string;
     date?: string;
     price?: number;

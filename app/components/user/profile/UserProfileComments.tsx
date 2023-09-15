@@ -33,10 +33,9 @@ const UserProfileComments: React.FC<User> = ({
                                 <Image
                                     src={item.src}
                                     alt="avatar"
-                                    objectFit="cover"
                                     width="100"
                                     height="100"
-                                    className="rounded-full"
+                                    className="rounded-full object-cover"
                                 />
                             </div>
                             <div className="col-span-3">

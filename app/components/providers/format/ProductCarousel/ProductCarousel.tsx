@@ -3,19 +3,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css';
 
-import { listUser } from '@/app/constants';
-import UserOther from './UserOther';
+import { listItems } from '@/app/constants';
+import ProductItemOther from './ProductItemOther';
 
 SwiperCore.use([Pagination]);
 
-const UserCarousel = () => {
+const ProductCarousel = () => {
     return (
         <Swiper
-            spaceBetween={10}
+            spaceBetween={10} 
             pagination={{ clickable: true }}
             breakpoints={{
                 640: {
-                    slidesPerView: 1,
+                    slidesPerView: 1, 
                 },
                 768: {
                     slidesPerView: 2,
@@ -28,20 +28,22 @@ const UserCarousel = () => {
                 },
             }}
         >
-            {listUser.map((item) => (
+            {listItems.map((item) => (
                 <SwiperSlide key={item.id}>
-                    <UserOther
+                    <ProductItemOther
                         id={item.id}
-                        src={item.src}
-                        name={item.name}
+                        image={item.image}
+                        title={item.title}
                         description={item.description}
-                        rating={item.rating}
+                        timeOpen={item.timeOpen}
+                        timeClose={item.timeClose}
+                        slot={item.slot}
                     />
                 </SwiperSlide>
             ))}
-            <div className="mt-20" />
+            <div className="mt-20"/>
         </Swiper>
     );
 };
 
-export default UserCarousel;
+export default ProductCarousel

@@ -43,8 +43,8 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                 <Image
                                     src={listItem[0].src}
                                     alt="PostNew"
-                                    layout="fill"
-                                    objectFit="cover"
+                                    className="object-cover"
+                                    fill
                                 />
                             </div>
                             <div className="
@@ -97,8 +97,8 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                         <Image
                                             src={listItem[1].src}
                                             alt="PostNew"
-                                            layout="fill"
-                                            objectFit="cover"
+                                            className="object-cover"
+                                            fill
                                         />
                                     </div>
                                     <div className="
@@ -147,8 +147,8 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                                 <Image
                                                     src={listItem[2].src}
                                                     alt="PostNew"
-                                                    layout="fill"
-                                                    objectFit="cover"
+                                                    className="object-cover"
+                                                    fill
                                                 />
                                             </div>
                                             <div className="
@@ -190,8 +190,8 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                                 <Image
                                                     src={listItem[3].src}
                                                     alt="PostNew"
-                                                    layout="fill"
-                                                    objectFit="cover"
+                                                    className="object-cover"
+                                                    fill
                                                 />
                                             </div>
                                             <div className="

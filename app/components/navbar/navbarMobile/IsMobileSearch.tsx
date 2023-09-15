@@ -70,6 +70,8 @@ const IsMobileSearch = () => {
                                             w-full 
                                             bg-search-cus 
                                             outline-none 
+                                            border-none
+                                            focus:ring-0
                                             font-medium 
                                             text-sm 
                                             transition-all 

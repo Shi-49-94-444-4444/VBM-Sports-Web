@@ -11,7 +11,7 @@ const login = () => {
                 label="Email"
                 name="mail"
                 placeholder="Nhập Email"
-                type="mail"
+                type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
             <Input

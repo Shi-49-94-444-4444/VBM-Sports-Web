@@ -22,7 +22,6 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
             <Swiper
                 thumbs={{ swiper: thumbsSwiper }}
                 slidesPerView={1}
-                navigation
                 autoplay={{ delay: 2000, disableOnInteraction: false }}
             >
                 {images.map((image, index) => (
@@ -48,9 +47,8 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
                                 <Image
                                     src={image}
                                     alt={`Image ${index}`}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className="rounded-lg"
+                                    className="rounded-lg object-cover"
+                                    fill
                                 />
                             </div>
                         </div>
@@ -89,9 +87,8 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
                                     <Image
                                         src={image}
                                         alt={`Thumb ${index}`}
-                                        layout="fill"
-                                        objectFit="cover"
-                                        className="rounded-lg"
+                                        className="rounded-lg object-cover"
+                                        fill
                                     />
                                 </div>
                             </div>

@@ -20,9 +20,8 @@ const Logo = () => {
                         cursor-pointer 
                         self-center 
                         fill-transparent
+                        object-cover
                     "
-                    objectFit="cover"
-                    objectPosition="center"
                     height="150"
                     width="150"
                     src="/images/logo_1.png"
@@ -36,9 +35,8 @@ const Logo = () => {
                         cursor-pointer 
                         self-center 
                         fill-transparent
+                        object-cover
                     "
-                    objectFit="cover"
-                    objectPosition="center"
                     height="20"
                     width="20"
                     src="/images/Vector.png"

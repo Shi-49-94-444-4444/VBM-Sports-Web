@@ -43,8 +43,8 @@ const IsMobilePostNew: React.FC<PostNewContent> = ({
                                     <Image
                                         src={item.src}
                                         alt="PostNew"
-                                        layout="fill"
-                                        objectFit="cover"
+                                        className="object-cover"
+                                        fill
                                     />
                                 </div>
                                 <div className="

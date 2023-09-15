@@ -91,6 +91,7 @@ const Access = () => {
                                                             bg-search-cus 
                                                             border-0 
                                                             outline-none 
+                                                            focus:ring-0
                                                             font-medium 
                                                             pl-2 
                                                             text-sm 

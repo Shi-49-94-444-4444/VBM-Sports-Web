@@ -58,7 +58,25 @@ export const images = [
 export const listItems = [
     {
         id: 1,
-        src: "/images/item_1.jpg",
+        image: [
+            {
+                id: 1,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 2,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 3,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 4,
+                src: "/images/item_1.jpg",
+            },
+
+        ],
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
@@ -69,7 +87,25 @@ export const listItems = [
     },
     {
         id: 2,
-        src: "/images/item_1.jpg",
+        image: [
+            {
+                id: 1,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 2,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 3,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 4,
+                src: "/images/item_1.jpg",
+            },
+
+        ],
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
@@ -80,7 +116,25 @@ export const listItems = [
     },
     {
         id: 3,
-        src: "/images/item_1.jpg",
+        image: [
+            {
+                id: 1,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 2,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 3,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 4,
+                src: "/images/item_1.jpg",
+            },
+
+        ],
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
@@ -91,7 +145,25 @@ export const listItems = [
     },
     {
         id: 4,
-        src: "/images/item_1.jpg",
+        image: [
+            {
+                id: 1,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 2,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 3,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 4,
+                src: "/images/item_1.jpg",
+            },
+
+        ],
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
@@ -102,7 +174,25 @@ export const listItems = [
     },
     {
         id: 5,
-        src: "/images/item_1.jpg",
+        image: [
+            {
+                id: 1,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 2,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 3,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 4,
+                src: "/images/item_1.jpg",
+            },
+
+        ],
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
@@ -113,7 +203,25 @@ export const listItems = [
     },
     {
         id: 6,
-        src: "/images/item_1.jpg",
+        image: [
+            {
+                id: 1,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 2,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 3,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 4,
+                src: "/images/item_1.jpg",
+            },
+
+        ],
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
@@ -124,7 +232,25 @@ export const listItems = [
     },
     {
         id: 7,
-        src: "/images/item_1.jpg",
+        image: [
+            {
+                id: 1,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 2,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 3,
+                src: "/images/item_1.jpg",
+            },
+            {
+                id: 4,
+                src: "/images/item_1.jpg",
+            },
+
+        ],
         title: "Sân Saigon Mall",
         price: 130.000,
         date: "20-07-2021",
@@ -567,5 +693,44 @@ export const listUser = [
                 comment: "Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn..."
             }
         ]
+    },
+]
+
+export const listVoucher = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+]
+
+export const listMethodsPayment = [
+    {
+        id: 1,
+        src: "/images/momo.png",
+        title: "Momo",
+        number: 789,
+    },
+    {
+        id: 2,
+        src: "/images/momo.png",
+        title: "Momo",
+        number: 789,
+    },
+    {
+        id: 3,
+        src: "/images/momo.png",
+        title: "Momo",
+        number: 789,
+    },
+    {
+        id: 4,
+        src: "/images/momo.png",
+        title: "Momo",
+        number: 789,
+    },
+    {
+        id: 5,
+        src: "/images/momo.png",
+        title: "Momo",
+        number: 789,
     },
 ]

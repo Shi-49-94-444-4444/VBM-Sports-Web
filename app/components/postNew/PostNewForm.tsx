@@ -1,3 +1,4 @@
+import { ButtonCus } from "../providers"
 import Input from "../providers/form/Input"
 
 const PostNewForm = () => {
@@ -11,7 +12,8 @@ const PostNewForm = () => {
                     <div className="col-span-4">
                         <Input
                             name="title"
-                            colorInput="bg-[#F5F5F5]"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="text"
                         />
                     </div>
                 </div>
@@ -21,8 +23,9 @@ const PostNewForm = () => {
                     </div>
                     <div className="col-span-4">
                         <Input
-                            name="title"
-                            colorInput="bg-[#F5F5F5]"
+                            name="location"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="text"
                         />
                     </div>
                 </div>
@@ -32,8 +35,9 @@ const PostNewForm = () => {
                     </div>
                     <div className="col-span-4">
                         <Input
-                            name="title"
-                            colorInput="bg-[#F5F5F5]"
+                            name="time"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="text"
                         />
                     </div>
                 </div>
@@ -43,8 +47,9 @@ const PostNewForm = () => {
                     </div>
                     <div className="col-span-4">
                         <Input
-                            name="title"
-                            colorInput="bg-[#F5F5F5]"
+                            name="price"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="number"
                         />
                     </div>
                 </div>
@@ -54,8 +59,9 @@ const PostNewForm = () => {
                     </div>
                     <div className="col-span-4">
                         <Input
-                            name="title"
-                            colorInput="bg-[#F5F5F5]"
+                            name="player"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="number"
                         />
                     </div>
                 </div>
@@ -65,8 +71,9 @@ const PostNewForm = () => {
                     </div>
                     <div className="col-span-4">
                         <Input
-                            name="title"
-                            colorInput="bg-[#F5F5F5]"
+                            name="mode"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="text"
                         />
                     </div>
                 </div>
@@ -76,8 +83,9 @@ const PostNewForm = () => {
                     </div>
                     <div className="col-span-4">
                         <Input
-                            name="title"
-                            colorInput="bg-[#F5F5F5]"
+                            name="skillLevel"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="text"
                         />
                     </div>
                 </div>
@@ -93,7 +101,8 @@ const PostNewForm = () => {
                                     w-full 
                                     rounded-lg 
                                     outline-none
-                                    hover:border-pink-cus-bt  
+                                    border-none
+                                    focus:ring-0
                                     text-base
                                     py-3    
                                     px-6
@@ -101,27 +110,19 @@ const PostNewForm = () => {
                                     duration-300
                                 "
                                 rows={5}
+                                typeof="text"
                             />
                         </div>
                     </div>
                 </div>
                 <div className="grid grid-cols-5">
-                    <div className="col-end-4 py-4">
-                        <div className="relative w-full">
-                            <button className="
-                                    bg-navbar-cus 
-                                    text-white 
-                                    font-semibold 
-                                    text-lg 
-                                    px-10 
-                                    py-2 
-                                    rounded-xl 
-                                    justify-self-center
-                                "
-                            >
-                                Confirm
-                            </button>
-                        </div>
+                    <div className="col-span-1"/>
+                    <div className="col-span-4 py-4 flex justify-center">
+                        <ButtonCus
+                            title="Confirm"
+                            style="px-16 py-3 text-xl"
+                            onClick={() => {}}
+                        />
                     </div>
                 </div>
             </div>

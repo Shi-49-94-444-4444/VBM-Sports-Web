@@ -6,7 +6,7 @@ import { ButtonCus } from '../../providers';
 
 const QuickListItem: React.FC<Product> = ({
     id,
-    src,
+    image,
     title,
     date,
     price,
@@ -50,14 +50,14 @@ const QuickListItem: React.FC<Product> = ({
                         "
                     >
                         <Image
-                            src={src!}
+                            src={image! && image[1].src!}
                             alt="QuickList"
-                            layout="fill"
-                            objectFit="contain"
                             className="
                                 rounded-t-xl 
                                 hover:rounded-none
+                                object-cover
                             "
+                            fill
                         />
                     </div>
                     <div

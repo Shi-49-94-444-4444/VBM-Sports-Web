@@ -16,10 +16,9 @@ const UserProfileIntro: React.FC<User> = ({
                 <Image
                     src={src!}
                     alt="avatar"
-                    objectFit="cover"
                     width="250"
                     height="250"
-                    className="rounded-full"
+                    className="rounded-full object-cover"
                 />
             </div>
             <div className="relative flex flex-col flex-grow gap-5">

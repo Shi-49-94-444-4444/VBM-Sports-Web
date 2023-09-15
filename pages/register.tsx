@@ -18,7 +18,7 @@ const register = () => {
                 icon={<AiFillMail size={25} />}
                 label="Email"
                 placeholder="Nhập email"
-                type="mail"
+                type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
             <Input

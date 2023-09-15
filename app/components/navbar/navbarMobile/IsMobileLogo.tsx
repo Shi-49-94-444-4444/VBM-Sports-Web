@@ -21,6 +21,7 @@ const IsMobileLogo = () => {
                         cursor-pointer 
                         self-center 
                         fill-transparent
+                        object-cover
                     "
                     height="20"
                     width="20"

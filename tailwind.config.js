@@ -46,16 +46,22 @@ module.exports = {
       addComponents({
         ".title-custom": {
           fontWeight: "600", 
-          fontSize: "1.875rem", 
+          fontSize: "1.25rem", 
+          lineHeight: "1.75rem",
+          transitionProperty: "all",
+          transitionDuration: "0.5s",
           "@screen md": {
-            fontSize: "1.25rem",
+            fontSize: "1.5rem",
+            lineHeight: "2rem",
           },
           "@screen lg": {
-            fontSize: "1.5rem",
+            fontSize: "1.875rem",
+            lineHeight: "2.25rem",
           },
           color: "#333",
         },
       });
     },
+    require("@tailwindcss/forms")
   ],
 };

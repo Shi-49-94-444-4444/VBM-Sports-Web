@@ -7,7 +7,7 @@ import { ButtonCus } from "../../providers";
 
 const ProductContent: React.FC<Product> = ({
     id,
-    src,
+    image,
     title,
     price,
     description,
@@ -27,7 +27,6 @@ const ProductContent: React.FC<Product> = ({
     const handleDetailClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         router.push(`/detail_badminton/${id}`);
-        console.log(id)
     };
 
     return (
@@ -62,14 +61,14 @@ const ProductContent: React.FC<Product> = ({
                         "
                     >
                         <Image
-                            src={src!}
+                            src={image! && image[1].src!}
                             alt="QuickList"
-                            layout="fill"
-                            objectFit="cover"
                             className="
                                 rounded-xl 
                                 hover:rounded-none
+                                object-cover
                             "
+                            fill
                         />
                     </div>
                     <div

@@ -21,7 +21,7 @@ const FormatHomePage: React.FC<FormatHomePageProps> = ({
                     <h1 className="
                             font-semibold 
                             lg:text-3xl
-                            md:text-2xl 
+                            md:text-2xl
                             text-xl
                             uppercase
                             text-center

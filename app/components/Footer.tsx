@@ -156,6 +156,7 @@ const Footer = () => {
                   relative 
                   flex 
                   flex-row 
+                  flex-shrink-0
                   bg-gray-cus-2 
                   rounded-md 
                   gap-2 
@@ -186,6 +187,7 @@ const Footer = () => {
                   relative 
                   flex 
                   flex-row 
+                  flex-shrink-0
                   bg-gray-cus-2 
                   rounded-md 
                   gap-2 

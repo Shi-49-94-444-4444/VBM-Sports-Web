@@ -24,7 +24,7 @@ const ProductItems: React.FC<ListProduct> = ({
                 <ProductContent
                     key={item.id}
                     id={item.id}
-                    src={item.src}
+                    image={item.image}
                     title={item.title}
                     description={item.description}
                     price={item.price}

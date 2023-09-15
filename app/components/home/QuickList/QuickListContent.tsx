@@ -21,7 +21,7 @@ const QuickListContent: React.FC<ListProduct> = ({
                     <QuickListItem
                         key={item.id}
                         id={item.id}
-                        src={item.src}
+                        image={item.image}
                         title={item.title}
                         date={item.date}
                         price={item.price}

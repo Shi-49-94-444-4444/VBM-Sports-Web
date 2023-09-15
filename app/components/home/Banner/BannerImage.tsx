@@ -26,9 +26,8 @@ const BannerImage = () => {
                 <Image
                     src="/images/banner.png"
                     alt="Your Image"
-                    layout="fill"
-                    objectFit="contain"
-                    objectPosition="bottom"
+                    className="object-contain object-bottom"
+                    fill
                 />
             </div>
         </div>

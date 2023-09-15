@@ -14,7 +14,8 @@ const UserFormComment = () => {
                             rounded-lg 
                             border-2 
                             border-gray-300 
-                            focus:outline-none 
+                            focus:outline-none
+                            focus:ring-0
                             w-full
                             h-full
                         "

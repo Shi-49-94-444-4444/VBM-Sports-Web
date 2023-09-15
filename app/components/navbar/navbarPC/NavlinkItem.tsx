@@ -20,7 +20,7 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
                 z-[1000]
                 max-h-72
                 bg-white
-                rounded-[5px]
+                rounded-md
                 pb-2
                 min-w-[100px]
                 max-w-[150px]

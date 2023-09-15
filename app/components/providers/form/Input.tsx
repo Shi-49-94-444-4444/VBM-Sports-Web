@@ -46,7 +46,7 @@ const Input: React.FC<InputProps> = ({
                             w-full 
                             rounded-lg 
                             outline-none
-                            hover:border-pink-cus-bt  
+                            focus:ring-0
                             text-base
                             py-3    
                             px-6
