@@ -1,6 +1,6 @@
 
 import { postNew } from "@/app/constants";
-import FormatHomePage from "./FormatHomePage";
+import FormatHomePage from "../providers/form/FormatHomePage";
 import PostNewContent from "./PostNew/PostNewContent";
 import IsMobilePostNew from "./PostNew/IsMobilePostNew"
 

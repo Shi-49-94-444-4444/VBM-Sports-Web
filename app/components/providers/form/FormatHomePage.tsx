@@ -1,8 +1,6 @@
-'use client'
-
 import { FormatHomePageProps } from "@/types"
-import Container from "../Container"
 import Link from "next/link"
+import { Container } from ".."
 
 const FormatHomePage: React.FC<FormatHomePageProps> = ({
     title,

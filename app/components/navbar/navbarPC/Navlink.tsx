@@ -1,5 +1,3 @@
-'use client'
-
 import { AiOutlineDown } from "react-icons/ai"
 import { navlinks } from "@/app/constants"
 import { useState } from "react";

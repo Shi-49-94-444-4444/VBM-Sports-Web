@@ -8,6 +8,7 @@ const UserProfileContent: React.FC<listUser> = ({
     listItems
 }) => {
     const item = listItems[1]
+    
     return (
         <div className="flex flex-col gap-5 py-10">
             <UserProfileIntro

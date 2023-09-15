@@ -1,11 +1,11 @@
-import { ProductItem } from "@/types"
+import { Product } from "@/types"
 import Image from "next/image"
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
-import ButtonCus from "../../ButtonCus";
+import { ButtonCus } from "../../providers";
 
-const ProductContent: React.FC<ProductItem> = ({
+const ProductContent: React.FC<Product> = ({
     id,
     src,
     title,
@@ -62,7 +62,7 @@ const ProductContent: React.FC<ProductItem> = ({
                         "
                     >
                         <Image
-                            src={src}
+                            src={src!}
                             alt="QuickList"
                             layout="fill"
                             objectFit="cover"

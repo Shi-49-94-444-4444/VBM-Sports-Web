@@ -1,8 +1,8 @@
-import Container from "./Container"
 import { IoLogoGooglePlaystore } from "react-icons/io5"
 import { BsApple } from "react-icons/bs"
 import { AiFillYoutube } from "react-icons/ai"
 import { BiLogoFacebook } from "react-icons/bi"
+import { Container } from "./providers"
 
 const Footer = () => {
   return (

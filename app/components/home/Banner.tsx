@@ -1,6 +1,5 @@
 
-import Background from '../BackgroundCus'
-import Container from '../Container'
+import { Container, Background } from '../providers'
 import BannerImage from './Banner/BannerImage'
 import BannerIntro from './Banner/BannerIntro'
 

@@ -1,17 +1,10 @@
+import { Product } from "@/types";
 import { BsFacebook } from "react-icons/bs";
 import { FaFacebookMessenger, FaTwitterSquare } from "react-icons/fa";
 import { VscLinkExternal } from "react-icons/vsc";
 
-interface ProductDetailProps {
-    title: string;
-    price: number;
-    description: string;
-    timeOpen: string;
-    timeClose: string;
-    slot: number;
-}
-
-const ProductDetail: React.FC<ProductDetailProps> = ({
+const ProductDetail: React.FC<Product> = ({
+    id,
     title,
     description,
     price,
@@ -20,7 +13,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     slot
 }) => {
     return (
-        <div className="relative py-10">
+        <div className="relative py-10" key={id}>
             <div className="flex flex-col gap-10">
                 <div className="flex flex-col font-semibold gap-1">
                     <h2 className="text-3xl">

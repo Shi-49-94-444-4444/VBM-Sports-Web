@@ -1,5 +1,4 @@
-import { Container, Footer } from '@/app/components';
-import UserOtherExtra from '@/app/components/user/profile/UserOtherExtra';
+import { Container, Footer, UserOtherExtra } from '@/app/components';
 import UserProfileContent from '@/app/components/user/profile/UserProfileContent';
 import { listUser } from '@/app/constants';
 import Layout from '@/app/layout';

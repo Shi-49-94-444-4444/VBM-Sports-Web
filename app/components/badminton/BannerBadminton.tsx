@@ -1,4 +1,4 @@
-import Container from "../Container"
+import { Container } from "../providers"
 
 const BannerBadminton = () => {
     return (

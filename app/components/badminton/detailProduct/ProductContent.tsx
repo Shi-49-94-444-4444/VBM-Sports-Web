@@ -1,17 +1,31 @@
+import { Product, User } from "@/types";
 import ProductImage from "./ProductImage"
 import ProductPostUser from "./ProductPostUser"
-
 interface ProductContentProps {
-    src: string;
+    product: Product;
+    user: User;
 }
 
 const ProductContent: React.FC<ProductContentProps> = ({
-    src
+    product,
+    user
 }) => {
     return (
         <div className="grid grid-cols-7 gap-5">
-            <ProductImage src={src} />
-            <ProductPostUser />
+            <ProductImage 
+                key={product.id} 
+                id={product.id} 
+                src={product.src} 
+            />
+            <ProductPostUser 
+                key={user.id} 
+                id={user.id} 
+                src={user.src} 
+                name={user.name}
+                description={user.description}
+                rating={user.rating}
+                skillLevel={user.skillLevel}
+            />
         </div>
     )
 }

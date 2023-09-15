@@ -17,18 +17,3 @@ export interface PostNewItem {
 export interface PostNewContent {
     listItem: PostNewItem[]
 }
-
-export interface QuickListItem {
-    id: number;
-    src: string;
-    title: string;
-    date: string;
-    price: number;
-    timeOpen: string;
-    timeClose: string;
-    description: string;
-}
-
-export interface QuickListContent {
-    listItem: QuickListItem[]
-}

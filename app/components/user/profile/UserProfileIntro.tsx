@@ -1,8 +1,8 @@
 import Image from "next/image"
-import ButtonCus from "../../ButtonCus"
 import { BsFillChatDotsFill } from "react-icons/bs"
 import { BiSolidBellRing } from "react-icons/bi"
 import { User } from "@/types"
+import { ButtonCus } from "../../providers"
 
 const UserProfileIntro: React.FC<User> = ({
     id,

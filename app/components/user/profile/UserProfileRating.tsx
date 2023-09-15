@@ -1,5 +1,5 @@
 import { User } from "@/types"
-import { Rating } from "../../modal"
+import { Rating } from "../../providers/format"
 
 const UserProfileRating: React.FC<User> = ({
     skillLevel,

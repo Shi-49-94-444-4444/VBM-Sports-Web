@@ -1,6 +1,6 @@
 import { PostNewContent } from "@/types";
 import Image from "next/image";
-import Container from "../../Container";
+import { Container } from "../../providers";
 
 const IsMobilePostNew: React.FC<PostNewContent> = ({
     listItem

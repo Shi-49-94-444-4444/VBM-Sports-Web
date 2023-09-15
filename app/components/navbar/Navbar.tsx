@@ -1,13 +1,6 @@
-'use client'
-
 import { useState } from "react"
-import Access from "./Access"
-import IsMobileAccess from "./IsMobileAccess"
-import IsMobileLogo from "./IsMobileLogo"
-import IsMobileNavLink from "./IsMobileNavLink"
-import Logo from "./Logo"
-import NavLink from "./Navlink"
-import IsMobileSearch from "./IsMobileSearch"
+import { Access, Logo, NavLink } from "./navbarPC";
+import { IsMobileAccess, IsMobileLogo, IsMobileNavLink, IsMobileSearch } from "./navbarMobile";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);

@@ -1,9 +1,11 @@
 import ReactPaginate from 'react-paginate';
 import { useState } from 'react';
-import { ProductItems } from '@/types';
+import { ListProduct } from '@/types';
 import ProductContent from './ProductContent';
 
-const ProductItems: React.FC<ProductItems> = ({ listItem }) => {
+const ProductItems: React.FC<ListProduct> = ({ 
+    listItem 
+}) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 5;
     const pageCount = Math.ceil(listItem.length / itemsPerPage);

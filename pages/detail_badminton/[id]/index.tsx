@@ -1,10 +1,8 @@
 import { useRouter } from "next/router"
 import Layout from '@/app/layout';
-import { Container, Footer } from "@/app/components";
-import { listItems } from "@/app/constants";
-import ProductContent from "@/app/components/badminton/detailProduct/ProductContent";
-import ProductDetail from "@/app/components/badminton/detailProduct/ProductDetail";
-import ProductOtherExtra from "@/app/components/badminton/detailProduct/ProductOtherExtra";
+import { Container, Footer, ProductOtherExtra } from "@/app/components";
+import { listItems, listUser } from "@/app/constants";
+import { ProductContent, ProductDetail } from "@/app/components/badminton";
 
 const DetailBadminton = () => {
     const router = useRouter()
@@ -12,6 +10,7 @@ const DetailBadminton = () => {
 
     const numericId = typeof id === "string" ? parseInt(id, 10) : id;
     const selectItem = listItems.find(items => items.id === numericId)
+    const user = listUser[1]
 
     if (!selectItem) {
         return <div>Sản phẩm không tồn tại</div>;
@@ -20,8 +19,13 @@ const DetailBadminton = () => {
     return (
         <Layout>
             <Container>
-                <ProductContent src={selectItem.src}/>
+                <ProductContent 
+                    product={selectItem}
+                    user={user}
+                />
                 <ProductDetail
+                    key={selectItem.id}
+                    id={selectItem.id}
                     title={selectItem.title}
                     description={selectItem.description}
                     price={selectItem.price}

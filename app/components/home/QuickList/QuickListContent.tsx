@@ -1,8 +1,8 @@
-import { QuickListContent } from "@/types"
+import { ListProduct } from "@/types"
 import QuickListItem from "./QuickListItem"
-import Container from "../../Container"
+import { Container } from "../../providers"
 
-const QuickListContent: React.FC<QuickListContent> = ({
+const QuickListContent: React.FC<ListProduct> = ({
     listItem
 }) => {
     return (

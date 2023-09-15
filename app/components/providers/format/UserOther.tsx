@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Rating } from "../../modal"
+import { Rating } from "../../providers/format"
 import { User } from "@/types"
 
 const UserOther: React.FC<User> = ({

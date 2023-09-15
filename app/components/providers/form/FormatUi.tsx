@@ -1,8 +1,8 @@
 import Link from "next/link"
 import Background from "./BackgroundCus"
-import ClientOnly from "./ClinetOnly"
 import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
+import ClientOnly from "../../ClinetOnly"
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,

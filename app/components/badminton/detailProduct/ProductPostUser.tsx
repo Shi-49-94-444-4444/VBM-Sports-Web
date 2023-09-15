@@ -1,10 +1,18 @@
 import Image from "next/image"
-import ButtonCus from "../../ButtonCus"
 import { AiFillStar } from "react-icons/ai"
+import { User } from "@/types"
+import { ButtonCus } from "../../providers"
 
-const ProductPostUser = () => {
+const ProductPostUser: React.FC<User> = ({
+    id,
+    name,
+    src,
+    description,
+    rating,
+    skillLevel
+}) => {
     return (
-        <div className="col-span-2">
+        <div className="col-span-2" key={id}>
             <div className="
                     bg-gray-200 
                     flex 
@@ -24,7 +32,7 @@ const ProductPostUser = () => {
                 >
                     <div className="relative flex-shrink-0">
                         <Image
-                            src="/images/avatar.jpg"
+                            src={src!}
                             alt="avatar"
                             objectFit="cover"
                             width="100"
@@ -34,7 +42,7 @@ const ProductPostUser = () => {
                     </div>
                     <div className="flex flex-col gap-3">
                         <div className="font-semibold text-xl">
-                            Tony Mack
+                            {name}
                         </div>
                         <ButtonCus
                             title="Visit bio"
@@ -55,9 +63,7 @@ const ProductPostUser = () => {
                             text-gray-500
                         "
                     >
-                        Mô tả ngắn: Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình
-                        bày và dàn trang phục vụ cho in ấn.Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả,
-                        được dùng vào việc trình bày và dàn trang phục vụ cho in ấn ...
+                        {description}
                     </p>
                 </div>
                 <div className="
@@ -87,7 +93,7 @@ const ProductPostUser = () => {
                                         whitespace-nowrap
                                     "
                                 >
-                                    3.5/5
+                                    {rating}/5
                                 </p>
                                 <AiFillStar className="text-yellow-500" size={15} />
                             </div>
@@ -112,7 +118,7 @@ const ProductPostUser = () => {
                                         whitespace-nowrap
                                     "
                                 >
-                                    3.5/5
+                                    {skillLevel}/5
                                 </p>
                                 <AiFillStar className="text-yellow-500" size={15} />
                             </div>
@@ -129,7 +135,7 @@ const ProductPostUser = () => {
                 </div>
                 <ButtonCus
                     title="Join now"
-                    style="py-4"
+                    style="py-4 justify-center"
                     onClick={() => { }}
                 />
             </div>

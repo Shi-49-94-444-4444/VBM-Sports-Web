@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { QuickListItem } from '@/types';
-import ButtonCus from '../../ButtonCus';
+import { Product } from '@/types';
+import { ButtonCus } from '../../providers';
 
-const QuickListItem: React.FC<QuickListItem> = ({
+const QuickListItem: React.FC<Product> = ({
     id,
     src,
     title,
@@ -50,7 +50,7 @@ const QuickListItem: React.FC<QuickListItem> = ({
                         "
                     >
                         <Image
-                            src={src}
+                            src={src!}
                             alt="QuickList"
                             layout="fill"
                             objectFit="contain"

@@ -1,4 +1,4 @@
-import Container from "../../Container";
+import Container from "../form/Container";
 
 const Advertisement = () => {
     return (
@@ -8,17 +8,17 @@ const Advertisement = () => {
             "
         >
             <div className="
-                w-full 
-                lg:h-[400px] 
-                md:h-[300px]
-                sm:h-[200px]
-                h-[200px]
-                flex 
-                items-center 
-                transition-all
-                duration-300
-                mt-20
-            "
+                    w-full 
+                    lg:h-[400px] 
+                    md:h-[300px]
+                    sm:h-[200px]
+                    h-[200px]
+                    flex 
+                    items-center 
+                    transition-all
+                    duration-300
+                    mt-20
+                "
             >
                 <div
                     className="

@@ -1,4 +1,4 @@
-import Input from "../Input"
+import Input from "../providers/form/Input"
 
 const PostNewForm = () => {
     return (

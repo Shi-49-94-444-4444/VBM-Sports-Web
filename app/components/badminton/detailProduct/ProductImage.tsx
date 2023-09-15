@@ -1,14 +1,12 @@
+import { Product } from "@/types"
 import Image from "next/image"
 
-interface ProductImageProps {
-    src: string;
-}
-
-const ProductImage: React.FC<ProductImageProps> = ({
+const ProductImage: React.FC<Product> = ({
+    id,
     src
 }) => {
     return (
-        <div className="col-span-5">
+        <div className="col-span-5" key={id}>
             <div className="
                     relative
                     h-full
@@ -25,7 +23,7 @@ const ProductImage: React.FC<ProductImageProps> = ({
                     "
                 >
                     <Image
-                        src={src}
+                        src={src!}
                         alt="QuickList"
                         layout="fill"
                         objectFit="cover"

@@ -1,16 +1,7 @@
+import { Product } from "@/types";
 import Image from "next/image"
 
-interface ProductItemOtherProps {
-    id: number;
-    src: string;
-    title: string;
-    description: string;
-    timeOpen: string;
-    timeClose: string;
-    slot: number;
-}
-
-const ProductItemOther: React.FC<ProductItemOtherProps> = ({
+const ProductItemOther: React.FC<Product> = ({
     id,
     description,
     slot,
@@ -47,7 +38,7 @@ const ProductItemOther: React.FC<ProductItemOtherProps> = ({
                     "
                 >
                     <Image
-                        src={src}
+                        src={src!}
                         alt="QuickList"
                         layout="fill"
                         objectFit="cover"

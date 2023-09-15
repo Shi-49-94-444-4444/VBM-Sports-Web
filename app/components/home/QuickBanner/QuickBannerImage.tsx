@@ -1,6 +1,5 @@
 import React from 'react';
-import Container from '../../Container';
-import ButtonCus from '../../ButtonCus';
+import { ButtonCus, Container } from '../../providers';
 
 const QuickBannerImage = () => {
     return (

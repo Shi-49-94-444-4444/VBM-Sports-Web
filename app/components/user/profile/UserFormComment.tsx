@@ -1,4 +1,4 @@
-import ButtonCus from "../../ButtonCus"
+import { ButtonCus } from "../../providers"
 
 const UserFormComment = () => {
     return (

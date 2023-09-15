@@ -1,7 +1,7 @@
 import { Container } from "@/app/components";
 import Footer from "@/app/components/Footer";
 import { BannerBadminton } from "@/app/components/badminton";
-import Advertisement from "@/app/components/badminton/listProduct/Advertisement";
+import Advertisement from "@/app/components/providers/format/Advertisement";
 import ProductFilter from "@/app/components/badminton/listProduct/ProductFilter";
 import ProductItems from "@/app/components/badminton/listProduct/ProductItems";
 import { listItems } from "@/app/constants";

@@ -1,5 +1,3 @@
-'use client'
-
 import { AiOutlineDown } from "react-icons/ai";
 
 const BannerIntro = () => {

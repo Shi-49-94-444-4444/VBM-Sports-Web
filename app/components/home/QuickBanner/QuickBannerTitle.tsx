@@ -1,7 +1,5 @@
-'use client'
-
 import { QuickBannerTitle } from "@/types"
-import Container from "../../Container"
+import { Container } from "../../providers"
 
 const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
     title,

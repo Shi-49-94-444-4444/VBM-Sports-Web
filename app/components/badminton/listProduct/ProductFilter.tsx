@@ -1,10 +1,8 @@
 import { filterTitle } from "@/app/constants"
 import { FaFilter } from "react-icons/fa"
-import FilterCus from "./FilterCus"
+import { FilterCus } from "../../providers"
 
 const ProductFilter = () => {
-    
-
     return (
         <div className="col-span-1 flex flex-col gap-3">
             <div className="flex flex-row">
