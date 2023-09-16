@@ -16,7 +16,7 @@ const BannerIntro = () => {
                     max-w-xl
                     lg:max-w-md 
                     lg:items-baseline
-                    transition-all
+                    transition
                     duration-300
                 "
             >
@@ -29,7 +29,7 @@ const BannerIntro = () => {
                         text-center
                         font-bold 
                         uppercase
-                        transition-all
+                        transition
                         duration-300
                     "
                 >
@@ -40,7 +40,7 @@ const BannerIntro = () => {
                         text-center 
                         xl:text-left 
                         lg:text-left
-                        transition-all
+                        transition
                         duration-300
                     "
                 >

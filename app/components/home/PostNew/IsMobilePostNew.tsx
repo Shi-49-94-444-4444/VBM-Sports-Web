@@ -24,7 +24,7 @@ const IsMobilePostNew: React.FC<PostNewContent> = ({
                             <div className="
                                     relative 
                                     pb-[50%] 
-                                    transition-all
+                                    transition
                                     duration-300
                                     hover:scale-105
                                     cursor-pointer
@@ -36,7 +36,7 @@ const IsMobilePostNew: React.FC<PostNewContent> = ({
                                         left-0 
                                         w-full 
                                         h-full
-                                        transition-all
+                                        transition
                                         duration-300
                                     "
                                 >

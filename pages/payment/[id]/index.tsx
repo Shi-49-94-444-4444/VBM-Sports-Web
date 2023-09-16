@@ -1,9 +1,15 @@
-import { ButtonCus, Container, Footer, ImageCarousel, PaymentBillTotal, PaymentMethod, PaymentOverview, PaymentVoucher } from '@/app/components';
-import { listItems } from '@/app/constants';
+import { 
+    Button, 
+    Container, 
+    Footer, 
+    PaymentBillTotal, 
+    PaymentMethod, 
+    PaymentOverview, 
+    PaymentVoucher 
+} from '@/app/components';
+import { listItems } from '@/constant';
 import Layout from '@/app/layout';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Select from 'react-select';
 
 const Payment = () => {
     const router = useRouter()
@@ -33,7 +39,7 @@ const Payment = () => {
                     <PaymentVoucher />
                     <PaymentMethod />
                     <PaymentBillTotal />
-                    <ButtonCus
+                    <Button
                         title="Thanh Toán"
                         style="ml-auto px-32 py-4 text-xl"
                         onClick={() => { }}

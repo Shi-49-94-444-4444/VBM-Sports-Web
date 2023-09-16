@@ -24,7 +24,7 @@ const UserOther: React.FC<User> = ({
                 <div className="
                         relative
                         pb-[70%]
-                        transition-all
+                        transition
                         duration-300
                         hover:scale-105
                         cursor-pointer

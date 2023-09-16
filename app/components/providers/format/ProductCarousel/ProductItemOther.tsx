@@ -25,7 +25,7 @@ const ProductItemOther: React.FC<Product> = ({
                 <div className="
                         relative
                         pb-[70%]
-                        transition-all
+                        transition
                         duration-300
                         hover:scale-105
                         cursor-pointer
@@ -44,7 +44,7 @@ const ProductItemOther: React.FC<Product> = ({
                             alt="QuickList"
                             className="
                                 rounded-t-xl 
-                                hover:rounded-none
+                                hover:rounded-t-xl
                                 object-cover
                             "
                             fill
@@ -56,7 +56,7 @@ const ProductItemOther: React.FC<Product> = ({
                         flex 
                         flex-col 
                         gap-3
-                        transition-all
+                        transition
                         duration-300
                     "
                 >
@@ -65,7 +65,7 @@ const ProductItemOther: React.FC<Product> = ({
                             font-semibold 
                             whitespace-nowrap 
                             line-clamp-1
-                            transition-all
+                            transition
                             duration-300
                         "
                     >
@@ -74,7 +74,7 @@ const ProductItemOther: React.FC<Product> = ({
                     <p className="
                             text-gray-500 
                             line-clamp-4
-                            transition-all
+                            transition
                             duration-300
                         "
                     >
@@ -84,7 +84,7 @@ const ProductItemOther: React.FC<Product> = ({
                             whitespace-nowrap 
                             line-clamp-1 
                             space-x-3
-                            transition-all
+                            transition
                             duration-300
                         "
                     >
@@ -102,7 +102,7 @@ const ProductItemOther: React.FC<Product> = ({
                     <div className="
                             text-gray-500 
                             line-clamp-4
-                            transition-all
+                            transition
                             duration-300
                             space-x-5
                         "

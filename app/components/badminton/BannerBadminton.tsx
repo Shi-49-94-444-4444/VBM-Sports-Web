@@ -15,7 +15,7 @@ const BannerBadminton = () => {
                 bg-no-repeat
                 w-auto
                 h-[80vh]
-                transition-all
+                transition
                 duration-300
             "
                 style={{
@@ -26,7 +26,7 @@ const BannerBadminton = () => {
                     <div className="
                             flex
                             items-center 
-                            transition-all
+                            transition
                             duration-300
                             mt-20
                             justify-start

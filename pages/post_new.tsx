@@ -1,7 +1,10 @@
-import { Container, Footer, Input } from '@/app/components';
-import PostNewForm from '@/app/components/postNew/PostNewForm';
-import ThumbGallery from '@/app/components/postNew/ThumbsGallery';
-import { images } from '@/app/constants';
+import { 
+    Container, 
+    Footer, 
+    PostNewForm, 
+    ThumbGallery 
+} from '@/app/components';
+import { images } from '@/constant';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 

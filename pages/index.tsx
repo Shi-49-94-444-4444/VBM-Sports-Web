@@ -2,9 +2,9 @@ import {
   Banner, 
   QuickList, 
   PostNew, 
-  QuickBanner 
+  QuickBanner, 
+  Footer
 } from "@/app/components"
-import Footer from "@/app/components/Footer";
 import Layout from '@/app/layout';
 
 const home = () => {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { ButtonCus, Container } from '../../providers';
+import { Button, Container } from '../../providers';
 
 const QuickBannerImage = () => {
     return (
@@ -11,7 +10,7 @@ const QuickBannerImage = () => {
                 h-[250px]
                 flex 
                 items-center 
-                transition-all
+                transition
                 duration-300
             "
         >
@@ -25,7 +24,7 @@ const QuickBannerImage = () => {
                     h-screen
                     flex
                     items-center
-                    transition-all
+                    transition
                     duration-300
                 "
                 style={{
@@ -50,7 +49,7 @@ const QuickBannerImage = () => {
                                         text-xl
                                         font-bold 
                                         uppercase
-                                        transition-all
+                                        transition
                                         duration-300
                                     "
                                 >
@@ -62,7 +61,7 @@ const QuickBannerImage = () => {
                                         md:text-lg
                                         text-base
                                         font-medium
-                                        transition-all
+                                        transition
                                         duration-300
                                     "
                                 >
@@ -77,7 +76,7 @@ const QuickBannerImage = () => {
                                         md:text-lg
                                         text-base
                                         font-medium
-                                        transition-all
+                                        transition
                                         duration-300
                                     "
                                 >
@@ -87,7 +86,7 @@ const QuickBannerImage = () => {
                                     </span>
                                 </h2>
                                 <div>
-                                    <ButtonCus
+                                    <Button
                                         title="Mua ngay"
                                         style=" 
                                             xl:text-lg

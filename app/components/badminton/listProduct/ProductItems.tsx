@@ -36,7 +36,7 @@ const ProductItems: React.FC<ListProduct> = ({
             <div className="flex justify-end mt-10 text-base font-semibold">
                 <ReactPaginate
                     pageCount={pageCount}
-                    pageRangeDisplayed={5}
+                    pageRangeDisplayed={4}
                     marginPagesDisplayed={1}
                     onPageChange={handlePageChange}
                     containerClassName="pagination flex p-0 m-0"
@@ -48,6 +48,7 @@ const ProductItems: React.FC<ListProduct> = ({
                     nextClassName="border-2 px-4 py-2"
                     pageLinkClassName="pagination-link"
                     nextLinkClassName="pagination-link"
+                    breakClassName="pagination-items border-2 px-3 py-2"
                 />
             </div>
         </div>

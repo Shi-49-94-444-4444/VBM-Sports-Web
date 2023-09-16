@@ -18,7 +18,7 @@ const Banner = () => {
                         lg:justify-normal
                         lg:py-16 
                         xl:py-20
-                        transition-all
+                        transition
                         duration-300
                     "
                 >

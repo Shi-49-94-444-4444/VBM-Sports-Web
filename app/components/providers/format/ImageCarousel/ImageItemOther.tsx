@@ -9,7 +9,7 @@ const ImageItemOther: React.FC<Images> = ({
         <div className="
                 relative
                 h-full
-                transition-all
+                transition
                 duration-300
                 overflow-hidden
             "

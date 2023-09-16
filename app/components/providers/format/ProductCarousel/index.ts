@@ -1,7 +1,7 @@
 import ProductCarousel from "./ProductCarousel";
-import ProductOtherExtra from "./ProductOtherExtra";
+import ProductItemOther from "./ProductItemOther";
 
 export {
     ProductCarousel,
-    ProductOtherExtra
+    ProductItemOther
 }

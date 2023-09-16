@@ -1,5 +1,3 @@
-'use client'
-
 import { BackgroundProps } from "@/types"
 
 const Background: React.FC<BackgroundProps> = ({
@@ -16,8 +14,8 @@ const Background: React.FC<BackgroundProps> = ({
                 bg-no-repeat
                 w-auto 
                 h-auto
-                transition-all
-                duration-300
+                transition
+                duration-500
             "
             style={{
                 backgroundImage: `url(${src})`,

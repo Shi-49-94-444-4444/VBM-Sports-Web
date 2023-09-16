@@ -5,7 +5,7 @@ const IsMobileSearch = () => {
         <div className="
                 box-border 
                 block 
-                transition-all 
+                transition 
                 duration-300 
                 mb-1
             "
@@ -13,7 +13,7 @@ const IsMobileSearch = () => {
             <div className="
                     box-border 
                     flex-grow-2 
-                    transition-all 
+                    transition 
                     duration-300
                 "
             >
@@ -38,7 +38,7 @@ const IsMobileSearch = () => {
                         <div className="
                                 box-border 
                                 relative 
-                                transition-all 
+                                transition 
                                 duration-300
                             "
                         >
@@ -53,7 +53,7 @@ const IsMobileSearch = () => {
                                         box-border 
                                         flex 
                                         items-center 
-                                        transition-all 
+                                        transition 
                                         duration-300
                                     "
                                 >
@@ -74,7 +74,7 @@ const IsMobileSearch = () => {
                                             focus:ring-0
                                             font-medium 
                                             text-sm 
-                                            transition-all 
+                                            transition 
                                             duration-300 
                                             z-[900] 
                                             pl-2

@@ -1,6 +1,6 @@
-import { ButtonCusProps } from "@/types"
+import { ButtonProps } from "@/types"
 
-const ButtonCus: React.FC<ButtonCusProps> = ({
+const Button: React.FC<ButtonProps> = ({
     title,
     style,
     onClick,
@@ -21,7 +21,7 @@ const ButtonCus: React.FC<ButtonCusProps> = ({
                 px-10
                 rounded-lg
                 whitespace-nowrap
-                transition-all
+                transition
                 duration-500
                 ${style}    
             `}
@@ -38,4 +38,4 @@ const ButtonCus: React.FC<ButtonCusProps> = ({
     )
 }
 
-export default ButtonCus
+export default Button

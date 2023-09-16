@@ -1,8 +1,8 @@
 
-import { postNew } from "@/app/constants";
-import FormatHomePage from "../providers/form/FormatHomePage";
+import { postNew } from "@/constant";
 import PostNewContent from "./PostNew/PostNewContent";
 import IsMobilePostNew from "./PostNew/IsMobilePostNew"
+import { FormatHomePage } from "../providers";
 
 const PostNew = () => {
     return (

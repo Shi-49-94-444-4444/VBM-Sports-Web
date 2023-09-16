@@ -8,7 +8,7 @@ const OtherAccess = () => {
                 flex-row 
                 space-x-2
                 cursor-pointer
-                transition-all
+                transition
                 duration-300
             "
         >
@@ -16,7 +16,7 @@ const OtherAccess = () => {
                     flex 
                     justify-center 
                     items-center
-                    transition-all
+                    transition
                     duration-300
                 "
             >
@@ -30,7 +30,7 @@ const OtherAccess = () => {
                     justify-center 
                     items-center 
                     cursor-pointer
-                    transition-all
+                    transition
                     duration-300
                 "
             >
@@ -40,7 +40,7 @@ const OtherAccess = () => {
                     flex justify-center 
                     items-center 
                     cursor-pointer
-                    transition-all
+                    transition
                     duration-300
                 "
             >

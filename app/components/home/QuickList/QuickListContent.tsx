@@ -13,7 +13,7 @@ const QuickListContent: React.FC<ListProduct> = ({
                     md:grid-cols-2 
                     grid-cols-1
                     gap-5
-                    transition-all
+                    transition
                     duration-300    
                 "
             >

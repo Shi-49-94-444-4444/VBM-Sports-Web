@@ -1,4 +1,4 @@
-import UserCarousel from "./UserCarousel"
+import { UserCarousel } from "../../providers"
 
 const UserOtherExtra = () => {
     return (
@@ -9,7 +9,7 @@ const UserOtherExtra = () => {
                         flex-row 
                         justify-between 
                         items-center
-                        transition-all
+                        transition
                         duration-300
                     "
                 >
@@ -29,7 +29,7 @@ const UserOtherExtra = () => {
                             text-xl
                             uppercase
                             text-center
-                            transition-all
+                            transition
                             duration-300
                         "
                     >

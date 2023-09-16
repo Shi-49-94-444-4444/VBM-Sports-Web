@@ -1,6 +1,10 @@
-import { Container, Footer, UserOtherExtra } from '@/app/components';
-import UserProfileContent from '@/app/components/user/profile/UserProfileContent';
-import { listUser } from '@/app/constants';
+import { 
+    Container, 
+    Footer, 
+    UserOtherExtra, 
+    UserProfileContent 
+} from '@/app/components';
+import { listUser } from '@/constant';
 import Layout from '@/app/layout';
 
 const ProfileUser = () => {

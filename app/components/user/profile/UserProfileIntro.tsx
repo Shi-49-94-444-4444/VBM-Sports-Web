@@ -2,7 +2,7 @@ import Image from "next/image"
 import { BsFillChatDotsFill } from "react-icons/bs"
 import { BiSolidBellRing } from "react-icons/bi"
 import { User } from "@/types"
-import { ButtonCus } from "../../providers"
+import { Button } from "../../providers"
 
 const UserProfileIntro: React.FC<User> = ({
     id,
@@ -32,7 +32,7 @@ const UserProfileIntro: React.FC<User> = ({
                     </div>
                 </div>
                 <div className="relative flex flex-row items-center gap-5">
-                    <ButtonCus
+                    <Button
                         title="Chat"
                         style="py-4 px-12 text-xl"
                         onClick={() => { }}

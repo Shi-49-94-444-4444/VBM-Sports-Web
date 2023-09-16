@@ -11,7 +11,7 @@ const BannerImage = () => {
                 right-10 
                 hidden
                 lg:block
-                transition-all
+                transition
                 duration-300
             "
         >
@@ -19,7 +19,7 @@ const BannerImage = () => {
                     h-full 
                     flex 
                     justify-end
-                    transition-all
+                    transition
                     duration-300
                 "
             >

@@ -1,4 +1,4 @@
-import { navlinks } from '@/app/constants'
+import { navlinks } from '@/constant'
 import Link from 'next/link'
 import { useState } from 'react'
 import { AiOutlineDown } from 'react-icons/ai'

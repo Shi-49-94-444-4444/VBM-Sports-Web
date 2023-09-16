@@ -17,17 +17,18 @@ const PostNewContent: React.FC<PostNewContent> = ({
                 <div className="
                         grid 
                         grid-cols-2 
-                        gap-3
+                        gap-5
                     "
                 >
                     <div key={listItem[0].id} className="col-span-1">
                         <div className="
                                 relative 
-                                pb-[100%] 
-                                transition-all
+                                h-full
+                                transition
                                 duration-300
                                 hover:scale-105
                                 cursor-pointer
+                                group
                             "
                         >
                             <div className="
@@ -36,7 +37,7 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                     left-0 
                                     w-full 
                                     h-full
-                                    transition-all
+                                    transition
                                     duration-300
                                 "
                             >
@@ -77,8 +78,8 @@ const PostNewContent: React.FC<PostNewContent> = ({
                             <div key={listItem[1].id} className="row-span-1">
                                 <div className="
                                         relative 
-                                        pb-[50%] 
-                                        transition-all
+                                        h-full 
+                                        transition
                                         duration-300
                                         hover:scale-105
                                         cursor-pointer
@@ -90,7 +91,7 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                             left-0 
                                             w-full 
                                             h-full
-                                            transition-all
+                                            transition
                                             duration-300
                                         "
                                     >
@@ -127,8 +128,8 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                     <div key={listItem[2].id} className="col-span-1">
                                         <div className="
                                                 relative 
-                                                pb-[98%]
-                                                transition-all
+                                                h-full
+                                                transition
                                                 duration-300
                                                 hover:scale-105
                                                 cursor-pointer
@@ -140,7 +141,7 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                                     left-0 
                                                     w-full 
                                                     h-full
-                                                    transition-all
+                                                    transition
                                                     duration-300
                                                 "
                                             >
@@ -170,8 +171,8 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                     <div key={listItem[3].id} className="col-span-1">
                                         <div className="
                                                 relative 
-                                                pb-[98%]
-                                                transition-all
+                                                pb-[100%]
+                                                transition
                                                 duration-300
                                                 hover:scale-105
                                                 cursor-pointer
@@ -183,7 +184,7 @@ const PostNewContent: React.FC<PostNewContent> = ({
                                                     left-0 
                                                     w-full 
                                                     h-full
-                                                    transition-all
+                                                    transition
                                                     duration-300
                                                 "
                                             >

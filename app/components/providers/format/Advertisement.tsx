@@ -1,4 +1,4 @@
-import Container from "../form/Container";
+import Container from "./Container";
 
 const Advertisement = () => {
     return (
@@ -15,7 +15,7 @@ const Advertisement = () => {
                     h-[200px]
                     flex 
                     items-center 
-                    transition-all
+                    transition
                     duration-300
                     mt-20
                 "
@@ -30,7 +30,7 @@ const Advertisement = () => {
                     h-full
                     flex
                     items-center
-                    transition-all
+                    transition
                     duration-300
                 "
                     style={{
@@ -57,7 +57,7 @@ const Advertisement = () => {
                                         text-base
                                         font-bold 
                                         uppercase
-                                        transition-all
+                                        transition
                                         duration-300
                                     "
                                     >
@@ -69,7 +69,7 @@ const Advertisement = () => {
                                         md:text-base
                                         text-sm
                                         font-medium
-                                        transition-all
+                                        transition
                                         duration-300
                                     "
                                     >
@@ -91,7 +91,7 @@ const Advertisement = () => {
                                             px-3
                                             bg-red-600
                                             rounded-full
-                                            transition-all
+                                            transition
                                             duration-300
                                         "
                                         >

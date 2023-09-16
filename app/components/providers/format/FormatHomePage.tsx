@@ -14,7 +14,7 @@ const FormatHomePage: React.FC<FormatHomePageProps> = ({
                         flex-row 
                         justify-between 
                         items-center
-                        transition-all
+                        transition
                         duration-300
                     "
                 >
@@ -25,7 +25,7 @@ const FormatHomePage: React.FC<FormatHomePageProps> = ({
                             text-xl
                             uppercase
                             text-center
-                            transition-all
+                            transition
                             duration-300
                         "
                     >

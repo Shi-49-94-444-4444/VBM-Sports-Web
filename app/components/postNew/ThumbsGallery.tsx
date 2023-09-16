@@ -28,7 +28,7 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
                     <SwiperSlide key={index}>
                         <div className="
                                 relative 
-                                transition-all
+                                transition
                                 pb-[70%] 
                                 duration-300
                                 cursor-pointer
@@ -40,7 +40,7 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
                                     left-0 
                                     w-full 
                                     h-full
-                                    transition-all
+                                    transition
                                     duration-300
                                 "
                             >
@@ -68,7 +68,7 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
                         <div className="pt-4">
                             <div className="
                                     relative 
-                                    transition-all
+                                    transition
                                     pb-[70%] 
                                     duration-300
                                     cursor-pointer
@@ -80,7 +80,7 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ images }) => {
                                         left-0 
                                         w-full 
                                         h-full
-                                        transition-all
+                                        transition
                                         duration-300
                                     "
                                 >

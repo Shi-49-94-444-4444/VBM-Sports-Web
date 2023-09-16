@@ -1,15 +1,7 @@
-import Background from "./BackgroundCus";
-import ButtonCus from "./ButtonCus";
-import Container from "./Container";
-import FormatUI from "./FormatUi";
+import Button from "./Button";
 import Input from "./Input";
-import FormatHomePage from "./FormatHomePage";
 
 export {
-    Background,
-    ButtonCus,
-    Container,
-    FormatUI,
+    Button,
     Input,
-    FormatHomePage
 }

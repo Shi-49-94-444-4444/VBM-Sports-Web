@@ -13,7 +13,7 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                         flex-row 
                         justify-between 
                         items-center
-                        transition-all
+                        transition
                         duration-300
                     "
                 >
@@ -41,7 +41,7 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                                 text-xl
                                 uppercase
                                 text-center
-                                transition-all
+                                transition
                                 duration-300
                             "
                         >

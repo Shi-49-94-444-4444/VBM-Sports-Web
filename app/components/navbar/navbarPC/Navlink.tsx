@@ -1,5 +1,5 @@
 import { AiOutlineDown } from "react-icons/ai"
-import { navlinks } from "@/app/constants"
+import { navlinks } from "@/constant"
 import { useState } from "react";
 import NavlinkItem from "./NavlinkItem";
 import Link from "next/link";
@@ -47,7 +47,7 @@ const NavLink = () => {
                             self-center
                             box-border
                             relative
-                            transition-all
+                            transition
                             duration-300
                         "
                     >

@@ -11,7 +11,7 @@ export interface ContainerProps {
     children: React.ReactNode
 }
 
-export interface ButtonCusProps {
+export interface ButtonProps {
     title: string,
     style: string,
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;

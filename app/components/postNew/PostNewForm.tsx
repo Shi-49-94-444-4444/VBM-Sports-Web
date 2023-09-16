@@ -1,4 +1,4 @@
-import { ButtonCus } from "../providers"
+import { Button } from "../providers"
 import Input from "../providers/form/Input"
 
 const PostNewForm = () => {
@@ -106,7 +106,7 @@ const PostNewForm = () => {
                                     text-base
                                     py-3    
                                     px-6
-                                    transition-all
+                                    transition
                                     duration-300
                                 "
                                 rows={5}
@@ -118,7 +118,7 @@ const PostNewForm = () => {
                 <div className="grid grid-cols-5">
                     <div className="col-span-1"/>
                     <div className="col-span-4 py-4 flex justify-center">
-                        <ButtonCus
+                        <Button
                             title="Confirm"
                             style="px-16 py-3 text-xl"
                             onClick={() => {}}

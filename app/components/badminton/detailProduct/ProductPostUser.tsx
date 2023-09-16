@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { AiFillStar } from "react-icons/ai"
 import { Product, User } from "@/types"
-import { ButtonCus } from "../../providers"
+import { Button } from "../../providers"
 import { useRouter } from "next/router";
 
 interface ProductPostUserProps {
@@ -52,7 +52,7 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
                     <div className="font-semibold text-xl">
                         {user.name}
                     </div>
-                    <ButtonCus
+                    <Button
                         title="Visit bio"
                         style="py-3"
                         onClick={() => { }}
@@ -141,7 +141,7 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
                     </div>
                 </div>
             </div>
-            <ButtonCus
+            <Button
                 title="Join now"
                 style="py-4 justify-center"
                 onClick={handleClick}

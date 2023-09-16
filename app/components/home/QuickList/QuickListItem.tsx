@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Product } from '@/types';
-import { ButtonCus } from '../../providers';
+import { Button } from '../../providers';
 
 const QuickListItem: React.FC<Product> = ({
     id,
@@ -27,7 +27,7 @@ const QuickListItem: React.FC<Product> = ({
                 shadow-lg 
                 rounded-xl 
                 mb-2
-                transition-all
+                transition
                 duration-300
             "
         >
@@ -35,7 +35,7 @@ const QuickListItem: React.FC<Product> = ({
                 <div className="
                         relative
                         pb-[50%]
-                        transition-all
+                        transition
                         duration-300
                         hover:scale-105
                         cursor-pointer
@@ -54,7 +54,7 @@ const QuickListItem: React.FC<Product> = ({
                             alt="QuickList"
                             className="
                                 rounded-t-xl 
-                                hover:rounded-none
+                                hover:rounded-t-xl
                                 object-cover
                             "
                             fill
@@ -98,7 +98,7 @@ const QuickListItem: React.FC<Product> = ({
                         flex 
                         flex-col 
                         gap-3
-                        transition-all
+                        transition
                         duration-300
                     "
                 >
@@ -108,7 +108,7 @@ const QuickListItem: React.FC<Product> = ({
                             text-[#922049] 
                             whitespace-nowrap 
                             line-clamp-1
-                            transition-all
+                            transition
                             duration-300
                         "
                     >
@@ -119,7 +119,7 @@ const QuickListItem: React.FC<Product> = ({
                             font-medium 
                             whitespace-nowrap 
                             line-clamp-1
-                            transition-all
+                            transition
                             duration-300
                         "
                     >
@@ -129,7 +129,7 @@ const QuickListItem: React.FC<Product> = ({
                             whitespace-nowrap 
                             line-clamp-1 
                             space-x-3
-                            transition-all
+                            transition
                             duration-300
                         "
                     >
@@ -156,14 +156,14 @@ const QuickListItem: React.FC<Product> = ({
                     <p className="
                             text-gray-500 
                             line-clamp-3
-                            transition-all
+                            transition
                             duration-300
                         "
                     >
                         Mô tả ngắn: {description}
                     </p>
                     <div className="flex">
-                        <ButtonCus 
+                        <Button 
                             title="Đặt ngay"
                             style=""
                             onClick={() => {}}

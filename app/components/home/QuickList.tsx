@@ -1,6 +1,6 @@
-import { listItems } from '@/app/constants';
-import FormatHomePage from '../providers/form/FormatHomePage';
+import { listItems } from '@/constant';
 import QuickListContent from './QuickList/QuickListContent';
+import { FormatHomePage } from '../providers';
 
 const QuickList = () => {
     return (

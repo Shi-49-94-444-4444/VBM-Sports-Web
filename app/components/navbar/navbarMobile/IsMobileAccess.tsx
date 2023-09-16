@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { VscAccount } from 'react-icons/vsc';
@@ -178,7 +178,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                     type="button"
                     className="
                         box-border 
-                        transition-all 
+                        transition 
                         duration-300 
                         pl-4 
                         pr-0 

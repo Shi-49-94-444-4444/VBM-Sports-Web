@@ -27,7 +27,7 @@ const FilterCus: React.FC<FilterCusProps> = ({
                     text-bg
                     p-3
                     rounded-md
-                    transition-all
+                    transition
                     duration-500
                     focus:outline-none
                     text-gray-600

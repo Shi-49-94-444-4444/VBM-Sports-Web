@@ -12,7 +12,7 @@ const Container: React.FC<ContainerProps> = ({
                 md:px-10
                 md:py-5
                 px-4
-                transition-all
+                transition
                 duration-300
             "
         >

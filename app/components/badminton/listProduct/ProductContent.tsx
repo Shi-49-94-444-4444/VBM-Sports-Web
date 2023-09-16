@@ -3,7 +3,7 @@ import Image from "next/image"
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
-import { ButtonCus } from "../../providers";
+import { Button } from "../../providers";
 
 const ProductContent: React.FC<Product> = ({
     id,
@@ -34,7 +34,7 @@ const ProductContent: React.FC<Product> = ({
                 grid 
                 grid-cols-11 
                 border-2 
-                rounded-sm
+                rounded-xl
                 h-auto
                 w-full
                 mb-4
@@ -46,9 +46,8 @@ const ProductContent: React.FC<Product> = ({
                 <div className="
                         relative
                         h-full
-                        transition-all
+                        transition
                         duration-300
-                        hover:scale-105
                         cursor-pointer
                     "
                 >
@@ -64,8 +63,7 @@ const ProductContent: React.FC<Product> = ({
                             src={image! && image[1].src!}
                             alt="QuickList"
                             className="
-                                rounded-xl 
-                                hover:rounded-none
+                                rounded-l-xl 
                                 object-cover
                             "
                             fill
@@ -142,7 +140,7 @@ const ProductContent: React.FC<Product> = ({
                         </span>
                     </div>
                     <div>
-                        <ButtonCus
+                        <Button
                             title="Đặt ngay"
                             style="px-10 text-lg font-semibold"
                             onClick={handleDetailClick}

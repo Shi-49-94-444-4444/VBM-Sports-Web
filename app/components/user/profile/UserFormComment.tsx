@@ -1,4 +1,4 @@
-import { ButtonCus } from "../../providers"
+import { Button } from "../../providers"
 
 const UserFormComment = () => {
     return (
@@ -24,7 +24,7 @@ const UserFormComment = () => {
                     />
                 </div>
                 <div className="col-span-1">
-                    <ButtonCus
+                    <Button
                         title="POST"
                         style="h-full w-full justify-center !rounded-xl"
                         onClick={() => { }}

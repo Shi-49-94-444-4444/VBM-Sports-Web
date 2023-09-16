@@ -1,8 +1,13 @@
 import { useRouter } from "next/router"
 import Layout from '@/app/layout';
-import { Container, Footer, ProductOtherExtra } from "@/app/components";
-import { listItems, listUser } from "@/app/constants";
-import { ProductContent, ProductDetail } from "@/app/components/badminton";
+import { 
+    Container, 
+    Footer, 
+    ProductContent, 
+    ProductDetail, 
+    ProductOtherExtra 
+} from "@/app/components";
+import { listItems, listUser } from "@/constant";
 
 const DetailBadminton = () => {
     const router = useRouter()

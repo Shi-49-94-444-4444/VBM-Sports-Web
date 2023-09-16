@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Background from "./BackgroundCus"
+import Background from "./Background"
 import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
 import ClientOnly from "../../ClinetOnly"
@@ -22,11 +22,19 @@ const FormatUI: React.FC<FormatUIProps> = ({
                         flex 
                         items-center 
                         justify-center
-                        transition-all
+                        transition
                         duration-500
                     "
                 >
-                    <div className="absolute top-0 left-0 p-8">
+                    <div className="
+                            absolute 
+                            top-0 
+                            left-0 
+                            p-8
+                            md:block
+                            hidden
+                        "
+                    >
                         <div className="
                                 flex 
                                 flex-row 

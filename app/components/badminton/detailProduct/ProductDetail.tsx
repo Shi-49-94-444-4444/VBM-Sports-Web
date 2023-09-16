@@ -15,7 +15,12 @@ const ProductDetail: React.FC<Product> = ({
     return (
         <div className="relative py-10" key={id}>
             <div className="flex flex-col gap-10">
-                <div className="flex flex-col font-semibold gap-1">
+                <div className="
+                        flex 
+                        flex-col 
+                        font-semibold 
+                        gap-1
+                    ">
                     <h2 className="text-3xl">
                         Tony Mack
                     </h2>
@@ -31,9 +36,21 @@ const ProductDetail: React.FC<Product> = ({
                         {description}
                     </p>
                 </div>
-                <div className="flex flex-col gap-5 text-gray-600">
+                <div className="
+                        flex 
+                        flex-col 
+                        gap-5 
+                        text-gray-600
+                    "
+                >
                     <div className="text-xl font-semibold space-x-1">
-                        <span className="border-b-2 border-solid border-red-500 inline-block">
+                        <span className="
+                                border-b-2 
+                                border-solid 
+                                border-red-500 
+                                inline-block
+                            "
+                        >
                             Location:
                         </span>
                         <span>
@@ -75,7 +92,14 @@ const ProductDetail: React.FC<Product> = ({
                         <FaTwitterSquare size={40} className="text-blue-600 cursor-pointer" />
                         <VscLinkExternal size={40} className="cursor-pointer" />
                         <div className="flex-grow"></div>
-                        <div className="text-base text-gray-500 underline cursor-pointer text-right">
+                        <div className="
+                                text-base 
+                                text-gray-500 
+                                underline 
+                                cursor-pointer 
+                                text-right
+                            "
+                        >
                             Report this user
                         </div>
                     </div>

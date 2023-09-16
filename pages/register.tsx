@@ -2,7 +2,7 @@
 import { FormatUI, Input } from "@/app/components";
 import Link from "next/link";
 import { AiFillMail } from "react-icons/ai";
-import { BiSolidLockAlt, BiSolidUser } from "react-icons/bi";
+import { BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from "react-icons/bi";
 
 const register = () => {
     const bodyContent = (
