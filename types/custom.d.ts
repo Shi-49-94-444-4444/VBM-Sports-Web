@@ -24,7 +24,8 @@ export interface FormatUIProps {
     subTitle?: React.ReactElement,
     titleButton: string,
     body: React.ReactElement,
-    footer?: React.ReactElement
+    footer?: React.ReactElement,
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface InputProps {
@@ -40,4 +41,36 @@ export interface InputProps {
     errors?: FieldErrors;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     colorInput?: string
+}
+
+export interface FormatHomePageProps {
+    title: string;
+    link: string;
+}
+
+export interface QuickBannerTitle {
+    title: string;
+    subTitle: string;
+}
+
+export interface FilterItem {
+    id: number;
+    title: string;
+    src: string;
+}
+
+export interface FilterCusProps {
+    id: number;
+    title: string;
+    listItem: FilterItem[]
+}
+
+export interface linkItem {
+    id: number
+    label: string,
+    href?: string
+}
+
+export interface NavlinkItemProps {
+    linkItems?: linkItem[] 
 }

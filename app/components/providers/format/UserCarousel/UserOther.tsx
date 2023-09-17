@@ -8,7 +8,7 @@ const UserOther: React.FC<User> = ({
     src,
     name,
     description,
-    rating
+    rating,
 }) => {
     return (
         <div className="

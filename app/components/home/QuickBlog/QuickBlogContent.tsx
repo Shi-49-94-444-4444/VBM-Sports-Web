@@ -1,8 +1,8 @@
-import { PostNewContent } from "@/types";
+import { ListBlog } from "@/types";
 import Image from "next/image";
 import { Container } from "../../providers";
 
-const PostNewContent: React.FC<PostNewContent> = ({
+const QuickBlogContent: React.FC<ListBlog> = ({
     listItem
 }) => {
     return (
@@ -221,4 +221,4 @@ const PostNewContent: React.FC<PostNewContent> = ({
     );
 };
 
-export default PostNewContent;
+export default QuickBlogContent;

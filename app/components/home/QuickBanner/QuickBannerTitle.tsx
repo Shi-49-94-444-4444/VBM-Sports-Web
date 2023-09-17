@@ -18,13 +18,13 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                     "
                 >
                     <div className="
-                            w-1/4 
+                            w-1/3 
                             h-1 
                             bg-orange-cus
                             hidden
                             lg:block
                         "
-                    ></div>
+                    />
                     <div className="
                             flex
                             flex-col
@@ -58,13 +58,13 @@ const QuickBannerTitle: React.FC<QuickBannerTitle> = ({
                         </h2>
                     </div>
                     <div className="
-                            w-1/4 
+                            w-1/3 
                             h-1
                             bg-orange-cus
                             hidden
                             lg:block
                         "
-                    ></div>
+                    />
                 </div>
             </Container>
         </div>

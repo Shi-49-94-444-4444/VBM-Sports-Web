@@ -10,7 +10,8 @@ const FormatUI: React.FC<FormatUIProps> = ({
     subTitle,
     titleButton,
     body,
-    footer
+    footer,
+    onClick
 }) => {
     return (
         <ClientOnly>
@@ -86,10 +87,9 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                         py-3
                                         focus:outline-none
                                     "
+                                    onClick={onClick}
                                 >
-                                    <Link href="#" className="focus:outline-none">
-                                        {titleButton}
-                                    </Link>
+                                    {titleButton}
                                 </button>
                             </div>
                             {subTitle && (

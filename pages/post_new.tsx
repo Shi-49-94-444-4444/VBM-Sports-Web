@@ -8,14 +8,14 @@ import { images } from '@/constant';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 
-const post_new = () => {
+const PostNew = () => {
     return (
         <Layout>
             <Container>
-                <div className="relative mb-20">
+                <div className="relative mb-10">
                     <div className="relative py-10">
                         <div className="flex justify-center">
-                            <h1 className="text-3xl font-medium text-gray-600">
+                            <h1 className="title-custom">
                                 New post page
                             </h1>
                         </div>
@@ -53,4 +53,4 @@ const post_new = () => {
     )
 }
 
-export default post_new
+export default PostNew

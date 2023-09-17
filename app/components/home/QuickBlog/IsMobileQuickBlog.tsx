@@ -1,8 +1,8 @@
-import { PostNewContent } from "@/types";
 import Image from "next/image";
 import { Container } from "../../providers";
+import { ListBlog } from "@/types";
 
-const IsMobilePostNew: React.FC<PostNewContent> = ({
+const IsMobileQuickBlog: React.FC<ListBlog> = ({
     listItem
 }) => {
     return (
@@ -74,4 +74,4 @@ const IsMobilePostNew: React.FC<PostNewContent> = ({
     );
 };
 
-export default IsMobilePostNew;
+export default IsMobileQuickBlog;

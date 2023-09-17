@@ -1,10 +1,18 @@
 
 import { FormatUI, Input } from "@/app/components";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { AiFillMail } from "react-icons/ai";
-import { BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from "react-icons/bi";
+import { BiSolidLockAlt, BiSolidUser } from "react-icons/bi";
 
-const register = () => {
+const Register = () => {
+    const router = useRouter();
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        router.push("/register_stepper");
+    };
+
     const bodyContent = (
         <>
             <Input
@@ -63,8 +71,9 @@ const register = () => {
             body={bodyContent}
             titleButton="Vào trang"
             footer={footerContent}
+            onClick={handleClick}
         />
     );
 };
 
-export default register;
+export default Register;

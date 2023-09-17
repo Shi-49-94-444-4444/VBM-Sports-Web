@@ -3,7 +3,7 @@ import { AiFillMail } from "react-icons/ai";
 import Link from "next/link"; 
 import { BiSolidLockAlt } from "react-icons/bi";
 
-const login = () => {
+const Login = () => {
     const bodyContent = (
         <>
             <Input
@@ -80,8 +80,9 @@ const login = () => {
             body={bodyContent}
             titleButton="Vào trang"
             footer={footerContent}
+            onClick={() => {}}
         />
     );
 };
 
-export default login;
+export default Login;

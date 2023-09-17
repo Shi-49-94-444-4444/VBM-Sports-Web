@@ -25,7 +25,7 @@ const Payment = () => {
     return (
         <Layout>
             <Container>
-                <div className="relative">
+                <div className="relative py-5">
                     <div className="flex items-center justify-center py-5">
                         <div className="title-custom">
                             Payment Checking

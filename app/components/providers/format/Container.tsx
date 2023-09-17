@@ -8,9 +8,8 @@ const Container: React.FC<ContainerProps> = ({
             className="
                 max-w-[2520px]
                 lg:px-24
-                lg:py-10
                 md:px-10
-                md:py-5
+                py-5
                 px-4
                 transition
                 duration-300

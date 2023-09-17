@@ -7,7 +7,7 @@ import {
 } from "@/app/components"
 import Layout from '@/app/layout';
 
-const home = () => {
+const Home = () => {
   return (
     <Layout>
       <Banner />
@@ -19,4 +19,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Product } from '@/types';
 import { Button } from '../../providers';
+import { useRouter } from 'next/router';
 
 const QuickListItem: React.FC<Product> = ({
     id,
@@ -19,6 +20,13 @@ const QuickListItem: React.FC<Product> = ({
     const handleLikeClick = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
         setIsLiked(!isLiked);
+    };
+
+    const router = useRouter();
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        router.push(`/detail_badminton/${id}`);
     };
 
     return (
@@ -166,7 +174,7 @@ const QuickListItem: React.FC<Product> = ({
                         <Button 
                             title="Đặt ngay"
                             style=""
-                            onClick={() => {}}
+                            onClick={handleClick}
                         />
                     </div>
                 </div>

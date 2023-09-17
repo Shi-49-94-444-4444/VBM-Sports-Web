@@ -5,6 +5,7 @@ import Container from "./Container";
 import FormatUI from "./FormatUi";
 import FormatHomePage from "./FormatHomePage";
 import FormatPayment from "./FormatPayment";
+import Share from "./Share";
 
 export * from "./ImageCarousel"
 export * from "./ProductCarousel"
@@ -17,5 +18,6 @@ export {
     Container,
     FormatUI,
     FormatHomePage,
-    FormatPayment
+    FormatPayment,
+    Share
 }

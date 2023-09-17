@@ -2,7 +2,7 @@
 import { FormatUI, Input } from "@/app/components";
 import { AiFillMail } from "react-icons/ai";
 
-const login = () => {
+const ForgotPassword = () => {
     const bodyContent = (
         <>
             <Input
@@ -22,8 +22,9 @@ const login = () => {
             title="Quên Mật Khẩu"
             body={bodyContent}
             titleButton="Đặt ngay"
+            onClick={() => {}}
         />
     );
 };
 
-export default login;
+export default ForgotPassword;

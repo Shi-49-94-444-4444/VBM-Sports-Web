@@ -8,7 +8,7 @@ import {
 } from "@/app/components";
 import Advertisement from "@/app/components/providers/format/Advertisement";
 
-const listBadminton = () => {
+const ListBadminton = () => {
     return (
         <Layout>
             <BannerBadminton />
@@ -27,4 +27,4 @@ const listBadminton = () => {
     )
 }
 
-export default listBadminton;
+export default ListBadminton;

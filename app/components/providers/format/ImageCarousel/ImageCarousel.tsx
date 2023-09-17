@@ -14,6 +14,7 @@ const ImageCarousel: React.FC<Product> = ({
     return (
         <Swiper
             pagination={{ clickable: true }}
+            loop={true}
             slidesPerView={1}
             className="h-full rounded-lg"
         >

@@ -1,15 +1,14 @@
 
 import { postNew } from "@/constant";
-import PostNewContent from "./PostNew/PostNewContent";
-import IsMobilePostNew from "./PostNew/IsMobilePostNew"
 import { FormatHomePage } from "../providers";
+import { IsMobileQuickBlog, QuickBlogContent } from "./QuickBlog";
 
 const PostNew = () => {
     return (
         <>
             <FormatHomePage title="Tin mới" link="/"/>
-            <PostNewContent listItem={postNew}/>
-            <IsMobilePostNew listItem={postNew}/>
+            <QuickBlogContent listItem={postNew}/>
+            <IsMobileQuickBlog listItem={postNew}/>
         </>
     );
 };

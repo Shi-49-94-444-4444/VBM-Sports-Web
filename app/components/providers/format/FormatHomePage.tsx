@@ -7,7 +7,7 @@ const FormatHomePage: React.FC<FormatHomePageProps> = ({
     link
 }) => {
     return (
-        <div className="pt-16 my-4">
+        <div className="pt-10">
             <Container>
                 <div className="
                         flex 
