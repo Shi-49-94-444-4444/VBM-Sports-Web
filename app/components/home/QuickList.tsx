@@ -1,4 +1,4 @@
-import { listItems } from '@/utils';
+import { listItems } from '@/constant';
 import QuickListContent from './QuickList/QuickListContent';
 import { FormatHomePage } from '../providers';
 

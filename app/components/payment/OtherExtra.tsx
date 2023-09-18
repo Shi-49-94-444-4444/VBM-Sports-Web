@@ -1,4 +1,4 @@
-import { listItems } from "@/utils"
+import { listItems } from "@/constant"
 import { ProductItemOther } from "../providers"
 
 const OtherExtra = () => {

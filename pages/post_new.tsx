@@ -4,7 +4,7 @@ import {
     PostNewForm, 
     ThumbGallery 
 } from '@/app/components';
-import { images } from '@/utils';
+import { images } from '@/constant';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 

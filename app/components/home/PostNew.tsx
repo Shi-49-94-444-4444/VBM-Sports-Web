@@ -1,5 +1,5 @@
 
-import { postNew } from "@/utils";
+import { postNew } from "@/constant";
 import { FormatHomePage } from "../providers";
 import { IsMobileQuickBlog, QuickBlogContent } from "./QuickBlog";
 

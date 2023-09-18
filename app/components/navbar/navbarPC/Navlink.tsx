@@ -1,5 +1,5 @@
 import { AiOutlineDown } from "react-icons/ai"
-import { navlinks } from "@/utils"
+import { navlinks } from "@/constant"
 import { useState } from "react";
 import NavlinkItem from "./NavlinkItem";
 import Link from "next/link";

@@ -7,7 +7,7 @@ import {
     ProductDetail, 
     ProductOtherExtra 
 } from "@/app/components";
-import { listItems, listUser } from "@/utils";
+import { listItems, listUser } from "@/constant";
 
 const DetailBadminton = () => {
     const router = useRouter()

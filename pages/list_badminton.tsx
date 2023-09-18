@@ -1,4 +1,4 @@
-import { listItems } from "@/utils";
+import { listItems } from "@/constant";
 import Layout from '@/app/layout';
 import { 
     BannerBadminton, 
