@@ -1,4 +1,4 @@
-import { listMethodsPayment } from "@/constant"
+import { listMethodsPayment } from "@/utils"
 import FormatMethod from "./FormatMethod"
 import { useState } from "react";
 

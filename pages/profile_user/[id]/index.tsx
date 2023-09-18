@@ -4,7 +4,7 @@ import {
     UserOtherExtra, 
     UserProfileContent 
 } from '@/app/components';
-import { listUser } from '@/constant';
+import { listUser } from '@/utils';
 import Layout from '@/app/layout';
 
 const ProfileUser = () => {

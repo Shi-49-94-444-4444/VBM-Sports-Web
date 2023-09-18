@@ -1,4 +1,4 @@
-import { filterTitle } from "@/constant"
+import { filterTitle } from "@/utils"
 import { FaFilter } from "react-icons/fa"
 import { FilterCus } from "../../providers"
 

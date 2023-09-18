@@ -1,4 +1,4 @@
-import { listVoucher } from "@/constant"
+import { listVoucher } from "@/utils"
 import Select from "react-select"
 
 const PaymentVoucher = () => {

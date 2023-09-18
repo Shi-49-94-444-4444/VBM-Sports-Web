@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css';
 
-import { listUser } from '@/constant';
+import { listUser } from '@/utils';
 import UserOther from './UserOther';
 
 SwiperCore.use([Pagination]);
