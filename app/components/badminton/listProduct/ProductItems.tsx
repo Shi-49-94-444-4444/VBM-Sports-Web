@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { ListProduct } from '@/types';
 import ProductContent from './ProductContent';
 
-const ProductItems: React.FC<ListProduct> = ({ 
-    listItem 
+const ProductItems: React.FC<ListProduct> = ({
+    listItem
 }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 5;
@@ -19,7 +19,7 @@ const ProductItems: React.FC<ListProduct> = ({
     const visibleItems = listItem.slice(startIndex, endIndex);
 
     return (
-        <div className="col-span-3 h-auto w-full relative">
+        <>
             {visibleItems.map((item) => (
                 <ProductContent
                     key={item.id}
@@ -51,7 +51,7 @@ const ProductItems: React.FC<ListProduct> = ({
                     breakClassName="pagination-items border-2 px-3 py-2"
                 />
             </div>
-        </div>
+        </>
     );
 };
 

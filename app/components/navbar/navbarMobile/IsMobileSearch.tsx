@@ -28,7 +28,7 @@ const IsMobileSearch = () => {
                             bg-search-cus 
                             rounded-full 
                             cursor-default 
-                            py-2 
+                            py-1 
                             px-3 
                             static 
                             w-full 
@@ -73,7 +73,7 @@ const IsMobileSearch = () => {
                                             border-none
                                             focus:ring-0
                                             font-medium 
-                                            text-sm 
+                                            text-base
                                             transition 
                                             duration-300 
                                             z-[900] 

@@ -7,12 +7,13 @@ const Container: React.FC<ContainerProps> = ({
         <div
             className="
                 max-w-[2520px]
-                lg:px-24
+                xl:px-24
+                lg:px-16
                 md:px-10
                 py-5
                 px-4
-                transition
-                duration-300
+                transition-all
+                duration-500
             "
         >
             {children}

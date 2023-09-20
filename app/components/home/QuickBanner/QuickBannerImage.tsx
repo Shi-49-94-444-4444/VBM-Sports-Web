@@ -10,8 +10,8 @@ const QuickBannerImage = () => {
                 h-[250px]
                 flex 
                 items-center 
-                transition
-                duration-300
+                transition-all
+                duration-500
             "
         >
             <div
@@ -24,8 +24,8 @@ const QuickBannerImage = () => {
                     h-screen
                     flex
                     items-center
-                    transition
-                    duration-300
+                    transition-all
+                    duration-500
                 "
                 style={{
                     backgroundImage: "url('images/quickbanner.png')",
@@ -49,8 +49,8 @@ const QuickBannerImage = () => {
                                         text-xl
                                         font-bold 
                                         uppercase
-                                        transition
-                                        duration-300
+                                        transition-all
+                                        duration-500
                                     "
                                 >
                                     Vợt cầu lông
@@ -61,8 +61,8 @@ const QuickBannerImage = () => {
                                         md:text-lg
                                         text-base
                                         font-medium
-                                        transition
-                                        duration-300
+                                        transition-all
+                                        duration-500
                                     "
                                 >
                                     mua ngay giảm{' '}
@@ -76,8 +76,8 @@ const QuickBannerImage = () => {
                                         md:text-lg
                                         text-base
                                         font-medium
-                                        transition
-                                        duration-300
+                                        transition-all
+                                        duration-500
                                     "
                                 >
                                     bây giờ chỉ còn{' '}

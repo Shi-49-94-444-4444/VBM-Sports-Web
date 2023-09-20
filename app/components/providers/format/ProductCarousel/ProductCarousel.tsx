@@ -1,9 +1,9 @@
 import SwiperCore, { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
-import '@/styles/swiper-product.css';
+import '@/styles/swiper-product.css'
 
-import { listItems } from '@/constant';
+import { listItems } from '@/utils';
 import ProductItemOther from './ProductItemOther';
 
 SwiperCore.use([Pagination]);

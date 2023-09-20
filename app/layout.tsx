@@ -1,4 +1,5 @@
-import ClientOnly from './components/ClinetOnly'
+import { Footer } from './components'
+import ClientOnly from './components/ClientOnly'
 import Navbar from './components/navbar/Navbar'
 import './globals.css'
 
@@ -11,6 +12,7 @@ export default function RootLayout({
     <ClientOnly>
         <Navbar />
         {children}
+        <Footer />
     </ClientOnly>
   )
 }

@@ -6,15 +6,15 @@ import { AiFillMail } from "react-icons/ai";
 import { BiSolidLockAlt, BiSolidUser } from "react-icons/bi";
 
 const Register = () => {
-    const router = useRouter();
+    const router = useRouter()
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        router.push("/register_stepper");
+        router.push("/register_stepper")
+        event.preventDefault()
     };
 
     const bodyContent = (
-        <>
+        <div className="flex flex-col gap-5">
             <Input
                 icon={<BiSolidUser size={25} />}
                 label="Họ và tên"
@@ -25,25 +25,25 @@ const Register = () => {
             <Input
                 icon={<AiFillMail size={25} />}
                 label="Email"
-                placeholder="Nhập email"
+                placeholder="Nhập email của bạn"
                 type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
             <Input
                 icon={<BiSolidLockAlt size={25} />}
                 label="Mật khẩu"
-                placeholder="Nhập mật khẩu"
+                placeholder="Nhập mật khẩu của bạn"
                 type="password"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
             <Input
                 icon={<BiSolidLockAlt size={25} />}
                 label="Xác nhận mật khẩu"
-                placeholder="Nhập lại mật khẩu"
+                placeholder="Nhập lại mật khẩu của bạn"
                 type="password"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
-        </>
+        </div>
     )
 
     const footerContent = (

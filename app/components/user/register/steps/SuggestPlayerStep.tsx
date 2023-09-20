@@ -1,5 +1,5 @@
 import UserOther from "@/app/components/providers/format/UserCarousel/UserOther"
-import { listUser } from "@/constant"
+import { listUser } from "@/utils"
 
 const SuggestPlayerStep = () => {
     const sliceUser = listUser.slice(0, 6)

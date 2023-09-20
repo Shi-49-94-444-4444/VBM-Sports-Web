@@ -25,14 +25,15 @@ const ProductContent: React.FC<Product> = ({
     const router = useRouter();
 
     const handleDetailClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
         router.push(`/detail_badminton/${id}`);
+        event.preventDefault();
     };
 
     return (
         <div className="
                 grid 
-                grid-cols-11 
+                md:grid-cols-11 
+                grid-col-1
                 border-2 
                 rounded-xl
                 h-auto
@@ -42,18 +43,20 @@ const ProductContent: React.FC<Product> = ({
             "
             key={id}
         >
-            <div className="col-span-5">
+            <div className="md:col-span-5 col-span-1">
                 <div className="
                         relative
-                        h-full
-                        transition
-                        duration-300
+                        md:h-full
+                        sm:h-96
+                        h-80
+                        transition-all
+                        duration-500
                         cursor-pointer
                     "
                 >
                     <div className="
                             absolute 
-                            top-0 
+                            top-0
                             left-0 
                             w-full 
                             h-full
@@ -63,7 +66,9 @@ const ProductContent: React.FC<Product> = ({
                             src={image! && image[1].src!}
                             alt="QuickList"
                             className="
-                                rounded-l-xl 
+                                md:rounded-l-xl
+                                md:rounded-r-none
+                                rounded-t-xl
                                 object-cover
                             "
                             fill
@@ -103,31 +108,31 @@ const ProductContent: React.FC<Product> = ({
                     </div>
                 </div>
             </div>
-            <div className="col-span-6 p-4">
+            <div className="md:col-span-6 col-span-1 p-4">
                 <div className="
                         flex 
                         flex-col 
-                        gap-5
+                        gap-3
                     "
                 >
                     <div>
-                        <h3 className="text-lg font-semibold">
+                        <h3 className="text-2xl font-semibold text-[#922049]">
                             {title}
                         </h3>
                     </div>
-                    <div className="flex-nowrap text-lg">
+                    <div className="flex-nowrap text-lg font-semibold">
                         {price} đ/h {'    '}
                         <span className="text-red-500">
                             {price} đ/h
                         </span>
                     </div>
-                    <div className="text-base">
+                    <div className="text-base text-gray-500">
                         Thời gian mở cửa: {' '}
-                        <span className="font-semibold">
+                        <span className="font-semibold text-black">
                             {timeOpen}h-{timeClose}h
                         </span>
                     </div>
-                    <div className="text-base">
+                    <div className="text-base text-gray-500">
                         Mô tả ngắn: {' '}
                         <span className="line-clamp-2">
                             {description}

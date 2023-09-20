@@ -8,8 +8,8 @@ export default function StepperControl({
     const router = useRouter()
 
     const handleComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault()
         router.push("/");
+        event.preventDefault()
     };
 
     return (
@@ -27,8 +27,8 @@ export default function StepperControl({
                         px-10 
                         font-semibold 
                         text-navbar-cus 
-                        transition 
-                        duration-200 
+                        transition-all 
+                        duration-500 
                         ease-in-out 
                         hover:bg-slate-700 
                         hover:text-white
@@ -50,8 +50,8 @@ export default function StepperControl({
                         px-10 
                         font-semibold 
                         text-white 
-                        transition 
-                        duration-200 
+                        transition-all 
+                        duration-500 
                         ease-in-out 
                         hover:bg-orange-500 
                         hover:text-white"
@@ -70,8 +70,8 @@ export default function StepperControl({
                         px-10 
                         font-semibold 
                         text-white 
-                        transition 
-                        duration-200 
+                        transition-all 
+                        duration-500 
                         ease-in-out 
                         hover:bg-orange-500 
                         hover:text-white"

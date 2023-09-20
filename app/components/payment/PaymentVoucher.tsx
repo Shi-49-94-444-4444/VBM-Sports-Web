@@ -1,4 +1,4 @@
-import { listVoucher } from "@/constant"
+import { listVoucher } from "@/utils"
 import Select from "react-select"
 
 const PaymentVoucher = () => {
@@ -12,7 +12,7 @@ const PaymentVoucher = () => {
                 <div className="flex flex-row justify-between">
                     <Select
                         options={listVoucher}
-                        className="w-2/5 text-xl h-14 inline-grid"
+                        className="md:w-96 w-3/5 text-xl h-14 inline-grid transition-all duration-500"
                         isClearable
                         isSearchable
                         placeholder="Combo box"

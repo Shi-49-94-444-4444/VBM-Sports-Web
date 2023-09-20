@@ -18,8 +18,8 @@ const Footer = () => {
             grid-cols-12
             py-10 
             gap-5
-            transition
-            duration-300
+            transition-all
+            duration-500
           "
         >
           <div className="
@@ -29,8 +29,8 @@ const Footer = () => {
               flex 
               flex-col 
               gap-5
-              transition 
-              duration-300
+              transition-all 
+              duration-500
             "
           >
             <h1 className="
@@ -42,21 +42,21 @@ const Footer = () => {
               Thông Tin chung
             </h1>
             <div>
-              <span className="text-orange-cus transition duration-300">
+              <span className="text-orange-cus">
                 VNB Sports {' '}
               </span>
               Là hệ thống cửa hàng cầu lông với hơn 50 chi nhánh trên toàn quốc,
               cung cấp sỉ và lẻ các mặt hàng dụng cụ cầu lông từ phong trào tới chuyên nghiệp
             </div>
             <div>
-              <span className="text-orange-cus transition duration-300">
+              <span className="text-orange-cus">
                 Với sứ mệnh: {' '}
               </span>
               Với sứ mệnh: ”VNB cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
               người chơi thể thao để nâng cao sức khỏe của chính mình”
             </div>
             <div>
-              <span className="text-orange-cus transition duration-300">
+              <span className="text-orange-cus">
                 Tầm nhìn:  {' '}
               </span>
               ”Trở thành nhà phân phối và sản xuất thể thao lớn nhất Việt Nam ”
@@ -69,8 +69,8 @@ const Footer = () => {
               flex 
               flex-col 
               gap-3
-              transition 
-              duration-300
+              transition-all 
+              duration-500
             "
           >
             <h1 className="
@@ -136,8 +136,8 @@ const Footer = () => {
               col-span-12
               flex 
               mt-5
-              transition 
-              duration-300
+              transition-all 
+              duration-500
             "
           >
             <div className="

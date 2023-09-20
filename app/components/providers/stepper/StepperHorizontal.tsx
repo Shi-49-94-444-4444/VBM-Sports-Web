@@ -95,7 +95,7 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
                         className={`
                             flex-shrink-0
                             rounded-full 
-                            transition 
+                            transition-all 
                             duration-500 
                             ease-in-out 
                             border-2
@@ -143,7 +143,7 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
                     <div className={`
                             w-10
                             border-t-2
-                            transition
+                            transition-all
                             duration-500
                             ease-in-out
                             ${step.completed

@@ -1,8 +1,9 @@
 import App from 'next/app';
 import Head from 'next/head';
 import "../app/globals.css";
-import "../styles/fontInter.css"
+import { Inter } from 'next/font/google'
 
+const inter = Inter({ subsets: ['latin'] })
 class MyApp extends App {
     render() {
         const { Component, pageProps } = this.props;
@@ -13,7 +14,9 @@ class MyApp extends App {
                     <title>Badminton yard</title>
                     <link rel="icon" href="/images/Vector.png" />
                 </Head>
-                <Component {...pageProps} />
+                <main className={inter.className}>
+                    <Component {...pageProps} />
+                </main>
             </>
         );
     }

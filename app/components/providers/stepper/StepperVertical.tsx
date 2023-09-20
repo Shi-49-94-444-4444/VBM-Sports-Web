@@ -95,7 +95,7 @@ const StepperVertical: React.FC<StepperVerticalProps> = ({
                         className={`
                             flex-shrink-0
                             rounded-full 
-                            transition 
+                            transition-all 
                             duration-500 
                             ease-in-out 
                             border-gray-300 

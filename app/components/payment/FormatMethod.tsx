@@ -19,7 +19,7 @@ const FormatMethod: React.FC<FormatMethodProps> = ({
 }) => {
     return (
         <div className="flex flex-col" key={id}>
-            <div className="flex flex-row items-center gap-5">
+            <div className="flex flex-row items-center gap-5 sm:w-96 w-full transition-all duration-500">
                 <div className="relative">
                     <Image
                         src={src}
@@ -40,7 +40,7 @@ const FormatMethod: React.FC<FormatMethodProps> = ({
                 <input
                     type="radio"
                     className="
-                        ml-20
+                        ml-auto
                         border-2
                         border-black
                         border-opacity-10

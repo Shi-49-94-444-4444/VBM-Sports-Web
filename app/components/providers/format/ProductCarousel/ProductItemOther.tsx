@@ -18,6 +18,8 @@ const ProductItemOther: React.FC<Product> = ({
                 border-black
                 border-opacity-10
                 cursor-pointer
+                transition-all
+                duration-500
             "
             key={id}
         >
@@ -25,8 +27,8 @@ const ProductItemOther: React.FC<Product> = ({
                 <div className="
                         relative
                         pb-[70%]
-                        transition
-                        duration-300
+                        transition-all
+                        duration-500
                         hover:scale-105
                         cursor-pointer
                     "
@@ -56,8 +58,8 @@ const ProductItemOther: React.FC<Product> = ({
                         flex 
                         flex-col 
                         gap-3
-                        transition
-                        duration-300
+                        transition-all
+                        duration-500
                     "
                 >
                     <h1 className="
@@ -65,8 +67,8 @@ const ProductItemOther: React.FC<Product> = ({
                             font-semibold 
                             whitespace-nowrap 
                             line-clamp-1
-                            transition
-                            duration-300
+                            transition-all
+                            duration-500
                         "
                     >
                         {title}
@@ -74,8 +76,8 @@ const ProductItemOther: React.FC<Product> = ({
                     <p className="
                             text-gray-500 
                             line-clamp-4
-                            transition
-                            duration-300
+                            transition-all
+                            duration-500
                         "
                     >
                         Mô tả ngắn: {description}
@@ -84,8 +86,8 @@ const ProductItemOther: React.FC<Product> = ({
                             whitespace-nowrap 
                             line-clamp-1 
                             space-x-3
-                            transition
-                            duration-300
+                            transition-all
+                            duration-500
                         "
                     >
                         <span className='text-gray-500'>
@@ -102,8 +104,8 @@ const ProductItemOther: React.FC<Product> = ({
                     <div className="
                             text-gray-500 
                             line-clamp-4
-                            transition
-                            duration-300
+                            transition-all
+                            duration-500
                             space-x-5
                         "
                     >

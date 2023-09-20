@@ -1,10 +1,9 @@
 import { 
     Container, 
-    Footer, 
     PostNewForm, 
     ThumbGallery 
 } from '@/app/components';
-import { images } from '@/constant';
+import { images } from '@/utils';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 
@@ -38,7 +37,7 @@ const PostNew = () => {
                             </h2>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-10">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-10">
                         <div className="col-span-1">
                             <ThumbGallery images={images} />
                         </div>
@@ -48,7 +47,6 @@ const PostNew = () => {
                     </div>
                 </div>
             </Container>
-            <Footer />
         </Layout>
     )
 }

@@ -943,26 +943,37 @@ export const listMethodsPayment = [
     },
     {
         id: 2,
-        src: "/images/momo.png",
-        title: "Momo",
+        src: "/images/vpnpay.png",
+        title: "Vn Pay",
         number: 789,
     },
     {
         id: 3,
-        src: "/images/momo.png",
-        title: "Momo",
+        src: "/images/viettelpay.png",
+        title: "Viettel Pay",
         number: 789,
     },
     {
         id: 4,
-        src: "/images/momo.png",
-        title: "Momo",
+        src: "/images/zalopay.png",
+        title: "Zalo Pay",
         number: 789,
     },
     {
         id: 5,
-        src: "/images/momo.png",
-        title: "Momo",
+        src: "/images/more.png",
+        title: "Lựa chọn khác",
         number: 789,
     },
+]
+
+export const listBlog = [
+    {
+        id: 1,
+        title:"The young Indian player's trip to the US encountered visa problems and many problems",
+        date:"TUESDAY, SEPTEMBER 5, 2023",
+        description:"It was perhaps the most emotional meltdown on view at the recent TotalEnergies BWF World Championships 2023. Pearly Tan and Thinaah Muralitharan, with a historic women’s doubles medal for Malaysia within their grasp in the quarterfinals, eventually fell in three games, and the hurt was evident in their unrestrained tears.",
+        src:"/images/item_1.jpg",
+        
+    }
 ]

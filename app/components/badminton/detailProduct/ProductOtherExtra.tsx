@@ -9,8 +9,8 @@ const ProductOtherExtra = () => {
                         flex-row 
                         justify-between 
                         items-center
-                        transition
-                        duration-300
+                        transition-all
+                        duration-500
                     "
                 >
                     <div className="
@@ -29,8 +29,8 @@ const ProductOtherExtra = () => {
                             text-xl
                             uppercase
                             text-center
-                            transition
-                            duration-300
+                            transition-all
+                            duration-500
                         "
                     >
                         Courts available

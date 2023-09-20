@@ -15,8 +15,8 @@ const BannerBadminton = () => {
                 bg-no-repeat
                 w-auto
                 h-[80vh]
-                transition
-                duration-300
+                transition-all
+                duration-500
             "
                 style={{
                     backgroundImage: `url(/images/background_1.png)`,
@@ -26,8 +26,8 @@ const BannerBadminton = () => {
                     <div className="
                             flex
                             items-center 
-                            transition
-                            duration-300
+                            transition-all
+                            duration-500
                             mt-20
                             justify-start
                         "

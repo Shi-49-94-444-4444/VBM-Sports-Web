@@ -6,6 +6,7 @@ import FormatUI from "./FormatUi";
 import FormatHomePage from "./FormatHomePage";
 import FormatPayment from "./FormatPayment";
 import Share from "./Share";
+import CountdownTimer from "./CountdownTImer";
 
 export * from "./ImageCarousel"
 export * from "./ProductCarousel"
@@ -19,5 +20,6 @@ export {
     FormatUI,
     FormatHomePage,
     FormatPayment,
-    Share
+    Share,
+    CountdownTimer
 }

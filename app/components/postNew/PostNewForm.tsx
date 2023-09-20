@@ -115,9 +115,9 @@ const PostNewForm = () => {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-5">
-                    <div className="col-span-1"/>
-                    <div className="col-span-4 py-4 flex justify-center">
+                <div className="grid lg:grid-cols-5 grid-cols-1">
+                    <div className="lg:col-span-1"/>
+                    <div className="lg:col-span-4 col-span-1 py-4 flex justify-center">
                         <Button
                             title="Confirm"
                             style="px-16 py-3 text-xl"

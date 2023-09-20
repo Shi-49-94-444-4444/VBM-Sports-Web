@@ -1,13 +1,12 @@
-import { 
-    Button, 
-    Container, 
-    Footer, 
-    PaymentBillTotal, 
-    PaymentMethod, 
-    PaymentOverview, 
-    PaymentVoucher 
+import {
+    Button,
+    Container,
+    PaymentBillTotal,
+    PaymentMethod,
+    PaymentOverview,
+    PaymentVoucher
 } from '@/app/components';
-import { listItems } from '@/constant';
+import { listItems } from '@/utils';
 import Layout from '@/app/layout';
 import { useRouter } from 'next/router';
 
@@ -31,7 +30,7 @@ const Payment = () => {
                             Payment Checking
                         </div>
                     </div>
-                    <PaymentOverview 
+                    <PaymentOverview
                         key={selectItem.id}
                         id={selectItem.id}
                         image={selectItem.image}
@@ -39,14 +38,15 @@ const Payment = () => {
                     <PaymentVoucher />
                     <PaymentMethod />
                     <PaymentBillTotal />
-                    <Button
-                        title="Thanh Toán"
-                        style="ml-auto px-32 py-4 text-xl"
-                        onClick={() => { }}
-                    />
+                    <div className="flex justify-center transition-all duration-500">
+                        <Button
+                            title="Thanh Toán"
+                            style="md:ml-auto px-32 py-4 text-xl"
+                            onClick={() => { }}
+                        />
+                    </div>
                 </div>
             </Container>
-            <Footer />
         </Layout>
     )
 }

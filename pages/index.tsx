@@ -3,7 +3,6 @@ import {
   QuickList, 
   PostNew, 
   QuickBanner, 
-  Footer
 } from "@/app/components"
 import Layout from '@/app/layout';
 
@@ -14,7 +13,6 @@ const Home = () => {
       <QuickList />
       <QuickBanner />
       <PostNew />
-      <Footer />
     </Layout>
   )
 }

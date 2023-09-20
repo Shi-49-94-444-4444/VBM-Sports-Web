@@ -1,4 +1,4 @@
-import ClientOnly from "./ClinetOnly"
+import ClientOnly from "./ClientOnly"
 import Footer from "./Footer"
 
 export * from "./providers"

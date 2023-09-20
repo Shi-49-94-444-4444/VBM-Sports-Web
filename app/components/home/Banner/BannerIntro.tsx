@@ -16,8 +16,8 @@ const BannerIntro = () => {
                     max-w-xl
                     lg:max-w-md 
                     lg:items-baseline
-                    transition
-                    duration-300
+                    transition-all
+                    duration-500
                 "
             >
                 <h1 className="
@@ -29,8 +29,8 @@ const BannerIntro = () => {
                         text-center
                         font-bold 
                         uppercase
-                        transition
-                        duration-300
+                        transition-all
+                        duration-500
                     "
                 >
                     Bạn muốn tìm sân để chơi cầu lông?
@@ -38,10 +38,9 @@ const BannerIntro = () => {
                 <p className="
                         opacity-60 
                         text-center 
-                        xl:text-left 
                         lg:text-left
-                        transition
-                        duration-300
+                        transition-all
+                        duration-500
                     "
                 >
                     Nhưng bạn không biết nên chọn sân chơi nào phù hợp với giá tiền trả lời một cuộc phỏng vấn,

@@ -56,7 +56,7 @@ const Access = () => {
                                             bg-search-cus
                                             rounded-full
                                             cursor-default
-                                            py-2
+                                            py-1
                                             px-3
                                             right-0
                                             w-auto
@@ -94,8 +94,8 @@ const Access = () => {
                                                             focus:ring-0
                                                             font-medium 
                                                             pl-2 
-                                                            text-sm 
-                                                            w-52 
+                                                            text-base 
+                                                            w-64 
                                                             z-[900]
                                                         "
                                                         placeholder="Tìm kiếm"
@@ -140,7 +140,7 @@ const Access = () => {
                                     align-middle
                                 "
                             >
-                                <VscAccount size={24} />
+                                <VscAccount size={30} />
                             </div>
                         </div>
                     </div>
@@ -216,7 +216,7 @@ const Access = () => {
                                     align-middle
                                 "
                             >
-                                <IoIosNotificationsOutline size={30} />
+                                <IoIosNotificationsOutline size={34} />
                             </div>
                         </div>
                     </div>
@@ -252,7 +252,7 @@ const Access = () => {
                                     align-middle
                                 "
                             >
-                                <IoSettingsOutline size={24} />
+                                <IoSettingsOutline size={30} />
                             </div>
                         </div>
                     </div>

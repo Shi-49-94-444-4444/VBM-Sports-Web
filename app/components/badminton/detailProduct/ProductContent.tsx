@@ -11,15 +11,15 @@ const ProductContent: React.FC<ProductContentProps> = ({
     user
 }) => {
     return (
-        <div className="grid grid-cols-7 gap-5 py-5">
-            <div className="col-span-5" >
+        <div className="grid lg:grid-cols-7 grid-cols-1 gap-5 py-5">
+            <div className="lg:col-span-5 md:h-96 sm:h-80 h-72 lg:h-full transition-all duration-500">
                 <ImageCarousel
                     key={product.id}
                     id={product.id}
                     image={product.image}
                 />
             </div>
-            <div className="col-span-2">
+            <div className="lg:col-span-2">
                 <ProductPostUser
                     product={product}
                     user={user}

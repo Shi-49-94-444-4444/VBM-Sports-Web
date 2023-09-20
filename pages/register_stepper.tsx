@@ -1,4 +1,4 @@
-import { Container, StepperHorizontalContent, StepperVertical, StepperVerticalContent } from "@/app/components"
+import { Container, StepperHorizontalContent, StepperVerticalContent } from "@/app/components"
 import { useState } from "react";
 
 const RegisterStepper = () => {

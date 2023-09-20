@@ -1,4 +1,4 @@
-import { Container, Footer, FormatPayment, OtherExtra } from '@/app/components';
+import { Container, FormatPayment, OtherExtra } from '@/app/components';
 import Layout from '@/app/layout';
 
 const PaymentSuccess = () => {
@@ -14,7 +14,6 @@ const PaymentSuccess = () => {
                 />
                 <OtherExtra />
             </Container>
-            <Footer />
         </Layout>
     )
 }

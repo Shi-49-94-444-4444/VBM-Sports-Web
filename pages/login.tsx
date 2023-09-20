@@ -5,12 +5,12 @@ import { BiSolidLockAlt } from "react-icons/bi";
 
 const Login = () => {
     const bodyContent = (
-        <>
+        <div className="flex flex-col gap-5">
             <Input
                 icon={<AiFillMail size={25} />}
                 label="Email"
                 name="mail"
-                placeholder="Nhập Email"
+                placeholder="Nhập email của bạn"
                 type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
@@ -18,7 +18,7 @@ const Login = () => {
                 icon={<BiSolidLockAlt size={25} />}
                 label="Mật khẩu"
                 name="password"
-                placeholder="Nhập password"
+                placeholder="Nhập mật khẩu của bạn"
                 type="password"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
             />
@@ -33,10 +33,10 @@ const Login = () => {
                     Quên mật khẩu ?
                 </Link>
             </div>
-        </>
+        </div>
     )
 
-    const subTitleContent = (
+    const subBodyContent = (
         <div className="flex flex-row justify-between items-center">
             <div className="text-[#CCCCCC] whitespace-nowrap text-lg">
                 Hoặc đăng nhập bằng
@@ -76,8 +76,8 @@ const Login = () => {
         <FormatUI
             src="/images/background_2.png"
             title="Đăng nhập"
-            subTitle={subTitleContent}
             body={bodyContent}
+            subBody={subBodyContent}
             titleButton="Vào trang"
             footer={footerContent}
             onClick={() => {}}

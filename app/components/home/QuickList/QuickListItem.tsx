@@ -25,8 +25,8 @@ const QuickListItem: React.FC<Product> = ({
     const router = useRouter();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
         router.push(`/detail_badminton/${id}`);
+        event.preventDefault();
     };
 
     return (

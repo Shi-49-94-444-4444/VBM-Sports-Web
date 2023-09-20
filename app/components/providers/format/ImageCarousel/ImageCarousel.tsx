@@ -1,7 +1,7 @@
 import SwiperCore, { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
-import '@/styles/swiper-image.css'
+import '@/styles/swiper-product.css'
 
 import ImageItemOther from './ImageItemOther';
 import { Product } from '@/types';

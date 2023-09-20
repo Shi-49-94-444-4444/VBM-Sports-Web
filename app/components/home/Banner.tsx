@@ -18,8 +18,8 @@ const Banner = () => {
                         lg:justify-normal
                         lg:py-16 
                         xl:py-20
-                        transition
-                        duration-300
+                        transition-all
+                        duration-500
                     "
                 >
                     <BannerIntro />

@@ -16,8 +16,8 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
     const router = useRouter();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
         router.push(`/payment/${product.id}`);
+        event.preventDefault();
     };
 
     return (
@@ -28,15 +28,22 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
                 w-full 
                 rounded-xl 
                 p-6 
-                gap-8
+                xl:gap-8
+                gap-3
+                transition-all
+                duration-500
             "
             key={user.id}
         >
             <div className="
                     flex 
-                    flex-row 
+                    xl:flex-row 
+                    lg:flex-col
+                    lg:gap-3
                     gap-5 
                     items-center
+                    transition-all
+                    duration-500
                 "
             >
                 <div className="relative flex-shrink-0">
@@ -48,7 +55,7 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
                         className="rounded-full object-cover"
                     />
                 </div>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 lg:items-center xl:items-start">
                     <div className="font-semibold text-xl">
                         {user.name}
                     </div>
@@ -67,7 +74,8 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
                 <p className="
                         font-normal 
                         text-sm 
-                        line-clamp-5 
+                        xl:line-clamp-5 
+                        line-clamp-3
                         text-gray-500
                     "
                 >
@@ -76,18 +84,22 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
             </div>
             <div className="
                     grid 
-                    grid-cols-3 
-                    divide-x 
-                    divide-black 
-                    divide-opacity-10
+                    xl:grid-cols-3 
+                    lg:grid-cols-1
+                    sm:grid-cols-3
+                    gap-3
+                    transition-all
+                    duration-500
                 "
             >
-                <div className="col-span-1">
+                <div className="col-span-1 transition-all duration-500">
                     <div className="
                             flex 
-                            flex-col 
+                            xl:flex-col 
                             items-center 
                             gap-3
+                            transition-all
+                            duration-500
                         "
                     >
                         <h2 className="font-semibold text-base">
@@ -107,15 +119,17 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-1 transition-all duration-500">
                     <div className="
                             flex 
-                            flex-col 
+                            xl:flex-col 
                             items-center 
                             gap-3
+                            transition-all
+                            duration-500
                         "
                     >
-                        <h2 className="font-semibold text-base">
+                        <h2 className="font-semibold text-base whitespace-nowrap">
                             Skill level:
                         </h2>
                         <div className="flex items-center gap-1">
@@ -132,8 +146,16 @@ const ProductPostUser: React.FC<ProductPostUserProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className="col-span-1">
-                    <div className="flex flex-col items-center gap-3">
+                <div className="col-span-1 transition-all duration-500">
+                    <div className="
+                            flex 
+                            xl:flex-col 
+                            items-center 
+                            gap-3
+                            transition-all
+                            duration-500
+                        "
+                    >
                         <h2 className="font-semibold text-base">
                             Active
                         </h2>

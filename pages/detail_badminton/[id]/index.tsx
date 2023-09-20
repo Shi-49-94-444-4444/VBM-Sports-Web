@@ -2,12 +2,11 @@ import { useRouter } from "next/router"
 import Layout from '@/app/layout';
 import { 
     Container, 
-    Footer, 
     ProductContent, 
     ProductDetail, 
     ProductOtherExtra 
 } from "@/app/components";
-import { listItems, listUser } from "@/constant";
+import { listItems, listUser } from "@/utils";
 
 const DetailBadminton = () => {
     const router = useRouter()
@@ -40,7 +39,6 @@ const DetailBadminton = () => {
                 />
                 <ProductOtherExtra />
             </Container>
-            <Footer />
         </Layout>
     )
 }

@@ -2,12 +2,13 @@ import Link from "next/link"
 import Background from "./Background"
 import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
-import ClientOnly from "../../ClinetOnly"
+import ClientOnly from "../../ClientOnly"
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,
     title,
     subTitle,
+    subBody,
     titleButton,
     body,
     footer,
@@ -20,6 +21,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                         relative 
                         w-auto 
                         h-screen 
+                        px-10
                         flex 
                         items-center 
                         justify-center
@@ -64,37 +66,54 @@ const FormatUI: React.FC<FormatUIProps> = ({
                         "
                     >
                         <div className="flex flex-col gap-6">
-                            <h1 className="
-                                    text-navbar-cus 
-                                    text-3xl 
-                                    font-semibold 
-                                    py-2
-                                "
-                            >
-                                {title}
-                            </h1>
-                            <div className="flex flex-col gap-5">
-                                {body}
+                            {title && (
+                                <div className="flex flex-row justify-between">
+                                    <section className="
+                                            text-navbar-cus 
+                                            text-3xl 
+                                            font-semibold 
+                                            py-2
+                                            space-y-2
+                                        "
+                                    >
+                                        <h1>
+                                            {title}
+                                        </h1>
+                                        {subTitle && (
+                                            <p className="text-xl font-normal text-gray-400">
+                                                {subTitle}
+                                            </p>
+                                        )}
+                                    </section>
+                                </div>
+                            )}
+                            <div className="absolute top-3 right-6 md:hidden">
+                                <Link href={'./'} className="text-4xl text-white font-semibold">&times;</Link>
                             </div>
                             <div className="relative">
-                                <button className="
-                                        w-full 
-                                        bg-navbar-cus 
-                                        text-white 
-                                        font-semibold 
-                                        text-lg 
-                                        rounded-xl 
-                                        py-3
-                                        focus:outline-none
-                                    "
-                                    onClick={onClick}
-                                >
-                                    {titleButton}
-                                </button>
+                                {body}
                             </div>
-                            {subTitle && (
+                            {titleButton && (
                                 <div className="relative">
-                                    {subTitle}
+                                    <button className="
+                                            w-full 
+                                            bg-navbar-cus 
+                                            text-white 
+                                            font-semibold 
+                                            text-lg 
+                                            rounded-xl 
+                                            py-3
+                                            focus:outline-none
+                                        "
+                                        onClick={onClick}
+                                    >
+                                        {titleButton}
+                                    </button>
+                                </div>
+                            )}
+                            {subBody && (
+                                <div className="relative">
+                                    {subBody}
                                 </div>
                             )}
                             {footer && (

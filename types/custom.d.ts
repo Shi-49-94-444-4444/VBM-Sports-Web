@@ -20,12 +20,13 @@ export interface ButtonProps {
 
 export interface FormatUIProps {
     src: string,
-    title: string,
-    subTitle?: React.ReactElement,
-    titleButton: string,
+    title?: string,
+    subTitle?: string;
+    titleButton?: string,
     body: React.ReactElement,
+    subBody?: React.ReactElement,
     footer?: React.ReactElement,
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export interface InputProps {

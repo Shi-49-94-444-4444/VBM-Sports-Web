@@ -11,16 +11,16 @@ const BannerImage = () => {
                 right-10 
                 hidden
                 lg:block
-                transition
-                duration-300
+                transition-all
+                duration-500
             "
         >
             <div className="
                     h-full 
                     flex 
                     justify-end
-                    transition
-                    duration-300
+                    transition-all
+                    duration-500
                 "
             >
                 <Image
