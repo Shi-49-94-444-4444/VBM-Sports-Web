@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
-import ImageItemOther from './ImageItemOther';
+import ImageItemOther from './ImageOther';
 import { Product } from '@/types';
 
 SwiperCore.use([Pagination]);

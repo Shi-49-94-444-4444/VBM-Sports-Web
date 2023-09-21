@@ -15,7 +15,7 @@ const PostNew = () => {
                     <div className="relative py-10">
                         <div className="flex justify-center">
                             <h1 className="title-custom">
-                                New post page
+                                Tạo Bài Đăng mới
                             </h1>
                         </div>
                     </div>

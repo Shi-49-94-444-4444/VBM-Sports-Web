@@ -1,8 +1,10 @@
 export interface Blog {
-    id: number;
+    id: string;
     src: string;
-    date: string;
     title: string;
+    date?: string;
+    description?: string;
+    poster?: string;
 }
 
 export interface ListBlog {

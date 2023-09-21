@@ -17,7 +17,8 @@ const Input: React.FC<InputProps> = ({
     disabled,
     errors,
     onChange,
-    colorInput
+    colorInput,
+    pattern
 }) => {
     return (
         <div className="gap-1 transition duration-300">
@@ -54,6 +55,7 @@ const Input: React.FC<InputProps> = ({
                             duration-300
                         `
                     }
+                    pattern={pattern?.source}
                 />
             </div>
             {errors && (

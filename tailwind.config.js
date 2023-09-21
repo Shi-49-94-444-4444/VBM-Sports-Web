@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "navbar-cus": "#FFA500",
+        "navbar-cus": "#204D94",
         "search-cus": "#f5f4f2",
         "white-cus": "#e5e3dd",
         "gray-cus": "#D6D6D6",

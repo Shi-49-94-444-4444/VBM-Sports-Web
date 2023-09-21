@@ -12,8 +12,12 @@ const Button: React.FC<ButtonProps> = ({
                 flex
                 text-white 
                 bg-navbar-cus 
-                hover:text-white
-                hover:bg-navbar-cus
+                hover:text-navbar-cus
+                hover:bg-white
+                hover:border
+                hover:border-navbar-cus
+                border
+                border-navbar-cus
                 text-center
                 items-center
                 font-semibold

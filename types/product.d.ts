@@ -1,9 +1,9 @@
 export interface Images {
-    id: number;
+    id: string;
     src: string
 }
 export interface Product {
-    id: number;
+    id: string;
     image?: Images[];
     title?: string;
     date?: string;

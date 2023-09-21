@@ -12,8 +12,7 @@ const DetailBadminton = () => {
     const router = useRouter()
     const { id } = router.query
 
-    const numericId = typeof id === "string" ? parseInt(id, 10) : id;
-    const selectItem = listItems.find(items => items.id === numericId)
+    const selectItem = listItems.find(items => items.id === id)
     const user = listUser[1]
 
     if (!selectItem) {

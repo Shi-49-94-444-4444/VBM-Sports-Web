@@ -14,8 +14,7 @@ const Payment = () => {
     const router = useRouter()
     const { id } = router.query
 
-    const numericId = typeof id === "string" ? parseInt(id, 10) : id;
-    const selectItem = listItems.find(item => item.id === numericId)
+    const selectItem = listItems.find(item => item.id === id)
 
     if (!selectItem) {
         return <div>Sản phẩm không tồn tại</div>;

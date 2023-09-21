@@ -41,7 +41,8 @@ export interface InputProps {
     register?: UseFormRegister<FieldValues>;
     errors?: FieldErrors;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    colorInput?: string
+    colorInput?: string;
+    pattern?: RegExp;
 }
 
 export interface FormatHomePageProps {
@@ -55,23 +56,23 @@ export interface QuickBannerTitle {
 }
 
 export interface FilterItem {
-    id: number;
+    id: string;
     title: string;
     src: string;
 }
 
 export interface FilterCusProps {
-    id: number;
+    id: string;
     title: string;
     listItem: FilterItem[]
 }
 
 export interface linkItem {
-    id: number
-    label: string,
+    id: string;
+    label: string;
     href?: string
 }
 
 export interface NavlinkItemProps {
-    linkItems?: linkItem[] 
+    linkItems?: linkItem[]
 }

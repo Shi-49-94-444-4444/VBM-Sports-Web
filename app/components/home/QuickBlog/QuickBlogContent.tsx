@@ -1,6 +1,7 @@
 import { ListBlog } from "@/types";
 import Image from "next/image";
 import { Container } from "../../providers";
+import Link from "next/link";
 
 const QuickBlogContent: React.FC<ListBlog> = ({
     listItem
@@ -21,52 +22,50 @@ const QuickBlogContent: React.FC<ListBlog> = ({
                     "
                 >
                     <div key={listItem[0].id} className="col-span-1">
-                        <div className="
-                                relative 
-                                h-full
-                                transition
-                                duration-300
-                                hover:scale-105
-                                cursor-pointer
-                                group
-                            "
-                        >
+                        <Link href={`/blog/${listItem[0].id}`}>
                             <div className="
-                                    absolute 
-                                    top-0 
-                                    left-0 
-                                    w-full 
+                                    relative 
                                     h-full
                                     transition
                                     duration-300
+                                    hover:scale-105
+                                    cursor-pointer
+                                    group
                                 "
                             >
-                                <Image
-                                    src={listItem[0].src}
-                                    alt="PostNew"
-                                    className="object-cover"
-                                    fill
-                                />
-                            </div>
-                            <div className="
-                                    absolute 
-                                    bottom-2 
-                                    left-4 
-                                    text-white
-                                "
-                            >
-                                <h1 className="text-sm">
-                                    {listItem[0].date}
-                                </h1>
-                                <p className="
-                                        text-lg 
-                                        font-semibold
+                                <div className="
+                                        absolute 
+                                        top-0 
+                                        left-0 
+                                        w-full 
+                                        h-full
+                                        transition
+                                        duration-300
                                     "
                                 >
-                                    {listItem[0].title}
-                                </p>
+                                    <Image
+                                        src={listItem[0].src}
+                                        alt="PostNew"
+                                        className="object-cover"
+                                        fill
+                                    />
+                                </div>
+                                <div className="
+                                        absolute 
+                                        bottom-2 
+                                        left-4 
+                                        text-white
+                                    "
+                                >
+                                    <h1 className="text-sm">
+                                        {listItem[0].date}
+                                    </h1>
+                                    <p className="text-lg font-semibold">
+                                        {listItem[0].title}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="col-span-1">
                         <div className="
@@ -76,47 +75,49 @@ const QuickBlogContent: React.FC<ListBlog> = ({
                             "
                         >
                             <div key={listItem[1].id} className="row-span-1">
-                                <div className="
-                                        relative 
-                                        h-full 
-                                        transition
-                                        duration-300
-                                        hover:scale-105
-                                        cursor-pointer
-                                    "
-                                >
+                                <Link href={`/blog/${listItem[1].id}`}>
                                     <div className="
-                                            absolute 
-                                            top-0 
-                                            left-0 
-                                            w-full 
-                                            h-full
+                                            relative 
+                                            h-full 
                                             transition
                                             duration-300
+                                            hover:scale-105
+                                            cursor-pointer
                                         "
                                     >
-                                        <Image
-                                            src={listItem[1].src}
-                                            alt="PostNew"
-                                            className="object-cover"
-                                            fill
-                                        />
+                                        <div className="
+                                                absolute 
+                                                top-0 
+                                                left-0 
+                                                w-full 
+                                                h-full
+                                                transition
+                                                duration-300
+                                            "
+                                        >
+                                            <Image
+                                                src={listItem[1].src}
+                                                alt="PostNew"
+                                                className="object-cover"
+                                                fill
+                                            />
+                                        </div>
+                                        <div className="
+                                                absolute 
+                                                bottom-2 
+                                                left-4 
+                                                text-white
+                                            "
+                                        >
+                                            <h1 className="text-sm">
+                                                {listItem[1].date}
+                                            </h1>
+                                            <p className="text-lg font-semibold">
+                                                {listItem[1].title}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="
-                                            absolute 
-                                            bottom-2 
-                                            left-4 
-                                            text-white
-                                        "
-                                    >
-                                        <h1 className="text-sm">
-                                            {listItem[1].date}
-                                        </h1>
-                                        <p className="text-lg font-semibold">
-                                            {listItem[1].title}
-                                        </p>
-                                    </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="row-span-1">
                                 <div className="
@@ -126,90 +127,94 @@ const QuickBlogContent: React.FC<ListBlog> = ({
                                     "
                                 >
                                     <div key={listItem[2].id} className="col-span-1">
-                                        <div className="
-                                                relative 
-                                                h-full
-                                                transition
-                                                duration-300
-                                                hover:scale-105
-                                                cursor-pointer
-                                            "
-                                        >
+                                        <Link href={`/blog/${listItem[2].id}`}>
                                             <div className="
-                                                    absolute 
-                                                    top-0 
-                                                    left-0 
-                                                    w-full 
+                                                    relative 
                                                     h-full
                                                     transition
                                                     duration-300
+                                                    hover:scale-105
+                                                    cursor-pointer
                                                 "
                                             >
-                                                <Image
-                                                    src={listItem[2].src}
-                                                    alt="PostNew"
-                                                    className="object-cover"
-                                                    fill
-                                                />
+                                                <div className="
+                                                        absolute 
+                                                        top-0 
+                                                        left-0 
+                                                        w-full 
+                                                        h-full
+                                                        transition
+                                                        duration-300
+                                                    "
+                                                >
+                                                    <Image
+                                                        src={listItem[2].src}
+                                                        alt="PostNew"
+                                                        className="object-cover"
+                                                        fill
+                                                    />
+                                                </div>
+                                                <div className="
+                                                        absolute 
+                                                        bottom-2 
+                                                        left-4 
+                                                        text-white
+                                                    "
+                                                >
+                                                    <h1 className="text-sm">
+                                                        {listItem[2].date}
+                                                    </h1>
+                                                    <p className="text-lg font-semibold">
+                                                        {listItem[2].title}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div className="
-                                                    absolute 
-                                                    bottom-2 
-                                                    left-4 
-                                                    text-white
-                                                "
-                                            >
-                                                <h1 className="text-sm">
-                                                    {listItem[3].date}
-                                                </h1>
-                                                <p className="text-lg font-semibold">
-                                                    {listItem[1].title}
-                                                </p>
-                                            </div>
-                                        </div>
+                                        </Link>
                                     </div>
                                     <div key={listItem[3].id} className="col-span-1">
-                                        <div className="
-                                                relative 
-                                                pb-[100%]
-                                                transition
-                                                duration-300
-                                                hover:scale-105
-                                                cursor-pointer
-                                            "
-                                        >
+                                        <Link href={`/blog/${listItem[3].id}`}>
                                             <div className="
-                                                    absolute 
-                                                    top-0 
-                                                    left-0 
-                                                    w-full 
-                                                    h-full
+                                                    relative 
+                                                    pb-[100%]
                                                     transition
                                                     duration-300
+                                                    hover:scale-105
+                                                    cursor-pointer
                                                 "
                                             >
-                                                <Image
-                                                    src={listItem[3].src}
-                                                    alt="PostNew"
-                                                    className="object-cover"
-                                                    fill
-                                                />
+                                                <div className="
+                                                        absolute 
+                                                        top-0 
+                                                        left-0 
+                                                        w-full 
+                                                        h-full
+                                                        transition
+                                                        duration-300
+                                                    "
+                                                >
+                                                    <Image
+                                                        src={listItem[3].src}
+                                                        alt="PostNew"
+                                                        className="object-cover"
+                                                        fill
+                                                    />
+                                                </div>
+                                                <div className="
+                                                        absolute 
+                                                        bottom-2 
+                                                        left-4 
+                                                        text-white
+                                                    "
+                                                >
+                                                    <h1 className="text-sm">
+                                                        {listItem[3].date}
+                                                    </h1>
+                                                    <p className="text-lg font-semibold">
+                                                        {listItem[3].title}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div className="
-                                                    absolute 
-                                                    bottom-2 
-                                                    left-4 
-                                                    text-white
-                                                "
-                                            >
-                                                <h1 className="text-sm">
-                                                    {listItem[3].date}
-                                                </h1>
-                                                <p className="text-lg font-semibold">
-                                                    {listItem[3].title}
-                                                </p>
-                                            </div>
-                                        </div>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
