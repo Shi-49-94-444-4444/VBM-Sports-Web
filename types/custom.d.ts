@@ -1,3 +1,5 @@
+import { IconType } from "react-icons/lib";
+
 export interface BackgroundProps {
     src: string;
     children: React.ReactNode
@@ -75,4 +77,10 @@ export interface linkItem {
 
 export interface NavlinkItemProps {
     linkItems?: linkItem[]
+}
+
+export interface Option {
+    id: number;
+    label: string;
+    icon: IconType
 }

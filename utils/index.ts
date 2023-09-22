@@ -1,3 +1,8 @@
+import { Option } from "@/types";
+import { BiSolidBellRing } from "react-icons/bi";
+import { FaUserEdit, FaUserSlash } from "react-icons/fa";
+import { IoShieldCheckmark } from "react-icons/io5";
+
 export const navlinks = [
     {
         id: "1",
@@ -1033,3 +1038,10 @@ export const listBlog = [
         poster: "Admin"
     },
 ]
+
+export const options: Option[] = [
+    { id: 1, label: "Profile", icon: FaUserEdit },
+    { id: 2, label: "Security", icon: IoShieldCheckmark },
+    { id: 3, label: "Ban", icon: FaUserSlash },
+    { id: 4, label: "Notify", icon: BiSolidBellRing },
+];
