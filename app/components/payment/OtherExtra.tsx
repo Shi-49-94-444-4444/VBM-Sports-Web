@@ -1,5 +1,5 @@
 import { listItems } from "@/utils"
-import { ProductItemOther } from "../providers"
+import { ProductOther } from "../providers"
 
 const OtherExtra = () => {
     const sliceItems = listItems.slice(0, 12)
@@ -59,7 +59,7 @@ const OtherExtra = () => {
                     "
                 >
                     {sliceItems.map((item) => (
-                        <ProductItemOther
+                        <ProductOther
                             key={item.id}
                             id={item.id}
                             title={item.title}

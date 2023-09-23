@@ -546,7 +546,7 @@ export const postNew = [
 export const filterTitle = [
     {
         id: "1",
-        title: "Tỉnh",
+        title: "Chọn Tỉnh/Thành phố",
         list: [
             {
                 id: "1",
@@ -602,7 +602,7 @@ export const filterTitle = [
     },
     {
         id: "2",
-        title: "Thời Gian",
+        title: "Số chỗ còn trống",
         list: [
             {
                 id: "1",
@@ -658,7 +658,63 @@ export const filterTitle = [
     },
     {
         id: "3",
-        title: "Còn Chỗ",
+        title: "Thể loại chơi",
+        list: [
+            {
+                id: "1",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "2",
+                title: "20h",
+                src: "#",
+            },
+            {
+                id: "3",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "4",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "5",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "6",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "7",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "8",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "9",
+                title: "10h",
+                src: "#",
+            },
+            {
+                id: "10",
+                title: "10h",
+                src: "#",
+            }
+        ]
+    },
+    {
+        id: "4",
+        title: "Kỹ năng",
         list: [
             {
                 id: "1",
@@ -673,8 +729,8 @@ export const filterTitle = [
         ]
     },
     {
-        id: "4",
-        title: "Mức Giá",
+        id: "5",
+        title: "Thời gian",
         list: [
             {
                 id: "1",

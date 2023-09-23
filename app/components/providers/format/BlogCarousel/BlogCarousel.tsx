@@ -42,6 +42,7 @@ const BlogCarousel = () => {
                         src={item.src}
                         description={item.description}
                         title={item.title}
+                        date={item.date}
                     />
                 </SwiperSlide>
             ))}

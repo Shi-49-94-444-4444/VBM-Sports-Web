@@ -19,7 +19,7 @@ const SettingOverview: React.FC<SettingOverviewProps> = ({
             {options.map((option) => (
                 <button
                     key={option.id}
-                    className={`flex flex-row space-x-2 font-semibold text-gray-600 items-center cursor-pointer ${selectedOption === option.id ? 'text-navbar-cus font-semibold' : ''}`}
+                    className={`flex flex-row space-x-2 font-semibold text-gray-600 items-center cursor-pointer ${selectedOption === option.id ? 'text-primary-blue-cus font-semibold' : ''}`}
                     onClick={() => onOptionSelect(option.id)}
                 >
                     <option.icon size={25} />

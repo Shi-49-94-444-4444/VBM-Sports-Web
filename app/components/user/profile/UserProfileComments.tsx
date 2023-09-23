@@ -21,15 +21,15 @@ const UserProfileComments: React.FC<User> = ({
 
     return (
         <div className="relative flex flex-col gap-5" key={id}>
-            <div className="title-custom">
-                Comments
+            <div className="text-2xl font-semibold text-gray-600">
+                Lời bình luận
             </div>
             <div className="border-2 border-gray-300" />
             {displayedComments?.map((item, index) => (
                 <>
                     <div className="flex flex-col gap-5" key={item.id}>
-                        <div className="grid grid-cols-12 gap-5 items-center">
-                            <div className="relative col-span-1">
+                        <div className="flex flex-row gap-5 items-center">
+                            <div className="relative flex-shrink-0">
                                 <Image
                                     src={item.src}
                                     alt="avatar"
@@ -38,7 +38,7 @@ const UserProfileComments: React.FC<User> = ({
                                     className="rounded-full object-cover"
                                 />
                             </div>
-                            <div className="col-span-3">
+                            <div className="">
                                 <div className="flex flex-col gap-2">
                                     <div className="text-2xl font-semibold">
                                         {item.name}
@@ -48,7 +48,7 @@ const UserProfileComments: React.FC<User> = ({
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-span-8">
+                            <div className="ml-auto">
                                 <div className="text-gray-500 text-right font-medium text-lg">
                                     {item.date}
                                 </div>
@@ -69,7 +69,7 @@ const UserProfileComments: React.FC<User> = ({
                         className="text-gray-600 text-xl font-semibold cursor-pointer flex items-center space-x-1"
                         onClick={handleShowMoreClick}
                     >
-                        <span>View More ({comments.length - initialCommentCount})</span>
+                        <span>Xem thêm ({comments.length - initialCommentCount})</span>
                         <span className="inline-block">
                             <BsChevronDoubleDown />
                         </span>

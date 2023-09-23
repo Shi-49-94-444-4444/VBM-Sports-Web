@@ -26,7 +26,7 @@ export default function StepperControl({
                         py-3 
                         px-10 
                         font-semibold 
-                        text-navbar-cus 
+                        text-primary-blue-cus 
                         transition-all 
                         duration-500 
                         ease-in-out 
@@ -45,7 +45,7 @@ export default function StepperControl({
                         cursor-pointer 
                         rounded-lg
                         border-2 
-                        bg-navbar-cus 
+                        bg-primary-blue-cus 
                         py-3 
                         px-10 
                         font-semibold 
@@ -65,7 +65,7 @@ export default function StepperControl({
                         cursor-pointer 
                         rounded-lg
                         border-2 
-                        bg-navbar-cus 
+                        bg-primary-blue-cus 
                         py-3 
                         px-10 
                         font-semibold 

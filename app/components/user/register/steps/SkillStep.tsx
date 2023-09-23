@@ -35,7 +35,7 @@ const SkillStep = () => {
                         <div className="relative">
                             <button
                                 className={`w-full h-20 ${selectedSkills[index]
-                                        ? 'bg-navbar-cus'
+                                        ? 'bg-primary-blue-cus'
                                         : 'bg-[#F5F5F5]'
                                     }`}
                                 onClick={() => handleSkillClick(index)}

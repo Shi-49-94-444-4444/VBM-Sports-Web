@@ -111,7 +111,7 @@ const Access = () => {
                 </div>
             </li>
             <li className="relative inline-flex">
-                <div 
+                <div
                     className="
                         border-box 
                         pl-4 
@@ -154,10 +154,12 @@ const Access = () => {
                             rounded-lg 
                             shadow-md 
                             py-2
+                            font-bold
+                            text-gray-600
                         "
                     >
                         <ul className="space-y-2 list-none">
-                            <li className="hover:bg-slate-200">
+                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
                                 <Link
                                     href="/login"
                                     className="
@@ -170,7 +172,7 @@ const Access = () => {
                                     Login
                                 </Link>
                             </li>
-                            <li className="hover:bg-slate-200">
+                            <li className="over:bg-slate-200 hover:text-primary-blue-cus">
                                 <Link
                                     href="/register"
                                     className="
@@ -188,7 +190,7 @@ const Access = () => {
                 )}
             </li>
             <li className="relative inline-flex">
-                <div 
+                <div
                     className="
                         border-box 
                         pl-4 
@@ -252,7 +254,9 @@ const Access = () => {
                                     align-middle
                                 "
                             >
-                                <IoSettingsOutline size={30} />
+                                <Link href="/setting">
+                                    <IoSettingsOutline size={30} />
+                                </Link>
                             </div>
                         </div>
                     </div>

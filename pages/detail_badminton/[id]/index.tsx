@@ -3,7 +3,7 @@ import Layout from '@/app/layout';
 import { 
     Container, 
     ProductContent, 
-    ProductDetail, 
+    ProductUserPost, 
     ProductOtherExtra 
 } from "@/app/components";
 import { listItems, listUser } from "@/utils";
@@ -23,18 +23,15 @@ const DetailBadminton = () => {
         <Layout>
             <Container>
                 <ProductContent 
-                    product={selectItem}
-                    user={user}
-                />
-                <ProductDetail
-                    key={selectItem.id}
                     id={selectItem.id}
-                    title={selectItem.title}
-                    description={selectItem.description}
-                    price={selectItem.price}
+                    image={selectItem.image}
+                    date={selectItem.date}
                     timeOpen={selectItem.timeOpen}
                     timeClose={selectItem.timeClose}
-                    slot={selectItem.slot}
+                />
+                <ProductUserPost
+                    product={selectItem}
+                    user={user}
                 />
                 <ProductOtherExtra />
             </Container>

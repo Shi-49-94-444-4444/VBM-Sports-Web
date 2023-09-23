@@ -29,7 +29,7 @@ const Login = () => {
                     text-white
                 "
             >
-                <Link href="./forgot_password" className="focus:outline-none">
+                <Link href="./forgot_password" className=" ">
                     Quên mật khẩu ?
                 </Link>
             </div>
@@ -64,7 +64,7 @@ const Login = () => {
             >
                 <span>Chưa có tài khoản?</span>
                 <span className="underline cursor-pointer">
-                    <Link href="./register" className="focus:outline-none">
+                    <Link href="./register" className=" ">
                         Đăng ký ngay
                     </Link>
                 </span>

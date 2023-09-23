@@ -16,7 +16,7 @@ const ProductOtherExtra = () => {
                     <div className="
                             w-1/3 
                             h-1 
-                            bg-orange-cus
+                            bg-primary-blue-cus
                             hidden
                             lg:block
                         "
@@ -24,21 +24,18 @@ const ProductOtherExtra = () => {
                     <div className="
                             text-gray-600 
                             font-semibold
-                            lg:text-3xl
-                            md:text-2xl 
-                            text-xl
-                            uppercase
+                            text-3xl
                             text-center
                             transition-all
                             duration-500
                         "
                     >
-                        Courts available
+                        Tham khảo thêm
                     </div>
                     <div className="
                             w-1/3 
                             h-1 
-                            bg-orange-cus
+                            bg-primary-blue-cus
                             hidden
                             lg:block
                         "

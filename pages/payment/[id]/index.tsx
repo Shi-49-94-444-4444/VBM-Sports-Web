@@ -25,8 +25,8 @@ const Payment = () => {
             <Container>
                 <div className="relative py-5">
                     <div className="flex items-center justify-center py-5">
-                        <div className="title-custom">
-                            Payment Checking
+                        <div className="text-gray-600 font-semibold text-3xl">
+                            Thanh toán
                         </div>
                     </div>
                     <PaymentOverview

@@ -5,14 +5,15 @@ const BannerImage = () => {
         <div className="
                 col-span-3 
                 absolute 
-                w-2/4 
+                w-8/12 
                 h-full 
                 bottom-0 
-                right-10 
+                -right-5 
                 hidden
                 lg:block
                 transition-all
                 duration-500
+                overflow-hidden
             "
         >
             <div className="
@@ -28,6 +29,7 @@ const BannerImage = () => {
                     alt="Your Image"
                     className="object-contain object-bottom"
                     fill
+                    draggable="false"
                 />
             </div>
         </div>

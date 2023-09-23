@@ -44,10 +44,10 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                 items-center 
                                 space-x-1 
                                 cursor-pointer
-                                focus:outline-none
+                                 
                             "
                         >
-                            <Link href="./" className="text-white focus:outline-none">
+                            <Link href="./" className="text-white  ">
                                 <IoIosArrowRoundBack size={40} />
                             </Link>
                             <div className="font-normal text-white">
@@ -69,7 +69,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             {title && (
                                 <div className="flex flex-row justify-between">
                                     <section className="
-                                            text-navbar-cus 
+                                            text-secondary-blue-cus
                                             text-3xl 
                                             font-semibold 
                                             py-2
@@ -97,13 +97,13 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                 <div className="relative">
                                     <button className="
                                             w-full 
-                                            bg-navbar-cus 
+                                            bg-primary-blue-cus 
                                             text-white 
                                             font-semibold 
                                             text-lg 
                                             rounded-xl 
                                             py-3
-                                            focus:outline-none
+                                             
                                         "
                                         onClick={onClick}
                                     >

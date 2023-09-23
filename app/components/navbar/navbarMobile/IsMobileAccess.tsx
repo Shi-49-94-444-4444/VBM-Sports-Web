@@ -167,7 +167,9 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                     align-middle
                                 "
                             >
-                                <IoSettingsOutline size={24} />
+                                <Link href="/setting">
+                                    <IoSettingsOutline size={24} />
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -182,7 +184,8 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                         duration-300 
                         pl-4 
                         pr-0 
-                        md:pl-5 
+                        md:pl-5
+                         
                     "
                     data-tag="dropdown-menu"
                     aria-controls="dropdown-menu"

@@ -5,10 +5,10 @@ import NavlinkItem from "./NavlinkItem";
 import Link from "next/link";
 
 const NavLink = () => {
-    const [openItemId, setOpenItemId] = useState<number | null>(null);
+    const [openItemId, setOpenItemId] = useState<string | null>(null);
     const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
 
-    const handleMenuToggle = (itemId: number) => {
+    const handleMenuToggle = (itemId: string) => {
         if (openItemId === itemId) {
             setOpenItemId(null);
         } else {
@@ -34,7 +34,7 @@ const NavLink = () => {
                 list-none 
                 text-base
                 text-gray-600
-                font-semibold
+                font-bold
                 gap-3
             "
             onMouseLeave={handleWrapperMouseLeave}
@@ -73,7 +73,7 @@ const NavLink = () => {
                                         flex-nowrap
                                         flew-row
                                         items-start
-                                        hover:text-navbar-cus
+                                        hover:text-primary-blue-cus
                                     "
                                 >
                                     <div className="pr-5 py-1 uppercase">
@@ -115,11 +115,11 @@ const NavLink = () => {
                                             flex-nowrap 
                                             flew-row 
                                             items-start
-                                            hover:text-navbar-cus
+                                            hover:text-primary-blue-cus
                                         "
                                     >
                                         <div className="pr-5 py-1 uppercase">
-                                            <span className="hover:underline">{item.label}</span>
+                                            <span className="">{item.label}</span>
                                         </div>
                                     </div>
                                 </a>

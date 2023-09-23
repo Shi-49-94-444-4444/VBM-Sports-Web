@@ -28,15 +28,15 @@ const UserProfileIntro: React.FC<User> = ({
                     </div>
                     <div className="flex-grow" />
                     <div className="text-gray-500 text-lg font-medium underline cursor-pointer">
-                        Report this user
+                        Báo cáo người dùng
                     </div>
                 </div>
                 <div className="relative flex flex-row items-center gap-5">
                     <Button
                         title="Chat"
-                        style="py-4 px-12 text-xl"
+                        style="py-3 px-20 text-xl group"
                         onClick={() => { }}
-                        icon={<BsFillChatDotsFill size={20} className="text-white" />}
+                        icon={<BsFillChatDotsFill size={20} className="group-hover:text-primary-blue-cus group-hover:bg-white" />}
                     />
                     <div className="relative">
                         <BiSolidBellRing size={40} className="text-black text-opacity-80 cursor-pointer" />
@@ -44,7 +44,7 @@ const UserProfileIntro: React.FC<User> = ({
                 </div>
                 <div className="relative flex flex-col gap-5">
                     <div className="text-xl font-semibold text-gray-600">
-                        User Description
+                        Mô tả
                     </div>
                     <div className="text-lg font-medium text-gray-500">
                         {description}

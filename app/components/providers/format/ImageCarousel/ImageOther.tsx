@@ -28,6 +28,7 @@ const ImageItemOther: React.FC<Images> = ({
                     alt="QuickList"
                     className="rounded-lg object-cover"
                     fill
+                    draggable="false"
                 />
             </div>
         </div>

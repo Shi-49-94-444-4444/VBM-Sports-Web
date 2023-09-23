@@ -16,6 +16,7 @@ const Background: React.FC<BackgroundProps> = ({
                 h-auto
                 transition
                 duration-500
+                overflow-x-hidden
             "
             style={{
                 backgroundImage: `url(${src})`,

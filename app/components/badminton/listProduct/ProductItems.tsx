@@ -7,7 +7,7 @@ const ProductItems: React.FC<ListProduct> = ({
     listItem
 }) => {
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
     const pageCount = Math.ceil(listItem.length / itemsPerPage);
 
     const handlePageChange = (selectedPage: { selected: number }) => {

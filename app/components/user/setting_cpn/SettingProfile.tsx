@@ -22,8 +22,8 @@ const SettingProfile = () => {
     });
 
     return (
-        <div className="relative py-4 px-8 flex flex-col gap-5">
-            <div className="text-gray-600 text-4xl font-semibold">Profile</div>
+        <div className="relative p-8 flex flex-col gap-5">
+            <div className="text-gray-600 text-3xl font-semibold">Profile</div>
             <div className="relative flex flex-col w-2/5 gap-3 items-center">
                 <div {...getRootProps()} className="relative w-full pb-[100%] border-2 border-gray-400 p-4 rounded-xl cursor-pointer">
                     <input {...getInputProps()} />
@@ -48,7 +48,7 @@ const SettingProfile = () => {
                         </>
                     )}
                 </div>
-                <div className="flex flex-row text-navbar-cus items-center gap-2 whitespace-nowrap">
+                <div className="flex flex-row text-primary-blue-cus items-center gap-2 whitespace-nowrap">
                     <AiFillCamera size={30} />
                     <span className="text-xl font-semibold">Đăng tải hình ảnh</span>
                 </div>

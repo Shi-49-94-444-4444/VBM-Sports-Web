@@ -8,6 +8,7 @@ import FormatPayment from "./FormatPayment";
 import Share from "./Share";
 import CountdownTimer from "./CountdownTImer";
 import FormatDate from "./FormatDate";
+import ToggleSwitch from "./ToggleSwitch";
 
 export * from "./ImageCarousel"
 export * from "./ProductCarousel"
@@ -24,5 +25,6 @@ export {
     FormatPayment,
     Share,
     CountdownTimer,
-    FormatDate
+    FormatDate,
+    ToggleSwitch
 }

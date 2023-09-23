@@ -56,7 +56,7 @@ const LocationStep = () => {
                         key={index}
                         className={`
                             cursor-pointer 
-                            ${selectedItem === index ? 'text-navbar-cus' : ''}
+                            ${selectedItem === index ? 'text-primary-blue-cus' : ''}
                         `}
                         onClick={() => handleItemClick(index)}
                     >

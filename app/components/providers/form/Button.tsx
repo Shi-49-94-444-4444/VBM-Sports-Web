@@ -11,13 +11,13 @@ const Button: React.FC<ButtonProps> = ({
                 relative
                 flex
                 text-white 
-                bg-navbar-cus 
-                hover:text-navbar-cus
+                bg-primary-blue-cus 
+                hover:text-primary-blue-cus
                 hover:bg-white
                 hover:border
-                hover:border-navbar-cus
+                hover:border-primary-blue-cus
                 border
-                border-navbar-cus
+                border-primary-blue-cus
                 text-center
                 items-center
                 font-semibold

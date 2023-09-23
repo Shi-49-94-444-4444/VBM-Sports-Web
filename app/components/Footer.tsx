@@ -7,7 +7,7 @@ import { Container } from "./providers"
 const Footer = () => {
   return (
     <div className="
-        bg-[#222222] 
+        bg-secondary-blue-cus 
         w-full 
         text-white
       "
@@ -29,37 +29,44 @@ const Footer = () => {
               flex 
               flex-col 
               gap-5
+              text-lg
               transition-all 
               duration-500
             "
           >
             <h1 className="
                 uppercase 
-                text-base 
+                text-xl 
                 font-bold
               "
             >
               Thông Tin chung
             </h1>
-            <div>
-              <span className="text-orange-cus">
-                VNB Sports {' '}
+            <div className="space-x-1">
+              <span className="font-bold">
+                VNB Sports
               </span>
-              Là hệ thống cửa hàng cầu lông với hơn 50 chi nhánh trên toàn quốc,
-              cung cấp sỉ và lẻ các mặt hàng dụng cụ cầu lông từ phong trào tới chuyên nghiệp
+              <span>
+                Là hệ thống cửa hàng cầu lông với hơn 50 chi nhánh trên toàn quốc,
+                cung cấp sỉ và lẻ các mặt hàng dụng cụ cầu lông từ phong trào tới chuyên nghiệp
+              </span>
             </div>
-            <div>
-              <span className="text-orange-cus">
-                Với sứ mệnh: {' '}
+            <div className="space-x-1">
+              <span className="font-bold">
+                Với sứ mệnh:
               </span>
-              Với sứ mệnh: ”VNB cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
-              người chơi thể thao để nâng cao sức khỏe của chính mình”
+              <span>
+                Với sứ mệnh: ”VNB cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
+                người chơi thể thao để nâng cao sức khỏe của chính mình”
+              </span>
             </div>
-            <div>
-              <span className="text-orange-cus">
-                Tầm nhìn:  {' '}
+            <div className="space-x-1">
+              <span className="font-bold">
+                Tầm nhìn:
               </span>
-              ”Trở thành nhà phân phối và sản xuất thể thao lớn nhất Việt Nam ”
+              <span>
+                "Trở thành nhà phân phối và sản xuất thể thao lớn nhất Việt Nam"
+              </span>
             </div>
           </div>
           <div className="
@@ -71,61 +78,73 @@ const Footer = () => {
               gap-3
               transition-all 
               duration-500
+              text-lg
             "
           >
             <h1 className="
                 uppercase 
-                text-base 
+                text-xl
                 font-bold
               "
             >
               Thông Tin Liên hệ
             </h1>
-            <div className="whitespace-nowrap mb-3">
+            <div className="whitespace-nowrap mb-3 space-x-1">
               <span className="font-bold">
-                Hệ thống cửa hàng:  {' '}
+                Hệ thống cửa hàng:
               </span>
-              <span className="text-orange-cus">
-                56 cửa hàng {' '}
+              <span>
+                56 cửa hàng trên toàn quốc
               </span>
-              trên toàn quốc
             </div>
-            <h2 className="text-orange-cus font-semibold">
+            <h2 className="font-bold">
               Xem tất cả các cửa hàng VNB
             </h2>
-            <div className="whitespace-nowrap font-semibold">
-              Hotline: {' '}
-              <span className="text-orange-cus font-medium">
+            <div className="whitespace-nowrap space-x-1">
+              <span className="font-bold">
+                Hotline:
+              </span>
+              <span className="">
                 0788612959 | 0788612959
               </span>
             </div>
-            <div className="whitespace-nowrap font-semibold">
-              Email:: {' '}
-              <span className="text-orange-cus font-medium">
+            <div className="whitespace-nowrap space-x-1">
+              <span className="font-bold">
+                Email:
+              </span>
+              <span className="">
                 info@shopvnb.com
               </span>
             </div>
-            <div className="whitespace-nowrap font-semibold">
-              Hợp tác kinh doanh: {' '}
-              <span className="text-orange-cus font-medium">
+            <div className="whitespace-nowrap space-x-1">
+              <span className="font-bold">
+                Hợp tác kinh doanh:
+              </span>
+              <span className="">
                 0947342259
               </span>
             </div>
-            <div className="whitespace-nowrap font-semibold">
-              Hotline bán sỉ: {' '}
-              <span className="text-orange-cus font-medium">
+            <div className="whitespace-nowrap space-x-1">
+              <span className="font-bold">
+                Hotline bán sỉ:
+              </span>
+              <span className="">
                 032.63.67.618
               </span>
             </div>
-            <div className="whitespace-nowrap font-semibold">
-              Nhượng quyền thương hiệu: {' '}
-              <span className="text-orange-cus font-medium">
+            <div className="whitespace-nowrap space-x-1">
+              <span className="font-bold">
+                Nhượng quyền thương hiệu:
+              </span>
+              <span className="">
                 0334.741.141
               </span>
             </div>
-            <div className="whitespace-nowrap font-semibold">
-              Than phiền dịch vụ: {' '}
-              <span className="text-orange-cus font-medium">
+            <div className="whitespace-nowrap space-x-1">
+              <span className="font-bold">
+                Than phiền dịch vụ:
+              </span>
+              <span className="">
                 0334.741.141
               </span>
             </div>
@@ -147,21 +166,20 @@ const Footer = () => {
                 gap-5
               "
             >
-              <div>
-                <h1 className="font-semibold">
-                  Get the App
-                </h1>
-              </div>
+              <h1 className="font-semibold text-xl text-gray-300">
+                Get the App
+              </h1>
               <button className="
                   relative 
                   flex 
                   flex-row 
                   flex-shrink-0
-                  bg-gray-cus-2 
+                  bg-white 
+                  text-secondary-blue-cus
                   rounded-md 
                   gap-2 
                   items-center 
-                  px-2 
+                  px-4 
                   py-2
                   whitespace-nowrap
                 "
@@ -178,7 +196,7 @@ const Footer = () => {
                   <h2 className="uppercase text-xs">
                     get it on
                   </h2>
-                  <h1 className="text-base">
+                  <h1 className="text-lg font-semibold">
                     Google Play
                   </h1>
                 </div>
@@ -188,11 +206,12 @@ const Footer = () => {
                   flex 
                   flex-row 
                   flex-shrink-0
-                  bg-gray-cus-2 
+                  bg-white
+                  text-secondary-blue-cus
                   rounded-md 
                   gap-2 
                   items-center 
-                  px-2 
+                  px-4 
                   py-2
                   whitespace-nowrap
                 "
@@ -206,10 +225,10 @@ const Footer = () => {
                     text-left
                   "
                 >
-                  <h2 className="uppercase text-xxs">
+                  <h2 className="uppercase text-xs">
                     download on the
                   </h2>
-                  <h1 className="text-base">
+                  <h1 className="text-lg font-semibold">
                     App Store
                   </h1>
                 </div>

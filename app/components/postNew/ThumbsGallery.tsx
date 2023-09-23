@@ -101,7 +101,7 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ }) => {
                             <span className="text-gray-600">
                                 Drop your image here or
                             </span>
-                            <span className="text-navbar-cus font-semibold">
+                            <span className="text-primary-blue-cus font-semibold">
                                 browser
                             </span>
                         </div>

@@ -4,7 +4,7 @@ import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
 import { listItems } from '@/utils';
-import ProductItemOther from './ProductItemOther';
+import ProductOther from './ProductOther';
 
 SwiperCore.use([Pagination]);
 
@@ -37,7 +37,7 @@ const ProductCarousel = () => {
         >
             {slicedItems.map((item) => (
                 <SwiperSlide key={item.id}>
-                    <ProductItemOther
+                    <ProductOther
                         id={item.id}
                         image={item.image}
                         title={item.title}

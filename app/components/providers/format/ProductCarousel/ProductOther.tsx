@@ -2,7 +2,7 @@ import { Product } from "@/types";
 import Image from "next/image"
 import Link from "next/link";
 
-const ProductItemOther: React.FC<Product> = ({
+const ProductOther: React.FC<Product> = ({
     id,
     description,
     slot,
@@ -50,6 +50,7 @@ const ProductItemOther: React.FC<Product> = ({
                                 object-cover
                             "
                             fill
+                            draggable="false"
                         />
                     </div>
                 </div>
@@ -122,4 +123,4 @@ const ProductItemOther: React.FC<Product> = ({
     )
 }
 
-export default ProductItemOther
+export default ProductOther

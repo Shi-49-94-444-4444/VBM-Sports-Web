@@ -65,7 +65,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ length, onOTPChange }) => {
                     onChange={(e) => handleInputChange(e, index)}
                     onKeyDown={(e) => handleInputKeyDown(e, index)}
                     maxLength={1}
-                    className="w-14 h-14 px-2 py-2 text-center border rounded-md bg-inherit text-gray-300 border-gray-300 text-xl font-semibold focus:ring-0 focus:outline-none"
+                    className="w-14 h-14 px-2 py-2 text-center border rounded-md bg-inherit text-gray-300 border-gray-300 text-xl font-semibold focus:ring-0  "
                     ref={(el) => (inputRefs.current[index] = el)}
                 />
             ))}

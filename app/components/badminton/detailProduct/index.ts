@@ -1,9 +1,9 @@
 import ProductContent from "./ProductContent";
-import ProductDetail from "./ProductDetail";
+import ProductUserPost from "./ProductUserPost";
 import ProductOtherExtra from "./ProductOtherExtra";
 
 export {
     ProductContent,
-    ProductDetail,
+    ProductUserPost,
     ProductOtherExtra
 }

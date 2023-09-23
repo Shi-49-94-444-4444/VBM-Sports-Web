@@ -16,8 +16,8 @@ const Banner = () => {
                         lg:grid
                         lg:gird-cols-5 
                         lg:justify-normal
-                        lg:py-16 
-                        xl:py-20
+                        lg:py-20 
+                        xl:py-32
                         transition-all
                         duration-500
                     "

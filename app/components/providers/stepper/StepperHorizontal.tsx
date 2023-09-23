@@ -110,7 +110,7 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
                             text-2xl
                             py-3  
                             ${step.selected
-                                ? "!bg-navbar-cus text-white font-bold border border-navbar-cus "
+                                ? "!bg-primary-blue-cus text-white font-bold border border-primary-blue-cus "
                                 : ""
                             }
                             ${step.completed

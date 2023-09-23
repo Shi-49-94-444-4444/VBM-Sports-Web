@@ -18,6 +18,7 @@
 
 * {
   user-select: none;
+  outline: none;
 }
 
 html,

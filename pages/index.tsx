@@ -1,8 +1,7 @@
 import { 
   Banner, 
+  BlogOtherExtra, 
   QuickList, 
-  PostNew, 
-  QuickBanner, 
 } from "@/app/components"
 import Layout from '@/app/layout';
 
@@ -11,8 +10,7 @@ const Home = () => {
     <Layout>
       <Banner />
       <QuickList />
-      <QuickBanner />
-      <PostNew />
+      <BlogOtherExtra />
     </Layout>
   )
 }

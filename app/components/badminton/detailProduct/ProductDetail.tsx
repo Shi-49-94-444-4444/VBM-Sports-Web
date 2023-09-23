@@ -1,87 +1,96 @@
-import { Product } from "@/types";
-import { Share } from "../../providers";
+import { Product } from "@/types"
+import { Button } from "../../providers"
+import { useRouter } from "next/router";
 
 const ProductDetail: React.FC<Product> = ({
     id,
-    title,
-    description,
-    price,
+    date,
     timeOpen,
-    timeClose,
-    slot
+    timeClose
 }) => {
+    const router = useRouter();
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        router.push(`/payment/${id}`);
+        event.preventDefault();
+    };
+
     return (
-        <div className="relative py-10" key={id}>
-            <div className="flex flex-col gap-10">
-                <div className="
-                        flex 
-                        flex-col 
-                        font-semibold 
-                        gap-1
-                    ">
-                    <h2 className="text-3xl">
-                        Tony Mack
-                    </h2>
-                    <p className="text-red-500 text-2xl">
-                        {price}$
-                    </p>
-                </div>
-                <div className="flex flex-col gap-3">
-                    <h3 className="text-xl font-semibold text-gray-600">
-                        Mô tả:
-                    </h3>
-                    <p className="text-lg text-gray-500">
-                        {description}
-                    </p>
-                </div>
-                <div className="
-                        flex 
-                        flex-col 
-                        gap-5 
-                        text-gray-600
-                    "
-                >
-                    <div className="text-xl font-semibold space-x-1">
-                        <span className="
-                                border-b-2 
-                                border-solid 
-                                border-red-500 
-                                inline-block
-                            "
-                        >
-                            Location:
-                        </span>
-                        <span>
-                            {title}
-                        </span>
-                    </div>
-                    <div className="text-xl font-semibold space-x-1">
-                        <span>
-                            Time:
-                        </span>
-                        <span>
-                            {timeOpen} - {timeClose}
-                        </span>
-                    </div>
-                    <div className="text-xl font-semibold space-x-1">
-                        <span>
-                            Address:
-                        </span>
-                        <span>
-                            {title}
-                        </span>
-                    </div>
-                    <div className="text-xl font-semibold space-x-1">
-                        <span>
-                            Available slot:
-                        </span>
-                        <span>
-                            {slot}
-                        </span>
-                    </div>
-                </div>
-                <Share />
+        <div className="
+                relative
+                bg-gray-200 
+                flex 
+                flex-col 
+                w-full 
+                rounded-xl 
+                p-6 
+                gap-5
+                transition-all
+                duration-500
+            "
+            key={id}
+        >
+            <div className="relative space-x-1 text-lg font-semibold">
+                <span className="whitespace-nowrap">
+                    Địa chỉ:
+                </span>
+                <span className="break-words">
+                    218/20 Đ. Vườn Lài, Phú Thọ Hoà, Tân Phú
+                </span>
             </div>
+            <div className="relative space-x-1 text-lg font-semibold">
+                <span className="whitespace-nowrap">
+                    Ngày:
+                </span>
+                <span className="break-words">
+                    {date}
+                </span>
+            </div>
+            <div className="relative space-x-1 text-lg font-semibold">
+                <span className="whitespace-nowrap">
+                    Thời gian:
+                </span>
+                <span className="break-words">
+                    {timeOpen} - {timeClose}
+                </span>
+            </div>
+            <div className="relative space-x-1 text-lg font-semibold">
+                <span className="whitespace-nowrap">
+                    Vị trí còn trống:
+                </span>
+                <span className="break-words">
+                    2
+                </span>
+            </div>
+            <div className="relative space-x-1 text-lg font-semibold">
+                <span className="whitespace-nowrap">
+                    Thể loại:
+                </span>
+                <span className="break-words">
+                    Đánh đôi
+                </span>
+            </div>
+            <div className="relative space-x-1 text-lg font-semibold">
+                <span className="whitespace-nowrap">
+                    Kĩ năng:
+                </span>
+                <span className="break-words">
+                    Mới tập
+                </span>
+            </div>
+            <div className="relative space-x-1 text-lg font-semibold">
+                <span className="whitespace-nowrap">
+                    Nhập số chỗ đặt:
+                </span>
+                <span className="break-words">
+                    1
+                </span>
+            </div>
+            <Button
+                title="Đặt chỗ ngay"
+                style="py-4 justify-center"
+                onClick={handleClick}
+            />
         </div>
     )
 }

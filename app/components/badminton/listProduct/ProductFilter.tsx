@@ -5,14 +5,14 @@ import { FilterCus } from "../../providers"
 const ProductFilter = () => {
     return (
         <>
-            <div className="flex flex-row">
+            <div className="flex flex-row text-gray-600">
                 <div className="flex whitespace-nowrap items-center space-x-2">
                     <FaFilter size={20} />
-                    <span className="text-xl font-semibold opacity-80">Bộ lọc tìm kiếm</span>
+                    <span className="font-semibold text-xl">Bộ lọc tìm kiếm</span>
                 </div>
             </div>
             <div className="relative">
-                <ul className="py-4">
+                <ul className="py-2 lg:block hidden">
                     {filterTitle.map((item) => (
                         <FilterCus 
                             key={item.id}

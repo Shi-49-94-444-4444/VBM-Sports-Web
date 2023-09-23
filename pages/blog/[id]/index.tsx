@@ -30,9 +30,9 @@ const Blog = () => {
                     <div className="relative py-10">
                         <Share />
                     </div>
-                    <BlogOtherExtra />
                 </div>
             </Container>
+            <BlogOtherExtra />  
         </Layout>
     )
 }

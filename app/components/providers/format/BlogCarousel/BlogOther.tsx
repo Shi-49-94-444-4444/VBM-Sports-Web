@@ -7,9 +7,11 @@ const BlogItemOther: React.FC<Blog> = ({
     src,
     title,
     description,
+    date
 }) => {
     return (
-        <div className="
+        <Link href={`/blog/${id}`}>
+            <div className="
                 col-span-1
                 grid
                 grid-cols-3
@@ -21,50 +23,51 @@ const BlogItemOther: React.FC<Blog> = ({
                 transition-all
                 duration-500
             "
-            key={id}
-        >
-            <div className="
-                    relative
-                    col-span-1
-                    h-full
-                    transition-all
-                "
+                key={id}
             >
                 <div className="
-                        absolute 
-                        top-0 
-                        left-0 
-                        w-full 
+                        relative
+                        col-span-1
                         h-full
+                        transition-all
                     "
                 >
-                    <Image
-                        src={src}
-                        alt="blog"
-                        className="
+                    <div className="
+                            absolute 
+                            top-0 
+                            left-0 
+                            w-full 
+                            h-full
+                        "
+                    >
+                        <Image
+                            src={src}
+                            alt="blog"
+                            className="
                             rounded-xl 
                             object-cover
                         "
-                        fill
-                    />
+                            fill
+                            draggable="false"
+                        />
+                    </div>
+                </div>
+                <div className="col-span-2 p-6 flex flex-col gap-5">
+                    <section className="flex flex-col gap-3">
+                        <h1 className="text-xl font-semibold text-gray-600 line-clamp-2">
+                            {title}
+                        </h1>
+                        <p className="text-gray-500 text-lg line-clamp-5">
+                            {description}
+                        </p>
+                    </section>
+                    <div className="text-[#8B96A5] text-lg ml-auto">
+                        {date}
+                    </div>
                 </div>
             </div>
-            <div className="col-span-2 p-4 flex flex-col gap-3">
-                <section className="flex flex-col gap-2">
-                    <h1 className="text-xl font-semibold text-gray-600">
-                        {title}
-                    </h1>
-                    <p className="text-gray-500 text-base font-medium line-clamp-5">
-                        {description}
-                    </p>
-                </section>
-                <div className="cursor-pointer font-semibold text-navbar-cus text-xl ml-auto">
-                    <Link href={`/blog/${id}`}>
-                        Read more
-                    </Link>
-                </div>
-            </div>
-        </div>
+        </Link>
+
     )
 }
 

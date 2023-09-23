@@ -5,7 +5,7 @@ const BannerIntro = () => {
     };
 
     return (
-        <div className="xl:col-span-2 lg:col-span-2">
+        <div className="lg:col-span-2">
             <div className="
                     flex 
                     flex-col 
@@ -22,12 +22,14 @@ const BannerIntro = () => {
             >
                 <h1 className="
                         xl:text-5xl
+                        xl:leading-tight
                         lg:text-4xl
                         lg:text-left
                         md:text-5xl
+                        md:leading-tight
                         text-4xl
                         text-center
-                        font-bold 
+                        font-semibold 
                         uppercase
                         transition-all
                         duration-500
@@ -36,7 +38,8 @@ const BannerIntro = () => {
                     Bạn muốn tìm sân để chơi cầu lông?
                 </h1>
                 <p className="
-                        opacity-60 
+                        text-gray-300
+                        text-lg
                         text-center 
                         lg:text-left
                         transition-all
@@ -55,8 +58,10 @@ const BannerIntro = () => {
                 >
                     <button
                         className="
-                            bg-navbar-cus 
-                            text-white 
+                            bg-white 
+                            text-primary-blue-cus
+                            hover:text-white
+                            hover:bg-primary-blue-cus
                             px-8 
                             py-4 
                             rounded-lg

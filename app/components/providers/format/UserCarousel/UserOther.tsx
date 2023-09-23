@@ -47,6 +47,7 @@ const UserOther: React.FC<User> = ({
                                 object-cover
                             "
                             fill
+                            draggable="false"
                         />
                     </div>
                 </div>

@@ -6,7 +6,7 @@ const Share = () => {
     return (
         <div className="flex flex-col gap-5">
             <div className="text-2xl text-gray-600 font-semibold">
-                Share this post to
+                Chia sẻ về bài viết này:
             </div>
             <div className="flex flex-row items-center space-x-5">
                 <BsFacebook size={40} className="text-blue-600 cursor-pointer" />
@@ -15,14 +15,14 @@ const Share = () => {
                 <VscLinkExternal size={40} className="cursor-pointer" />
                 <div className="flex-grow"></div>
                 <div className="
-                                text-base 
-                                text-gray-500 
-                                underline 
-                                cursor-pointer 
-                                text-right
-                            "
+                        text-base 
+                        text-gray-500 
+                        underline 
+                        cursor-pointer 
+                        text-right
+                    "
                 >
-                    Report this user
+                    Báo cáo bài đăng
                 </div>
             </div>
         </div>

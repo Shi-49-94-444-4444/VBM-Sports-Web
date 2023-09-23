@@ -5,9 +5,9 @@ import { AiOutlineDown } from 'react-icons/ai'
 import IsMobileItem from './IsMobileItem'
 
 const IsMobileNavLink = () => {
-    const [openItemId, setOpenItemId] = useState<number[]>([]);
+    const [openItemId, setOpenItemId] = useState<string[]>([]);
 
-    const handleMenuToggle = (itemId: number) => {
+    const handleMenuToggle = (itemId: string) => {
         if (openItemId.includes(itemId)) {
             setOpenItemId(openItemId.filter((id) => id !== itemId));
         } else {

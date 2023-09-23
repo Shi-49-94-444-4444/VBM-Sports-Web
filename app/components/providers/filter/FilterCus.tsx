@@ -29,7 +29,7 @@ const FilterCus: React.FC<FilterCusProps> = ({
                     rounded-md
                     transition
                     duration-500
-                    focus:outline-none
+                     
                     text-gray-600
                 "
                 type="button"
@@ -64,7 +64,7 @@ const FilterCus: React.FC<FilterCusProps> = ({
                         text-bg 
                         font-semibold 
                         uppercase
-                        focus:outline-none
+                         
                     "
                     aria-labelledby="dropdownMenuButton"
                 >
@@ -79,7 +79,7 @@ const FilterCus: React.FC<FilterCusProps> = ({
                                     py-3 
                                     whitespace-nowrap
                                     text-gray-600
-                                    focus:outline-none
+                                     
                                 "
                             >
                                 {item.title}

@@ -41,7 +41,7 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
                     >
                         {linkItems && linkItems.map((item) => (
                             <li
-                                className="hover:bg-slate-200"
+                                className="hover:bg-slate-200 hover:text-primary-blue-cus"
                                 key={item.id}
                             >
                                 {item.href ? (
