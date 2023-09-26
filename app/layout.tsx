@@ -1,8 +1,13 @@
 import GlobalState from '@/contexts'
-import { Footer } from './components'
-import ClientOnly from './components/ClientOnly'
-import Navbar from './components/navbar/Navbar'
 import './globals.css'
+import { ClientOnly, Footer, Navbar } from '@/components'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
+// export const metadata = {
+//   title: 'Badminton',
+// }
 
 export default function RootLayout({
   children,
@@ -10,12 +15,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClientOnly>
-      <GlobalState>
-        <Navbar />
-        {children}
-        <Footer />
-      </GlobalState>
-    </ClientOnly>
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8"/>
+        <meta name="Badminton"/>
+        <link rel="icon" href="/images/Vector.png" />
+      </head>
+      <body className={inter.className}>
+        <GlobalState>
+          <Navbar />
+          <ClientOnly>
+            {children}
+          </ClientOnly>
+          <Footer />
+        </GlobalState>
+      </body>
+    </html>
   )
 }
