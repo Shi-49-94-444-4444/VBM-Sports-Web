@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react"
 
-interface OTPInputProps {
+interface InputOTPProps {
     length: number; 
     onOTPChange: (otp: string) => void;
 }
 
-const OTPInput: React.FC<OTPInputProps> = ({ length, onOTPChange }) => {
+const InputOTP: React.FC<InputOTPProps> = ({ length, onOTPChange }) => {
     const [otp, setOTP] = useState<string[]>(new Array(length).fill(""))
     const inputRefs = useRef<(HTMLInputElement | null)[]>([])
 
@@ -73,4 +73,4 @@ const OTPInput: React.FC<OTPInputProps> = ({ length, onOTPChange }) => {
     );
 };
 
-export default OTPInput;
+export default InputOTP;

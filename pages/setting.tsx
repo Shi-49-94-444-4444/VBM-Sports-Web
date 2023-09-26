@@ -26,14 +26,14 @@ const Setting = () => {
             <Container>
                 <div className="relative py-5">
                     <div className="grid grid-cols-8 h-full min-h-screen gap-5">
-                        <div className="col-span-2 border-2 h-full border-[#E7EBEE] rounded-xl">
+                        <div className="col-span-2 border-2 h-full border-[#E7EBEE] rounded-xl md:block hidden">
                             <SettingOverview
                                 options={options}
                                 selectedOption={selectedOption}
                                 onOptionSelect={setSelectedOption}
                             />
                         </div>
-                        <div className="col-span-6 border-2 h-full border-[#E7EBEE] rounded-xl">
+                        <div className="md:col-span-6 col-span-8 border-2 h-full border-[#E7EBEE] rounded-xl">
                             {displaySetting()}
                         </div>
                     </div>

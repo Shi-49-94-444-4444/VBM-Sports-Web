@@ -50,8 +50,8 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             <Link href="./" className="text-white  ">
                                 <IoIosArrowRoundBack size={40} />
                             </Link>
-                            <div className="font-normal text-white">
-                                Back
+                            <div className="font-semibold text-white">
+                                Quay lại
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             {title && (
                                 <div className="flex flex-row justify-between">
                                     <section className="
-                                            text-secondary-blue-cus
+                                            text-primary-blue-cus
                                             text-3xl 
                                             font-semibold 
                                             py-2

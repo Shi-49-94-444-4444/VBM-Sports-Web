@@ -18,18 +18,19 @@ const Footer = () => {
             grid-cols-12
             py-10 
             gap-5
+            justify-between
             transition-all
             duration-500
           "
         >
           <div className="
-              lg:col-span-5
+              lg:col-span-4
               md:col-span-6
               col-span-12
               flex 
               flex-col 
               gap-5
-              text-lg
+              text-base
               transition-all 
               duration-500
             "
@@ -69,8 +70,9 @@ const Footer = () => {
               </span>
             </div>
           </div>
+          <div className="lg:flex-grow lg:block hidden"/>
           <div className="
-              lg:col-span-5
+              lg:col-span-4
               md:col-span-6
               col-span-12
               flex 
@@ -78,7 +80,7 @@ const Footer = () => {
               gap-3
               transition-all 
               duration-500
-              text-lg
+              text-base
             "
           >
             <h1 className="
@@ -149,6 +151,7 @@ const Footer = () => {
               </span>
             </div>
           </div>
+          <div className="lg:flex-grow lg:block hidden"/>
           <div className="
               lg:col-span-2
               md:col-span-6

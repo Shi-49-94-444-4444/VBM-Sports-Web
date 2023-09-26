@@ -15,8 +15,9 @@ const IsMobileItem: React.FC<NavlinkItemProps> = ({
         >
             <ul className="
                     list-none 
-                    font-semibold 
+                    font-bold 
                     text-lg
+                    text-gray-600
                 "
             >
                 {linkItems && linkItems.map((item) =>
@@ -28,6 +29,7 @@ const IsMobileItem: React.FC<NavlinkItemProps> = ({
                                     items-center 
                                     min-h-3 
                                     hover:bg-slate-200 
+                                    hover:text-primary-blue-cus
                                     p-2
                                 "
                             >

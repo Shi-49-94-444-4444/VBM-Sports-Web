@@ -70,10 +70,12 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                             shadow-md 
                             py-2
                             z-[1999]
+                            text-gray-600
+                            font-bold
                         "
                     >
                         <ul className="space-y-2 list-none">
-                            <li className="hover:bg-slate-200">
+                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
                                 <Link
                                     href="/login"
                                     className="
@@ -86,7 +88,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                     Login
                                 </Link>
                             </li>
-                            <li className="hover:bg-slate-200">
+                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
                                 <Link
                                     href="/register"
                                     className="

@@ -37,6 +37,7 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
                             list-none 
                             mt-2 
                             text-left
+                            text-gray-600
                         "
                     >
                         {linkItems && linkItems.map((item) => (

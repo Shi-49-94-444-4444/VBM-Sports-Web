@@ -22,11 +22,11 @@ const UserProfileIntro: React.FC<User> = ({
                 />
             </div>
             <div className="relative flex flex-col flex-grow gap-5">
-                <div className="flex flex-row items-center">
+                <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0">
                     <div className="text-4xl font-semibold whitespace-nowrap">
                         {name}
                     </div>
-                    <div className="flex-grow" />
+                    <div className="md:flex-grow md:block hidden" />
                     <div className="text-gray-500 text-lg font-medium underline cursor-pointer">
                         Báo cáo người dùng
                     </div>

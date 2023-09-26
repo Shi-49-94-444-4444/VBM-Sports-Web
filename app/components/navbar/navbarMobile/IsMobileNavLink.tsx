@@ -26,8 +26,9 @@ const IsMobileNavLink = () => {
                 w-screen
                 z-[-1]
                 overflow-auto
-                font-medium
+                font-bold
                 text-lg
+                text-gray-600
             "
         >
             <ul className="
@@ -55,6 +56,7 @@ const IsMobileNavLink = () => {
                                     h-4 
                                     w-full
                                     hover:bg-slate-200
+                                    hover:text-primary-blue-cus
                                     px-4
                                     py-6
                                 "
@@ -80,6 +82,7 @@ const IsMobileNavLink = () => {
                                         h-4 
                                         w-full
                                         hover:bg-slate-200
+                                        hover:text-primary-blue-cus
                                         cursor-pointer
                                         px-4
                                         py-6

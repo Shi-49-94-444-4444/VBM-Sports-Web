@@ -1,4 +1,4 @@
-import { CountdownTimer, FormatUI, OTPInput } from "@/app/components"
+import { CountdownTimer, FormatUI, InputOTP } from "@/app/components"
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -18,7 +18,7 @@ const VerifyOTP = () => {
 
     const bodyContent = (
         <div className="flex flex-col gap-3">
-            <OTPInput
+            <InputOTP
                 length={6}
                 onOTPChange={handleOTPChange}
             />

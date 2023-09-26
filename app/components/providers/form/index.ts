@@ -1,9 +1,9 @@
 import Button from "./Button";
 import Input from "./Input";
-import OTPInput from "./OTPInput";
+import InputOTP from "./InputOTP";
 
 export {
     Button,
     Input,
-    OTPInput
+    InputOTP
 }

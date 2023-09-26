@@ -14,20 +14,20 @@ export interface ContainerProps {
 }
 
 export interface ButtonProps {
-    title: string,
-    style: string,
+    title: string;
+    style: string;
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
     icon?: Icon
 }
 
 export interface FormatUIProps {
-    src: string,
-    title?: string,
+    src: string;
+    title?: string;
     subTitle?: string;
-    titleButton?: string,
-    body: React.ReactElement,
-    subBody?: React.ReactElement,
-    footer?: React.ReactElement,
+    titleButton?: string;
+    body: React.ReactElement;
+    subBody?: React.ReactElement;
+    footer?: React.ReactElement;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
