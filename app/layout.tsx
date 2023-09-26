@@ -1,4 +1,3 @@
-import GlobalState from '@/contexts'
 import { Footer } from './components'
 import ClientOnly from './components/ClientOnly'
 import Navbar from './components/navbar/Navbar'
@@ -11,11 +10,9 @@ export default function RootLayout({
 }) {
   return (
     <ClientOnly>
-      <GlobalState>
         <Navbar />
         {children}
         <Footer />
-      </GlobalState>
     </ClientOnly>
   )
 }

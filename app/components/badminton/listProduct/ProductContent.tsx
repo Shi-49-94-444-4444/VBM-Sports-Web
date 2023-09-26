@@ -1,3 +1,5 @@
+"use client"
+
 import { Product } from "@/types"
 import Image from "next/image"
 import { useRouter } from "next/router";

@@ -1,12 +1,12 @@
 import Image from "next/image"
 
 interface FormatMethodProps {
-    id: number;
+    id: string;
     src: string;
     title: string;
     number: number;
     isChecked: boolean;
-    onChange: (isChecked: number) => void;
+    onChange: (isChecked: string) => void;
 }
 
 const FormatMethod: React.FC<FormatMethodProps> = ({

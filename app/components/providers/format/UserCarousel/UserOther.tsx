@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { User } from "@/types"
 import Link from "next/link"

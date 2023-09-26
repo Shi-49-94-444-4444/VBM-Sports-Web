@@ -1,3 +1,5 @@
+"use client"
+
 import { BlogContent, BlogOtherExtra, Container, Share } from "@/app/components"
 import Layout from "@/app/layout"
 import { listBlog } from "@/utils"

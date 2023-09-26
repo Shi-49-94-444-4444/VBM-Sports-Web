@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { LocationStep, SkillStep, StylePlayStep, SuggestPlayerStep } from "./steps";
 import { StepperControl, StepperHorizontal } from "../../providers";
 

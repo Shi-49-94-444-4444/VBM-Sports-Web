@@ -1,3 +1,5 @@
+"use client"
+
 interface CustomToggleSwitchProps {
   isChecked: boolean;
   onChange: (isChecked: boolean) => void;

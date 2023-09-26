@@ -1,3 +1,5 @@
+"use client"
+
 import { listVoucher } from "@/utils"
 import Select from "react-select"
 

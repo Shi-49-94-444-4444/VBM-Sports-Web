@@ -1,3 +1,5 @@
+"use client"
+
 import { NavlinkItemProps } from "@/types"
 import Link from "next/link"
 

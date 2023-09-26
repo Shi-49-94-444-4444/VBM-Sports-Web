@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import { Container, SettingBan, SettingNotify, SettingOverview, SettingProfile, SettingSecurity } from "@/app/components";
 import Layout from "@/app/layout";

@@ -1,3 +1,5 @@
+"use client"
+
 import { Product } from "@/types";
 import ProductDetail from "./ProductDetail"
 import { ImageCarousel } from "../../providers";

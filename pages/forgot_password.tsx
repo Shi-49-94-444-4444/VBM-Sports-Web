@@ -1,3 +1,4 @@
+"use client"
 
 import { FormatUI, Input } from "@/app/components";
 import { useRouter } from "next/router";

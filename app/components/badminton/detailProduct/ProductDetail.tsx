@@ -1,3 +1,5 @@
+"use client"
+
 import { Product } from "@/types"
 import { Button } from "../../providers"
 import { useRouter } from "next/router";

@@ -1,3 +1,5 @@
+"use client"
+
 import Select from "react-select"
 import { Button } from "../providers"
 import Input from "../providers/form/Input"

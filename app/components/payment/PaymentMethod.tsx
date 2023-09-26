@@ -1,11 +1,13 @@
+"use client"
+
 import { listMethodsPayment } from "@/utils"
 import FormatMethod from "./FormatMethod"
 import { useState } from "react";
 
 const PaymentMethod = () => {
-    const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
+    const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
 
-    const handleMethodChange = (methodId: number) => {
+    const handleMethodChange = (methodId: string) => {
         setSelectedMethod(methodId);
     };
 

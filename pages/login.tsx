@@ -1,40 +1,25 @@
-import { FormatUI, Input, OtherAccess } from "@/app/components";
-import { AiFillMail } from "react-icons/ai";
-import Link from "next/link"; 
-import { BiSolidLockAlt } from "react-icons/bi";
+"use client"
+
+import { FormatUI, LoginForm, OtherAccess } from "@/app/components";
+import Link from "next/link";
+import { useGlobalState } from "@/contexts";
+import { login } from "@/fetch/axiosClient";
+import { useRouter } from "next/router";
 
 const Login = () => {
-    const bodyContent = (
-        <div className="flex flex-col gap-5">
-            <Input
-                icon={<AiFillMail size={25} />}
-                label="Email"
-                name="mail"
-                placeholder="Nhập email của bạn"
-                type="email"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-            />
-            <Input
-                icon={<BiSolidLockAlt size={25} />}
-                label="Mật khẩu"
-                name="password"
-                placeholder="Nhập mật khẩu của bạn"
-                type="password"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-            />
-            <div className="
-                    font-semibold 
-                    cursor-pointer 
-                    text-right
-                    text-white
-                "
-            >
-                <Link href="./forgot_password" className=" ">
-                    Quên mật khẩu ?
-                </Link>
-            </div>
-        </div>
-    )
+    const router = useRouter();
+    const { setUser } = useGlobalState();
+
+    const handleLogin = async (data: any) => {
+        try {
+            const response = await login(data.email, data.password);
+            setUser(response.user);
+            // router.push('/');
+        } catch (error) {
+            console.error('Login failed:', error);
+            // Xử lý lỗi đăng nhập ở đây, có thể sử dụng react-toastify
+        }
+    };
 
     const subBodyContent = (
         <div className="flex flex-row justify-between items-center">
@@ -76,11 +61,12 @@ const Login = () => {
         <FormatUI
             src="/images/background_2.png"
             title="Đăng nhập"
-            body={bodyContent}
+            body={<LoginForm/>}
             subBody={subBodyContent}
             titleButton="Vào trang"
             footer={footerContent}
-            onClick={() => {}}
+            typeButton="submit"
+            onSubmit={handleLogin}
         />
     );
 };

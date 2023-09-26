@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react";
 import { TbBellRinging2Filled } from "react-icons/tb"
 import { Button, ToggleSwitch } from "../../providers";

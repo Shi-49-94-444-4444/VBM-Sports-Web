@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { Access, Logo, NavLink } from "./navbarPC";
 import { IsMobileAccess, IsMobileLogo, IsMobileNavLink, IsMobileSearch } from "./navbarMobile";

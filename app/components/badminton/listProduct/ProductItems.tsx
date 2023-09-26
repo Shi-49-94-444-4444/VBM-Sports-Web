@@ -1,3 +1,5 @@
+"use client"
+
 import ReactPaginate from 'react-paginate';
 import { useState } from 'react';
 import { ListProduct } from '@/types';

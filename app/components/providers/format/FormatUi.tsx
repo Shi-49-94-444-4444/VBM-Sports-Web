@@ -1,8 +1,11 @@
+"use client"
+
 import Link from "next/link"
 import Background from "./Background"
 import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
 import ClientOnly from "../../ClientOnly"
+import { useForm } from 'react-hook-form';
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,
@@ -12,8 +15,12 @@ const FormatUI: React.FC<FormatUIProps> = ({
     titleButton,
     body,
     footer,
-    onClick
+    onClick,
+    onSubmit,
+    typeButton
 }) => {
+    const { handleSubmit } = useForm();
+
     return (
         <ClientOnly>
             <Background src={src}>
@@ -65,7 +72,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             w-[32rem]
                         "
                     >
-                        <div className="flex flex-col gap-6">
+                        <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit!)}>
                             {title && (
                                 <div className="flex flex-row justify-between">
                                     <section className="
@@ -106,6 +113,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                              
                                         "
                                         onClick={onClick}
+                                        type={typeButton!}
                                     >
                                         {titleButton}
                                     </button>
@@ -121,7 +129,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                     {footer}
                                 </div>
                             )}
-                        </div>
+                        </form>
                     </div>
                 </div>
             </Background>

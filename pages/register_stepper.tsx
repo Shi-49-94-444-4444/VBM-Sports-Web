@@ -1,3 +1,5 @@
+"use client"
+
 import { Container, StepperHorizontalContent, StepperVerticalContent } from "@/app/components"
 import { useState } from "react";
 

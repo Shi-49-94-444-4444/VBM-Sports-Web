@@ -29,6 +29,8 @@ export interface FormatUIProps {
     subBody?: React.ReactElement;
     footer?: React.ReactElement;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onSubmit?: (data: any) => void;
+    typeButton?: "button" | "reset" | "submit" | undefined;
 }
 
 export interface InputProps {

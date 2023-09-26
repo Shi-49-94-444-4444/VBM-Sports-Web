@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { Rating } from "../../providers/format"
 import { User } from "@/types"

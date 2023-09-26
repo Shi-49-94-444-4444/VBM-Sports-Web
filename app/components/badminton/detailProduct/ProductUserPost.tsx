@@ -1,3 +1,5 @@
+"use client"
+
 import { Product, User } from "@/types";
 import { Button, Rating, Share } from "../../providers";
 import Image from "next/image";

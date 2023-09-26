@@ -1,3 +1,5 @@
+"use client"
+
 import { navlinks } from '@/utils'
 import Link from 'next/link'
 import { useState } from 'react'

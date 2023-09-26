@@ -1,3 +1,5 @@
+"use client"
+
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import Link from "next/link";
 import { useState } from "react";

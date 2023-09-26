@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { BsFillChatDotsFill } from "react-icons/bs"
 import { BiSolidBellRing } from "react-icons/bi"

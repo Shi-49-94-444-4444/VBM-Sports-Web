@@ -1,3 +1,5 @@
+"use client"
+
 import { CountdownTimer, FormatUI, InputOTP } from "@/app/components"
 import { useRouter } from "next/router";
 import { useState } from "react";

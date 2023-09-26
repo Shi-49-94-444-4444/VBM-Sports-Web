@@ -1,3 +1,5 @@
+"use client"
+
 import { FormatHomePageProps } from "@/types"
 import Link from "next/link"
 import { Container } from ".."
