@@ -1,44 +1,53 @@
 "use client"
 
-import { createContext, useContext, useState } from "react";
+import React, { FC, createContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
-type GlobalContextType = {
+interface GlobalStateProps {
+    children: React.ReactNode;
+}
+
+interface User {
+    name: string;
+    token: string;
+}
+
+interface GlobalContextProps {
+    isAuthUser: boolean | null;
+    setIsAuthUser: React.Dispatch<React.SetStateAction<boolean | null>>;
     user: User | null;
-    setUser: (user: User | null) => void;
-};
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+}
 
-type User = {
-    id: number;
-    email: string;
-    role: 'admin' | 'user';
-};
+export const GlobalContext = createContext<GlobalContextProps | null>(null);
 
-
-export const GlobalContext = createContext<GlobalContextType | null>(null);
-
-export default function GlobalState({
-    children
-}: {
-    children: React.ReactNode
-}) {
+const GlobalState: FC<GlobalStateProps> = ({ children }) => {
+    const [isAuthUser, setIsAuthUser] = useState<boolean | null>(null);
     const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        if (Cookies.get('token') !== undefined) {
+            setIsAuthUser(true);
+            const userData = JSON.parse(localStorage.getItem('user')!) || {};
+            setUser(userData);
+        } else {
+            setIsAuthUser(false);
+            setUser(null); //unauthenticated user
+        }
+    }, [Cookies]);
 
     return (
         <GlobalContext.Provider
             value={{
+                isAuthUser,
+                setIsAuthUser,
                 user,
-                setUser
+                setUser,
             }}
         >
             {children}
         </GlobalContext.Provider>
     );
-}
+};
 
-export const useGlobalState = () => {
-    const context = useContext(GlobalContext);
-    if (!context) {
-      throw new Error('useGlobalContext must be used within a GlobalContextProvider');
-    }
-    return context;
-  };
+export default GlobalState;

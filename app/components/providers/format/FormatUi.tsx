@@ -5,22 +5,15 @@ import Background from "./Background"
 import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
 import ClientOnly from "../../ClientOnly"
-import { useForm } from 'react-hook-form';
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,
     title,
     subTitle,
     subBody,
-    titleButton,
     body,
     footer,
-    onClick,
-    onSubmit,
-    typeButton
 }) => {
-    const { handleSubmit } = useForm();
-
     return (
         <ClientOnly>
             <Background src={src}>
@@ -68,11 +61,12 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             bg-opacity-20 
                             inset-0
                             rounded-xl
-                            p-8
+                            py-4
+                            px-8
                             w-[32rem]
                         "
                     >
-                        <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit!)}>
+                        <div className="flex flex-col gap-6">
                             {title && (
                                 <div className="flex flex-row justify-between">
                                     <section className="
@@ -100,25 +94,6 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             <div className="relative">
                                 {body}
                             </div>
-                            {titleButton && (
-                                <div className="relative">
-                                    <button className="
-                                            w-full 
-                                            bg-primary-blue-cus 
-                                            text-white 
-                                            font-semibold 
-                                            text-lg 
-                                            rounded-xl 
-                                            py-3
-                                             
-                                        "
-                                        onClick={onClick}
-                                        type={typeButton!}
-                                    >
-                                        {titleButton}
-                                    </button>
-                                </div>
-                            )}
                             {subBody && (
                                 <div className="relative">
                                     {subBody}
@@ -129,7 +104,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                     {footer}
                                 </div>
                             )}
-                        </form>
+                        </div>
                     </div>
                 </div>
             </Background>

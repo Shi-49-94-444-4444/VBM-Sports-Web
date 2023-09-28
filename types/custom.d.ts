@@ -24,13 +24,9 @@ export interface FormatUIProps {
     src: string;
     title?: string;
     subTitle?: string;
-    titleButton?: string;
     body: React.ReactElement;
     subBody?: React.ReactElement;
     footer?: React.ReactElement;
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    onSubmit?: (data: any) => void;
-    typeButton?: "button" | "reset" | "submit" | undefined;
 }
 
 export interface InputProps {
@@ -85,4 +81,9 @@ export interface Option {
     id: number;
     label: string;
     icon: IconType
+}
+
+export interface LoginFormData {
+    email: string;
+    password: string;
 }

@@ -39,7 +39,7 @@ const Input: React.FC<InputProps> = ({
                     name={name}
                     value={value}
                     placeholder={placeholder}
-                    {...(register && register(id))}
+                    {...(register && register(name))}
                     disabled={disabled}
                     onChange={onChange}
                     className={`
