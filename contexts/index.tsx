@@ -4,19 +4,28 @@ import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
 interface GlobalStateProps {
-    children: React.ReactNode;
+    children: React.ReactNode
 }
 
 interface User {
-    name: string;
-    token: string;
+    name?: string
+    email?: string
+    token?: string
+}
+
+interface OTP {
+    otp?: string
 }
 
 interface GlobalContextProps {
-    isAuthUser: boolean | null;
-    setIsAuthUser: React.Dispatch<React.SetStateAction<boolean | null>>;
-    user: User | null;
-    setUser: React.Dispatch<React.SetStateAction<User | null>>;
+    isAuthUser: boolean | null
+    setIsAuthUser: React.Dispatch<React.SetStateAction<boolean | null>>
+    user: User | null
+    setUser: React.Dispatch<React.SetStateAction<User | null>>
+    isLoading: boolean | null
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean | null>>
+    otp: OTP | null
+    setOTP: React.Dispatch<React.SetStateAction<OTP | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -24,6 +33,8 @@ export const GlobalContext = createContext<GlobalContextProps | null>(null);
 const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isAuthUser, setIsAuthUser] = useState<boolean | null>(null);
     const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean | null>(false);
+    const [otp, setOTP] = useState<OTP | null>(null)
 
     useEffect(() => {
         if (Cookies.get('token') !== undefined) {
@@ -34,7 +45,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
             setIsAuthUser(false);
             setUser(null); //unauthenticated user
         }
-    }, [Cookies]);
+    }, []);
 
     return (
         <GlobalContext.Provider
@@ -43,6 +54,10 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 setIsAuthUser,
                 user,
                 setUser,
+                isLoading,
+                setIsLoading,
+                otp,
+                setOTP
             }}
         >
             {children}

@@ -1,6 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { GlobalContext } from "@/contexts";
+import { forgotPasswordService } from "@/services/forgotPassword";
+import { sendOTP } from "@/utils/sendOTP";
+import { useState, useEffect, useContext } from "react";
+import { toast } from "react-toastify";
 
 interface CountdownTimerProps {
   initialMinutes: number;
@@ -8,10 +12,13 @@ interface CountdownTimerProps {
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
   const [timeLeft, setTimeLeft] = useState(initialMinutes * 60);
+  const [isReset, setIsReset] = useState(false); // Add isReset state
+  const { setIsLoading, setOTP } = useContext(GlobalContext) || {}
+
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
-      if (timeLeft > 0) {
+      if (timeLeft > 0 && !isReset) { // Check isReset flag
         setTimeLeft((prevTime) => prevTime - 1);
       } else {
         clearInterval(timerInterval);
@@ -21,15 +28,53 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
     return () => {
       clearInterval(timerInterval);
     };
-  }, [timeLeft]);
+  }, [timeLeft, isReset]); // Include isReset in the dependency array
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
+
+  const handleReset = async () => {
+    if (setIsLoading) setIsLoading(true)
+
+    const email = localStorage.getItem("email")
+
+    const res = await forgotPasswordService({ email: email! })
+
+    console.log(res)
+
+    const otp = { otp: res.token }
+    if (setOTP) setOTP(otp)
+    localStorage.setItem("otp", res.token)
+
+    const result = await sendOTP(email!, res.token)
+
+    if (result.success) {
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+
+      setTimeLeft(initialMinutes * 60);
+      setIsReset(true);
+    } else {
+      toast.error(res.message), {
+        position: toast.POSITION.TOP_RIGHT
+      }
+    }
+
+    if (setIsLoading) setIsLoading(false)
+  };
 
   return (
     <div className="text-lg font-normal text-white">
       Thời gian còn lại: {minutes < 10 ? `0${minutes}` : minutes}:
       {seconds < 10 ? `0${seconds}` : seconds}
+      <button
+        onClick={handleReset}
+        type="button"
+        className="hover:underline cursor-pointer text-white font-semibold ml-3"
+      >
+        Gửi lại mã OTP
+      </button>
     </div>
   );
 };

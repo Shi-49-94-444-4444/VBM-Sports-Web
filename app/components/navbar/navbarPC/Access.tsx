@@ -1,18 +1,32 @@
 "use client"
 
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { BiSearch } from "react-icons/bi"
 import { VscAccount } from "react-icons/vsc"
 import { IoIosNotificationsOutline } from "react-icons/io"
 import { IoSettingsOutline } from "react-icons/io5"
-import Link from "next/link"
+import { GlobalContext } from "@/contexts"
+import { useRouter } from "next/router"
+import Cookies from "js-cookie";
 
 const Access = () => {
     const [showToggle, setShowToggle] = useState(false);
+    const router = useRouter()
+    const { isAuthUser, setIsAuthUser, setUser } = useContext(GlobalContext) || {}
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
     };
+
+    const handleLogout = () => {
+        if (setIsAuthUser && setUser) {
+            setIsAuthUser(false)
+            setUser(null)
+        }
+        Cookies.remove("token")
+        localStorage.clear()
+        router.push("/")
+    }
 
     return (
         <ul className="
@@ -160,34 +174,52 @@ const Access = () => {
                             text-gray-600
                         "
                     >
-                        <ul className="space-y-2 list-none">
-                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
-                                <Link
-                                    href="/login"
-                                    className="
-                                        block 
-                                        cursor-pointer 
-                                        px-4 
-                                        py-2
-                                    "
-                                >
-                                    Login
-                                </Link>
-                            </li>
-                            <li className="over:bg-slate-200 hover:text-primary-blue-cus">
-                                <Link
-                                    href="/register"
-                                    className="
-                                        block 
-                                        cursor-pointer 
-                                        px-4 
-                                        py-2
-                                    "
-                                >
-                                    Register
-                                </Link>
-                            </li>
-                        </ul>
+                        {isAuthUser ? (
+                            <ul className="space-y-2 list-none">
+                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                    <button className="
+                                            block 
+                                            cursor-pointer 
+                                            px-4 
+                                            py-2
+                                        "
+                                        type="button"
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
+                            </ul>
+                        ) : (
+                            <ul className="space-y-2 list-none">
+                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                    <button className="
+                                            block 
+                                            cursor-pointer 
+                                            px-4 
+                                            py-2
+                                        "
+                                        type="button"
+                                        onClick={() => router.push("/login")}
+                                    >
+                                        Login
+                                    </button>
+                                </li>
+                                <li className="over:bg-slate-200 hover:text-primary-blue-cus">
+                                    <button className="
+                                            block 
+                                            cursor-pointer 
+                                            px-4 
+                                            py-2
+                                        "
+                                        type="button"
+                                        onClick={() => router.push("/register")}
+                                    >
+                                        Register
+                                    </button>
+                                </li>
+                            </ul>
+                        )}
                     </div>
                 )}
             </li>
@@ -248,18 +280,18 @@ const Access = () => {
                                 flex
                             "
                         >
-                            <div className="
+                            <button className="
                                     self-center
                                     items-center
                                     inline-flex
                                     cursor-pointer
                                     align-middle
                                 "
+                                type="button"
+                                onClick={() => router.push("/setting")}
                             >
-                                <Link href="/setting">
-                                    <IoSettingsOutline size={30} />
-                                </Link>
-                            </div>
+                                <IoSettingsOutline size={30} />
+                            </button>
                         </div>
                     </div>
                 </div>

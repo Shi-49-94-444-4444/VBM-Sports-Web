@@ -83,7 +83,37 @@ export interface Option {
     icon: IconType
 }
 
+export interface FormData {
+    email?: string;
+    password?: string;
+    phone?: string;
+    password?: string;
+    confirmPassword?: string;
+    otp?: string;
+}
 export interface LoginFormData {
     email: string;
     password: string;
+}
+export interface RegisterFormData {
+    name: string;
+    email: string;
+    phone: string;
+    password: string;
+    confirmPassword: string;
+}
+export interface OTP {
+    digit: string;
+}
+export interface getOtp {
+    email: string;
+}
+export interface sendMail {
+    email: string;
+    otp: string;
+}
+
+export interface ChangePasswordFormData {
+    password: string;
+    confirmPassword: string;
 }

@@ -1,9 +1,9 @@
 import { InputProps } from "@/types";
-import {
-    FieldErrors,
-    FieldValues,
-    UseFormRegister,
-} from "react-hook-form";
+// import {
+//     FieldErrors,
+//     FieldValues,
+//     UseFormRegister,
+// } from "react-hook-form";
 
 const Input: React.FC<InputProps> = ({
     id = "",
@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({
     return (
         <div className="gap-1 transition duration-300">
             {label && (
-                <label htmlFor={id} className="block text-left text-base font-semibold text-white mb-3">
+                <label htmlFor={id} className="block text-left text-base font-semibold text-white mb-1">
                     {label}
                 </label>
             )}
@@ -53,13 +53,14 @@ const Input: React.FC<InputProps> = ({
                             px-6
                             transition
                             duration-300
+                            ${errors[id] ? "border border-red-500" : ""}
                         `
                     }
                     pattern={pattern?.source}
                 />
             </div>
             {errors && (
-                <p className="text-red-600 font-semibold h-2">
+                <p className="text-red-500 font-medium h-4">
                     {errors[id]?.message?.toString()}
                 </p>
             )}

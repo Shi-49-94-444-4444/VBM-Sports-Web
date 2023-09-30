@@ -61,12 +61,12 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             bg-opacity-20 
                             inset-0
                             rounded-xl
-                            py-4
+                            py-2
                             px-8
                             w-[32rem]
                         "
                     >
-                        <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-3">
                             {title && (
                                 <div className="flex flex-row justify-between">
                                     <section className="

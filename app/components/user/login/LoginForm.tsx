@@ -7,63 +7,65 @@ import { BiSolidLockAlt } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { LoginFormData } from '@/types';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
-import login from '@/services/login';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup"
+import loginService from '@/services/login';
 
+const initialFormData = {
+    email: "",
+    password: "",
+};
 
 const LoginForm = () => {
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<LoginFormData>();
-    const { isAuthUser, setIsAuthUser, setUser, user } = useContext(GlobalContext) || {}
+    const [formData, setFormData] = useState(initialFormData);
+    const { isAuthUser, setIsAuthUser, setUser, user, setIsLoading } = useContext(GlobalContext) || {}
     const router = useRouter()
+
+    const schema = yup.object().shape({
+        email: yup.string().email('Email không hợp lệ').required('Email là trường bắt buộc'),
+        password: yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').required('Mật khẩu là trường bắt buộc'),
+    });
+
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<LoginFormData>({ resolver: yupResolver(schema), });
 
     const onSubmit = async (data: LoginFormData) => {
         try {
-            const res = await login(data)
+            if (setIsLoading) setIsLoading(true)
 
-            localStorage.clear()
+            const res = await loginService(data)
 
-            console.log(res)
-
-            if (res.token) {
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                })
-                if (setIsAuthUser) {
-                    setIsAuthUser(true);
-                    console.log(isAuthUser)
-                }
-                if (setUser) {
-                    const user = { name: res.userName, token: res.token }
-                    setUser(user);
-                    console.log(user)
-                }
-                Cookies.set("token", res.token)
-                localStorage.setItem("user", JSON.stringify(res))
-                if (isAuthUser === true) {
-                    router.push("/")
-                }
-            } else {
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-                if (setIsAuthUser) {
-                    setIsAuthUser(false)
-                    console.log(isAuthUser)
-                }
+            console.log("Data", res)
+            
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+            if (setIsAuthUser && setUser) {
+                setIsAuthUser(true);
+                const user = { name: res.userName, token: res.token }
+                setUser(user);
             }
+            Cookies.set("token", res.token)
+            localStorage.setItem("user", JSON.stringify(res))
+            if (setIsLoading) setIsLoading(false)
         } catch (error) {
             setError('root', { type: 'manual', message: 'Đăng nhập thất bại' });
             toast.error('Đăng nhập thất bại. Vui lòng thử lại sau.');
         }
     };
 
-    console.log(isAuthUser, user)
+    // console.log(isAuthUser, user)
+    // console.log(formData)
+
+    useEffect(() => {
+        if (isAuthUser) router.push("/");
+    }, [isAuthUser, router]);
 
     return (
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
             <Input
                 icon={<AiFillMail size={25} />}
                 label="Email"
@@ -72,8 +74,15 @@ const LoginForm = () => {
                 type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="email"
+                value={formData.email}
+                onChange={(e) =>
+                    setFormData({
+                        ...formData,
+                        email: e.target.value
+                    })
+                }
                 register={register}
-                errors={errors.email}
+                errors={errors}
             />
             <Input
                 icon={<BiSolidLockAlt size={25} />}
@@ -83,8 +92,15 @@ const LoginForm = () => {
                 type="password"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="password"
+                value={formData.password}
+                onChange={(e) =>
+                    setFormData({
+                        ...formData,
+                        password: e.target.value
+                    })
+                }
                 register={register}
-                errors={errors.password}
+                errors={errors}
             />
             <div className="
                     font-semibold 

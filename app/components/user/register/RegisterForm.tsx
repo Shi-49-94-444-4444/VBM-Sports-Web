@@ -4,22 +4,102 @@ import { Input } from '../../providers';
 import { AiFillMail } from 'react-icons/ai';
 import { BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from 'react-icons/bi';
 import { useForm } from 'react-hook-form';
+import { useContext, useEffect, useState } from 'react';
+import { GlobalContext } from '@/contexts';
+import { useRouter } from 'next/router';
+import { RegisterFormData } from '@/types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import registerService from '@/services/register';
+import { toast } from 'react-toastify';
+import loginService from '@/services/login';
+import Cookies from 'js-cookie';
+
+const initialFormData = {
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+};
 
 const RegisterForm = () => {
-    const { register, formState: { errors } } = useForm();
+    const [formData, setFormData] = useState(initialFormData);
+    const { setIsAuthUser, setUser, isAuthUser, setIsLoading } = useContext(GlobalContext) || {}
+    const [isRegistered, setIsRegistered] = useState(false);
+    const router = useRouter()
+
+    const schema = yup.object().shape({
+        name: yup.string().required('Tên là trường bắt buộc'),
+        email: yup.string().email('Email không hợp lệ').required('Email là trường bắt buộc'),
+        phone: yup.string().matches(/^[0-9]{10}$/, 'Số điện thoại phải có 10 số').required('Số điện thoại là trường bắt buộc'),
+        password: yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').max(25, 'Mật khẩu nhiều nhất chỉ được 25 ký tự').required('Mật khẩu là trường bắt buộc'),
+        confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').required('Mật khẩu xác nhận là trường bắt buộc'),
+    }).required()
+
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<RegisterFormData>({ resolver: yupResolver(schema), });
+
+    const onSubmit = async (data: RegisterFormData) => {
+        try {
+            if (setIsLoading) setIsLoading(true)
+
+            const res = await registerService(data)
+
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+
+            setIsRegistered(true)
+            
+            if (res.userId) {
+                const res = await loginService({email: data.email, password: data.password})
+
+                console.log(res)
+
+                if (setIsAuthUser && setUser) {
+                    setIsAuthUser(true);
+                    const user = { name: res.userName, token: res.token }
+                    setUser(user);
+                }
+                Cookies.set("token", res.token)
+                localStorage.setItem("user", JSON.stringify(res))
+            } else {
+                if (setIsAuthUser) {
+                    setIsAuthUser(false)
+                }
+            }
+            if (setIsLoading) setIsLoading(false)
+
+            console.log(res)
+        } catch (error) {
+            setError('root', { type: 'manual', message: 'Đăng ký thất bại' });
+            toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');
+        }
+    };
+
+    useEffect(() => {
+        if (isAuthUser) router.push("/");
+    }, [isAuthUser, router]);
 
     return (
-        <div className="flex flex-col gap-3">
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
             <Input
                 icon={<BiSolidUser size={25} />}
                 label="Họ và tên"
                 placeholder="Nhập họ và tên"
                 type="text"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                register={register}
                 id="name"
                 name="name"
-                errors={errors.name}
+                value={formData.name}
+                onChange={(e) =>
+                    setFormData({
+                        ...formData,
+                        name: e.target.value
+                    })
+                }
+                register={register}
+                errors={errors}
             />
             <Input
                 icon={<AiFillMail size={25} />}
@@ -27,10 +107,17 @@ const RegisterForm = () => {
                 placeholder="Nhập email của bạn"
                 type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                register={register}
                 id="email"
                 name="email"
-                errors={errors.email}
+                value={formData.email}
+                onChange={(e) =>
+                    setFormData({
+                        ...formData,
+                        email: e.target.value
+                    })
+                }
+                register={register}
+                errors={errors}
             />
             <Input
                 icon={<BiSolidPhoneCall size={25} />}
@@ -38,10 +125,17 @@ const RegisterForm = () => {
                 placeholder="Nhập số điện thoại"
                 type="number"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                register={register}
                 id="phone"
                 name="phone"
-                errors={errors.phone}
+                value={formData.phone}
+                onChange={(e) =>
+                    setFormData({
+                        ...formData,
+                        phone: e.target.value
+                    })
+                }
+                register={register}
+                errors={errors}
             />
             <Input
                 icon={<BiSolidLockAlt size={25} />}
@@ -49,10 +143,17 @@ const RegisterForm = () => {
                 placeholder="Nhập mật khẩu của bạn"
                 type="password"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                register={register}
                 id="password"
                 name="password"
-                errors={errors.password}
+                value={formData.password}
+                onChange={(e) =>
+                    setFormData({
+                        ...formData,
+                        password: e.target.value
+                    })
+                }
+                register={register}
+                errors={errors}
             />
             <Input
                 icon={<BiSolidLockAlt size={25} />}
@@ -60,12 +161,33 @@ const RegisterForm = () => {
                 placeholder="Nhập lại mật khẩu của bạn"
                 type="password"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                register={register}
                 id="confirmPassword"
                 name="confirmPassword"
-                errors={errors.confirmPassword}
+                value={formData.confirmPassword}
+                onChange={(e) =>
+                    setFormData({
+                        ...formData,
+                        confirmPassword: e.target.value
+                    })
+                }
+                register={register}
+                errors={errors}
             />
-        </div>
+            <button className="
+                    w-full 
+                    bg-primary-blue-cus 
+                    text-white 
+                    font-semibold 
+                    text-lg 
+                    rounded-xl 
+                    py-3
+                        
+                "
+                type="submit"
+            >
+                Vào trang
+            </button>
+        </form>
     );
 };
 
