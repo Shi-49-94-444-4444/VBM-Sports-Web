@@ -51,23 +51,28 @@ const RegisterForm = () => {
 
             setIsRegistered(true)
             
+            // if (res.userId) {
+            //     const res = await loginService({email: data.email, password: data.password})
+
+            //     console.log(res)
+
+            //     if (setIsAuthUser && setUser) {
+            //         setIsAuthUser(true);
+            //         const user = { name: res.userName, token: res.token }
+            //         setUser(user);
+            //     }
+            //     Cookies.set("token", res.token)
+            //     localStorage.setItem("user", JSON.stringify(res))
+            // } else {
+            //     if (setIsAuthUser) {
+            //         setIsAuthUser(false)
+            //     }
+            // }
+
             if (res.userId) {
-                const res = await loginService({email: data.email, password: data.password})
-
-                console.log(res)
-
-                if (setIsAuthUser && setUser) {
-                    setIsAuthUser(true);
-                    const user = { name: res.userName, token: res.token }
-                    setUser(user);
-                }
-                Cookies.set("token", res.token)
-                localStorage.setItem("user", JSON.stringify(res))
-            } else {
-                if (setIsAuthUser) {
-                    setIsAuthUser(false)
-                }
+                router.push("/login")
             }
+            
             if (setIsLoading) setIsLoading(false)
 
             console.log(res)

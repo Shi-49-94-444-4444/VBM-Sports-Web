@@ -45,7 +45,7 @@ const LoginForm = () => {
             })
             if (setIsAuthUser && setUser) {
                 setIsAuthUser(true);
-                const user = { name: res.userName, token: res.token }
+                const user = { name: res.userName, token: res.token, id: res.id }
                 setUser(user);
             }
             Cookies.set("token", res.token)

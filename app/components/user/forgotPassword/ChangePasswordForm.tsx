@@ -2,7 +2,7 @@
 
 import { BiSolidLockAlt } from "react-icons/bi"
 import { Input } from "../../providers"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/contexts";
 import { useRouter } from "next/router";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -19,7 +19,7 @@ const initialFormData = {
 
 const ChangePasswordForm = () => {
     const [formData, setFormData] = useState(initialFormData);
-    const { setIsAuthUser, setUser, setIsLoading } = useContext(GlobalContext) || {}
+    const { setIsAuthUser, isAuthUser, setUser, setIsLoading } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const schema = yup.object().shape({
@@ -48,7 +48,7 @@ const ChangePasswordForm = () => {
                 if (setUser) setUser(null)
                 localStorage.clear()
 
-                router.push("/")
+                router.push("/change_password_success")
             }
             if (setIsLoading) setIsLoading(false)
         } catch (error) {
@@ -56,6 +56,10 @@ const ChangePasswordForm = () => {
             toast.error('Đổi mật khẩu thất bại. Vui lòng thử lại sau.');
         }
     };
+
+    useEffect(() => {
+        if (isAuthUser) router.push("/");
+    }, [isAuthUser, router]);
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

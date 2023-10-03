@@ -6,7 +6,8 @@ const Button: React.FC<ButtonProps> = ({
     title,
     style,
     onClick,
-    icon
+    icon,
+    iconLeft
 }) => {
     return (
         <button className={`
@@ -29,14 +30,20 @@ const Button: React.FC<ButtonProps> = ({
                 whitespace-nowrap
                 transition
                 duration-500
+                group
                 ${style}    
             `}
             type="button"
             onClick={onClick}
         >
+            {iconLeft && (
+                <span className="mr-3 text-white group-hover:text-primary-blue-cus">
+                    {iconLeft}
+                </span>
+            )}
             {title}
             {icon && (
-                <span className="ml-3">
+                <span className="ml-3 text-white group-hover:text-primary-blue-cus">
                     {icon}
                 </span>
             )}

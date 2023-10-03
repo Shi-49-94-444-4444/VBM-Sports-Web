@@ -18,6 +18,7 @@ export interface ButtonProps {
     style: string;
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
     icon?: Icon
+    iconLeft?: Icon
 }
 
 export interface FormatUIProps {
@@ -117,3 +118,9 @@ export interface ChangePasswordFormData {
     password: string;
     confirmPassword: string;
 }
+
+export interface OptionsOverviewProps {
+    options: Option[];
+    selectedOption: number;
+    onOptionSelect: (id: number) => void;
+} 

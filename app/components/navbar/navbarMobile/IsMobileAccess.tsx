@@ -1,11 +1,14 @@
 "use client"
 
 import Link from 'next/link';
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { VscAccount } from 'react-icons/vsc';
 import { BiMenu } from 'react-icons/bi'
+import { GlobalContext } from '@/contexts';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 interface IsMobileAccessPros {
     onclick: () => void;
@@ -15,10 +18,22 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
     onclick
 }) => {
     const [showToggle, setShowToggle] = useState(false);
+    const router = useRouter()
+    const { isAuthUser, setIsAuthUser, setUser } = useContext(GlobalContext) || {}
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
     };
+
+    const handleLogout = () => {
+        if (setIsAuthUser && setUser) {
+            setIsAuthUser(false)
+            setUser(null)
+        }
+        Cookies.remove("token")
+        localStorage.clear()
+        router.push("/")
+    }
 
     return (
         <ul className="
@@ -76,34 +91,52 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                             font-bold
                         "
                     >
-                        <ul className="space-y-2 list-none">
-                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
-                                <Link
-                                    href="/login"
-                                    className="
-                                        block 
-                                        cursor-pointer 
-                                        px-4 
-                                        py-2
-                                    "
-                                >
-                                    Login
-                                </Link>
-                            </li>
-                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
-                                <Link
-                                    href="/register"
-                                    className="
-                                        block 
-                                        cursor-pointer 
-                                        px-4 
-                                        py-2
-                                    "
-                                >
-                                    Register
-                                </Link>
-                            </li>
-                        </ul>
+                        {isAuthUser ? (
+                            <ul className="space-y-2 list-none">
+                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                    <button className="
+                                       block 
+                                       cursor-pointer 
+                                       px-4 
+                                       py-2
+                                   "
+                                        type="button"
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
+                            </ul>
+                        ) : (
+                            <ul className="space-y-2 list-none">
+                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                    <button className="
+                                            block 
+                                            cursor-pointer 
+                                            px-4 
+                                            py-2
+                                        "
+                                        type="button"
+                                        onClick={() => router.push("/login")}
+                                    >
+                                        Login
+                                    </button>
+                                </li>
+                                <li className="over:bg-slate-200 hover:text-primary-blue-cus">
+                                    <button className="
+                                            block 
+                                            cursor-pointer 
+                                            px-4 
+                                            py-2
+                                        "
+                                        type="button"
+                                        onClick={() => router.push("/register")}
+                                    >
+                                        Register
+                                    </button>
+                                </li>
+                            </ul>
+                        )}
                     </div>
                 )}
             </li>

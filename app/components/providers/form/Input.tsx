@@ -53,7 +53,7 @@ const Input: React.FC<InputProps> = ({
                             px-6
                             transition
                             duration-300
-                            ${errors[id] ? "border border-red-500" : ""}
+                            ${errors && errors[id] ? "border border-red-500" : ""}
                         `
                     }
                     pattern={pattern?.source}

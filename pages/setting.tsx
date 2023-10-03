@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Container, SettingBan, SettingNotify, SettingOverview, SettingProfile, SettingSecurity } from "@/app/components";
 import Layout from "@/app/layout";
-import { options } from "@/utils";
+import { settingOptions } from "@/utils";
 
 const Setting = () => {
     const [selectedOption, setSelectedOption] = useState<number>(1);
@@ -30,7 +30,7 @@ const Setting = () => {
                     <div className="grid grid-cols-8 h-full min-h-screen gap-5">
                         <div className="col-span-2 border-2 h-full border-[#E7EBEE] rounded-xl md:block hidden">
                             <SettingOverview
-                                options={options}
+                                options={settingOptions}
                                 selectedOption={selectedOption}
                                 onOptionSelect={setSelectedOption}
                             />

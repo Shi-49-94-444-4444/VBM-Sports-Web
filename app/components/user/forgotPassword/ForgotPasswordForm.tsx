@@ -19,7 +19,7 @@ const initialFormData = {
 
 const ForgotPasswordForm = () => {
     const [formData, setFormData] = useState(initialFormData);
-    const { setUser, user, setIsLoading, otp, setOTP } = useContext(GlobalContext) || {}
+    const { setUser, user, setIsLoading, otp, setOTP, isAuthUser } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const schema = yup.object().shape({
@@ -64,6 +64,10 @@ const ForgotPasswordForm = () => {
             toast.error('Gửi thất bại. Vui lòng thử lại sau.');
         }
     };
+
+    useEffect(() => {
+        if (isAuthUser) router.push("/");
+    }, [isAuthUser, router]);
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

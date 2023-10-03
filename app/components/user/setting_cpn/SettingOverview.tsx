@@ -1,12 +1,6 @@
-import { Option } from "@/types";
+import { OptionsOverviewProps } from "@/types";
 
-interface SettingOverviewProps {
-    options: Option[];
-    selectedOption: number;
-    onOptionSelect: (id: number) => void;
-}
-
-const SettingOverview: React.FC<SettingOverviewProps> = ({
+const SettingOverview: React.FC<OptionsOverviewProps> = ({
     options,
     onOptionSelect,
     selectedOption

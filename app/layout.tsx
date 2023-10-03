@@ -9,10 +9,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClientOnly>
+    <>
+      <ClientOnly>
         <Navbar />
         {children}
         <Footer />
-    </ClientOnly>
+      </ClientOnly>
+    </>
   )
 }

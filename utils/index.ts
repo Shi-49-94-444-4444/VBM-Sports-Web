@@ -1,6 +1,7 @@
 import { Option } from "@/types";
 import { BiSolidBellRing } from "react-icons/bi";
-import { FaUserEdit, FaUserSlash } from "react-icons/fa";
+import { BsFileEarmarkPost, BsFillFileEarmarkPostFill, BsFillFileEarmarkRuledFill } from "react-icons/bs";
+import { FaPollH, FaUserEdit, FaUserFriends, FaUserSlash } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
 
 export const navlinks = [
@@ -1095,9 +1096,17 @@ export const listBlog = [
     },
 ]
 
-export const options: Option[] = [
+export const settingOptions: Option[] = [
     { id: 1, label: "Profile", icon: FaUserEdit },
     { id: 2, label: "Security", icon: IoShieldCheckmark },
     { id: 3, label: "Ban", icon: FaUserSlash },
     { id: 4, label: "Notify", icon: BiSolidBellRing },
+];
+
+export const adminOptions: Option[] = [
+    { id: 1, label: "Danh sách người dùng", icon: FaUserFriends },
+    { id: 2, label: "Danh sách bài viết", icon: BsFillFileEarmarkPostFill },
+    { id: 3, label: "Báo cáo thường niên", icon: BsFillFileEarmarkRuledFill },
+    { id: 4, label: "Chính sách", icon: FaPollH },
+    { id: 5, label: "Danh sách người dùng đã báo cáo", icon: BsFileEarmarkPost },
 ];
