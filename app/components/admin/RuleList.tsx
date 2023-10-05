@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 import { Button } from "../providers";
 import rules from "../../../utils/rules.json";

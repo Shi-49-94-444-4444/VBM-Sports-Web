@@ -1,22 +1,30 @@
-"use state"
+"use client"
 
-import { useContext, useEffect, useState } from "react";
-import { CountdownTimer, InputOTP } from "../../providers";
-import { GlobalContext } from "@/contexts";
-import { useForm } from "react-hook-form";
-import { verifyOTPService } from "@/services/forgotPassword";
-import { toast } from "react-toastify";
-import { OTP } from "@/types";
-import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react"
+import { CountdownTimer, InputOTP } from "../../providers"
+import { GlobalContext } from "@/contexts"
+import { useForm } from "react-hook-form"
+import { verifyOTPService } from "@/services/forgotPassword"
+import { toast } from "react-toastify"
+import { OTP } from "@/types"
+import { useRouter } from "next/router"
 
 const VerifyOTPForm = () => {
     const [isOTP, setIsOTP] = useState("")
-    const { setIsLoading, setOTP, user, isAuthUser } = useContext(GlobalContext) || {}
-    const { handleSubmit, setError, formState: { errors } } = useForm<OTP>();
+    const {
+        setIsLoading,
+        isAuthUser,
+    } = useContext(GlobalContext) || {}
+    const {
+        handleSubmit,
+        setError,
+        formState: { errors }
+    } = useForm<OTP>()
+
     const router = useRouter()
 
     const handleOTPChange = (otpValue: string) => {
-        setIsOTP(otpValue);
+        setIsOTP(otpValue)
         // console.log(isOTP)
     };
 
@@ -25,38 +33,36 @@ const VerifyOTPForm = () => {
             if (setIsLoading) setIsLoading(true)
 
             const otp = localStorage.getItem("otp")
-
-            console.log(isOTP);
+            const email = localStorage.getItem("email")
 
             if (isOTP !== otp) {
                 setError('digit', { type: 'manual', message: 'Mã OTP không đúng, vui lòng nhập lại' })
             }
 
-            const res = await verifyOTPService({ email: user?.email!, otp: isOTP })
+            const res = await verifyOTPService({ email: email!, otp: isOTP })
 
-            console.log("Data", res)
+            console.log("Verify_otp: ", res)
 
             if (res.message === "Verify Success") {
-                if (setOTP) setOTP(null)
                 localStorage.removeItem("otp")
 
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                 })
 
-                router.push("/change_password")
+                router.push("/change-password")
             }
 
             if (setIsLoading) setIsLoading(false)
         } catch (error) {
-            setError('root', { type: 'manual', message: 'Xác thực thất bại' });
-            toast.error('Xác thực thất bại. Vui lòng thử lại sau.');
+            setError('root', { type: 'manual', message: 'Xác thực thất bại' })
+            toast.error('Xác thực thất bại. Vui lòng thử lại sau.')
         }
     };
 
     useEffect(() => {
-        if (isAuthUser) router.push("/");
-    }, [isAuthUser, router]);
+        if (isAuthUser) router.push("/")
+    }, [isAuthUser, router])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

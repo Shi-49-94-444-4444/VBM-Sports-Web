@@ -1,33 +1,27 @@
 import { RegisterFormData } from '@/types';
 import { toast } from 'react-toastify';
+import AxiosClient from '../AxiosInstance';
 
 const registerService = async (data: RegisterFormData) => {
     try {
-        const response = await fetch(`${process.env.API_BASE_URL}/api/users/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                fullName: data.name,
-                phoneNum: data.phone,
-                email: data.email,
-                password: data.password,
-                reEnterPass: data.confirmPassword,
-                userName: ""
-            }),
+        const response = await AxiosClient.post('/api/users/register', {
+            fullName: data.name,
+            phoneNum: data.phone,
+            email: data.email,
+            password: data.password,
+            reEnterPass: data.confirmPassword,
+            userName: "",
         });
 
-        if (!response.ok) {
+        if (!response.data) {
             throw new Error('Đăng ký thất bại');
         }
 
-        const responseData = await response.json();
-        // console.log(responseData);
+        // console.log(response.data);
 
         toast.success('Đăng ký thành công!');
 
-        return responseData;
+        return response.data;
 
     } catch (error) {
         toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');

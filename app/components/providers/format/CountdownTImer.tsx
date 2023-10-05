@@ -13,7 +13,7 @@ interface CountdownTimerProps {
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
   const [timeLeft, setTimeLeft] = useState(initialMinutes * 60);
   const [isReset, setIsReset] = useState(false); // Add isReset state
-  const { setIsLoading, setOTP } = useContext(GlobalContext) || {}
+  const { setIsLoading } = useContext(GlobalContext) || {}
 
 
   useEffect(() => {
@@ -36,14 +36,12 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
   const handleReset = async () => {
     if (setIsLoading) setIsLoading(true)
 
-    const email = localStorage.getItem("email")
+    const email = localStorage.getItem("email");
 
     const res = await forgotPasswordService({ email: email! })
 
-    console.log(res)
+    console.log("Verify_OTP: ", res)
 
-    const otp = { otp: res.token }
-    if (setOTP) setOTP(otp)
     localStorage.setItem("otp", res.token)
 
     const result = await sendOTP(email!, res.token)

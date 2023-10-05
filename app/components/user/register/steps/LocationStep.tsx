@@ -1,33 +1,50 @@
 "use client"
 
-import { useState } from 'react';
+import { GlobalContext } from '@/contexts';
+import { getPlayGroundService } from '@/services/step';
+import { useContext, useEffect, useState } from 'react';
 
 const LocationStep = () => {
-    const [selectedItem, setSelectedItem] = useState<number | null>(null);
+    const [selectedItem, setSelectedItem] = useState<number[]>([]);
+    const [locations, setLocations] = useState<string[]>([]);
+    const { setUser, user } = useContext(GlobalContext) || {}
 
-    const locations = [
-        'Quận 1',
-        'Quận 2',
-        'Quận 3',
-        'Quận 4',
-        'Quận 5',
-        'Quận 6',
-        'Quận 7',
-        'Quận 8',
-        'Quận 9',
-        'Quận 10',
-        'Quận 11',
-        'Quận 12',
-        'Quận Gò Vấp',
-        'Quận Tân Bình',
-        'Quận Tân Phú',
-        'Quận Bình Thạnh',
-        'Quận Phú Nhuận',
-        'Quận Thủ Đức',
-    ];
+    useEffect(() => {
+        getPlayGroundService()
+            .then(locations => {
+                setLocations(locations)
+                // console.log(locations)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
+
+    useEffect(() => {
+        if (user?.playingArea && user.playingArea.length > 0) {
+            const initialSelectedItem = locations
+                .map((location, index) => (user?.playingArea?.includes(location) ? index : -1))
+                .filter(index => index !== -1);
+            setSelectedItem(initialSelectedItem);
+        }
+    }, [user, locations]);
+
+    useEffect(() => {
+        const selectedGrounds = selectedItem.map(index => locations[index]);
+
+        if (setUser) {
+            setUser({ playingArea: selectedGrounds })
+        }
+    }, [selectedItem, locations, setUser]);
 
     const handleItemClick = (index: number) => {
-        setSelectedItem(index);
+        const isSelected = selectedItem.includes(index)
+
+        if (isSelected) {
+            setSelectedItem(selectedItem.filter(item => item !== index));
+        } else {
+            setSelectedItem([...selectedItem, index]);
+        }
     };
 
     return (
@@ -58,11 +75,19 @@ const LocationStep = () => {
                         key={index}
                         className={`
                             cursor-pointer 
-                            ${selectedItem === index ? 'text-primary-blue-cus' : ''}
+                            ${selectedItem.includes(index) ? 'text-primary-blue-cus' : ''}
+                            flex
+                            justify-between
+                            items-center
                         `}
                         onClick={() => handleItemClick(index)}
                     >
-                        {location}
+                        <div>
+                            {location}
+                        </div>
+                        <div className='text-3xl'>
+                            &times;
+                        </div>
                     </li>
                 ))}
             </ul>

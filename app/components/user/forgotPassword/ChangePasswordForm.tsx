@@ -19,15 +19,32 @@ const initialFormData = {
 
 const ChangePasswordForm = () => {
     const [formData, setFormData] = useState(initialFormData);
-    const { setIsAuthUser, isAuthUser, setUser, setIsLoading } = useContext(GlobalContext) || {}
+    const {
+        setIsAuthUser,
+        isAuthUser,
+        setUser,
+        setIsLoading,
+    } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const schema = yup.object().shape({
-        password: yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').max(25, 'Mật khẩu nhiều nhất chỉ được 25 ký tự').required('Mật khẩu là trường bắt buộc'),
-        confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').required('Mật khẩu xác nhận là trường bắt buộc'),
+        password: yup.string().
+            min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
+            max(25, 'Mật khẩu nhiều nhất chỉ được 25 ký tự').
+            required('Mật khẩu là trường bắt buộc'),
+        confirmPassword: yup.string().
+            oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').
+            required('Mật khẩu xác nhận là trường bắt buộc'),
     }).required()
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<ChangePasswordFormData>({ resolver: yupResolver(schema), });
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors }
+    } = useForm<ChangePasswordFormData>({
+        resolver: yupResolver(schema),
+    });
 
     const onSubmit = async (data: FormData) => {
         try {
@@ -35,9 +52,13 @@ const ChangePasswordForm = () => {
 
             const email = localStorage.getItem("email")
 
-            const res = await changePasswordService({ email: email!, password: data.password, confirmPassword: data.confirmPassword })
+            const res = await changePasswordService({
+                email: email!,
+                password: data.password,
+                confirmPassword: data.confirmPassword
+            })
 
-            console.log(res)
+            console.log("Change: ", res)
 
             if (res.message === "Update Success") {
                 toast.success(res.message, {
@@ -48,7 +69,7 @@ const ChangePasswordForm = () => {
                 if (setUser) setUser(null)
                 localStorage.clear()
 
-                router.push("/change_password_success")
+                router.push("/change-password-success")
             }
             if (setIsLoading) setIsLoading(false)
         } catch (error) {

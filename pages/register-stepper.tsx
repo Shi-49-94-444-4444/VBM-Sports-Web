@@ -1,6 +1,6 @@
 "use client"
 
-import { Container, StepperHorizontalContent, StepperVerticalContent } from "@/app/components"
+import { Container, StepperHorizontalContent } from "@/app/components"
 import { useState } from "react";
 
 const RegisterStepper = () => {
@@ -18,7 +18,7 @@ const RegisterStepper = () => {
             <Container>
                 <div className="flex justify-center items-center py-10">
                     <div className="grid grid-cols-4 gap-5 w-full">
-                        <StepperVerticalContent steps={steps} currentStep={currentStep}/>
+                        {/* <StepperVerticalContent steps={steps} currentStep={currentStep}/> */}
                         <StepperHorizontalContent steps={steps} currentStep={currentStep} setCurrentStep={setCurrentStep} />
                     </div>
                 </div>

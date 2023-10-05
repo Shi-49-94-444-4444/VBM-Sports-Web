@@ -100,18 +100,19 @@ const StepperVertical: React.FC<StepperVerticalProps> = ({
                             transition-all 
                             duration-500 
                             ease-in-out 
-                            border-gray-300 
-                            bg-gray-400
+                            bg-white
                             text-white
-                            h-7 
-                            w-7 
+                            !border-4 
+                            !border-solid
+                            border-gray-500
+                            w-8 
                             flex 
                             items-center 
                             justify-center 
                             text-lg
                             py-3  
                             ${step.selected
-                                ? "!bg-primary-blue-cus text-white font-bold border border-primary-blue-cus "
+                                ? " text-white font-bold  !border-primary-blue-cus"
                                 : ""
                             }
                             ${step.completed

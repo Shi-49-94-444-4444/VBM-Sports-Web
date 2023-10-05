@@ -19,14 +19,25 @@ const initialFormData = {
 
 const ForgotPasswordForm = () => {
     const [formData, setFormData] = useState(initialFormData);
-    const { setUser, user, setIsLoading, otp, setOTP, isAuthUser } = useContext(GlobalContext) || {}
+    const {
+        setIsLoading,
+        isAuthUser,
+        setIsRouterForgotPassword
+    } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const schema = yup.object().shape({
         email: yup.string().email('Email không hợp lệ').required('Email là trường bắt buộc'),
     });
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<getOtp>({ resolver: yupResolver(schema), });
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors }
+    } = useForm<getOtp>({
+        resolver: yupResolver(schema),
+    });
 
     const onSubmit = async (data: getOtp) => {
         try {
@@ -34,28 +45,22 @@ const ForgotPasswordForm = () => {
 
             const res = await forgotPasswordService(data)
 
-            console.log(res)
+            console.log("forgot: ", res)
 
             if (res.token) {
                 toast.success(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                 })
-                if (setUser && setOTP) {
-                    const user = { email: formData.email }
-                    setUser(user)
-                    const otp = { otp: res.token }
-                    setOTP(otp)
-                    // console.log(user, otp)
-                }
+            }
 
-                localStorage.setItem("email", formData.email)
-                localStorage.setItem("otp", res.token)
+            localStorage.setItem("email", formData.email)
+            localStorage.setItem("otp", res.token)
 
-                const result = await sendOTP(formData.email, res.token)
+            const result = await sendOTP(formData.email, res.token)
 
-                if (result.success) {
-                    router.push("/verify_otp")
-                }
+            if (result.success) {
+                if (setIsRouterForgotPassword) setIsRouterForgotPassword(true)
+                router.push("/verify-otp")
             }
 
             if (setIsLoading) setIsLoading(false)

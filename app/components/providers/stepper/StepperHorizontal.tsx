@@ -23,7 +23,7 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
 
     const updateStep = (stepNumber: number, steps: Step[]): Step[] => {
         const newSteps = [...steps];
-        console.log(newSteps);
+        // console.log(newSteps);
         let count = 0;
         while (count < newSteps.length) {
             //current step
@@ -79,18 +79,18 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
         return (
             <div
                 key={index}
-                className={
-                    index !== newStep.length - 1
-                        ? "flex items-center gap-4"
-                        : "flex items-center gap-4"
-                }
+                className={`
+                    ${index !== newStep.length - 1
+                        ? "flex items-center gap-4 md:w-full"
+                        : "flex items-center"}
+                `}
             >
                 <div className="
                         relative 
                         flex 
-                        flex-row
-                        items-center 
+                        items-center
                         gap-2
+                        w-auto
                     "
                 >
                     <div
@@ -132,7 +132,8 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
                             text-center 
                             text-base 
                             font-semibold 
-                            w-auto
+                            w-full 
+                            whitespace-nowrap
                             ${step.highlighted
                                 ? "text-gray-900"
                                 : "text-gray-400"
@@ -142,8 +143,9 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
                     </div>
                 </div>
                 {index !== newStep.length - 1 && (
-                    <div className={`
-                            w-10
+                    <div className="flex-grow flex items-center justify-center md:block hidden">
+                        <div className={`
+                            w-full
                             border-t-2
                             transition-all
                             duration-500
@@ -153,14 +155,15 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
                                 : "border-gray-300"
                             }
                         `}
-                    />
+                        />
+                    </div>
                 )}
             </div>
         );
     });
 
     return (
-        <div className="p-4 flex justify-between items-center">
+        <div className="p-4 flex items-center justify-between w-full md:flex-nowrap flex-wrap gap-3 md:gap-0">
             {stepsDisplay}
         </div>
     );

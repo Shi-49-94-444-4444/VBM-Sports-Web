@@ -5,6 +5,9 @@ import Background from "./Background"
 import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
 import ClientOnly from "../../ClientOnly"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
+import { useRouter } from "next/router"
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,
@@ -14,6 +17,19 @@ const FormatUI: React.FC<FormatUIProps> = ({
     body,
     footer,
 }) => {
+    const { setUser, setIsAuthUser, setIsRouterForgotPassword } = useContext(GlobalContext) || {}
+    const router = useRouter()
+
+    const handleBack = () => {
+        if (setUser && setIsAuthUser && setIsRouterForgotPassword) {
+            setUser(null)
+            setIsAuthUser(false)
+            setIsRouterForgotPassword(false)
+        }
+        localStorage.clear()
+        router.push("/")
+    }
+
     return (
         <ClientOnly>
             <Background src={src}>
@@ -38,22 +54,24 @@ const FormatUI: React.FC<FormatUIProps> = ({
                             hidden
                         "
                     >
-                        <div className="
+                        <button className="
                                 flex 
                                 flex-row 
                                 items-center 
                                 space-x-1 
                                 cursor-pointer
-                                 
+                                text-white
                             "
+                            type="button"
+                            onClick={handleBack}
                         >
-                            <Link href="./" className="text-white  ">
+                            <span>
                                 <IoIosArrowRoundBack size={40} />
-                            </Link>
-                            <div className="font-semibold text-white">
+                            </span>
+                            <span className="font-semibold">
                                 Quay lại
-                            </div>
-                        </div>
+                            </span>
+                        </button>
                     </div>
                     <div className="
                             relative 
@@ -88,9 +106,9 @@ const FormatUI: React.FC<FormatUIProps> = ({
                                     </section>
                                 </div>
                             )}
-                            <div className="absolute top-3 right-6 md:hidden">
-                                <Link href={'./'} className="text-4xl text-white font-semibold">&times;</Link>
-                            </div>
+                            <button className="absolute top-3 right-6 md:hidden" type="button" onClick={handleBack}>
+                                <span className="text-4xl text-white font-semibold">&times;</span>
+                            </button>
                             <div className="relative">
                                 {body}
                             </div>

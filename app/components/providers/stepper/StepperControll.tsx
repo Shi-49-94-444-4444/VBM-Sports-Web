@@ -11,7 +11,6 @@ export default function StepperControl({
 
     const handleComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
         router.push("/");
-        event.preventDefault()
     };
 
     return (
@@ -35,6 +34,7 @@ export default function StepperControl({
                         hover:bg-slate-700 
                         hover:text-white
                     `}
+                    type="button"
                 >
                     Quay Lại
                 </button>
@@ -56,7 +56,9 @@ export default function StepperControl({
                         duration-500 
                         ease-in-out 
                         hover:bg-orange-500 
-                        hover:text-white"
+                        hover:text-white
+                    "
+                    type="submit"
                 >
                     Tiếp tục
                 </button>
@@ -76,7 +78,9 @@ export default function StepperControl({
                         duration-500 
                         ease-in-out 
                         hover:bg-orange-500 
-                        hover:text-white"
+                        hover:text-white
+                    "
+                    type="submit"
                 >
                     Hoàn Thành
                 </button>

@@ -39,17 +39,28 @@ const LoginForm = () => {
             const res = await loginService(data)
 
             console.log("Data", res)
-            
+
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
             if (setIsAuthUser && setUser) {
                 setIsAuthUser(true);
-                const user = { name: res.userName, token: res.token, id: res.id }
+                const user = {
+                    id: res.id,
+                    name: res.userName,
+                    avatar: res.avatar,
+                    playingArea: res.playingArea,
+                    playingLevel: res.playingLevel,
+                    playingWay: res.playingWay,
+                    token: res.token,
+                    isNewUser: res.isNewUser
+                }
                 setUser(user);
             }
+
             Cookies.set("token", res.token)
             localStorage.setItem("user", JSON.stringify(res))
+
             if (setIsLoading) setIsLoading(false)
         } catch (error) {
             setError('root', { type: 'manual', message: 'Đăng nhập thất bại' });
@@ -61,11 +72,20 @@ const LoginForm = () => {
     // console.log(formData)
 
     useEffect(() => {
-        if (isAuthUser) router.push("/");
-    }, [isAuthUser, router]);
+        if (user?.isNewUser) {
+            router.push("/register-stepper")
+        } else if (isAuthUser) {
+            router.push("/");
+        }
+    }, [isAuthUser, router, user]);
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
+            {errors.root && (
+                <p className="text-red-500 font-medium text-xl relative bg-red-300 bg-opacity-20 w-full h-12 flex items-center justify-center">
+                    {errors.root.message}
+                </p>
+            )}
             <Input
                 icon={<AiFillMail size={25} />}
                 label="Email"
@@ -109,7 +129,7 @@ const LoginForm = () => {
                     text-white
                 "
             >
-                <Link href="./forgot_password" className=" ">
+                <Link href="./forgot-password" className=" ">
                     Quên mật khẩu ?
                 </Link>
             </div>

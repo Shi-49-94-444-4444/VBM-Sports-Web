@@ -25,7 +25,7 @@ const initialFormData = {
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState(initialFormData);
-    const { setIsAuthUser, setUser, isAuthUser, setIsLoading } = useContext(GlobalContext) || {}
+    const { setIsAuthUser, setUser, isAuthUser, setIsLoading, setIsError, isErrors } = useContext(GlobalContext) || {}
     const [isRegistered, setIsRegistered] = useState(false);
     const router = useRouter()
 
@@ -50,7 +50,7 @@ const RegisterForm = () => {
             })
 
             setIsRegistered(true)
-            
+
             // if (res.userId) {
             //     const res = await loginService({email: data.email, password: data.password})
 
@@ -69,10 +69,18 @@ const RegisterForm = () => {
             //     }
             // }
 
+            // if (res) {
+            //     if (setIsError)
+            //         setIsError({ message: res })
+
+            //     console.log(isErrors)
+            //     setError('root', { type: 'manual', message: isErrors?.message });
+            // }
+
             if (res.userId) {
                 router.push("/login")
             }
-            
+
             if (setIsLoading) setIsLoading(false)
 
             console.log(res)

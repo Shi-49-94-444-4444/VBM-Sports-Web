@@ -83,7 +83,13 @@ export interface Option {
     label: string;
     icon: IconType
 }
+export interface OptionsOverviewProps {
+    options: Option[];
+    selectedOption: number;
+    onOptionSelect: (id: number) => void;
+}
 
+// Model
 export interface FormData {
     email?: string;
     password?: string;
@@ -119,8 +125,7 @@ export interface ChangePasswordFormData {
     confirmPassword: string;
 }
 
-export interface OptionsOverviewProps {
-    options: Option[];
-    selectedOption: number;
-    onOptionSelect: (id: number) => void;
-} 
+export interface PlayGround {
+    userID: string;
+    grounds: string[];
+}

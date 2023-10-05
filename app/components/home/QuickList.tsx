@@ -2,7 +2,6 @@ import { listItems } from "@/utils";
 import { Container, ProductOther } from "../providers";
 
 const QuickList = () => {
-
     const sliceItems = listItems.slice(0, 12)
 
     return (
