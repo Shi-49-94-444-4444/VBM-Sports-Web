@@ -4,15 +4,13 @@ import { LocationStep, SkillStep, StylePlayStep, SuggestPlayerStep } from "./ste
 import { StepperControl, StepperHorizontal } from "../../providers";
 import { useForm } from 'react-hook-form';
 import { GlobalContext } from '@/contexts';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { postPlayLevelService, postPlayWayService, postPlaygroundService } from "@/services/step";
 import { toast } from "react-toastify";
 import { FormStep } from "@/types";
-import { useRouter } from "next/router";
 
 const StepperHorizontalContent = ({ }) => {
     const [currentStep, setCurrentStep] = useState(1);
-    const router = useRouter()
 
     const steps = [
         "Chọn khu vực của bạn",
@@ -30,7 +28,7 @@ const StepperHorizontalContent = ({ }) => {
         const userData = JSON.parse(localStorage.getItem('user')!)
 
         if (JSON.stringify(userData.playingArea) === JSON.stringify(user?.playingArea)) {
-            return
+            return Promise.resolve()
         }
 
         const res = await postPlaygroundService({ userID: user?.id!, grounds: user?.playingArea! })
@@ -54,15 +52,18 @@ const StepperHorizontalContent = ({ }) => {
             })
             if (setIsLoading) setIsLoading(false)
         }
-    };
+    }
 
     const onSubmitSkill = async () => {
         if (setIsLoading) setIsLoading(true);
 
         const userData = JSON.parse(localStorage.getItem('user')!)
 
+        console.log(userData.playingLevel);
+        console.log(user?.playingLevel);
+
         if (JSON.stringify(userData.playingLevel) === JSON.stringify(user?.playingLevel)) {
-            return
+            return Promise.resolve()
         }
 
         const res = await postPlayLevelService({ userID: user?.id!, levels: user?.playingLevel! })
@@ -86,15 +87,18 @@ const StepperHorizontalContent = ({ }) => {
             })
             if (setIsLoading) setIsLoading(false)
         }
-    };
+    }
 
     const onSubmitStylePlay = async () => {
         if (setIsLoading) setIsLoading(true);
 
         const userData = JSON.parse(localStorage.getItem('user')!)
 
+        console.log(userData.playingWay);
+        console.log(user?.playingWay);
+
         if (JSON.stringify(userData.playingWay) === JSON.stringify(user?.playingWay)) {
-            return
+            return Promise.resolve()
         }
 
         const res = await postPlayWayService({ userID: user?.id!, ways: user?.playingWay! })
@@ -118,39 +122,48 @@ const StepperHorizontalContent = ({ }) => {
             })
             if (setIsLoading) setIsLoading(false)
         }
-    };
+    }
 
     const onSubmitSuggestPlayer = async () => {
         if (setIsLoading) setIsLoading(true);
 
         console.log("Submit SuggestPlayer Data");
-    };
-
-    const handleClick = (direction: string) => {
-        let newStep = currentStep;
-
-        direction === "next" ? newStep++ : newStep--;
-        // check if steps are within bounds
-        newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
-    };
-
+    }
+    
     const getOnSubmitHandler = () => {
         switch (currentStep) {
             case 1:
-                return () => { };
-            case 2:
                 return onSubmitLocation;
-            case 3:
+            case 2:
                 return onSubmitSkill;
-            case 4:
+            case 3:
                 return onSubmitStylePlay;
-            default:
+            case 4:
                 return onSubmitSuggestPlayer;
+            default:
+                return () => Promise.resolve()
         }
     };
 
+    const handleClick = async (direction: string) => {
+        if (setIsLoading) setIsLoading(true)
+
+        const onSubmitHandler = getOnSubmitHandler();
+        if (onSubmitHandler instanceof Function) {
+            await onSubmitHandler();
+        }
+
+        let newStep = currentStep;
+
+        direction === "next" ? newStep++ : newStep--;
+
+        newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+
+        if (setIsLoading) setIsLoading(false)
+    };
+
     return (
-        <form className="p-4 rounded-lg bg-white border-2 border-[#E7EBEE] w-full h-full" onSubmit={handleSubmit(getOnSubmitHandler())}>
+        <form className="p-4 rounded-lg bg-white border-2 border-[#E7EBEE] w-full h-full" onSubmit={handleSubmit(() => getOnSubmitHandler())}>
             <div className="mt-5 ">
                 <StepperHorizontal steps={steps} currentStep={currentStep} />
 

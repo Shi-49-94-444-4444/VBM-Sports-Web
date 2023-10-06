@@ -31,8 +31,8 @@ const StylePlayStep = () => {
             setUser(prevUser => ({
                 ...prevUser,
                 playingWay: selectedItems[index]
-                    ? prevUser?.playingWay?.filter(style => style !== styles[index])
-                    : [...prevUser?.playingWay!, styles[index]]
+                    ? prevUser?.playingWay?.filter(style => style !== styles[index]) || []
+                    : [...prevUser?.playingWay || [], styles[index]]
             }));
         }
     };
@@ -60,7 +60,7 @@ const StylePlayStep = () => {
                     gap-4
                 "
             >
-                {styles.map((location, index) => (
+                {styles.map((style, index) => (
                     <li
                         key={index}
                         className={`
@@ -69,7 +69,7 @@ const StylePlayStep = () => {
                         `}
                     >
                         <button onClick={() => handleItemClick(index)} type="button">
-                            {location}
+                            {style}
                         </button>
                     </li>
                 ))}
