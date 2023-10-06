@@ -5,7 +5,7 @@ import { getPlayGroundService } from '@/services/step';
 import { useContext, useEffect, useState } from 'react';
 
 const LocationStep = () => {
-    const [selectedItem, setSelectedItem] = useState<number[]>([]);
+    const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const [locations, setLocations] = useState<string[]>([]);
     const { setUser, user } = useContext(GlobalContext) || {}
 
@@ -13,7 +13,6 @@ const LocationStep = () => {
         getPlayGroundService()
             .then(locations => {
                 setLocations(locations)
-                // console.log(locations)
             })
             .catch(error => {
                 console.log(error)
@@ -21,30 +20,26 @@ const LocationStep = () => {
     }, [])
 
     useEffect(() => {
-        if (user?.playingArea && user.playingArea.length > 0) {
-            const initialSelectedItem = locations
-                .map((location, index) => (user?.playingArea?.includes(location) ? index : -1))
-                .filter(index => index !== -1);
-            setSelectedItem(initialSelectedItem);
+        if (user?.playingArea && user.playingArea.length > 0 && selectedItem === null) {
+            const selectedIndex = locations.findIndex(location => user?.playingArea?.includes(location));
+            if (selectedIndex !== -1) {
+                setSelectedItem(selectedIndex);
+            }
         }
-    }, [user, locations]);
+    }, [user, locations, selectedItem]);
 
     useEffect(() => {
-        const selectedGrounds = selectedItem.map(index => locations[index]);
-
-        if (setUser) {
-            setUser({ playingArea: selectedGrounds })
+        if (setUser && selectedItem !== null) {
+            const selectedGrounds = [locations[selectedItem]]
+            setUser(prevUser => ({
+                ...prevUser,
+                playingArea: selectedGrounds
+            }));
         }
     }, [selectedItem, locations, setUser]);
 
     const handleItemClick = (index: number) => {
-        const isSelected = selectedItem.includes(index)
-
-        if (isSelected) {
-            setSelectedItem(selectedItem.filter(item => item !== index));
-        } else {
-            setSelectedItem([...selectedItem, index]);
-        }
+        setSelectedItem(prevSelectedItem => prevSelectedItem === index ? null : index);
     };
 
     return (
@@ -56,7 +51,7 @@ const LocationStep = () => {
                 border-black 
                 border-opacity-10 
                 rounded-xl 
-                max-h-80 
+                h-80
                 overflow-y-auto
             "
         >
@@ -75,7 +70,7 @@ const LocationStep = () => {
                         key={index}
                         className={`
                             cursor-pointer 
-                            ${selectedItem.includes(index) ? 'text-primary-blue-cus' : ''}
+                            ${selectedItem === index ? 'text-primary-blue-cus' : ''}
                             flex
                             justify-between
                             items-center

@@ -40,21 +40,19 @@ const ForgotPasswordForm = () => {
     });
 
     const onSubmit = async (data: getOtp) => {
-        try {
-            if (setIsLoading) setIsLoading(true)
+        if (setIsLoading) setIsLoading(true)
 
-            const res = await forgotPasswordService(data)
+        const res = await forgotPasswordService(data)
 
-            console.log("forgot: ", res)
+        console.log("forgot: ", res)
 
-            if (res.token) {
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                })
-            }
+        if (res.token) {
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
 
-            localStorage.setItem("email", formData.email)
-            localStorage.setItem("otp", res.token)
+            localStorage.setItem("email", JSON.stringify(formData.email))
+            localStorage.setItem("otp", JSON.stringify(res.token))
 
             const result = await sendOTP(formData.email, res.token)
 
@@ -64,9 +62,11 @@ const ForgotPasswordForm = () => {
             }
 
             if (setIsLoading) setIsLoading(false)
-        } catch (error) {
-            setError('root', { type: 'manual', message: 'Gửi thất bại' });
-            toast.error('Gửi thất bại. Vui lòng thử lại sau.');
+        } else {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+            if (setIsLoading) setIsLoading(false)
         }
     };
 

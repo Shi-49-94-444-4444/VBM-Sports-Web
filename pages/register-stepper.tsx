@@ -1,28 +1,13 @@
-"use client"
-
 import { Container, StepperHorizontalContent } from "@/app/components"
-import { useState } from "react";
 
 const RegisterStepper = () => {
-    const [currentStep, setCurrentStep] = useState(1);
-
-    const steps = [
-        "Chọn khu vực của bạn",
-        "Kỹ năng",
-        "Lối chơi",
-        "Gợi ý người chơi",
-    ];
-
     return (
-        <div className="relative bg-[#F8FAFC] h-screen">
-            <Container>
-                <div className="flex justify-center items-center py-10">
-                    <div className="grid grid-cols-4 gap-5 w-full">
-                        {/* <StepperVerticalContent steps={steps} currentStep={currentStep}/> */}
-                        <StepperHorizontalContent steps={steps} currentStep={currentStep} setCurrentStep={setCurrentStep} />
-                    </div>
-                </div>
-            </Container>
+        <div className="relative bg-[#F8FAFC] min-h-screen max-h-full flex justify-center items-center">
+            <div className="relative w-full">
+                <Container>
+                    <StepperHorizontalContent />
+                </Container>
+            </div>
         </div>
     )
 }

@@ -1,6 +1,8 @@
 "use client"
 
+import { GlobalContext } from "@/contexts";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 
 export default function StepperControl({
     handleClick, currentStep, steps
@@ -8,16 +10,24 @@ export default function StepperControl({
     handleClick: (action: string) => void, currentStep: number, steps: string[]
 }): JSX.Element {
     const router = useRouter()
+    const { setUser } = useContext(GlobalContext) || {}
 
     const handleComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
         router.push("/");
+        event.preventDefault()
+    };
+
+    const handleBack = () => {
+        const userData = JSON.parse(localStorage.getItem('user')!) || {};
+        if (setUser) setUser(userData);
+        handleClick("back");
     };
 
     return (
-        <div className="container mt-4 mb-8 flex justify-end gap-5">
+        <div className="container mt-4 mb-8 flex sm:justify-end justify-center gap-5">
             {currentStep > 1 && (
                 <button
-                    onClick={() => handleClick("back")}
+                    onClick={handleBack}
                     className={`
                         cursor-pointer 
                         rounded-lg 

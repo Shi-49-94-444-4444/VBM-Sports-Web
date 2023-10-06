@@ -22,27 +22,45 @@ const initialFormData = {
 
 const LoginForm = () => {
     const [formData, setFormData] = useState(initialFormData);
-    const { isAuthUser, setIsAuthUser, setUser, user, setIsLoading } = useContext(GlobalContext) || {}
+    const {
+        isAuthUser,
+        setIsAuthUser,
+        setUser,
+        user,
+        setIsLoading
+    } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const schema = yup.object().shape({
-        email: yup.string().email('Email không hợp lệ').required('Email là trường bắt buộc'),
-        password: yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').required('Mật khẩu là trường bắt buộc'),
+        email: yup.string().
+            email('Email không hợp lệ').
+            required('Email là trường bắt buộc'),
+        password: yup.string().
+            min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
+            required('Mật khẩu là trường bắt buộc'),
     });
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<LoginFormData>({ resolver: yupResolver(schema), });
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors }
+    } = useForm<LoginFormData>({
+        resolver: yupResolver(schema),
+    });
 
     const onSubmit = async (data: LoginFormData) => {
-        try {
-            if (setIsLoading) setIsLoading(true)
+        if (setIsLoading) setIsLoading(true)
 
-            const res = await loginService(data)
+        const res = await loginService(data)
 
-            console.log("Data", res)
+        console.log("Data", res)
 
+        if (res.id) {
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+
             if (setIsAuthUser && setUser) {
                 setIsAuthUser(true);
                 const user = {
@@ -60,11 +78,12 @@ const LoginForm = () => {
 
             Cookies.set("token", res.token)
             localStorage.setItem("user", JSON.stringify(res))
-
             if (setIsLoading) setIsLoading(false)
-        } catch (error) {
-            setError('root', { type: 'manual', message: 'Đăng nhập thất bại' });
-            toast.error('Đăng nhập thất bại. Vui lòng thử lại sau.');
+        } else {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+            if (setIsLoading) setIsLoading(false)
         }
     };
 
@@ -81,11 +100,11 @@ const LoginForm = () => {
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
-            {errors.root && (
+            {/* {errors.root && (
                 <p className="text-red-500 font-medium text-xl relative bg-red-300 bg-opacity-20 w-full h-12 flex items-center justify-center">
                     {errors.root.message}
                 </p>
-            )}
+            )} */}
             <Input
                 icon={<AiFillMail size={25} />}
                 label="Email"

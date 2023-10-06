@@ -1,11 +1,10 @@
 "use client"
 
-import { useState } from 'react';
+import { GlobalContext } from '@/contexts';
+import { useContext, useEffect, useMemo, useState } from 'react';
 
 const StylePlayStep = () => {
-    const [selectedItem, setSelectedItem] = useState<number | null>(null);
-
-    const styles = [
+    const styles = useMemo(() => [
         'Giành quyền tấn công',
         'Khai thác đường chéo sân',
         'Chiến thuật tấn công cuối sân',
@@ -13,10 +12,29 @@ const StylePlayStep = () => {
         'Chiến thuật ép đối phương đổi hướng liên tục',
         'Chiến thuật đánh vào bốn góc sân',
         'Chiến thuật phòng thủ trước tấn công sau',
-    ];
+    ], []);
+
+    const { setUser, user } = useContext(GlobalContext) || {}
+    const [selectedItems, setSelectedItems] = useState<boolean[]>(styles.map(() => false));
+
+    useEffect(() => {
+        if (user?.playingWay && user.playingWay.length > 0) {
+            const selectedIndices = user.playingWay.map(way => styles.indexOf(way)).filter(index => index !== -1);
+            setSelectedItems(styles.map((_, index) => selectedIndices.includes(index)));
+        }
+    }, [user, styles]);
 
     const handleItemClick = (index: number) => {
-        setSelectedItem(index);
+        setSelectedItems(prevSelectedItems => prevSelectedItems.map((selected, i) => i === index ? !selected : selected));
+
+        if (setUser) {
+            setUser(prevUser => ({
+                ...prevUser,
+                playingWay: selectedItems[index]
+                    ? prevUser?.playingWay?.filter(style => style !== styles[index])
+                    : [...prevUser?.playingWay!, styles[index]]
+            }));
+        }
     };
 
     return (
@@ -47,11 +65,12 @@ const StylePlayStep = () => {
                         key={index}
                         className={`
                             cursor-pointer 
-                            ${selectedItem === index ? 'text-primary-blue-cus' : ''}
+                            ${selectedItems[index] ? 'text-primary-blue-cus' : ''}
                         `}
-                        onClick={() => handleItemClick(index)}
                     >
-                        {location}
+                        <button onClick={() => handleItemClick(index)} type="button">
+                            {location}
+                        </button>
                     </li>
                 ))}
             </ul>

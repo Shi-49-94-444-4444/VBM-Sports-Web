@@ -91,6 +91,7 @@ export interface OptionsOverviewProps {
 
 // Model
 export interface FormData {
+    id?: string
     email?: string;
     password?: string;
     phone?: string;
@@ -125,7 +126,21 @@ export interface ChangePasswordFormData {
     confirmPassword: string;
 }
 
+export interface FormStep {
+    userID?: string;
+    grounds?: string[];
+    level?: number;
+    way?: string[];
+}
 export interface PlayGround {
     userID: string;
     grounds: string[];
+}
+export interface PlayLevel {
+    userID: string;
+    levels: number;
+}
+export interface PlayWay {
+    userID: string;
+    ways: string[];
 }

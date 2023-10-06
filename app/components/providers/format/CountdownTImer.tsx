@@ -36,15 +36,10 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
   const handleReset = async () => {
     if (setIsLoading) setIsLoading(true)
 
-    const email = localStorage.getItem("email");
-
-    const res = await forgotPasswordService({ email: email! })
-
-    console.log("Verify_OTP: ", res)
-
-    localStorage.setItem("otp", res.token)
-
-    const result = await sendOTP(email!, res.token)
+    const email = JSON.parse(localStorage.getItem("email")!)
+    const res = await forgotPasswordService({ email: email })
+    localStorage.setItem("otp", JSON.stringify(res.token))
+    const result = await sendOTP(email, res.token)
 
     if (result.success) {
       toast.success(res.message, {
@@ -53,13 +48,14 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
 
       setTimeLeft(initialMinutes * 60);
       setIsReset(true);
+
+      if (setIsLoading) setIsLoading(false)
     } else {
       toast.error(res.message), {
         position: toast.POSITION.TOP_RIGHT
       }
+      if (setIsLoading) setIsLoading(false)
     }
-
-    if (setIsLoading) setIsLoading(false)
   };
 
   return (

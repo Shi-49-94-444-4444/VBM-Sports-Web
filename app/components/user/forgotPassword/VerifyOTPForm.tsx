@@ -29,34 +29,33 @@ const VerifyOTPForm = () => {
     };
 
     const onSubmit = async () => {
-        try {
-            if (setIsLoading) setIsLoading(true)
+        if (setIsLoading) setIsLoading(true)
 
-            const otp = localStorage.getItem("otp")
-            const email = localStorage.getItem("email")
+        const otp = JSON.parse(localStorage.getItem("otp")!)
+        const email = JSON.parse(localStorage.getItem("email")!)
 
-            if (isOTP !== otp) {
-                setError('digit', { type: 'manual', message: 'Mã OTP không đúng, vui lòng nhập lại' })
-            }
+        if (isOTP !== otp) {
+            setError('digit', { type: 'manual', message: 'Mã OTP không đúng, vui lòng nhập lại' })
+            return
+        }
 
-            const res = await verifyOTPService({ email: email!, otp: isOTP })
+        const res = await verifyOTPService({ email: email, otp: isOTP })
 
-            console.log("Verify_otp: ", res)
+        console.log("Verify_otp: ", res)
 
-            if (res.message === "Verify Success") {
-                localStorage.removeItem("otp")
+        if (res.message === "Verify Success") {
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
 
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                })
-
-                router.push("/change-password")
-            }
-
+            localStorage.removeItem("otp")
+            router.push("/change-password")
             if (setIsLoading) setIsLoading(false)
-        } catch (error) {
-            setError('root', { type: 'manual', message: 'Xác thực thất bại' })
-            toast.error('Xác thực thất bại. Vui lòng thử lại sau.')
+        } else {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+            if (setIsLoading) setIsLoading(false)
         }
     };
 

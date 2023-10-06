@@ -1,17 +1,36 @@
 "use client"
 
-import { useState } from 'react';
+import { GlobalContext } from '@/contexts';
+import { useContext, useEffect, useMemo, useState } from 'react';
 
 const SkillStep = () => {
-    const skills = [
+    const skills = useMemo(() => [
         'Lần đầu',
         'Mới chơi',
         'Có tài năng',
         'Chuyên gia',
         'Tuyển thủ',
-    ];
+    ], [])
 
-    const [selectedSkills, setSelectedSkills] = useState<boolean[]>(skills.map(() => false));
+    const { setUser, user } = useContext(GlobalContext) || {}
+    const [playingLevel, setPlayingLevel] = useState<number>(user?.playingLevel || 0)
+    const [selectedSkills, setSelectedSkills] = useState<boolean[]>(skills.map(() => false))
+
+    useEffect(() => {
+        if (setUser) {
+            setUser(prevUser => ({
+                ...prevUser,
+                playingLevel: playingLevel
+            }));
+        }
+    }, [playingLevel, setUser])
+
+    useEffect(() => {
+        if (user?.playingLevel) {
+            const updatedSkills = skills.map((_, index) => index < user?.playingLevel!);
+            setSelectedSkills(updatedSkills);
+        }
+    }, [user?.playingLevel, skills]);
 
     const handleSkillClick = (index: number) => {
         const updatedSkills = [...selectedSkills];
@@ -27,20 +46,22 @@ const SkillStep = () => {
         }
 
         setSelectedSkills(updatedSkills);
-    };
+        setPlayingLevel(index + 1);
+    }
 
     return (
-        <div className="relative w-full grid grid-cols-5 gap-5 h-80">
+        <div className="relative w-full grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-5 h-80 max-h-full">
             {skills.map((skill, index) => (
                 <div className="col-span-1 w-full" key={index}>
                     <div className="flex flex-col w-full gap-2">
                         <div className="relative">
                             <button
                                 className={`w-full h-20 ${selectedSkills[index]
-                                        ? 'bg-primary-blue-cus'
-                                        : 'bg-[#F5F5F5]'
+                                    ? 'bg-primary-blue-cus'
+                                    : 'bg-[#F5F5F5]'
                                     }`}
                                 onClick={() => handleSkillClick(index)}
+                                type="button"
                             />
                         </div>
                         <div className="text-xl font-semibold text-gray-600 text-center">

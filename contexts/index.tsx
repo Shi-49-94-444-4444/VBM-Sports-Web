@@ -63,10 +63,16 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     useEffect(() => {
         if (isRouterForgotPassword === false) {
             if (routerForgotPassword.includes(router.pathname)) {
-                router.push('/');
+                router.push("/")
             }
         }
     }, [isRouterForgotPassword, router]);
+
+    useEffect(() => {
+        if (user?.isNewUser === false && router.pathname === "/register-stepper") {
+            router.push("/")
+        }
+    }, [user, router]);
 
     return (
         <GlobalContext.Provider

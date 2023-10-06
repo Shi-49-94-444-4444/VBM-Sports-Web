@@ -47,36 +47,36 @@ const ChangePasswordForm = () => {
     });
 
     const onSubmit = async (data: FormData) => {
-        try {
-            if (setIsLoading) setIsLoading(true)
+        if (setIsLoading) setIsLoading(true)
 
-            const email = localStorage.getItem("email")
+        const email = JSON.parse(localStorage.getItem("email")!)
 
-            const res = await changePasswordService({
-                email: email!,
-                password: data.password,
-                confirmPassword: data.confirmPassword
+        const res = await changePasswordService({
+            email: email,
+            password: data.password,
+            confirmPassword: data.confirmPassword
+        })
+
+        console.log("Change: ", res)
+
+        if (res.message === "Update Success") {
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
             })
 
-            console.log("Change: ", res)
+            if (setIsAuthUser) setIsAuthUser(false)
+            if (setUser) setUser(null)
+            localStorage.clear()
 
-            if (res.message === "Update Success") {
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT,
-                })
-
-                if (setIsAuthUser) setIsAuthUser(false)
-                if (setUser) setUser(null)
-                localStorage.clear()
-
-                router.push("/change-password-success")
-            }
+            router.push("/change-password-success")
             if (setIsLoading) setIsLoading(false)
-        } catch (error) {
-            setError('root', { type: 'manual', message: 'Đổi mật khẩu thất bại' });
-            toast.error('Đổi mật khẩu thất bại. Vui lòng thử lại sau.');
+        } else {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+            if (setIsLoading) setIsLoading(false)
         }
-    };
+    }
 
     useEffect(() => {
         if (isAuthUser) router.push("/");

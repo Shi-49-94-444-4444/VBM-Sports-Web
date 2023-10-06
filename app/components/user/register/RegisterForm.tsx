@@ -12,8 +12,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import registerService from '@/services/register';
 import { toast } from 'react-toastify';
-import loginService from '@/services/login';
-import Cookies from 'js-cookie';
 
 const initialFormData = {
     name: "",
@@ -25,68 +23,58 @@ const initialFormData = {
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState(initialFormData);
-    const { setIsAuthUser, setUser, isAuthUser, setIsLoading, setIsError, isErrors } = useContext(GlobalContext) || {}
+    const { isAuthUser, setIsLoading } = useContext(GlobalContext) || {}
     const [isRegistered, setIsRegistered] = useState(false);
     const router = useRouter()
 
     const schema = yup.object().shape({
         name: yup.string().required('Tên là trường bắt buộc'),
-        email: yup.string().email('Email không hợp lệ').required('Email là trường bắt buộc'),
-        phone: yup.string().matches(/^[0-9]{10}$/, 'Số điện thoại phải có 10 số').required('Số điện thoại là trường bắt buộc'),
-        password: yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').max(25, 'Mật khẩu nhiều nhất chỉ được 25 ký tự').required('Mật khẩu là trường bắt buộc'),
-        confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').required('Mật khẩu xác nhận là trường bắt buộc'),
+        email: yup.string().
+            email('Email không hợp lệ').
+            required('Email là trường bắt buộc'),
+        phone: yup.string().
+            matches(/^[0-9]{10}$/, 'Số điện thoại phải có 10 số').
+            required('Số điện thoại là trường bắt buộc'),
+        password: yup.string().
+            min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
+            max(25, 'Mật khẩu nhiều nhất chỉ được 25 ký tự').
+            required('Mật khẩu là trường bắt buộc'),
+        confirmPassword: yup.string().
+            oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').
+            required('Mật khẩu xác nhận là trường bắt buộc'),
     }).required()
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm<RegisterFormData>({ resolver: yupResolver(schema), });
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors }
+    } = useForm<RegisterFormData>({
+        resolver: yupResolver(schema),
+    });
 
     const onSubmit = async (data: RegisterFormData) => {
-        try {
-            if (setIsLoading) setIsLoading(true)
+        if (setIsLoading) setIsLoading(true)
 
-            const res = await registerService(data)
+        const res = await registerService(data)
 
+        console.log(res)
+
+        if (res.userId) {
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
             setIsRegistered(true)
 
-            // if (res.userId) {
-            //     const res = await loginService({email: data.email, password: data.password})
-
-            //     console.log(res)
-
-            //     if (setIsAuthUser && setUser) {
-            //         setIsAuthUser(true);
-            //         const user = { name: res.userName, token: res.token }
-            //         setUser(user);
-            //     }
-            //     Cookies.set("token", res.token)
-            //     localStorage.setItem("user", JSON.stringify(res))
-            // } else {
-            //     if (setIsAuthUser) {
-            //         setIsAuthUser(false)
-            //     }
-            // }
-
-            // if (res) {
-            //     if (setIsError)
-            //         setIsError({ message: res })
-
-            //     console.log(isErrors)
-            //     setError('root', { type: 'manual', message: isErrors?.message });
-            // }
-
-            if (res.userId) {
-                router.push("/login")
-            }
+            router.push("/login")
 
             if (setIsLoading) setIsLoading(false)
-
-            console.log(res)
-        } catch (error) {
-            setError('root', { type: 'manual', message: 'Đăng ký thất bại' });
-            toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');
+        } else {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+            if (setIsLoading) setIsLoading(false)
         }
     };
 

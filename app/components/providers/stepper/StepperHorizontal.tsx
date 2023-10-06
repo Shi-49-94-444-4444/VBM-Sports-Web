@@ -143,7 +143,7 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
                     </div>
                 </div>
                 {index !== newStep.length - 1 && (
-                    <div className="flex-grow flex items-center justify-center md:block hidden">
+                    <div className="flex-grow items-center justify-center md:block hidden">
                         <div className={`
                             w-full
                             border-t-2

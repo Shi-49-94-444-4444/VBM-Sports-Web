@@ -11,6 +11,7 @@ const UserOther: React.FC<User> = ({
     name,
     description,
     rating,
+    
 }) => {
     return (
         <div className="
@@ -44,8 +45,8 @@ const UserOther: React.FC<User> = ({
                             src={src!}
                             alt="QuickList"
                             className="
-                                rounded-t-xl 
-                                hover:rounded-none
+                                rounded-t-lg 
+                                hover:rounded-t-lg
                                 object-cover
                             "
                             fill
