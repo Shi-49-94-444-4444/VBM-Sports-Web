@@ -69,7 +69,7 @@ const ProductUserPost: React.FC<ProductUserPostProps> = ({
                             <Button
                                 title="Xem trang cá nhân"
                                 style=""
-                                onClick={() => { router.push(`/profile_user/${user.id}`); }}
+                                onClick={() => { router.push(`/profile-user/${user.id}`); }}
                             />
                         </div>
                         <div className="text-gray-500 text-xl">

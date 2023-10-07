@@ -23,7 +23,7 @@ const UserOther: React.FC<User> = ({
             "
             key={id}
         >
-            <Link href={`/profile_user/${id}`}>
+            <Link href={`/profile-user/${id}`}>
                 <div className="
                         relative
                         pb-[70%]

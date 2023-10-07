@@ -17,10 +17,11 @@ export default function StepperControl({
         event.preventDefault()
     };
 
-    const handleBack = () => {
+    const handleBack = (event: React.MouseEvent<HTMLButtonElement>) => {
         const userData = JSON.parse(localStorage.getItem('user')!) || {};
         if (setUser) setUser(userData);
         handleClick("back");
+        event.preventDefault()
     };
 
     return (

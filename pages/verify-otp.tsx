@@ -1,5 +1,4 @@
-import { FormatUI } from "@/app/components"
-import { VerifyOTPForm } from "@/app/components/user/forgotPassword"
+import { FormatUI, VerifyOTPForm } from "@/app/components"
 
 const VerifyOTP = () => {
     return (

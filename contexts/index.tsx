@@ -42,7 +42,7 @@ export const GlobalContext = createContext<GlobalContextProps | null>(null);
 
 const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isAuthUser, setIsAuthUser] = useState<boolean | null>(null);
-    const [isRouterForgotPassword, setIsRouterForgotPassword] = useState<boolean | null>(false);
+    const [isRouterForgotPassword, setIsRouterForgotPassword] = useState<boolean | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [isErrors, setIsError] = useState<Errors | null>(null);
     const [isLoading, setIsLoading] = useState<boolean | null>(false);
@@ -61,7 +61,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        if (isRouterForgotPassword === false) {
+        if (isRouterForgotPassword === null || isRouterForgotPassword === false) {
             if (routerForgotPassword.includes(router.pathname)) {
                 router.push("/")
             }

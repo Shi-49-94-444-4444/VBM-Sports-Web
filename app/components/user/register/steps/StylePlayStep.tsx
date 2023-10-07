@@ -37,6 +37,8 @@ const StylePlayStep = () => {
         }
     };
 
+    console.log(user);
+
     return (
         <div className="
                 relative 

@@ -22,7 +22,8 @@ const ForgotPasswordForm = () => {
     const {
         setIsLoading,
         isAuthUser,
-        setIsRouterForgotPassword
+        setIsRouterForgotPassword,
+        isRouterForgotPassword
     } = useContext(GlobalContext) || {}
     const router = useRouter()
 

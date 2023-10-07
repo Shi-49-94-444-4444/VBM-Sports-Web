@@ -22,6 +22,8 @@ const StepperHorizontalContent = ({ }) => {
     const { setIsLoading, user, setUser } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm<FormStep>()
 
+    console.log("global user", user);
+
     const onSubmitLocation = async () => {
         if (setIsLoading) setIsLoading(true);
 
@@ -40,7 +42,7 @@ const StepperHorizontalContent = ({ }) => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            if (setUser) setUser({ playingArea: user?.playingArea })
+            if (setUser) setUser(prevUser => ({ ...prevUser, playingArea: user?.playingArea }))
             localStorage.setItem("user", JSON.stringify(user))
 
             console.log("After: ", user)
@@ -75,7 +77,7 @@ const StepperHorizontalContent = ({ }) => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            if (setUser) setUser({ playingLevel: user?.playingLevel })
+            if (setUser) setUser(prevUser => ({ ...prevUser, playingLevel: user?.playingLevel }))
             localStorage.setItem("user", JSON.stringify(user))
 
             console.log("After: ", user)
@@ -110,7 +112,7 @@ const StepperHorizontalContent = ({ }) => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            if (setUser) setUser({ playingWay: user?.playingWay })
+            if (setUser) setUser(prevUser => ({ ...prevUser, playingWay: user?.playingWay }))
             localStorage.setItem("user", JSON.stringify(user))
 
             console.log("After: ", user)
@@ -129,7 +131,7 @@ const StepperHorizontalContent = ({ }) => {
 
         console.log("Submit SuggestPlayer Data");
     }
-    
+
     const getOnSubmitHandler = () => {
         switch (currentStep) {
             case 1:
@@ -146,21 +148,28 @@ const StepperHorizontalContent = ({ }) => {
     };
 
     const handleClick = async (direction: string) => {
-        if (setIsLoading) setIsLoading(true)
-
-        const onSubmitHandler = getOnSubmitHandler();
-        if (onSubmitHandler instanceof Function) {
-            await onSubmitHandler();
-        }
+        if (setIsLoading) setIsLoading(true);
 
         let newStep = currentStep;
 
-        direction === "next" ? newStep++ : newStep--;
+        if (direction === "next") {
+            const onSubmitHandler = getOnSubmitHandler();
+            if (onSubmitHandler instanceof Function) {
+                await onSubmitHandler();
+            }
 
-        newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
+            newStep++;
+        } else if (direction === "back") {
+            newStep--;
+        }
 
-        if (setIsLoading) setIsLoading(false)
+        newStep = Math.max(1, Math.min(newStep, steps.length));
+
+        setCurrentStep(newStep);
+
+        if (setIsLoading) setIsLoading(false);
     };
+
 
     return (
         <form className="p-4 rounded-lg bg-white border-2 border-[#E7EBEE] w-full h-full" onSubmit={handleSubmit(() => getOnSubmitHandler())}>

@@ -27,7 +27,7 @@ const ProductContent: React.FC<Product> = ({
     const router = useRouter();
 
     const handleDetailClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        router.push(`/detail_badminton/${id}`);
+        router.push(`/detail-badminton/${id}`);
         event.preventDefault();
     };
 

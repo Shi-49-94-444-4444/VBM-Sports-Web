@@ -10,27 +10,22 @@ const SkillStep = () => {
         'Có tài năng',
         'Chuyên gia',
         'Tuyển thủ',
-    ], [])
+    ], []);
 
-    const { setUser, user } = useContext(GlobalContext) || {}
-    const [playingLevel, setPlayingLevel] = useState<number>(user?.playingLevel || 0)
-    const [selectedSkills, setSelectedSkills] = useState<boolean[]>(skills.map(() => false))
+    const { setUser, user } = useContext(GlobalContext) || {};
+    const [playingLevel, setPlayingLevel] = useState<number | undefined>(user?.playingLevel || 0);
+    const [selectedSkills, setSelectedSkills] = useState<boolean[]>(
+        skills.map((_, index) => index < user?.playingLevel!)
+    );
 
     useEffect(() => {
-        if (setUser) {
-            setUser(prevUser => ({
+        if (playingLevel !== undefined && setUser) {
+            setUser((prevUser) => ({
                 ...prevUser,
-                playingLevel: playingLevel
+                playingLevel: playingLevel,
             }));
         }
-    }, [playingLevel, setUser])
-
-    useEffect(() => {
-        if (user?.playingLevel) {
-            const updatedSkills = skills.map((_, index) => index < user?.playingLevel!);
-            setSelectedSkills(updatedSkills);
-        }
-    }, [user?.playingLevel, skills]);
+    }, [playingLevel, setUser]);
 
     const handleSkillClick = (index: number) => {
         const updatedSkills = [...selectedSkills];
@@ -47,7 +42,7 @@ const SkillStep = () => {
 
         setSelectedSkills(updatedSkills);
         setPlayingLevel(index + 1);
-    }
+    };
 
     return (
         <div className="relative w-full grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-5 h-80 max-h-full">

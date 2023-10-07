@@ -35,6 +35,16 @@ const InputOTP: React.FC<InputOTPProps> = ({ length, onOTPChange, errors }) => {
         index: number
     ) => {
         const value = e.key;
+        if (e.ctrlKey && value.toLowerCase() === 'v') {
+            navigator.clipboard.readText().then(clipText => {
+                const pastedDataArray = clipText.split('');
+                if (pastedDataArray.length > length) {
+                    pastedDataArray.length = length;
+                }
+                setOTP(prevOTP => [...pastedDataArray, ...prevOTP.slice(pastedDataArray.length)]);
+            });
+        }
+        
         if (!/^[0-9]$/.test(value) && e.key !== "Backspace") {
             // Chỉ cho phép nhập ký tự số hoặc sử dụng phím backspace (key code 8)
             e.preventDefault();
@@ -51,7 +61,9 @@ const InputOTP: React.FC<InputOTPProps> = ({ length, onOTPChange, errors }) => {
             const newOTP = [...otp];
             newOTP[index] = "";
             setOTP(newOTP);
-            inputRefs.current[index - 1]?.focus();
+            if (newOTP[index] === "") {
+                inputRefs.current[index - 1]?.focus();
+            }
         } else if (/^[0-9]$/.test(value)) {
             const newOTP = [...otp];
             newOTP[index] = value;
