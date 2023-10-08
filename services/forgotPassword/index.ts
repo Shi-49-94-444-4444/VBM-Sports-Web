@@ -5,7 +5,17 @@ import AxiosClient from '../AxiosInstance';
 export const forgotPasswordService = async (data: getOtp) => {
     try {
         const response = await AxiosClient.get(`/api/users/${data.email}/verify_token`);
-        
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getSuggestPlayer = async (id: string) => {
+    try {
+        const response = await AxiosClient.get(`/api/posts/user/${id}/suggestion`);
+
         return response.data;
     } catch (error) {
         console.log(error);
@@ -55,3 +65,4 @@ export const changePasswordService = async (data: FormData) => {
         console.log(error);
     }
 };
+

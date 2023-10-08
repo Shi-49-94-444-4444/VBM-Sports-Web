@@ -1,23 +1,22 @@
 "use client"
 
-import { Product, User } from "@/types";
+import { Product } from "@/types";
 import { Button, Rating, Share } from "../../providers";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-interface ProductUserPostProps {
-    product: Product
-    user: User
-}
-
-const ProductUserPost: React.FC<ProductUserPostProps> = ({
-    product,
-    user
+const ProductUserPost: React.FC<Product> = ({
+    id,
+    title,
+    priceSlot,
+    contentPost,
+    imgUrlUser,
+    sortProfile
 }) => {
     const router = useRouter()
 
     return (
-        <div className="relative py-10" key={product.id}>
+        <div className="relative py-10" key={id}>
             <div className="flex flex-col gap-10">
                 <div className="
                         flex 
@@ -27,10 +26,10 @@ const ProductUserPost: React.FC<ProductUserPostProps> = ({
                     "
                 >
                     <h2 className="text-3xl">
-                        {product.title}
+                        {title}
                     </h2>
                     <p className="text-red-500 text-3xl">
-                        {product.price} VND/Slot
+                        {priceSlot} VND/Slot
                     </p>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -38,7 +37,7 @@ const ProductUserPost: React.FC<ProductUserPostProps> = ({
                         Mô tả:
                     </h3>
                     <p className="text-lg text-gray-500">
-                        {product.description}
+                        {contentPost}
                     </p>
                 </div>
                 <div className="
@@ -49,27 +48,29 @@ const ProductUserPost: React.FC<ProductUserPostProps> = ({
                     "
                 >
                     <div className="relative flex-shrink-0">
-                        <Image
-                            src={user.src!}
-                            alt="avatar"
-                            className="object-cover rounded-full"
-                            width={120}
-                            height={120}
-                            draggable="false"
-                        />
+                        {imgUrlUser &&
+                            <Image
+                                src={imgUrlUser!}
+                                alt="avatar"
+                                className="object-cover rounded-full"
+                                width={120}
+                                height={120}
+                                draggable="false"
+                            />
+                        }
                     </div>
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-row gap-3 items-center">
                             <h1 className="text-xl text-gray-600 font-semibold">
-                                {user.name}
+                                {sortProfile}
                             </h1>
-                            <Rating rating={user.rating} maxStars={5} sizeCus={20} />
+                            <Rating rating={4} maxStars={5} sizeCus={20} />
                         </div>
                         <div className="relative">
                             <Button
                                 title="Xem trang cá nhân"
                                 style=""
-                                onClick={() => { router.push(`/profile-user/${user.id}`); }}
+                                onClick={() => { router.push(`/profile-user/1`); }}
                             />
                         </div>
                         <div className="text-gray-500 text-xl">

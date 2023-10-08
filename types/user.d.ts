@@ -9,14 +9,21 @@ export interface Comment {
 
 export interface User {
     id: string;
-    src?: string;
-    name?: string;
-    description?: string;
+    imgUrl?: string;
+    userName?: string;
+    userRole?: string;
+    sortProfile?: string;
     skillLevel?: number;
     rating?: number;
     friendly?: number;
     trusted?: number;
     helpful?: number;
+    playingArea?: string[];
+    playingLevel?: number;
+    playingWay?: string[];
+    isActive?: boolean;
+    userAddress?: string;
+    phoneNumber?: string;
     comments?: Comment[]
 }
 

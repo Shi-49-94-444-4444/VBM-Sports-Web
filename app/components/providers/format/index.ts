@@ -7,7 +7,7 @@ import FormatHomePage from "./FormatHomePage";
 import FormatPayment from "./FormatPayment";
 import Share from "./Share";
 import CountdownTimer from "./CountdownTImer";
-import FormatDate from "./FormatDate";
+import { FormatDate, GetFirstDate, FormatTime } from "./FormatDate";
 import ToggleSwitch from "./ToggleSwitch";
 
 export * from "./ImageCarousel"
@@ -15,7 +15,7 @@ export * from "./ProductCarousel"
 export * from "./UserCarousel"
 export * from "./BlogCarousel"
 
-export { 
+export {
     OtherAccess,
     Rating,
     Background,
@@ -26,5 +26,7 @@ export {
     Share,
     CountdownTimer,
     FormatDate,
-    ToggleSwitch
+    ToggleSwitch,
+    FormatTime,
+    GetFirstDate
 }

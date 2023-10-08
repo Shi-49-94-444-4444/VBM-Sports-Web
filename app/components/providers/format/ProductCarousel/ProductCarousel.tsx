@@ -5,22 +5,69 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
-import { listItems } from '@/utils';
 import ProductOther from './ProductOther';
+import { useEffect, useState } from 'react';
+import { getListProductService } from '@/services/product';
+import { Product } from '@/types';
 
 SwiperCore.use([Pagination]);
 
 const ProductCarousel = () => {
-    const slicedItems = listItems.slice(0, 16);
+    const [listProduct, setListProduct] = useState<Product[]>([])
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const products = await getListProductService();
+                const dataNeeded = products.map((product: Product) => {
+                    const {
+                        id,
+                        title,
+                        idUserToNavigation,
+                        addressSlot,
+                        contentPost,
+                        days,
+                        endTime,
+                        imgUrl,
+                        priceSlot,
+                        quantitySlot,
+                        startTime
+                    } = product
+
+                    return {
+                        id,
+                        title,
+                        idUserToNavigation,
+                        addressSlot,
+                        contentPost,
+                        days,
+                        endTime,
+                        imgUrl,
+                        priceSlot,
+                        quantitySlot,
+                        startTime
+                    }
+                })
+                setListProduct(dataNeeded);
+                console.log(products);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    const slicedItems = listProduct.slice(0, 16);
 
     return (
         <Swiper
-            spaceBetween={10} 
+            spaceBetween={10}
             pagination={{ clickable: true }}
             loop={true}
             breakpoints={{
                 640: {
-                    slidesPerView: 1, 
+                    slidesPerView: 1,
                     slidesPerGroup: 1,
                 },
                 768: {
@@ -41,16 +88,19 @@ const ProductCarousel = () => {
                 <SwiperSlide key={item.id}>
                     <ProductOther
                         id={item.id}
-                        image={item.image}
+                        idUserToNavigation={item.idUserToNavigation}
+                        addressSlot={item.addressSlot}
+                        contentPost={item.contentPost}
+                        days={item.days}
+                        endTime={item.endTime}
+                        imgUrl={item.imgUrl}
+                        quantitySlot={item.quantitySlot}
+                        startTime={item.startTime}
                         title={item.title}
-                        description={item.description}
-                        timeOpen={item.timeOpen}
-                        timeClose={item.timeClose}
-                        slot={item.slot}
                     />
                 </SwiperSlide>
             ))}
-            <div className="mt-20"/>
+            <div className="mt-20" />
         </Swiper>
     );
 };

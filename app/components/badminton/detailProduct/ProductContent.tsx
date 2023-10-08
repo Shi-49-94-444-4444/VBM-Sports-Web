@@ -6,10 +6,10 @@ import { ImageCarousel } from "../../providers";
 
 const ProductContent: React.FC<Product> = ({
     id,
-    image,
-    date,
-    timeOpen,
-    timeClose
+    imgUrl,
+    days,
+    startTime,
+    endTime
 }) => {
     return (
         <div className="grid lg:grid-cols-7 grid-cols-1 gap-5 py-5">
@@ -17,16 +17,16 @@ const ProductContent: React.FC<Product> = ({
                 <ImageCarousel
                     key={id}
                     id={id}
-                    image={image}
+                    imgUrl={imgUrl}
                 />
             </div>
             <div className="lg:col-span-2">
                 <ProductDetail
                     key={id}
                     id={id}
-                    date={date}
-                    timeOpen={timeOpen}
-                    timeClose={timeClose}
+                    days={days}
+                    startTime={startTime}
+                    endTime={endTime}
                 />
             </div>
         </div>

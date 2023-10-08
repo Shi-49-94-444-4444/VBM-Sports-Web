@@ -7,11 +7,10 @@ import Rating from "../Rating"
 
 const UserOther: React.FC<User> = ({
     id,
-    src,
-    name,
-    description,
+    imgUrl,
+    userName,
+    sortProfile,
     rating,
-    
 }) => {
     return (
         <div className="
@@ -41,17 +40,19 @@ const UserOther: React.FC<User> = ({
                             h-full
                         "
                     >
-                        <Image
-                            src={src!}
-                            alt="QuickList"
-                            className="
+                        {imgUrl &&
+                            <Image
+                                src={imgUrl!}
+                                alt="QuickList"
+                                className="
                                 rounded-t-lg 
                                 hover:rounded-t-lg
                                 object-cover
                             "
-                            fill
-                            draggable="false"
-                        />
+                                fill
+                                draggable="false"
+                            />
+                        }
                     </div>
                 </div>
                 <div className="
@@ -68,14 +69,14 @@ const UserOther: React.FC<User> = ({
                             line-clamp-1
                         "
                     >
-                        {name}
+                        {userName}
                     </h1>
                     <p className="
                             text-gray-500 
                             line-clamp-4
                         "
                     >
-                        Mô tả ngắn: {description}
+                        Mô tả ngắn: {sortProfile}
                     </p>
                     <div className="
                             flex

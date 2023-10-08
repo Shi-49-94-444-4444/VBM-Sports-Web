@@ -58,7 +58,7 @@ const OtherExtra = () => {
                         gap-5
                     "
                 >
-                    {sliceItems.map((item) => (
+                    {/* {sliceItems.map((item) => (
                         <ProductOther
                             key={item.id}
                             id={item.id}
@@ -69,7 +69,7 @@ const OtherExtra = () => {
                             timeOpen={item.timeOpen}
                             slot={item.slot}
                         />
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </div>
