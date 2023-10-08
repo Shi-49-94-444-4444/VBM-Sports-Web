@@ -4,14 +4,19 @@ import Image from "next/image"
 import { User } from "@/types"
 import Link from "next/link"
 import Rating from "../Rating"
+import { 
+    validateDescription, 
+    validateName, 
+    validateNumber, 
+    validateURLAvatar 
+} from "@/utils/function"
 
 const UserOther: React.FC<User> = ({
     id,
-    src,
-    name,
-    description,
+    imgUrl,
+    userName,
+    sortProfile,
     rating,
-    
 }) => {
     return (
         <div className="
@@ -42,7 +47,7 @@ const UserOther: React.FC<User> = ({
                         "
                     >
                         <Image
-                            src={src!}
+                            src={validateURLAvatar(imgUrl)}
                             alt="QuickList"
                             className="
                                 rounded-t-lg 
@@ -68,14 +73,14 @@ const UserOther: React.FC<User> = ({
                             line-clamp-1
                         "
                     >
-                        {name}
+                        {validateName(userName)}
                     </h1>
                     <p className="
                             text-gray-500 
                             line-clamp-4
                         "
                     >
-                        Mô tả ngắn: {description}
+                        Mô tả ngắn: {validateDescription(sortProfile)}
                     </p>
                     <div className="
                             flex
@@ -86,7 +91,7 @@ const UserOther: React.FC<User> = ({
                         "
                     >
                         <span>Rating:</span>
-                        <Rating rating={rating} maxStars={5} sizeCus={25} />
+                        <Rating rating={validateNumber(rating)} maxStars={5} sizeCus={25} />
                     </div>
                 </div>
             </Link>

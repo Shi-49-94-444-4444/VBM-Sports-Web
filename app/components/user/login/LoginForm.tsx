@@ -6,7 +6,7 @@ import { AiFillMail } from 'react-icons/ai';
 import { BiSolidLockAlt } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { LoginFormData } from '@/types';
+import { LoginFormData, User } from '@/types';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
 import loginService from '@/services/login';
-import { getListUserService } from '@/services';
 
 const initialFormData = {
     email: "",
@@ -54,14 +53,6 @@ const LoginForm = () => {
 
     const onSubmit = async (data: LoginFormData) => {
         if (setIsLoading) setIsLoading(true)
-
-        const listUser = await getListUserService()
-
-        if (listUser.email !== data.email) {
-            setError("email", { message: "Tài khoản không tồn tại" })
-            if (setIsLoading) setIsLoading(false)
-            return
-        }
 
         const res = await loginService(data)
 

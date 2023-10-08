@@ -4,23 +4,17 @@ import { useEffect, useState } from "react";
 import { Container, ProductOther } from "../providers";
 import { getListProductService } from "@/services/product";
 import { listItems } from "@/utils";
-import { ListProduct, Product } from "@/types";
+import { Product } from "@/types";
 
 const QuickList = () => {
-    const [listProduct, setListProduct] = useState<ListProduct>()
+    const [listProduct, setListProduct] = useState<Product[]>([])
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const products = await getListProductService();
-                const dataNeeded = products.map((product: Product) => {
-                    const { id, title, description, slot, image, timeClose, timeOpen } = product
-
-                    return { id, title, description, slot, image, timeClose, timeOpen }
-                })
-                setListProduct(dataNeeded);
+                setListProduct(products);
                 console.log(products);
-
             } catch (error) {
                 console.log(error);
             }
@@ -31,7 +25,11 @@ const QuickList = () => {
 
     console.log("listProduct", listProduct);
 
-    const sliceItems = listItems.slice(0, 12)
+    if (listProduct === undefined || listProduct.length === 0 || listProduct.length === null) { 
+        return <div>Loading...</div>
+    }
+
+    const sliceItems = listProduct.slice(0, 12)
 
     return (
         <div className="relative py-10">
@@ -47,16 +45,19 @@ const QuickList = () => {
                         duration-500
                     "
                 >
-                    {sliceItems.map((items) => (
+                    {sliceItems?.map((items) => (
                         <ProductOther
                             key={items.id}
                             id={items.id}
                             title={items.title}
-                            description={items.description}
-                            slot={items.slot}
-                            image={items.image}
-                            timeClose={items.timeClose}
-                            timeOpen={items.timeOpen}
+                            idUserToNavigation={items.idUserToNavigation}
+                            addressSlot={items.addressSlot}
+                            contentPost={items.contentPost}
+                            days={items.days}
+                            endTime={items.endTime}
+                            imgUrl={items.imgUrl}
+                            quantitySlot={items.quantitySlot}
+                            startTime={items.startTime}
                         />
                     ))}
                 </div>

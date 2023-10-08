@@ -2,38 +2,61 @@
 
 import { useRouter } from "next/router"
 import Layout from '@/app/layout';
-import { 
-    Container, 
-    ProductContent, 
-    ProductUserPost, 
-    ProductOtherExtra 
+import {
+    Container,
+    ProductContent,
+    ProductUserPost,
+    ProductOtherExtra
 } from "@/app/components";
-import { listItems, listUser } from "@/utils";
+import { getProductService } from "@/services/product";
+import { useEffect, useState } from "react";
+import { Product } from "@/types";
 
 const DetailBadminton = () => {
     const router = useRouter()
     const { id } = router.query
+    const [selectItem, setSelectItem] = useState<Product>()
 
-    const selectItem = listItems.find(items => items.id === id)
-    const user = listUser[1]
+    useEffect(() => {
+        if (!id || Array.isArray(id)) {
+            console.log(id);
+            return;
+        }
+
+        const fetchProducts = async () => {
+            try {
+                const products = await getProductService(id);
+                setSelectItem(products);
+                console.log("Product", products);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchProducts();
+    }, [id]);
 
     if (!selectItem) {
-        return <div>Sản phẩm không tồn tại</div>;
+        return <div>Sản phẩm không tồn tại</div>
     }
 
     return (
         <Layout>
             <Container>
-                <ProductContent 
+                <ProductContent
                     id={selectItem.id}
-                    image={selectItem.image}
-                    date={selectItem.date}
-                    timeOpen={selectItem.timeOpen}
-                    timeClose={selectItem.timeClose}
+                    imgUrl={selectItem.imgUrl}
+                    days={selectItem.days}
+                    startTime={selectItem.startTime}
+                    endTime={selectItem.endTime}
                 />
                 <ProductUserPost
-                    product={selectItem}
-                    user={user}
+                    id={selectItem.id}
+                    title={selectItem.title}
+                    priceSlot={selectItem.priceSlot}
+                    contentPost={selectItem.contentPost}
+                    imgUrlUser={selectItem.imgUrlUser}
+                    sortProfile={selectItem.sortProfile}
                 />
                 <ProductOtherExtra />
             </Container>

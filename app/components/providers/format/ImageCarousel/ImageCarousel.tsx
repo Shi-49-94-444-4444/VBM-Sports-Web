@@ -11,7 +11,7 @@ import { Product } from '@/types';
 SwiperCore.use([Pagination]);
 
 const ImageCarousel: React.FC<Product> = ({
-    image
+    imgUrl
 }) => {
     return (
         <Swiper
@@ -20,7 +20,7 @@ const ImageCarousel: React.FC<Product> = ({
             slidesPerView={1}
             className="h-full rounded-lg"
         >
-            {image && image.map((item) => (
+            {imgUrl && imgUrl.map((item) => (
                 <SwiperSlide key={item.id}>
                     <ImageItemOther
                         id={item.id}

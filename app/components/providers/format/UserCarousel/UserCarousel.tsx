@@ -7,11 +7,30 @@ import '@/styles/swiper-product.css'
 
 import { listUser } from '@/utils';
 import UserOther from './UserOther';
+import { useEffect, useState } from 'react';
+import { User } from '@/types';
+import { getListUserService } from '@/services';
 
 SwiperCore.use([Pagination]);
 
 const UserCarousel = () => {
-    const sliceItems = listUser.slice(0,12)
+    const [listUser, setListUser] = useState<User[]>([])
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const user = await getListUserService();
+                setListUser(user);
+                console.log(user);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    const sliceItems = listUser.slice(0, 12)
 
     return (
         <Swiper
@@ -41,9 +60,9 @@ const UserCarousel = () => {
                 <SwiperSlide key={item.id}>
                     <UserOther
                         id={item.id}
-                        src={item.src}
-                        name={item.name}
-                        description={item.description}
+                        imgUrl={item.imgUrl}
+                        userName={item.userName}
+                        sortProfile={item.sortProfile}
                         rating={item.rating}
                     />
                 </SwiperSlide>
