@@ -4,6 +4,12 @@ import Image from "next/image"
 import { User } from "@/types"
 import Link from "next/link"
 import Rating from "../Rating"
+import { 
+    validateDescription, 
+    validateName, 
+    validateNumber, 
+    validateURLAvatar 
+} from "@/utils/function"
 
 const UserOther: React.FC<User> = ({
     id,
@@ -40,19 +46,17 @@ const UserOther: React.FC<User> = ({
                             h-full
                         "
                     >
-                        {imgUrl &&
-                            <Image
-                                src={imgUrl!}
-                                alt="QuickList"
-                                className="
+                        <Image
+                            src={validateURLAvatar(imgUrl)}
+                            alt="QuickList"
+                            className="
                                 rounded-t-lg 
                                 hover:rounded-t-lg
                                 object-cover
                             "
-                                fill
-                                draggable="false"
-                            />
-                        }
+                            fill
+                            draggable="false"
+                        />
                     </div>
                 </div>
                 <div className="
@@ -69,14 +73,14 @@ const UserOther: React.FC<User> = ({
                             line-clamp-1
                         "
                     >
-                        {userName}
+                        {validateName(userName)}
                     </h1>
                     <p className="
                             text-gray-500 
                             line-clamp-4
                         "
                     >
-                        Mô tả ngắn: {sortProfile}
+                        Mô tả ngắn: {validateDescription(sortProfile)}
                     </p>
                     <div className="
                             flex
@@ -87,7 +91,7 @@ const UserOther: React.FC<User> = ({
                         "
                     >
                         <span>Rating:</span>
-                        <Rating rating={rating} maxStars={5} sizeCus={25} />
+                        <Rating rating={validateNumber(rating)} maxStars={5} sizeCus={25} />
                     </div>
                 </div>
             </Link>

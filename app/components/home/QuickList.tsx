@@ -25,6 +25,10 @@ const QuickList = () => {
 
     console.log("listProduct", listProduct);
 
+    if (listProduct === undefined || listProduct.length === 0 || listProduct.length === null) { 
+        return <div>Loading...</div>
+    }
+
     const sliceItems = listProduct.slice(0, 12)
 
     return (

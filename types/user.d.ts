@@ -9,6 +9,7 @@ export interface Comment {
 
 export interface User {
     id: string;
+    email?: string;
     imgUrl?: string;
     userName?: string;
     userRole?: string;

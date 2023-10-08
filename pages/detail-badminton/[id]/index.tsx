@@ -9,7 +9,7 @@ import {
     ProductOtherExtra
 } from "@/app/components";
 import { getProductService } from "@/services/product";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "@/types";
 
 const DetailBadminton = () => {
@@ -17,26 +17,27 @@ const DetailBadminton = () => {
     const { id } = router.query
     const [selectItem, setSelectItem] = useState<Product>()
 
-    if (!id || Array.isArray(id)) {
-        console.log(id);
-        
-        return <div>Sản phẩm không tồn tại</div>;
-    }
-
-    const fetchProducts = async () => {
-        try {
-            const products = await getProductService(id);
-            setSelectItem(products);
-            console.log("Product", products);
-        } catch (error) {
-            console.log(error);
+    useEffect(() => {
+        if (!id || Array.isArray(id)) {
+            console.log(id);
+            return;
         }
-    };
 
-    fetchProducts();
+        const fetchProducts = async () => {
+            try {
+                const products = await getProductService(id);
+                setSelectItem(products);
+                console.log("Product", products);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchProducts();
+    }, [id]);
 
     if (!selectItem) {
-        return <div>Sản phẩm không tồn tại</div>;
+        return <div>Sản phẩm không tồn tại</div>
     }
 
     return (

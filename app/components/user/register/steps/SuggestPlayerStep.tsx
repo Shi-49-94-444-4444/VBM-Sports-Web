@@ -1,3 +1,5 @@
+"use client"
+
 import UserOther from "@/app/components/providers/format/UserCarousel/UserOther";
 import { GlobalContext } from "@/contexts";
 import { getSuggestPlayer } from "@/services";

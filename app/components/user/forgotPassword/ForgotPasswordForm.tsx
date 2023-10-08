@@ -7,12 +7,11 @@ import { GlobalContext } from "@/contexts";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
 import { toast } from "react-toastify";
-import { getOtp } from "@/types";
+import { User, getOtp } from "@/types";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { forgotPasswordService } from "@/services/forgotPassword";
 import { sendOTP } from "@/utils/sendOTP";
-import { getListUserService } from "@/services";
 
 const initialFormData = {
     email: "",
@@ -42,14 +41,6 @@ const ForgotPasswordForm = () => {
 
     const onSubmit = async (data: getOtp) => {
         if (setIsLoading) setIsLoading(true)
-
-        const listUser = await getListUserService()
-
-        if (listUser.email !== data.email) {
-            setError("email", { message: "Tài khoản không tồn tại" })
-            if (setIsLoading) setIsLoading(false)
-            return
-        }
 
         const res = await forgotPasswordService(data)
 

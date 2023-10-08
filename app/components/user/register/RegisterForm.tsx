@@ -7,12 +7,11 @@ import { useForm } from 'react-hook-form';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
 import { useRouter } from 'next/router';
-import { RegisterFormData } from '@/types';
+import { RegisterFormData, User } from '@/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import registerService from '@/services/register';
 import { toast } from 'react-toastify';
-import { getListUserService } from '@/services';
 
 const initialFormData = {
     name: "",
@@ -58,14 +57,6 @@ const RegisterForm = () => {
 
     const onSubmit = async (data: RegisterFormData) => {
         if (setIsLoading) setIsLoading(true)
-
-        const listUser = await getListUserService()
-
-        if (listUser.email === data.email) {
-            setError("email", { message: "Tài khoản đã tồn tại" })
-            if (setIsLoading) setIsLoading(false)
-            return
-        }
 
         const res = await registerService(data)
 
