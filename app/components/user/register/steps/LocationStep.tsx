@@ -1,5 +1,6 @@
 "use client"
 
+import { Loading } from '@/app/components/providers';
 import { GlobalContext } from '@/contexts';
 import { getPlayGroundService } from '@/services/step';
 import { useContext, useEffect, useState } from 'react';
@@ -7,17 +8,21 @@ import { useContext, useEffect, useState } from 'react';
 const LocationStep = () => {
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const [locations, setLocations] = useState<string[]>([]);
-    const { setUser, user } = useContext(GlobalContext) || {}
+    const { setUser, user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
 
     useEffect(() => {
-        getPlayGroundService()
-            .then(locations => {
+        if (setIsLoading) setIsLoading(true)
+        const fetchPlayGround = async () => {
+            try {
+                const locations = await getPlayGroundService()
                 setLocations(locations)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }, [])
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        fetchPlayGround()
+    }, [setIsLoading])
 
     useEffect(() => {
         if (user?.playingArea && user.playingArea.length > 0 && selectedItem === null) {
@@ -55,37 +60,43 @@ const LocationStep = () => {
                 overflow-y-auto
             "
         >
-            <ul className="
-                    p-8 
-                    text-gray-600 
-                    text-xl 
-                    font-semibold 
-                    flex 
-                    flex-col 
-                    gap-4
-                "
-            >
-                {locations.map((location, index) => (
-                    <li
-                        key={index}
-                        className={`
-                            cursor-pointer 
-                            ${selectedItem === index ? 'text-primary-blue-cus' : ''}
-                            flex
-                            justify-between
-                            items-center
-                        `}
-                        onClick={() => handleItemClick(index)}
-                    >
-                        <div>
-                            {location}
-                        </div>
-                        <div className='text-3xl'>
-                            &times;
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            {isLoading ? (
+                <Loading
+                    loading={isLoading}
+                />
+            ) : (
+                <ul className="
+                        p-8 
+                        text-gray-600 
+                        text-xl 
+                        font-semibold 
+                        flex 
+                        flex-col 
+                        gap-4
+                    "
+                >
+                    {locations.map((location, index) => (
+                        <li
+                            key={index}
+                            className={`
+                                cursor-pointer 
+                                ${selectedItem === index ? 'text-primary-blue-cus' : ''}
+                                flex
+                                justify-between
+                                items-center
+                            `}
+                            onClick={() => handleItemClick(index)}
+                        >
+                            <div>
+                                {location}
+                            </div>
+                            <div className='text-3xl'>
+                                &times;
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };

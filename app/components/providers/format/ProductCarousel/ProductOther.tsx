@@ -22,6 +22,7 @@ const ProductOther: React.FC<Product> = ({
                 cursor-pointer
                 transition-all
                 duration-500
+                shadow-sm
             "
             key={id}
         >
@@ -60,7 +61,7 @@ const ProductOther: React.FC<Product> = ({
                         p-4 
                         flex 
                         flex-col 
-                        gap-3
+                        gap-2
                         transition-all
                         duration-500
                     "
@@ -76,47 +77,58 @@ const ProductOther: React.FC<Product> = ({
                     >
                         {title}
                     </h1>
-                    <p className="
-                            text-gray-500 
-                            line-clamp-4
-                            transition-all
-                            duration-500
-                        "
-                    >
+                    <div className="flex flex-row space-x-2 items-center">
+                        <span>
+                            <Image
+                                src="/images/avatar.jpg"
+                                alt={`avatar ${id}`}
+                                width={50}
+                                height={50}
+                                className="rounded-full"
+                            />
+                        </span>
+                        <span className="text-gray-600 font-semibold text-xl">
+                            Mạnh
+                        </span>
+                    </div>
+                    <p className="text-gray-500 line-clamp-4">
                         Mô tả ngắn: {description}
                     </p>
-                    <div className=" 
-                            whitespace-nowrap 
-                            line-clamp-1 
-                            space-x-3
-                            transition-all
-                            duration-500
-                        "
-                    >
-                        <span className='text-gray-500'>
-                            Time:
+                    <div className="space-x-1 line-clamp-1 whitespace-nowrap">
+                        <span className="text-gray-500">
+                            Địa điểm sân:
                         </span>
-                        <span className="
-                                text-black 
-                                font-semibold 
-                            "
-                        >
+                        <span className="text-black font-semibold">
+                            17 Võ văn hát - Q9
+                        </span>
+                    </div>
+                    <div className="whitespace-nowrap line-clamp-1 space-x-8">
+                        <span className='text-gray-500'>
+                            Thời gian:
+                        </span>
+                        <span className="text-black font-semibold">
                             {timeOpen} AM - {timeClose} PM
+                        </span>
+                    </div>
+                    <div className="space-x-7 line-clamp-1 whitespace-nowrap">
+                        <span className="text-gray-500">
+                            Ngày chơi:
+                        </span>
+                        <span className="text-black font-semibold">
+                            17 Võ văn hát - Q9
                         </span>
                     </div>
                     <div className="
                             text-gray-500 
-                            line-clamp-4
-                            transition-all
-                            duration-500
-                            space-x-5
+                            line-clamp-1
+                            space-x-[4.5rem]
                         "
                     >
                         <span>
-                            Slot:
+                            Chỗ:
                         </span>
                         <span className="text-black font-semibold">
-                            {slot}/30
+                            {slot}
                         </span>
                     </div>
                 </div>

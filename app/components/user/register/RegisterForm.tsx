@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import registerService from '@/services/register';
 import { toast } from 'react-toastify';
+import { getListUserService } from '@/services';
 
 const initialFormData = {
     name: "",
@@ -28,20 +29,22 @@ const RegisterForm = () => {
     const router = useRouter()
 
     const schema = yup.object().shape({
-        name: yup.string().required('Tên là trường bắt buộc'),
+        name: yup.string().required('Tên không được để trống '),
         email: yup.string().
             email('Email không hợp lệ').
-            required('Email là trường bắt buộc'),
+            required('Email không được để trống'),
         phone: yup.string().
-            matches(/^[0-9]{10}$/, 'Số điện thoại phải có 10 số').
-            required('Số điện thoại là trường bắt buộc'),
+            matches(/^[0-9]$/, 'Số điện thoại phải nhập số').
+            min(7, 'Số điện thoại có ít nhất 7 số').
+            max(15, 'Số điện thoại nhiều nhất 15 số').
+            required('Số điện thoại không được để trống'),
         password: yup.string().
             min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
-            max(25, 'Mật khẩu nhiều nhất chỉ được 25 ký tự').
-            required('Mật khẩu là trường bắt buộc'),
+            max(50, 'Mật khẩu nhiều nhất 50 ký tự').
+            required('Mật khẩu không được để trống'),
         confirmPassword: yup.string().
             oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').
-            required('Mật khẩu xác nhận là trường bắt buộc'),
+            required('Mật khẩu xác nhận không được để trống'),
     }).required()
 
     const {
@@ -56,6 +59,14 @@ const RegisterForm = () => {
     const onSubmit = async (data: RegisterFormData) => {
         if (setIsLoading) setIsLoading(true)
 
+        const listUser = await getListUserService()
+
+        if (listUser.email === data.email) {
+            setError("email", { message: "Tài khoản đã tồn tại" })
+            if (setIsLoading) setIsLoading(false)
+            return
+        }
+
         const res = await registerService(data)
 
         console.log(res)
@@ -68,14 +79,17 @@ const RegisterForm = () => {
             setIsRegistered(true)
 
             router.push("/login")
-
-            if (setIsLoading) setIsLoading(false)
+        } else if (res.ErrorEmail) {
+            setError("email", { message: res.ErrorEmail })
+        } else if (res.ErrorPassword) {
+            setError("confirmPassword", { message: res.ErrorPassword })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+
+        if (setIsLoading) setIsLoading(false)
     };
 
     useEffect(() => {

@@ -8,14 +8,20 @@ import { IoSettingsOutline } from "react-icons/io5"
 import { GlobalContext } from "@/contexts"
 import { useRouter } from "next/router"
 import Cookies from "js-cookie";
+import { beforeNavUser } from "@/utils"
+import OutsideClickHandler from "react-outside-click-handler"
 
 const Access = () => {
     const [showToggle, setShowToggle] = useState(false);
     const router = useRouter()
-    const { isAuthUser, setIsAuthUser, setUser } = useContext(GlobalContext) || {}
+    const { isAuthUser, setIsAuthUser, setUser, user } = useContext(GlobalContext) || {}
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
+    };
+
+    const handleOutsideClick = () => {
+        setShowToggle(false);
     };
 
     const handleLogout = () => {
@@ -127,45 +133,46 @@ const Access = () => {
                 </div>
             </li>
             <li className="relative inline-flex">
-                <div
-                    className="
+                <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+                    <div
+                        className="
                         border-box 
                         pl-4 
                         pr-1 
                         md:pl-5
                     "
-                    onClick={handleToggle}
-                >
-                    <div className="
+                        onClick={handleToggle}
+                    >
+                        <div className="
                             bg-transparent 
                             border-none 
                             cursor-pointer
                         "
-                    >
-                        <div className="
+                        >
+                            <div className="
                                 items-center 
                                 box-border 
                                 flex
                             "
-                        >
-                            <div className="
+                            >
+                                <div className="
                                     self-center
                                     items-center
                                     inline-flex
                                     cursor-pointer
                                     align-middle
                                 "
-                            >
-                                <VscAccount size={30} />
+                                >
+                                    <VscAccount size={30} />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {showToggle && (
-                    <div className="
+                    {showToggle && (
+                        <div className="
                             absolute 
                             top-8 
-                            left-5 
+                            -left-16 
                             bg-white 
                             rounded-lg 
                             shadow-md 
@@ -173,55 +180,61 @@ const Access = () => {
                             font-bold
                             text-gray-600
                         "
-                    >
-                        {isAuthUser ? (
-                            <ul className="space-y-2 list-none">
-                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
-                                    <button className="
+                        >
+                            {isAuthUser ? (
+                                <ul className="space-y-2 list-none">
+                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                        <button className="
                                             block 
                                             cursor-pointer 
                                             px-4 
                                             py-2
+                                            whitespace-nowrap
                                         "
-                                        type="button"
-                                        onClick={handleLogout}
-                                    >
-                                        Logout
-                                    </button>
-                                </li>
-                            </ul>
-                        ) : (
-                            <ul className="space-y-2 list-none">
-                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
-                                    <button className="
+                                            type="button"
+                                            onClick={() => router.push(`/profile-user/${user?.id}`)}
+                                        >
+                                            Hồ sơ
+                                        </button>
+                                    </li>
+                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                        <button className="
                                             block 
                                             cursor-pointer 
                                             px-4 
                                             py-2
+                                            whitespace-nowrap
                                         "
-                                        type="button"
-                                        onClick={() => router.push("/login")}
-                                    >
-                                        Login
-                                    </button>
-                                </li>
-                                <li className="over:bg-slate-200 hover:text-primary-blue-cus">
-                                    <button className="
+                                            type="button"
+                                            onClick={handleLogout}
+                                        >
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            ) : (
+                                <ul className="space-y-2 list-none">
+                                    {beforeNavUser.map((item, index) => (
+                                        <li className="hover:bg-slate-200 hover:text-primary-blue-cus" key={index}>
+                                            <button className="
                                             block 
                                             cursor-pointer 
                                             px-4 
                                             py-2
+                                            whitespace-nowrap
                                         "
-                                        type="button"
-                                        onClick={() => router.push("/register")}
-                                    >
-                                        Register
-                                    </button>
-                                </li>
-                            </ul>
-                        )}
-                    </div>
-                )}
+                                                type="button"
+                                                onClick={() => router.push(item.href)}
+                                            >
+                                                {item.label}
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    )}
+                </OutsideClickHandler>
             </li>
             <li className="relative inline-flex">
                 <div

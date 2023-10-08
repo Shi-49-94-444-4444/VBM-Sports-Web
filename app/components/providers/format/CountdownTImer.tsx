@@ -48,14 +48,13 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
 
       setTimeLeft(initialMinutes * 60);
       setIsReset(true);
-
-      if (setIsLoading) setIsLoading(false)
     } else {
       toast.error(res.message), {
         position: toast.POSITION.TOP_RIGHT
       }
-      if (setIsLoading) setIsLoading(false)
     }
+
+    if (setIsLoading) setIsLoading(false)
   };
 
   return (

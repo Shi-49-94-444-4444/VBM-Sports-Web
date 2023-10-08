@@ -42,6 +42,7 @@ const Input: React.FC<InputProps> = ({
                     {...(register && register(name))}
                     disabled={disabled}
                     onChange={onChange}
+                    maxLength={100}
                     className={`
                             ${colorInput}
                             w-full 

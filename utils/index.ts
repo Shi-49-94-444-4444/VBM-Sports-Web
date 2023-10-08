@@ -1110,3 +1110,8 @@ export const adminOptions: Option[] = [
     { id: 4, label: "Chính sách", icon: FaPollH },
     { id: 5, label: "Danh sách người dùng đã báo cáo", icon: BsFileEarmarkPost },
 ];
+
+export const beforeNavUser = [
+    { label: "Đăng nhập", href: "/login" },
+    { label: "Đăng ký", href: "/register" },
+]

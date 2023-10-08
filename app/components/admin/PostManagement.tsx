@@ -104,7 +104,7 @@ const PostManagement = () => {
                             </td>
                             {showToggleItemID === items.id && (
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-                                    <div className="absolute bg-gray-100 shadow-md rounded-lg w-auto top-auto left-auto bottom-auto right-0 -translate-x-[7.5rem] translate-y-5 transition p-2 z-[1001] text-left">
+                                    <div className="absolute bg-gray-100 shadow-md rounded-lg w-auto top-auto left-auto bottom-auto right-0 lg:-translate-x-28 -translate-x-20 translate-y-5 transition p-2 z-[1001] text-left">
                                         <ul className="space-y-2 list-none">
                                             {listAction.map((items, index) => (
                                                 <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>

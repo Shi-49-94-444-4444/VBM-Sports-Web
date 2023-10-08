@@ -30,11 +30,11 @@ const ChangePasswordForm = () => {
     const schema = yup.object().shape({
         password: yup.string().
             min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
-            max(25, 'Mật khẩu nhiều nhất chỉ được 25 ký tự').
-            required('Mật khẩu là trường bắt buộc'),
+            max(50, 'Mật khẩu nhiều nhất chỉ được 50 ký tự').
+            required('Mật khẩu không được để trống'),
         confirmPassword: yup.string().
             oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').
-            required('Mật khẩu xác nhận là trường bắt buộc'),
+            required('Mật khẩu xác nhận không được để trống'),
     }).required()
 
     const {
@@ -67,15 +67,16 @@ const ChangePasswordForm = () => {
             if (setIsAuthUser) setIsAuthUser(false)
             if (setUser) setUser(null)
             localStorage.clear()
-
             router.push("/change-password-success")
-            if (setIsLoading) setIsLoading(false)
+        } else if (res.ErrorCode) {
+            setError("confirmPassword", { message: res.ErrorCode })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+
+        if (setIsLoading) setIsLoading(false)
     }
 
     useEffect(() => {

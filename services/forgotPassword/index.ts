@@ -5,13 +5,7 @@ import AxiosClient from '../AxiosInstance';
 export const forgotPasswordService = async (data: getOtp) => {
     try {
         const response = await AxiosClient.get(`/api/users/${data.email}/verify_token`);
-
-        if (!response.data) {
-            throw new Error('Gửi không thành công');
-        }
-
-        // console.log(response.data);
-
+        
         return response.data;
     } catch (error) {
         console.log(error);

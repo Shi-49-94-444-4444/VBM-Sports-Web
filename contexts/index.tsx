@@ -20,18 +20,12 @@ interface User {
     isNewUser?: boolean
 }
 
-interface Errors {
-    message?: string
-}
-
 const routerForgotPassword = ["/change-password", "/change-password-success", "/verify-otp"]
 interface GlobalContextProps {
     isAuthUser: boolean | null
     setIsAuthUser: React.Dispatch<React.SetStateAction<boolean | null>>
     isRouterForgotPassword: boolean | null
     setIsRouterForgotPassword: React.Dispatch<React.SetStateAction<boolean | null>>
-    isErrors: Errors | null
-    setIsError: React.Dispatch<React.SetStateAction<Errors | null>>
     user: User | null
     setUser: React.Dispatch<React.SetStateAction<User | null>>
     isLoading: boolean | null
@@ -44,7 +38,6 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isAuthUser, setIsAuthUser] = useState<boolean | null>(null);
     const [isRouterForgotPassword, setIsRouterForgotPassword] = useState<boolean | null>(null);
     const [user, setUser] = useState<User | null>(null);
-    const [isErrors, setIsError] = useState<Errors | null>(null);
     const [isLoading, setIsLoading] = useState<boolean | null>(false);
 
     const router = useRouter()
@@ -83,8 +76,6 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 setUser,
                 isLoading,
                 setIsLoading,
-                isErrors,
-                setIsError,
                 isRouterForgotPassword,
                 setIsRouterForgotPassword
             }}

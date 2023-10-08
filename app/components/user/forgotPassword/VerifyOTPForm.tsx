@@ -36,6 +36,7 @@ const VerifyOTPForm = () => {
 
         if (isOTP !== otp) {
             setError('digit', { type: 'manual', message: 'Mã OTP không đúng, vui lòng nhập lại' })
+            if (setIsLoading) setIsLoading(false)
             return
         }
 
@@ -50,13 +51,15 @@ const VerifyOTPForm = () => {
 
             localStorage.removeItem("otp")
             router.push("/change-password")
-            if (setIsLoading) setIsLoading(false)
+        } else if (res.ErrorCode) {
+            setError("digit", { message: res.ErrorCode })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+
+        if (setIsLoading) setIsLoading(false)
     };
 
     useEffect(() => {

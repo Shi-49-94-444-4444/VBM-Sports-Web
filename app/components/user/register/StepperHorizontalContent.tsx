@@ -30,6 +30,7 @@ const StepperHorizontalContent = ({ }) => {
         const userData = JSON.parse(localStorage.getItem('user')!)
 
         if (JSON.stringify(userData.playingArea) === JSON.stringify(user?.playingArea)) {
+            if (setIsLoading) setIsLoading(false)
             return Promise.resolve()
         }
 
@@ -47,12 +48,14 @@ const StepperHorizontalContent = ({ }) => {
 
             console.log("After: ", user)
 
-            if (setIsLoading) setIsLoading(false)
+        } else if (res.ErrorCode) {
+            toast.error(res.ErrorCode, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
     }
 
@@ -65,6 +68,7 @@ const StepperHorizontalContent = ({ }) => {
         console.log(user?.playingLevel);
 
         if (JSON.stringify(userData.playingLevel) === JSON.stringify(user?.playingLevel)) {
+            if (setIsLoading) setIsLoading(false)
             return Promise.resolve()
         }
 
@@ -82,12 +86,14 @@ const StepperHorizontalContent = ({ }) => {
 
             console.log("After: ", user)
 
-            if (setIsLoading) setIsLoading(false)
+        } else if (res.ErrorCode) {
+            toast.error(res.ErrorCode, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
     }
 
@@ -100,6 +106,7 @@ const StepperHorizontalContent = ({ }) => {
         console.log(user?.playingWay);
 
         if (JSON.stringify(userData.playingWay) === JSON.stringify(user?.playingWay)) {
+            if (setIsLoading) setIsLoading(false)
             return Promise.resolve()
         }
 
@@ -117,12 +124,14 @@ const StepperHorizontalContent = ({ }) => {
 
             console.log("After: ", user)
 
-            if (setIsLoading) setIsLoading(false)
-        } else {
+        } else if (res.ErrorCode) {
+            toast.error(res.ErrorCode, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+        } {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
     }
 
@@ -148,8 +157,6 @@ const StepperHorizontalContent = ({ }) => {
     };
 
     const handleClick = async (direction: string) => {
-        if (setIsLoading) setIsLoading(true);
-
         let newStep = currentStep;
 
         if (direction === "next") {

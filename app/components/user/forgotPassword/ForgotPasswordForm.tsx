@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { forgotPasswordService } from "@/services/forgotPassword";
 import { sendOTP } from "@/utils/sendOTP";
+import { getListUserService } from "@/services";
 
 const initialFormData = {
     email: "",
@@ -23,12 +24,11 @@ const ForgotPasswordForm = () => {
         setIsLoading,
         isAuthUser,
         setIsRouterForgotPassword,
-        isRouterForgotPassword
     } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const schema = yup.object().shape({
-        email: yup.string().email('Email không hợp lệ').required('Email là trường bắt buộc'),
+        email: yup.string().email('Email không hợp lệ').required('Email không được để trống'),
     });
 
     const {
@@ -42,6 +42,14 @@ const ForgotPasswordForm = () => {
 
     const onSubmit = async (data: getOtp) => {
         if (setIsLoading) setIsLoading(true)
+
+        const listUser = await getListUserService()
+
+        if (listUser.email !== data.email) {
+            setError("email", { message: "Tài khoản không tồn tại" })
+            if (setIsLoading) setIsLoading(false)
+            return
+        }
 
         const res = await forgotPasswordService(data)
 
@@ -62,13 +70,15 @@ const ForgotPasswordForm = () => {
                 router.push("/verify-otp")
             }
 
-            if (setIsLoading) setIsLoading(false)
+        } else if (res.ErrorCode) {
+            setError("email", { message: res.ErrorCode })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+
+        if (setIsLoading) setIsLoading(false)
     };
 
     useEffect(() => {

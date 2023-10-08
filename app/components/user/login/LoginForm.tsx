@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { Input } from '../../providers';
+import { Input, Loading } from '../../providers';
 import { AiFillMail } from 'react-icons/ai';
 import { BiSolidLockAlt } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
 import loginService from '@/services/login';
+import { getListUserService } from '@/services';
 
 const initialFormData = {
     email: "",
@@ -27,17 +28,19 @@ const LoginForm = () => {
         setIsAuthUser,
         setUser,
         user,
-        setIsLoading
+        setIsLoading,
+        isLoading
     } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const schema = yup.object().shape({
         email: yup.string().
             email('Email không hợp lệ').
-            required('Email là trường bắt buộc'),
+            required('Email không được để trống'),
         password: yup.string().
             min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
-            required('Mật khẩu là trường bắt buộc'),
+            max(50, 'Mật khẩu chỉ được nhiều nhất 50 ký tự').
+            required('Mật khẩu không được để trống'),
     });
 
     const {
@@ -51,6 +54,14 @@ const LoginForm = () => {
 
     const onSubmit = async (data: LoginFormData) => {
         if (setIsLoading) setIsLoading(true)
+
+        const listUser = await getListUserService()
+
+        if (listUser.email !== data.email) {
+            setError("email", { message: "Tài khoản không tồn tại" })
+            if (setIsLoading) setIsLoading(false)
+            return
+        }
 
         const res = await loginService(data)
 
@@ -78,13 +89,17 @@ const LoginForm = () => {
 
             Cookies.set("token", res.token)
             localStorage.setItem("user", JSON.stringify(res))
-            if (setIsLoading) setIsLoading(false)
+        } else if (res.ErrorEmail) {
+            setError("email", { message: res.ErrorEmail })
+        } else if (res.ErrorPassword) {
+            setError("password", { message: res.ErrorPassword })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+
+        if (setIsLoading) setIsLoading(false)
     };
 
     // console.log(isAuthUser, user)
@@ -164,7 +179,14 @@ const LoginForm = () => {
                 "
                 type="submit"
             >
-                Vào trang
+                {isLoading ? (
+                    <Loading
+                        loading={isLoading}
+                        color="white"
+                    />
+                ) : (
+                    " Vào trang"
+                )}
             </button>
         </form>
     );
