@@ -5,11 +5,10 @@ import { User } from "@/types"
 import Link from "next/link"
 import Rating from "../Rating"
 import { 
-    validateDescription, 
-    validateName, 
-    validateNumber, 
+    validateDes,
+    validateName,
     validateURLAvatar 
-} from "@/utils/function"
+} from "@/utils"
 
 const UserOther: React.FC<User> = ({
     id,
@@ -26,9 +25,9 @@ const UserOther: React.FC<User> = ({
                 border-opacity-10
                 cursor-pointer
             "
-            key={id}
+            key={id ?? "1"}
         >
-            <Link href={`/profile-user/${id}`}>
+            <Link href={`/profile-user/${id ?? "1"}`}>
                 <div className="
                         relative
                         pb-[70%]
@@ -78,9 +77,11 @@ const UserOther: React.FC<User> = ({
                     <p className="
                             text-gray-500 
                             line-clamp-4
+                            text-
+                            min-h-[6rem]
                         "
                     >
-                        Mô tả ngắn: {validateDescription(sortProfile)}
+                        Mô tả ngắn: {validateDes(sortProfile)}
                     </p>
                     <div className="
                             flex
@@ -90,8 +91,8 @@ const UserOther: React.FC<User> = ({
                             items-center
                         "
                     >
-                        <span>Rating:</span>
-                        <Rating rating={validateNumber(rating)} maxStars={5} sizeCus={25} />
+                        <span>Đánh giá:</span>
+                        <Rating rating={rating ?? 0} maxStars={5} sizeCus={25} />
                     </div>
                 </div>
             </Link>

@@ -11,9 +11,9 @@ export const getListUserService = async () => {
     }
 }
 
-export const getUserProfile = async (data: FormData) => {
+export const getUserProfileService = async (id: string) => {
     try {
-        const response = await AxiosClient.get(`/api/users/${data.id}/profile`);
+        const response = await AxiosClient.get(`/api/users/${id}/profile`);
 
         return response.data;
     } catch (error) {

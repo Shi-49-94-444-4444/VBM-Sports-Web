@@ -1,7 +1,7 @@
 "use client"
 
 import { BiSolidLockAlt } from "react-icons/bi"
-import { Input } from "../../providers"
+import { Input, Loading } from "../../providers"
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/contexts";
 import { useRouter } from "next/router";
@@ -11,31 +11,21 @@ import { ChangePasswordFormData, FormData } from "@/types";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { changePasswordService } from "@/services/forgotPassword";
-
-const initialFormData = {
-    password: "",
-    confirmPassword: "",
-};
+import { changePasswordSchema, handleChange } from "@/utils";
 
 const ChangePasswordForm = () => {
-    const [formData, setFormData] = useState(initialFormData);
+    const [formData, setFormData] = useState({
+        password: "",
+        confirmPassword: "",
+    });
     const {
         setIsAuthUser,
         isAuthUser,
         setUser,
         setIsLoading,
+        isLoading
     } = useContext(GlobalContext) || {}
     const router = useRouter()
-
-    const schema = yup.object().shape({
-        password: yup.string().
-            min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
-            max(50, 'Mật khẩu nhiều nhất chỉ được 50 ký tự').
-            required('Mật khẩu không được để trống'),
-        confirmPassword: yup.string().
-            oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').
-            required('Mật khẩu xác nhận không được để trống'),
-    }).required()
 
     const {
         register,
@@ -43,7 +33,7 @@ const ChangePasswordForm = () => {
         setError,
         formState: { errors }
     } = useForm<ChangePasswordFormData>({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(changePasswordSchema),
     });
 
     const onSubmit = async (data: FormData) => {
@@ -94,12 +84,7 @@ const ChangePasswordForm = () => {
                 id="password"
                 name="password"
                 value={formData.password}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        password: e.target.value
-                    })
-                }
+                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -112,12 +97,7 @@ const ChangePasswordForm = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 value={formData.confirmPassword}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        confirmPassword: e.target.value
-                    })
-                }
+                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -133,7 +113,14 @@ const ChangePasswordForm = () => {
                 "
                 type="submit"
             >
-                Vào trang
+                {isLoading ? (
+                    <Loading
+                        loading={isLoading}
+                        color="white"
+                    />
+                ) : (
+                    "Tiếp theo"
+                )}
             </button>
         </form>
     )

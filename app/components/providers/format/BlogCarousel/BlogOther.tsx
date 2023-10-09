@@ -56,10 +56,10 @@ const BlogItemOther: React.FC<Blog> = ({
                 </div>
                 <div className="col-span-2 p-6 flex flex-col gap-5">
                     <section className="flex flex-col gap-3">
-                        <h1 className="text-xl font-semibold text-gray-600 line-clamp-2">
+                        <h1 className="text-xl font-semibold text-gray-600 line-clamp-2 min-h-[3.5rem]">
                             {title}
                         </h1>
-                        <p className="text-gray-500 text-lg line-clamp-5">
+                        <p className="text-gray-500 text-lg line-clamp-5 min-h-[8.75rem]">
                             {description}
                         </p>
                     </section>

@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
-import { listUser } from '@/utils';
 import UserOther from './UserOther';
 import { useEffect, useState } from 'react';
 import { User } from '@/types';

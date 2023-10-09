@@ -8,7 +8,7 @@ import Layout from '@/app/layout';
 const Home = () => {
   return (
     <Layout>
-      <Banner />
+      <Banner /> 
       <QuickList />
       <BlogOtherExtra />
     </Layout>

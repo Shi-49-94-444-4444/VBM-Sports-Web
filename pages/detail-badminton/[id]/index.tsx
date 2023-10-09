@@ -1,62 +1,60 @@
-"use client"
-
-import { useRouter } from "next/router"
 import Layout from '@/app/layout';
 import {
     Container,
     ProductContent,
     ProductUserPost,
-    ProductOtherExtra
+    ProductOtherExtra,
 } from "@/app/components";
 import { getProductService } from "@/services/product";
-import { useEffect, useState } from "react";
-import { Product } from "@/types";
+import { ProductDetailContent } from "@/types";
+import { GetServerSideProps } from "next";
 
-const DetailBadminton = () => {
-    const router = useRouter()
-    const { id } = router.query
-    const [selectItem, setSelectItem] = useState<Product>()
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const id = context.params?.id;
 
-    useEffect(() => {
-        if (!id || Array.isArray(id)) {
-            console.log(id);
-            return;
-        }
-
-        const fetchProducts = async () => {
-            try {
-                const products = await getProductService(id);
-                setSelectItem(products);
-                console.log("Product", products);
-            } catch (error) {
-                console.log(error);
-            }
+    if (!id || Array.isArray(id)) {
+        return {
+            notFound: true,
         };
-
-        fetchProducts();
-    }, [id]);
-
-    if (!selectItem) {
-        return <div>Sản phẩm không tồn tại</div>
     }
 
+    try {
+        const Product = await getProductService(id);
+        return {
+            props: {
+                Product,
+            },
+        };
+    } catch (error) {
+        console.log(error);
+        return {
+            notFound: true,
+        };
+    }
+};
+
+const DetailBadminton = ({ Product }: { Product: ProductDetailContent }) => {
     return (
         <Layout>
             <Container>
                 <ProductContent
-                    id={selectItem.id}
-                    imgUrl={selectItem.imgUrl}
-                    days={selectItem.days}
-                    startTime={selectItem.startTime}
-                    endTime={selectItem.endTime}
+                    id={Product.id}
+                    imgUrl={Product.imgUrl}
+                    days={Product.days}
+                    startTime={Product.startTime}
+                    endTime={Product.endTime}
+                    addressSlot={Product.addressSlot}
+                    categorySlot={Product.categorySlot}
+                    levelSlot={Product.levelSlot}
+                    quantitySlot={Product.quantitySlot}
                 />
                 <ProductUserPost
-                    id={selectItem.id}
-                    title={selectItem.title}
-                    priceSlot={selectItem.priceSlot}
-                    contentPost={selectItem.contentPost}
-                    imgUrlUser={selectItem.imgUrlUser}
-                    sortProfile={selectItem.sortProfile}
+                    id={Product.id}
+                    title={Product.title}
+                    priceSlot={Product.priceSlot}
+                    contentPost={Product.contentPost}
+                    imgUrlUser={Product.imgUrlUser}
+                    sortProfile={Product.sortProfile}
                 />
                 <ProductOtherExtra />
             </Container>

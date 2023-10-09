@@ -1,12 +1,13 @@
 "use client";
 
-import { PulseLoader } from "react-spinners";
+import { PulseLoader, RingLoader } from "react-spinners";
 
 interface LoadingProps {
     text?: string;
     color?: string;
     loading: boolean;
     size?: number;
+    height?: string
 }
 
 export function Loading({ text, color, loading, size }: LoadingProps) {
@@ -23,13 +24,13 @@ export function Loading({ text, color, loading, size }: LoadingProps) {
     );
 }
 
-export function LoadingFullScreen({ color, loading, size }: LoadingProps) {
+export function LoadingFullScreen({ color, loading, size, height }: LoadingProps) {
     return (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center">
-            <PulseLoader
+        <div className={`relative flex ${height || "h-96"}  items-center justify-center`}>
+            <RingLoader
                 color={color || "#204D94"}
                 loading={loading}
-                size={size || 60}
+                size={size || 100}
                 data-testid="loader"
             />
         </div>

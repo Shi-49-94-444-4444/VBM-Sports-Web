@@ -1,50 +1,29 @@
 "use client"
 
-import { Input } from '../../providers';
+import { Input, Loading } from '../../providers';
 import { AiFillMail } from 'react-icons/ai';
 import { BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from 'react-icons/bi';
 import { useForm } from 'react-hook-form';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
 import { useRouter } from 'next/router';
-import { RegisterFormData, User } from '@/types';
+import { RegisterFormData } from '@/types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import registerService from '@/services/register';
 import { toast } from 'react-toastify';
-
-const initialFormData = {
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-};
+import { handleChange, registerSchema } from '@/utils';
 
 const RegisterForm = () => {
-    const [formData, setFormData] = useState(initialFormData);
-    const { isAuthUser, setIsLoading } = useContext(GlobalContext) || {}
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+    });
+    const { isAuthUser, setIsLoading, isLoading } = useContext(GlobalContext) || {}
     const [isRegistered, setIsRegistered] = useState(false);
     const router = useRouter()
-
-    const schema = yup.object().shape({
-        name: yup.string().required('Tên không được để trống '),
-        email: yup.string().
-            email('Email không hợp lệ').
-            required('Email không được để trống'),
-        phone: yup.string().
-            matches(/^[0-9]$/, 'Số điện thoại phải nhập số').
-            min(7, 'Số điện thoại có ít nhất 7 số').
-            max(15, 'Số điện thoại nhiều nhất 15 số').
-            required('Số điện thoại không được để trống'),
-        password: yup.string().
-            min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
-            max(50, 'Mật khẩu nhiều nhất 50 ký tự').
-            required('Mật khẩu không được để trống'),
-        confirmPassword: yup.string().
-            oneOf([yup.ref('password'), ''], 'Mật khẩu xác nhận phải khớp').
-            required('Mật khẩu xác nhận không được để trống'),
-    }).required()
 
     const {
         register,
@@ -52,7 +31,7 @@ const RegisterForm = () => {
         setError,
         formState: { errors }
     } = useForm<RegisterFormData>({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(registerSchema),
     });
 
     const onSubmit = async (data: RegisterFormData) => {
@@ -98,12 +77,7 @@ const RegisterForm = () => {
                 id="name"
                 name="name"
                 value={formData.name}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        name: e.target.value
-                    })
-                }
+                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -191,7 +165,14 @@ const RegisterForm = () => {
                 "
                 type="submit"
             >
-                Vào trang
+                {isLoading ? (
+                    <Loading
+                        loading={isLoading}
+                        color="white"
+                    />
+                ) : (
+                    "Đăng ký"
+                )}
             </button>
         </form>
     );

@@ -10,11 +10,11 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <ClientOnly>
+      {/* <ClientOnly> */}
         <Navbar />
         {children}
         <Footer />
-      </ClientOnly>
+      {/* </ClientOnly> */}
     </>
   )
 }

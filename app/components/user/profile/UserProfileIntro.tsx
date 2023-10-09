@@ -3,20 +3,20 @@
 import Image from "next/image"
 import { BsFillChatDotsFill } from "react-icons/bs"
 import { BiSolidBellRing } from "react-icons/bi"
-import { User } from "@/types"
+import { UserProfile } from "@/types"
 import { Button } from "../../providers"
+import { validateDes, validateName, validateURLAvatar } from "@/utils"
 
-const UserProfileIntro: React.FC<User> = ({
-    id,
-    src,
-    name,
-    description
+const UserProfileIntro: React.FC<UserProfile> = ({
+    imgUrl,
+    fullName,
+    sortProfile
 }) => {
     return (
-        <div className="relative flex flex-row gap-8 items-center" key={id}>
+        <div className="relative flex flex-row gap-8 items-center">
             <div className="relative flex-shrink-0">
                 <Image
-                    src={src!}
+                    src={validateURLAvatar(imgUrl)}
                     alt="avatar"
                     width="250"
                     height="250"
@@ -26,7 +26,7 @@ const UserProfileIntro: React.FC<User> = ({
             <div className="relative flex flex-col flex-grow gap-5">
                 <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0">
                     <div className="text-4xl font-semibold whitespace-nowrap">
-                        {name}
+                        {validateName(fullName)}
                     </div>
                     <div className="md:flex-grow md:block hidden" />
                     <div className="text-gray-500 text-lg font-medium underline cursor-pointer">
@@ -49,7 +49,7 @@ const UserProfileIntro: React.FC<User> = ({
                         Mô tả
                     </div>
                     <div className="text-lg font-medium text-gray-500">
-                        {description}
+                        {validateDes(sortProfile)}
                     </div>
                 </div>
             </div>

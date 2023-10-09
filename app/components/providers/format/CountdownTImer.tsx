@@ -2,7 +2,7 @@
 
 import { GlobalContext } from "@/contexts";
 import { forgotPasswordService } from "@/services/forgotPassword";
-import { sendOTP } from "@/utils/sendOTP";
+import { sendOTP } from "@/utils/functions/sendOTP";
 import { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 

@@ -1,12 +1,12 @@
-import { User } from "@/types"
+import { UserProfile } from "@/types"
 import { Rating } from "../../providers/format"
 
-const UserProfileRating: React.FC<User> = ({
-    skillLevel,
-    rating,
+const UserProfileRating: React.FC<UserProfile> = ({
     friendly,
     trusted,
-    helpful
+    helpful,
+    levelSkill,
+    totalRate
 }) => {
     return (
         <div className="relative flex flex-col py-10 gap-5">
@@ -14,31 +14,31 @@ const UserProfileRating: React.FC<User> = ({
                 <div className="text-xl font-medium text-gray-600">
                     Đánh giá:
                 </div>
-                <Rating rating={skillLevel} maxStars={5} sizeCus={30} />
+                <Rating rating={levelSkill ?? 0} maxStars={5} sizeCus={30} />
             </div>
             <div className="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 items-center transition-all duration-500">
                 <div className="text-xl font-medium text-gray-600">
                     Kĩ năng:
                 </div>
-                <Rating rating={rating} maxStars={5} sizeCus={30} />
+                <Rating rating={totalRate ?? 0} maxStars={5} sizeCus={30} />
             </div>
             <div className="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 items-center transition-all duration-500">
                 <div className="text-xl font-medium text-gray-600">
                     Thân thiện:
                 </div>
-                <Rating rating={friendly} maxStars={5} sizeCus={30} />
+                <Rating rating={friendly ?? 0} maxStars={5} sizeCus={30} />
             </div>
             <div className="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 items-center transition-all duration-500">
                 <div className="text-xl font-medium text-gray-600">
                     Tin tưởng:
                 </div>
-                <Rating rating={trusted} maxStars={5} sizeCus={30} />
+                <Rating rating={trusted ?? 0} maxStars={5} sizeCus={30} />
             </div>
             <div className="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 items-center transition-all duration-500">
                 <div className="text-xl font-medium text-gray-600">
                     Hỗ trợ:
                 </div>
-                <Rating rating={helpful} maxStars={5} sizeCus={30} />
+                <Rating rating={helpful ?? 0} maxStars={5} sizeCus={30} />
             </div>
         </div>
     )

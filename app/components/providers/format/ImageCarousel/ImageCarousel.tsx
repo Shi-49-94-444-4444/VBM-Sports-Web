@@ -20,14 +20,21 @@ const ImageCarousel: React.FC<Product> = ({
             slidesPerView={1}
             className="h-full rounded-lg"
         >
-            {imgUrl && imgUrl.map((item) => (
+            {imgUrl ?  (imgUrl.map((item) => (
                 <SwiperSlide key={item.id}>
                     <ImageItemOther
                         id={item.id}
                         src={item.src}
                     />
                 </SwiperSlide>
-            ))}
+            ))) : (
+                <SwiperSlide key="1">
+                    <ImageItemOther
+                        id="1"
+                        src="/images/item_1.jpg"
+                    />
+                </SwiperSlide>
+            )}
             <div className="mt-20" />
         </Swiper>
     );

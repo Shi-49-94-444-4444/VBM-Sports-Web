@@ -1,6 +1,6 @@
 "use client"
 
-import { Loading } from '@/app/components/providers';
+import { LoadingFullScreen } from '@/app/components/providers';
 import { GlobalContext } from '@/contexts';
 import { getPlayGroundService } from '@/services/step';
 import { useContext, useEffect, useState } from 'react';
@@ -16,8 +16,10 @@ const LocationStep = () => {
             try {
                 const locations = await getPlayGroundService()
                 setLocations(locations)
+                if (setIsLoading) setIsLoading(false)
             } catch (error) {
                 console.log(error);
+                if (setIsLoading) setIsLoading(false)
             }
         }
 
@@ -47,6 +49,10 @@ const LocationStep = () => {
         setSelectedItem(prevSelectedItem => prevSelectedItem === index ? null : index);
     };
 
+    if (!locations) {
+        return <LoadingFullScreen loading={isLoading ?? true} />
+    }
+
     return (
         <div className="
                 relative 
@@ -61,9 +67,7 @@ const LocationStep = () => {
             "
         >
             {isLoading ? (
-                <Loading
-                    loading={isLoading}
-                />
+                <LoadingFullScreen loading={isLoading} />
             ) : (
                 <ul className="
                         p-8 

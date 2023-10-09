@@ -1,10 +1,11 @@
 "use client"
 
-import { Product } from "@/types"
+import { ProductDetailContent } from "@/types"
 import { Button, FormatTime, GetFirstDate } from "../../providers"
 import { useRouter } from "next/router";
+import { validateAddress, validateDate } from "@/utils";
 
-const ProductDetail: React.FC<Product> = ({
+const ProductDetail: React.FC<ProductDetailContent> = ({
     id,
     days,
     startTime,
@@ -41,7 +42,7 @@ const ProductDetail: React.FC<Product> = ({
                     Địa chỉ:
                 </span>
                 <span className="break-words">
-                    {addressSlot}
+                    {validateAddress(addressSlot)}
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
@@ -49,7 +50,7 @@ const ProductDetail: React.FC<Product> = ({
                     Ngày:
                 </span>
                 <span className="break-words">
-                    <GetFirstDate dateString={days!}/>
+                    <GetFirstDate dateString={validateDate(days)} />
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
@@ -57,7 +58,8 @@ const ProductDetail: React.FC<Product> = ({
                     Thời gian:
                 </span>
                 <span className="break-words">
-                    <FormatTime timeString={startTime!}/> - <FormatTime timeString={endTime!}/>
+                    <FormatTime timeString={startTime ?? "00:00"} /> -
+                    <FormatTime timeString={endTime ?? "00:00"} />
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
@@ -65,7 +67,7 @@ const ProductDetail: React.FC<Product> = ({
                     Vị trí còn trống:
                 </span>
                 <span className="break-words">
-                    {quantitySlot}
+                    {quantitySlot ?? 0}
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
@@ -73,7 +75,7 @@ const ProductDetail: React.FC<Product> = ({
                     Thể loại:
                 </span>
                 <span className="break-words">
-                    {categorySlot}
+                    {categorySlot ?? "Đánh tự do"}
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
@@ -81,7 +83,7 @@ const ProductDetail: React.FC<Product> = ({
                     Kĩ năng:
                 </span>
                 <span className="break-words">
-                    {levelSlot}
+                    {levelSlot ?? "Trung bình"}
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">

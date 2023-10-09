@@ -1,37 +1,30 @@
-import { listUser } from "@/types"
+import { UserProfile } from "@/types"
 import UserProfileIntro from "./UserProfileIntro"
 import UserProfileRating from "./UserProfileRating"
-import UserFormComment from "./UserFormComment"
-import UserProfileComments from "./UserProfileComments"
 
-const UserProfileContent: React.FC<listUser> = ({
-    listItems
+const UserProfileContent: React.FC<UserProfile> = ({
+    friendly,
+    fullName,
+    helpful,
+    imgUrl,
+    levelSkill,
+    sortProfile,
+    totalRate,
+    trusted
 }) => {
-    const item = listItems[1]
-    
     return (
         <div className="flex flex-col gap-5 py-10">
             <UserProfileIntro
-                key={item.id}
-                id={item.id}
-                src={item.src}
-                name={item.name}
-                description={item.description}
+                imgUrl={imgUrl}
+                fullName={fullName}
+                sortProfile={sortProfile}
             />
             <UserProfileRating
-                key={item.id}
-                id={item.id}
-                skillLevel={item.skillLevel}
-                rating={item.rating}
-                friendly={item.friendly}
-                trusted={item.trusted}
-                helpful={item.helpful}
-            />
-            <UserFormComment />
-            <UserProfileComments
-                key={item.id}
-                id={item.id}
-                comments={item.comments}
+                levelSkill={levelSkill}
+                totalRate={totalRate}
+                friendly={friendly}
+                trusted={trusted}
+                helpful={helpful}
             />
         </div>
     )

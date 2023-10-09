@@ -1,15 +1,19 @@
 "use client"
 
-import { Product } from "@/types";
+import { ProductDetailContent } from "@/types";
 import ProductDetail from "./ProductDetail"
 import { ImageCarousel } from "../../providers";
 
-const ProductContent: React.FC<Product> = ({
+const ProductContent: React.FC<ProductDetailContent> = ({
     id,
     imgUrl,
     days,
     startTime,
-    endTime
+    endTime,
+    quantitySlot,
+    levelSlot,
+    categorySlot,
+    addressSlot
 }) => {
     return (
         <div className="grid lg:grid-cols-7 grid-cols-1 gap-5 py-5">
@@ -27,6 +31,10 @@ const ProductContent: React.FC<Product> = ({
                     days={days}
                     startTime={startTime}
                     endTime={endTime}
+                    quantitySlot={quantitySlot}
+                    levelSlot={levelSlot}
+                    categorySlot={categorySlot}
+                    addressSlot={addressSlot}
                 />
             </div>
         </div>

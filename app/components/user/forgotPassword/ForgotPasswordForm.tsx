@@ -2,33 +2,28 @@
 
 import { useContext, useEffect, useState } from "react";
 import { AiFillMail } from "react-icons/ai";
-import { Input } from "../../providers";
+import { Input, Loading } from "../../providers";
 import { GlobalContext } from "@/contexts";
-import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
 import { toast } from "react-toastify";
-import { User, getOtp } from "@/types";
+import { getOtp } from "@/types";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { forgotPasswordService } from "@/services/forgotPassword";
-import { sendOTP } from "@/utils/sendOTP";
-
-const initialFormData = {
-    email: "",
-};
+import { sendOTP } from "@/utils/functions/sendOTP";
+import { forgotPasswordSchema, handleChange } from "@/utils";
 
 const ForgotPasswordForm = () => {
-    const [formData, setFormData] = useState(initialFormData);
+    const [formData, setFormData] = useState({
+        email: ""
+    });
     const {
         setIsLoading,
         isAuthUser,
         setIsRouterForgotPassword,
+        isLoading,
     } = useContext(GlobalContext) || {}
     const router = useRouter()
-
-    const schema = yup.object().shape({
-        email: yup.string().email('Email không hợp lệ').required('Email không được để trống'),
-    });
 
     const {
         register,
@@ -36,7 +31,7 @@ const ForgotPasswordForm = () => {
         setError,
         formState: { errors }
     } = useForm<getOtp>({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(forgotPasswordSchema),
     });
 
     const onSubmit = async (data: getOtp) => {
@@ -87,12 +82,7 @@ const ForgotPasswordForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="email"
                 value={formData.email}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        email: e.target.value
-                    })
-                }
+                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -108,7 +98,14 @@ const ForgotPasswordForm = () => {
                 "
                 type="submit"
             >
-                Vào trang
+                {isLoading ? (
+                    <Loading
+                        loading={isLoading}
+                        color="white"
+                    />
+                ) : (
+                    "Tiếp theo"
+                )}
             </button>
         </form>
     )

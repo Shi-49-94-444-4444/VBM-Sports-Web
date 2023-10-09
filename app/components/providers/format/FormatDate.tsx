@@ -23,6 +23,19 @@ export const FormatDate: React.FC<FormatDateProps> = ({ dateString }) => {
   return <span>{formattedDate}</span>;
 };
 
+export const formatDateFunc = ( dateString: string ) => {
+  const dateParts = dateString.split('/');
+  const day = parseInt(dateParts[0], 10);
+  const month = parseInt(dateParts[1], 10);
+  const year = parseInt(dateParts[2], 10);
+
+  const date = new Date(year, month - 1, day); 
+
+  const formattedDate = format(date, "cccc 'ngày' dd 'tháng' MM 'năm' yyyy", { locale: vi });
+
+  return formattedDate
+};
+
 export const GetFirstDate: React.FC<FormatDateProps> = ({ dateString }) => {
   const [days, month, year] = dateString.split(":");
   const dates = days.split(";").map(day => {
@@ -32,6 +45,16 @@ export const GetFirstDate: React.FC<FormatDateProps> = ({ dateString }) => {
   const firstDate = dates[0];
 
   return <span>{firstDate}</span>;
+};
+
+export const getDates = ( dateString: string ) => {
+  const [days, month, year] = dateString.split(":");
+  const dates = days.split(";").map(day => {
+    const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date());
+    return format(parsedDate, "dd/MM/yyyy");
+  });
+
+  return dates;
 };
 
 export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {

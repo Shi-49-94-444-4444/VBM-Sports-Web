@@ -3,6 +3,7 @@
 import { GlobalContext } from "@/contexts";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import { Loading } from "../loader";
 
 export default function StepperControl({
     handleClick, currentStep, steps
@@ -10,7 +11,7 @@ export default function StepperControl({
     handleClick: (action: string) => void, currentStep: number, steps: string[]
 }): JSX.Element {
     const router = useRouter()
-    const { setUser } = useContext(GlobalContext) || {}
+    const { setUser, isLoading } = useContext(GlobalContext) || {}
 
     const handleComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
         router.push("/");
@@ -71,7 +72,14 @@ export default function StepperControl({
                     "
                     type="submit"
                 >
-                    Tiếp tục
+                    {isLoading ? (
+                        <Loading
+                            loading={isLoading}
+                            color="white"
+                        />
+                    ) : (
+                        "Tiếp theo"
+                    )}
                 </button>
             ) : (
                 <button
@@ -93,7 +101,14 @@ export default function StepperControl({
                     "
                     type="submit"
                 >
-                    Hoàn Thành
+                    {isLoading ? (
+                        <Loading
+                            loading={isLoading}
+                            color="white"
+                        />
+                    ) : (
+                        "Hoàn Thành"
+                    )}
                 </button>
             )}
         </div>

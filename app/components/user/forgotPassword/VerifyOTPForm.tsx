@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useEffect, useState } from "react"
-import { CountdownTimer, InputOTP } from "../../providers"
+import { CountdownTimer, InputOTP, Loading } from "../../providers"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { verifyOTPService } from "@/services/forgotPassword"
@@ -14,6 +14,7 @@ const VerifyOTPForm = () => {
     const {
         setIsLoading,
         isAuthUser,
+        isLoading
     } = useContext(GlobalContext) || {}
     const {
         handleSubmit,
@@ -25,7 +26,6 @@ const VerifyOTPForm = () => {
 
     const handleOTPChange = (otpValue: string) => {
         setIsOTP(otpValue)
-        // console.log(isOTP)
     };
 
     const onSubmit = async () => {
@@ -86,7 +86,14 @@ const VerifyOTPForm = () => {
                 "
                 type="submit"
             >
-                Xác nhận
+                {isLoading ? (
+                    <Loading
+                        loading={isLoading}
+                        color="white"
+                    />
+                ) : (
+                    "Xác nhận"
+                )}
             </button>
         </form>
     )

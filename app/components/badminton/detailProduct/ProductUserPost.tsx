@@ -1,11 +1,12 @@
 "use client"
 
-import { Product } from "@/types";
+import { ProductDetailContent } from "@/types";
 import { Button, Rating, Share } from "../../providers";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { validateDes, validateTitle, validateURLAvatar } from "@/utils";
 
-const ProductUserPost: React.FC<Product> = ({
+const ProductUserPost: React.FC<ProductDetailContent> = ({
     id,
     title,
     priceSlot,
@@ -26,10 +27,10 @@ const ProductUserPost: React.FC<Product> = ({
                     "
                 >
                     <h2 className="text-3xl">
-                        {title}
+                        {validateTitle(title)}
                     </h2>
                     <p className="text-red-500 text-3xl">
-                        {priceSlot} VND/Slot
+                        {priceSlot ?? "999999"} VND/Slot
                     </p>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -37,7 +38,7 @@ const ProductUserPost: React.FC<Product> = ({
                         Mô tả:
                     </h3>
                     <p className="text-lg text-gray-500">
-                        {contentPost}
+                        {validateDes(contentPost)}
                     </p>
                 </div>
                 <div className="
@@ -48,21 +49,30 @@ const ProductUserPost: React.FC<Product> = ({
                     "
                 >
                     <div className="relative flex-shrink-0">
-                        {imgUrlUser &&
+                        {imgUrlUser ? (
                             <Image
-                                src={imgUrlUser!}
+                                src="/images/avatar.jpg"
                                 alt="avatar"
                                 className="object-cover rounded-full"
                                 width={120}
                                 height={120}
                                 draggable="false"
                             />
-                        }
+                        ) : (
+                            <Image
+                                src={validateURLAvatar(imgUrlUser)}
+                                alt="avatar"
+                                className="object-cover rounded-full"
+                                width={120}
+                                height={120}
+                                draggable="false"
+                            />
+                        )}
                     </div>
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-row gap-3 items-center">
                             <h1 className="text-xl text-gray-600 font-semibold">
-                                {sortProfile}
+                                {validateDes(sortProfile)}
                             </h1>
                             <Rating rating={4} maxStars={5} sizeCus={20} />
                         </div>

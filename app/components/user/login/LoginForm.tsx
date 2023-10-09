@@ -6,22 +6,20 @@ import { AiFillMail } from 'react-icons/ai';
 import { BiSolidLockAlt } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { LoginFormData, User } from '@/types';
+import { LoginFormData } from '@/types';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
 import loginService from '@/services/login';
-
-const initialFormData = {
-    email: "",
-    password: "",
-};
+import { handleChange, loginSchema } from '@/utils';
 
 const LoginForm = () => {
-    const [formData, setFormData] = useState(initialFormData);
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
     const {
         isAuthUser,
         setIsAuthUser,
@@ -32,23 +30,13 @@ const LoginForm = () => {
     } = useContext(GlobalContext) || {}
     const router = useRouter()
 
-    const schema = yup.object().shape({
-        email: yup.string().
-            email('Email không hợp lệ').
-            required('Email không được để trống'),
-        password: yup.string().
-            min(6, 'Mật khẩu phải có ít nhất 6 ký tự').
-            max(50, 'Mật khẩu chỉ được nhiều nhất 50 ký tự').
-            required('Mật khẩu không được để trống'),
-    });
-
     const {
         register,
         handleSubmit,
         setError,
         formState: { errors }
     } = useForm<LoginFormData>({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(loginSchema),
     });
 
     const onSubmit = async (data: LoginFormData) => {
@@ -94,7 +82,7 @@ const LoginForm = () => {
     };
 
     // console.log(isAuthUser, user)
-    // console.log(formData)
+    console.log(formData)
 
     useEffect(() => {
         if (user?.isNewUser) {
@@ -106,11 +94,6 @@ const LoginForm = () => {
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
-            {/* {errors.root && (
-                <p className="text-red-500 font-medium text-xl relative bg-red-300 bg-opacity-20 w-full h-12 flex items-center justify-center">
-                    {errors.root.message}
-                </p>
-            )} */}
             <Input
                 icon={<AiFillMail size={25} />}
                 label="Email"
@@ -120,12 +103,7 @@ const LoginForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="email"
                 value={formData.email}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        email: e.target.value
-                    })
-                }
+                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -138,12 +116,7 @@ const LoginForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="password"
                 value={formData.password}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        password: e.target.value
-                    })
-                }
+                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -176,7 +149,7 @@ const LoginForm = () => {
                         color="white"
                     />
                 ) : (
-                    " Vào trang"
+                    "Vào trang"
                 )}
             </button>
         </form>

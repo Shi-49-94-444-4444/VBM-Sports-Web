@@ -136,7 +136,7 @@ const ProductContent: React.FC<Product> = ({
                     </div>
                     <div className="text-base text-gray-500">
                         Mô tả ngắn: {' '}
-                        <span className="line-clamp-2">
+                        <span className="line-clamp-2 min-h-[3rem]">
                             {description}
                         </span>
                     </div>

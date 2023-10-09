@@ -14,9 +14,8 @@ const Logo = () => {
                     pr-4
                 "
         >
-            <div className="hidden xl:block">
+            <button className="hidden xl:block" type="button" onClick={() => router.push('/')}>
                 <Image
-                    onClick={() => router.push('/')}
                     alt="Logo"
                     className="
                         cursor-pointer 
@@ -28,10 +27,9 @@ const Logo = () => {
                     width="150"
                     src="/images/logo_1.png"
                 />
-            </div>
-            <div className="hidden xl:hidden lg:block">
+            </button>
+            <button className="hidden xl:hidden lg:block" type="button" onClick={() => router.push('/')}>
                 <Image
-                    onClick={() => router.push('/')}
                     alt="Logo"
                     className="
                         cursor-pointer 
@@ -43,7 +41,7 @@ const Logo = () => {
                     width="20"
                     src="/images/Vector.png"
                 />
-            </div>
+            </button>
         </div>
     )
 }
