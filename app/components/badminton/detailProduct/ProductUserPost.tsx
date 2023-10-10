@@ -4,7 +4,7 @@ import { ProductDetailContent } from "@/types";
 import { Button, Rating, Share } from "../../providers";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { validateDes, validateTitle, validateURLAvatar } from "@/utils";
+import { validateDes, validateName, validateTitle, validateURLAvatar } from "@/utils";
 
 const ProductUserPost: React.FC<ProductDetailContent> = ({
     id,
@@ -12,7 +12,8 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
     priceSlot,
     contentPost,
     imgUrlUser,
-    sortProfile
+    sortProfile,
+    fullName
 }) => {
     const router = useRouter()
 
@@ -72,7 +73,7 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-row gap-3 items-center">
                             <h1 className="text-xl text-gray-600 font-semibold">
-                                {validateDes(sortProfile)}
+                                {validateName(fullName)}
                             </h1>
                             <Rating rating={4} maxStars={5} sizeCus={20} />
                         </div>
@@ -84,7 +85,7 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
                             />
                         </div>
                         <div className="text-gray-500 text-xl">
-                            Tôi là một người chơi vừa mới tập mong mọi người chỉ giáo thêm
+                            {validateDes(sortProfile)}
                         </div>
                     </div>
                 </div>

@@ -8,50 +8,29 @@ import '@/styles/swiper-product.css'
 import ProductOther from './ProductOther';
 import { useEffect, useState } from 'react';
 import { getListProductService } from '@/services/product';
-import { Product } from '@/types';
+import { ListProduct } from '@/types';
+import Cookies from 'js-cookie';
 
 SwiperCore.use([Pagination]);
 
 const ProductCarousel = () => {
-    const [listProduct, setListProduct] = useState<Product[]>([])
+    const [listProduct, setListProduct] = useState<ListProduct[]>([])
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const products = await getListProductService();
-                const dataNeeded = products.map((product: Product) => {
-                    const {
-                        id,
-                        title,
-                        idUserToNavigation,
-                        addressSlot,
-                        contentPost,
-                        days,
-                        endTime,
-                        imgUrl,
-                        priceSlot,
-                        quantitySlot,
-                        startTime
-                    } = product
-
-                    return {
-                        id,
-                        title,
-                        idUserToNavigation,
-                        addressSlot,
-                        contentPost,
-                        days,
-                        endTime,
-                        imgUrl,
-                        priceSlot,
-                        quantitySlot,
-                        startTime
-                    }
-                })
-                setListProduct(dataNeeded);
-                console.log(products);
+                const productID = Cookies.get("productID")
+                if (productID) {
+                    const filterProduct = products.filter((product: ListProduct) => product.id?.toString() !== productID)
+                    setListProduct(filterProduct)
+                    console.log(filterProduct)
+                } else {
+                    setListProduct(products)
+                    console.log(products)
+                }
             } catch (error) {
-                console.log(error);
+                console.log(error)
             }
         };
 

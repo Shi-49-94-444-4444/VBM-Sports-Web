@@ -7,20 +7,26 @@ import '@/styles/swiper-product.css'
 
 import UserOther from './UserOther';
 import { useEffect, useState } from 'react';
-import { User } from '@/types';
+import { ListUser } from '@/types';
 import { getListUserService } from '@/services';
+import Cookies from 'js-cookie';
 
 SwiperCore.use([Pagination]);
 
 const UserCarousel = () => {
-    const [listUser, setListUser] = useState<User[]>([])
+    const [listUser, setListUser] = useState<ListUser[]>([])
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const user = await getListUserService();
-                setListUser(user);
-                console.log(user);
+                const users = await getListUserService();
+                const userID = Cookies.get("userID")
+                if (userID) {
+                    const filterUser = users.filter((user: ListUser) => user.id?.toString() !== userID)
+                    setListUser(filterUser)
+                } else {
+                    setListUser(users);
+                }
             } catch (error) {
                 console.log(error);
             }

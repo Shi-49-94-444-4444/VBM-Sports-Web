@@ -77,6 +77,11 @@ export interface UserProfile {
     trusted?: number | null,
     helpful?: number | null
 }
-export interface listUser {
-    listItems?: User[]
+export interface ListUser {
+    id?: string | null,
+    imgUrl?: string | null,
+    userName?: string | nul,
+    sortProfile?: string | null,
+    rating?: number | null,
+    flagRegister?: boolean | false,
 }

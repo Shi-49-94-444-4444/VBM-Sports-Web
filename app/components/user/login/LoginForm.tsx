@@ -67,30 +67,29 @@ const LoginForm = () => {
             }
 
             Cookies.set("token", res.token)
+            Cookies.set("userID", res.id)
             localStorage.setItem("user", JSON.stringify(res))
+
+            if (user?.isNewUser) {
+                router.push("/register-stepper")
+            } else if (isAuthUser) {
+                router.push("/");
+            }
+
+            if (setIsLoading) setIsLoading(false)
         } else if (res.ErrorEmail) {
             setError("email", { message: res.ErrorEmail })
+            if (setIsLoading) setIsLoading(false)
         } else if (res.ErrorPassword) {
             setError("password", { message: res.ErrorPassword })
+            if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
         }
-
-        if (setIsLoading) setIsLoading(false)
-    };
-
-    // console.log(isAuthUser, user)
-    console.log(formData)
-
-    useEffect(() => {
-        if (user?.isNewUser) {
-            router.push("/register-stepper")
-        } else if (isAuthUser) {
-            router.push("/");
-        }
-    }, [isAuthUser, router, user]);
+    }
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

@@ -50,6 +50,7 @@ export interface ListProduct {
     priceSlot?: number | null;
     startTime?: string | null;
     endTime?: string | null;
+    status?: boolean | null;
     contentPost?: string | null;
     quantitySlot?: number | null;
     idUserToNavigation?: {
@@ -57,4 +58,9 @@ export interface ListProduct {
         userName?: string | null;
         imgUrl?: string | null;
     } | null
+    flagTooltip?: boolean | false;
+}
+
+export interface ListProducts {
+    listProduct: ListProduct[]
 }

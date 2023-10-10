@@ -56,20 +56,17 @@ const ForgotPasswordForm = () => {
                 router.push("/verify-otp")
             }
 
+            if (setIsLoading) setIsLoading(false)
         } else if (res.ErrorCode) {
             setError("email", { message: res.ErrorCode })
+            if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
         }
-
-        if (setIsLoading) setIsLoading(false)
-    };
-
-    useEffect(() => {
-        if (isAuthUser) router.push("/");
-    }, [isAuthUser, router]);
+    }
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

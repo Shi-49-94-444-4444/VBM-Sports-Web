@@ -1,11 +1,7 @@
-"use client"
-
 import Image from "next/image"
-import { useRouter } from "next/router"
+import Link from "next/link";
 
 const Logo = () => {
-    const router = useRouter();
-
     return (
         <div className="
                     flex
@@ -14,7 +10,7 @@ const Logo = () => {
                     pr-4
                 "
         >
-            <button className="hidden xl:block" type="button" onClick={() => router.push('/')}>
+            <Link href="/" className="hidden xl:block" >
                 <Image
                     alt="Logo"
                     className="
@@ -27,8 +23,8 @@ const Logo = () => {
                     width="150"
                     src="/images/logo_1.png"
                 />
-            </button>
-            <button className="hidden xl:hidden lg:block" type="button" onClick={() => router.push('/')}>
+            </Link>
+            <Link href="/" className="hidden xl:hidden lg:block">
                 <Image
                     alt="Logo"
                     className="
@@ -41,7 +37,7 @@ const Logo = () => {
                     width="20"
                     src="/images/Vector.png"
                 />
-            </button>
+            </Link>
         </div>
     )
 }

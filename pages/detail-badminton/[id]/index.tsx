@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     try {
-        const Product = await getProductService(id);
+        const Product = await getProductService(id)
         return {
             props: {
                 Product,
@@ -55,6 +55,7 @@ const DetailBadminton = ({ Product }: { Product: ProductDetailContent }) => {
                     contentPost={Product.contentPost}
                     imgUrlUser={Product.imgUrlUser}
                     sortProfile={Product.sortProfile}
+                    fullName={Product.fullName}
                 />
                 <ProductOtherExtra />
             </Container>

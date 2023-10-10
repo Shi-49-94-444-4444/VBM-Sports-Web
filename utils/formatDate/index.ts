@@ -1,12 +1,6 @@
+import { FormatDateProps, FormatTimeProps } from '@/types/format';
 import { format, parse } from 'date-fns';
 import { vi } from 'date-fns/locale';
-
-interface FormatDateProps {
-  dateString: string;
-}
-interface FormatTimeProps {
-  timeString: string;
-}
 
 export const FormatDate: React.FC<FormatDateProps> = ({ dateString }) => {
   // Chuyển chuỗi ngày thành đối tượng Date
@@ -20,10 +14,10 @@ export const FormatDate: React.FC<FormatDateProps> = ({ dateString }) => {
   // Định dạng lại ngày theo định dạng mong muốn
   const formattedDate = format(date, "cccc, 'ngày' dd 'tháng' MM, yyyy", { locale: vi });
 
-  return <span>{formattedDate}</span>;
+  return formattedDate
 };
 
-export const formatDateFunc = ( dateString: string ) => {
+export function formatDateFunc(dateString: string): string {
   const dateParts = dateString.split('/');
   const day = parseInt(dateParts[0], 10);
   const month = parseInt(dateParts[1], 10);
@@ -33,7 +27,17 @@ export const formatDateFunc = ( dateString: string ) => {
 
   const formattedDate = format(date, "cccc 'ngày' dd 'tháng' MM 'năm' yyyy", { locale: vi });
 
-  return formattedDate
+  return formattedDate;
+};
+
+export function getDates(dateString: string): string[] {
+  const [days, month, year] = dateString.split(":");
+  const dates = days.split(";").map(day => {
+    const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date());
+    return format(parsedDate, "dd/MM/yyyy");
+  });
+
+  return dates;
 };
 
 export const GetFirstDate: React.FC<FormatDateProps> = ({ dateString }) => {
@@ -44,21 +48,11 @@ export const GetFirstDate: React.FC<FormatDateProps> = ({ dateString }) => {
   });
   const firstDate = dates[0];
 
-  return <span>{firstDate}</span>;
-};
-
-export const getDates = ( dateString: string ) => {
-  const [days, month, year] = dateString.split(":");
-  const dates = days.split(";").map(day => {
-    const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date());
-    return format(parsedDate, "dd/MM/yyyy");
-  });
-
-  return dates;
+  return firstDate
 };
 
 export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
   const formattedTime = timeString.replace(":", "h");
 
-  return <span>{formattedTime}</span>;
+  return formattedTime
 };

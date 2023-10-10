@@ -8,7 +8,8 @@ import { VscAccount } from 'react-icons/vsc';
 import { BiMenu } from 'react-icons/bi'
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { beforeNavUser } from '@/utils';
 
 interface IsMobileAccessPros {
     onclick: () => void;
@@ -19,7 +20,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
 }) => {
     const [showToggle, setShowToggle] = useState(false);
     const router = useRouter()
-    const { isAuthUser, setIsAuthUser, setUser } = useContext(GlobalContext) || {}
+    const { isAuthUser, setIsAuthUser, setUser, user } = useContext(GlobalContext) || {}
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
@@ -101,6 +102,19 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                        py-2
                                    "
                                         type="button"
+                                        onClick={() => router.push(`/profile-user/${user?.id ?? "1"}`)}
+                                    >
+                                        Hồ sơ
+                                    </button>
+                                </li>
+                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                    <button className="
+                                       block 
+                                       cursor-pointer 
+                                       px-4 
+                                       py-2
+                                   "
+                                        type="button"
                                         onClick={handleLogout}
                                     >
                                         Logout
@@ -109,32 +123,21 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                             </ul>
                         ) : (
                             <ul className="space-y-2 list-none">
-                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
-                                    <button className="
+                                {beforeNavUser.map((item, index) => (
+                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus" key={index}>
+                                        <button className="
                                             block 
                                             cursor-pointer 
                                             px-4 
                                             py-2
                                         "
-                                        type="button"
-                                        onClick={() => router.push("/login")}
-                                    >
-                                        Login
-                                    </button>
-                                </li>
-                                <li className="over:bg-slate-200 hover:text-primary-blue-cus">
-                                    <button className="
-                                            block 
-                                            cursor-pointer 
-                                            px-4 
-                                            py-2
-                                        "
-                                        type="button"
-                                        onClick={() => router.push("/register")}
-                                    >
-                                        Register
-                                    </button>
-                                </li>
+                                            type="button"
+                                            onClick={() => router.push(item.href)}
+                                        >
+                                            {item.label}
+                                        </button>
+                                    </li>
+                                ))}
                             </ul>
                         )}
                     </div>

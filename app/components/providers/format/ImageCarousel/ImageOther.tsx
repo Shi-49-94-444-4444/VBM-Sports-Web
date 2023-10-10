@@ -1,6 +1,7 @@
 "use client"
 
 import { Images } from "@/types"
+import { validateURLProduct } from "@/utils"
 import Image from "next/image"
 
 const ImageItemOther: React.FC<Images> = ({
@@ -23,10 +24,10 @@ const ImageItemOther: React.FC<Images> = ({
                     w-full 
                     h-full
                 "
-                key={id}
+                key={id ?? "1"}
             >
                 <Image
-                    src={src}
+                    src={validateURLProduct(src)}
                     alt="QuickList"
                     className="rounded-lg object-cover"
                     fill

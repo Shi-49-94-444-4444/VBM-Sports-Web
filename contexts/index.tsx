@@ -20,7 +20,7 @@ interface User {
     isNewUser?: boolean
 }
 
-const routerForgotPassword = ["/change-password", "/change-password-success", "/verify-otp"]
+// const routerForgotPassword = ["/change-password", "/change-password-success", "/verify-otp"]
 interface GlobalContextProps {
     isAuthUser: boolean | null
     setIsAuthUser: React.Dispatch<React.SetStateAction<boolean | null>>
@@ -53,19 +53,19 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         }
     }, []);
 
-    useEffect(() => {
-        if (isRouterForgotPassword === null || isRouterForgotPassword === false) {
-            if (routerForgotPassword.includes(router.pathname)) {
-                router.push("/")
-            }
-        }
-    }, [isRouterForgotPassword, router]);
+    // useEffect(() => {
+    //     if (isRouterForgotPassword === null || isRouterForgotPassword === false) {
+    //         if (routerForgotPassword.includes(router.pathname)) {
+    //             router.push("/")
+    //         }
+    //     }
+    // }, [isRouterForgotPassword, router]);
 
-    useEffect(() => {
-        if (user?.isNewUser === false && router.pathname === "/register-stepper") {
-            router.push("/")
-        }
-    }, [user, router]);
+    // useEffect(() => {
+    //     if (user?.isNewUser === false && router.pathname === "/register-stepper") {
+    //         router.push("/")
+    //     }
+    // }, [user, router]);
 
     return (
         <GlobalContext.Provider

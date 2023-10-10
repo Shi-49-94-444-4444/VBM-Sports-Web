@@ -4,7 +4,7 @@ import { Input, Loading } from '../../providers';
 import { AiFillMail } from 'react-icons/ai';
 import { BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from 'react-icons/bi';
 import { useForm } from 'react-hook-form';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { GlobalContext } from '@/contexts';
 import { useRouter } from 'next/router';
 import { RegisterFormData } from '@/types';
@@ -21,7 +21,7 @@ const RegisterForm = () => {
         password: "",
         confirmPassword: "",
     });
-    const { isAuthUser, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { setIsLoading, isLoading } = useContext(GlobalContext) || {}
     const [isRegistered, setIsRegistered] = useState(false);
     const router = useRouter()
 
@@ -49,22 +49,21 @@ const RegisterForm = () => {
             setIsRegistered(true)
 
             router.push("/login")
+
+            if (setIsLoading) setIsLoading(false)
         } else if (res.ErrorEmail) {
             setError("email", { message: res.ErrorEmail })
+            if (setIsLoading) setIsLoading(false)
         } else if (res.ErrorPassword) {
             setError("confirmPassword", { message: res.ErrorPassword })
+            if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
         }
-
-        if (setIsLoading) setIsLoading(false)
-    };
-
-    useEffect(() => {
-        if (isAuthUser) router.push("/");
-    }, [isAuthUser, router]);
+    }
 
     return (
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>

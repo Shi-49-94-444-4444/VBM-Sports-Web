@@ -1,9 +1,9 @@
 "use client"
 
 import { ProductDetailContent } from "@/types"
-import { Button, FormatTime, GetFirstDate } from "../../providers"
+import { Button } from "../../providers"
 import { useRouter } from "next/router";
-import { validateAddress, validateDate } from "@/utils";
+import { FormatTime, GetFirstDate, validateAddress, validateDate } from "@/utils";
 
 const ProductDetail: React.FC<ProductDetailContent> = ({
     id,
@@ -35,7 +35,7 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
                 transition-all
                 duration-500
             "
-            key={id}
+            key={id ?? "1"}
         >
             <div className="relative space-x-1 text-lg font-semibold">
                 <span className="whitespace-nowrap">

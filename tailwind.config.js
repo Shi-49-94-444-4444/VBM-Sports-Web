@@ -4,6 +4,8 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
   theme: {
     extend: {
@@ -43,8 +45,8 @@ module.exports = {
     function ({ addComponents }) {
       addComponents({
         ".title-custom": {
-          fontWeight: "600", 
-          fontSize: "1.25rem", 
+          fontWeight: "600",
+          fontSize: "1.25rem",
           lineHeight: "1.75rem",
           transitionProperty: "all",
           transitionDuration: "0.5s",
@@ -60,6 +62,6 @@ module.exports = {
         },
       });
     },
-    require("@tailwindcss/forms")
+    require("@tailwindcss/forms"),
   ],
 };

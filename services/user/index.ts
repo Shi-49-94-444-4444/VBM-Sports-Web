@@ -1,4 +1,3 @@
-import { FormData } from "@/types";
 import AxiosClient from "../AxiosInstance";
 
 export const getListUserService = async () => {

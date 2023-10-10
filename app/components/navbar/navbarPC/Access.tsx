@@ -6,7 +6,7 @@ import { VscAccount } from "react-icons/vsc"
 import { IoIosNotificationsOutline } from "react-icons/io"
 import { IoSettingsOutline } from "react-icons/io5"
 import { GlobalContext } from "@/contexts"
-import { useRouter } from "next/router"
+import { useRouter } from 'next/navigation'
 import Cookies from "js-cookie";
 import { beforeNavUser } from "@/utils"
 import OutsideClickHandler from "react-outside-click-handler"
@@ -192,7 +192,7 @@ const Access = () => {
                                             whitespace-nowrap
                                         "
                                             type="button"
-                                            onClick={() => router.push(`/profile-user/${user?.id}`)}
+                                            onClick={() => router.push(`/profile-user/${user?.id ?? "1"}`)}
                                         >
                                             Hồ sơ
                                         </button>

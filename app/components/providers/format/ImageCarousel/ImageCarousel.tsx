@@ -6,11 +6,11 @@ import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
 import ImageItemOther from './ImageOther';
-import { Product } from '@/types';
+import { ProductDetailContent } from '@/types';
 
 SwiperCore.use([Pagination]);
 
-const ImageCarousel: React.FC<Product> = ({
+const ImageCarousel: React.FC<ProductDetailContent> = ({
     imgUrl
 }) => {
     return (

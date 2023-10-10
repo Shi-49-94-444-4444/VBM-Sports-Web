@@ -1,6 +1,6 @@
 import { Blog } from "@/types"
+import { FormatDate } from "@/utils"
 import Image from "next/image"
-import { FormatDate } from "../providers"
 
 const BlogContent: React.FC<Blog> = ({
     id,

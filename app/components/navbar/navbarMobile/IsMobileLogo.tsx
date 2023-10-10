@@ -1,11 +1,7 @@
-"use client"
-
 import Image from "next/image"
-import { useRouter } from "next/router"
+import Link from "next/link";
 
 const IsMobileLogo = () => {
-    const router = useRouter();
-
     return (
         <div className="
                 flex 
@@ -15,9 +11,8 @@ const IsMobileLogo = () => {
                 pb-1
             "
         >
-            <div className="flex">
+            <Link href="/" className="flex">
                 <Image
-                    onClick={() => router.push('/')}
                     alt="Logo"
                     className="
                         cursor-pointer 
@@ -29,7 +24,7 @@ const IsMobileLogo = () => {
                     width="20"
                     src="/images/Vector.png"
                 />
-            </div>
+            </Link>
         </div>
     )
 }
