@@ -1,7 +1,7 @@
 import { Container, FormatPayment, OtherExtra } from '@/app/components';
 import Layout from '@/app/layout';
 
-const PaymentSuccess = () => {
+const PaymentSuccessPage = () => {
     return (
         <Layout>
             <Container>
@@ -18,4 +18,4 @@ const PaymentSuccess = () => {
     )
 }
 
-export default PaymentSuccess
+export default PaymentSuccessPage

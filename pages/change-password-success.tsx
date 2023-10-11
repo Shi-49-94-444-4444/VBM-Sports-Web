@@ -1,6 +1,6 @@
 import { FormatUI } from "@/app/components"
 
-const ChangePasswordSuccess = () => {
+const ChangePasswordSuccessPage = () => {
 
     const bodyContent = (
         <div className="flex flex-col gap-5 justify-center items-center pb-5">
@@ -26,4 +26,4 @@ const ChangePasswordSuccess = () => {
     )
 }
 
-export default ChangePasswordSuccess
+export default ChangePasswordSuccessPage

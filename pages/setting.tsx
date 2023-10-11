@@ -5,7 +5,7 @@ import { Container, SettingBan, SettingNotify, SettingOverview, SettingProfile, 
 import Layout from "@/app/layout";
 import { settingOptions } from "@/utils";
 
-const Setting = () => {
+const SettingPage = () => {
     const [selectedOption, setSelectedOption] = useState<number>(1);
 
     const displaySetting = () => {
@@ -45,4 +45,4 @@ const Setting = () => {
     )
 }
 
-export default Setting;
+export default SettingPage;

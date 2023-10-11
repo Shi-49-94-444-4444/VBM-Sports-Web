@@ -6,7 +6,7 @@ import {
     ProductItems
 } from "@/app/components";
 
-const ListBadminton = () => {
+const ListBadmintonPage = () => {
     return (
         <Layout>
             <Container>
@@ -26,4 +26,4 @@ const ListBadminton = () => {
     )
 }
 
-export default ListBadminton;
+export default ListBadmintonPage

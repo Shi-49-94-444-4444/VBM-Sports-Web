@@ -1,7 +1,7 @@
 import { FormatUI } from "@/app/components";
 import { ForgotPasswordForm } from "@/app/components/user/forgotPassword";
 
-const ForgotPassword = () => {
+const ForgotPasswordPage = () => {
     return (
         <FormatUI
             src="/images/background_3.png"
@@ -12,4 +12,4 @@ const ForgotPassword = () => {
     );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordPage

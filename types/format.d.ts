@@ -28,11 +28,6 @@ export interface FormatUIProps {
     footer?: React.ReactElement;
 }
 
-export interface FormatHomePageProps {
-    title: string;
-    link: string;
-}
-
 export interface QuickBannerTitle {
     title: string;
     subTitle: string;

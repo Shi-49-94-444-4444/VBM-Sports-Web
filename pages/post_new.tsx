@@ -7,7 +7,7 @@ import { images } from '@/utils';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 
-const PostNew = () => {
+const PostNewPage = () => {
     return (
         <Layout>
             <Container>
@@ -51,4 +51,4 @@ const PostNew = () => {
     )
 }
 
-export default PostNew
+export default PostNewPage

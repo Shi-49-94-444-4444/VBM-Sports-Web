@@ -1,6 +1,6 @@
 import { FormatUI, VerifyOTPForm } from "@/app/components"
 
-const VerifyOTP = () => {
+const VerifyOTPPage = () => {
     return (
         <FormatUI
             src="/images/background_3.png"
@@ -11,4 +11,4 @@ const VerifyOTP = () => {
     )
 }
 
-export default VerifyOTP
+export default VerifyOTPPage

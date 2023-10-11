@@ -68,6 +68,7 @@ export interface UserSuggest {
 }
 
 export interface UserProfile {
+    id?: string | null;
     fullName?: string | null;
     totalRate?: number | null,
     imgUrl?: string | null,

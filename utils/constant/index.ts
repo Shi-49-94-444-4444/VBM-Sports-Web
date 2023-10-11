@@ -23,6 +23,11 @@ export const navlinks = [
                 id: "3",
                 label: "Huế",
                 href: "/"
+            },
+            {
+                id:"4",
+                label:"Xem tất cả",
+                href: "/list-badminton"
             }
         ]
     },

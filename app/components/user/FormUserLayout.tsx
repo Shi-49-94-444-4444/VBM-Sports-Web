@@ -1,13 +1,12 @@
 "use client"
 
-import Link from "next/link"
-import Background from "./Background"
 import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
-import ClientOnly from "../../ClientOnly"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { useRouter } from "next/router"
+import ClientOnly from "../ClientOnly"
+import { Background } from "../providers"
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,

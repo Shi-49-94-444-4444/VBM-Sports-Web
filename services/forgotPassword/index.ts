@@ -6,9 +6,9 @@ export const forgotPasswordService = async (data: getOtp) => {
     try {
         const response = await AxiosClient.get(`/api/users/${data.email}/verify_token`);
 
-        return response.data;
+        return response.data
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 };
 
@@ -18,7 +18,7 @@ export const getSuggestPlayer = async (id: string) => {
 
         return response.data;
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 };
 

@@ -1,13 +1,81 @@
+"use client"
+
 import { OptionsOverviewProps } from "@/types"
+import Select from 'react-select'
 
 const AdminOverview: React.FC<OptionsOverviewProps> = ({
     options,
     onOptionSelect,
     selectedOption
 }) => {
+    const customStyles = {
+        control: (provided: any) => ({
+            ...provided,
+            border: 'none',
+            paddingLeft: '1rem',
+            marginLeft: '0px',
+            backgroundColor: '#F5F5F5',
+            paddingTop: '5px',
+            paddingBottom: '5px',
+            boxShadow: 'none !important',
+            "*": {
+                boxShadow: "none !important",
+            },
+            '&:hover': {
+                border: 'none !important',
+                boxShadow: 'none !important',
+                outline: 'none !important',
+            },
+            '&:focus': {
+                border: 'none !important',
+                boxShadow: 'none !important',
+                outline: 'none !important',
+            },
+        }),
+    }
+
+    const selectOptions = options.map(option => ({
+        value: option.id,
+        label: option.label,
+        icon: option.icon,
+    }));
+
+    const handleChange = (selectedOption: any) => {
+        onOptionSelect(selectedOption.value);
+    };
+
     return (
-        <div className="flex flex-col gap-10 border border-black border-opacity-10 rounded-r-xl bg-white px-6 py-10 h-full">
-            <div className="relative flex justify-between items-center">
+        <div className="
+                flex 
+                flex-col 
+                border 
+                border-black 
+                border-opacity-10 
+                rounded-r-xl 
+                bg-white 
+                px-6 
+                h-full
+                gap-5
+                py-5
+                lg:py-10 
+                lg:gap-10 
+            "
+        >
+            <div className="
+                    relative
+                    flex
+                    flex-row
+                    justify-between
+                    items-center
+                    lg:flex-col 
+                    lg:justify-normal
+                    lg:items-baseline
+                    xl:flex-row 
+                    xl:justify-between 
+                    xl:items-center 
+                    xl:gap-0
+                "
+            >
                 <div className="flex flex-col gap-1">
                     <div className="text-gray-600 font-semibold text-xl">
                         UserName
@@ -21,8 +89,15 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
                 </div>
             </div>
             <div className="border-b border-black border-opacity-10" />
-            {options.map((option) => (
-                <button className={`
+            <div className="
+                    lg:flex
+                    lg:flex-col
+                    lg:gap-10
+                    hidden
+                "
+            >
+                {options.map((option) => (
+                    <button className={`
                         relative 
                         flex 
                         flex-row 
@@ -33,17 +108,27 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
                         text-gray-600
                         ${selectedOption === option.id ? 'text-primary-blue-cus font-semibold' : ''}
                     `}
-                    key={option.id}
-                    onClick={() => onOptionSelect(option.id)}
-                >
-                    <div className="flex-shrink-0">
-                        <option.icon size={24} />
-                    </div>
-                    <p className="text-lg font-medium text-left">
-                        {option.label}
-                    </p>
-                </button>
-            ))}
+                        key={option.id}
+                        onClick={() => onOptionSelect(option.id)}
+                    >
+                        <div className="flex-shrink-0">
+                            <option.icon size={24} />
+                        </div>
+                        <p className="text-lg font-medium text-left">
+                            {option.label}
+                        </p>
+                    </button>
+                ))}
+            </div>
+            <div className="lg:hidden block">
+                <Select
+                    options={selectOptions}
+                    onChange={handleChange}
+                    isSearchable={false}
+                    value={selectOptions.find(option => option.value === selectedOption)}
+                    styles={customStyles}
+                />
+            </div>
         </div>
     )
 }

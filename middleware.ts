@@ -11,7 +11,7 @@ export function middleware(req: NextRequest) {
     try {
         if (url.pathname.includes("/setting") || url.pathname.includes("/payment/:path*") || url.pathname.includes("/post-new")) {
             if (!token) {
-                return NextResponse.redirect(`${url.origin}/login`)
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 

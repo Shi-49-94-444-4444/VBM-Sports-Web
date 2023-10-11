@@ -1,13 +1,14 @@
 "use client"
 
 import { navlinks } from '@/utils'
-import Link from 'next/link'
 import { useState } from 'react'
 import { AiOutlineDown } from 'react-icons/ai'
 import IsMobileItem from './IsMobileItem'
+import { useRouter } from 'next/navigation'
 
 const IsMobileNavLink = () => {
     const [openItemId, setOpenItemId] = useState<string[]>([]);
+    const router = useRouter()
 
     const handleMenuToggle = (itemId: string) => {
         if (openItemId.includes(itemId)) {
@@ -15,7 +16,7 @@ const IsMobileNavLink = () => {
         } else {
             setOpenItemId([...openItemId, itemId]);
         }
-    };
+    }
 
     return (
         <div
@@ -41,14 +42,14 @@ const IsMobileNavLink = () => {
                 "
             >
                 {navlinks.map((item) =>
-                    <li 
-                        key={item.id} 
+                    <li
+                        key={item.id}
                         className="
                             border-b-2 
                             py-2 
                         "
                     >
-                        {item.label !== "Giá tiền" ? (
+                        {item.linkItems ? (
                             <button
                                 className="
                                     flex 
@@ -75,24 +76,25 @@ const IsMobileNavLink = () => {
                                 </span>
                             </button>
                         ) : (
-                            <Link href={item.href || ""} legacyBehavior>
-                                <div className="
-                                        flex 
-                                        flex-row 
-                                        items-center 
-                                        justify-between 
-                                        h-4 
-                                        w-full
-                                        hover:bg-slate-200
-                                        hover:text-primary-blue-cus
-                                        cursor-pointer
-                                        px-4
-                                        py-6
-                                    "
-                                >
-                                    <span>{item.label}</span>
-                                </div>
-                            </Link>
+                            <button
+                                className="
+                                    flex 
+                                    flex-row 
+                                    items-center 
+                                    justify-between 
+                                    h-4 
+                                    w-full
+                                    hover:bg-slate-200
+                                    hover:text-primary-blue-cus
+                                    cursor-pointer
+                                    px-4
+                                    py-6
+                                "
+                                type="button"
+                                onClick={() => router.push(`${item.href}`)}
+                            >
+                                <span>{item.label}</span>
+                            </button>
                         )}
                         {openItemId.includes(item.id) && <IsMobileItem linkItems={item.linkItems} />}
                     </li>

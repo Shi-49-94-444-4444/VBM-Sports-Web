@@ -10,8 +10,6 @@ const loginService = async (data: LoginFormData) => {
             throw new Error('Đăng nhập thất bại');
         }
 
-        // console.log(response.data);
-
         toast.success('Đăng nhập thành công!');
 
         return response.data;

@@ -12,7 +12,7 @@ import { listItems } from '@/utils';
 import Layout from '@/app/layout';
 import { useRouter } from 'next/router';
 
-const Payment = () => {
+const PaymentPage = () => {
     const router = useRouter()
     const { id } = router.query
 
@@ -52,4 +52,4 @@ const Payment = () => {
     )
 }
 
-export default Payment
+export default PaymentPage

@@ -74,11 +74,22 @@ const PostManagement = () => {
 
     return (
         <section className="relative flex flex-col px-6 py-10">
-            <div className="flex flex-row justify-between items-center text-gray-600 pb-10">
+            <div className="
+                    flex 
+                    flex-col 
+                    text-gray-600 
+                    gap-5
+                    pb-10
+                    md:flex-row 
+                    md:justify-between 
+                    md:items-center 
+                    md:gap-0
+                "
+            >
                 <h1 className="font-semibold text-3xl">
                     Quản lý bài viết
                 </h1>
-                <Search value="" onChange={() => { }} />
+                <Search value="" onChange={() => { }} style="md:w-2/5 w-full" />
             </div>
             <table className="table-auto border-collapse text-gray-600 text-center z-[1000]">
                 <thead>
@@ -97,24 +108,24 @@ const PostManagement = () => {
                             <td className="py-3 border-r border-black border-opacity-10">{items.dateEdit}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{items.status}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{items.view}</td>
-                            <td className="py-3 border-r border-black border-opacity-10">
-                                <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
-                                    ...
-                                </button>
-                            </td>
-                            {showToggleItemID === items.id && (
+                            <td className="py-3 border-r border-black border-opacity-10 relative">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-                                    <div className="absolute bg-gray-100 shadow-md rounded-lg w-auto top-auto left-auto bottom-auto right-0 lg:-translate-x-28 -translate-x-20 translate-y-5 transition p-2 z-[1001] text-left">
-                                        <ul className="space-y-2 list-none">
-                                            {listAction.map((items, index) => (
-                                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                    {items.title}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                    <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
+                                        ...
+                                    </button>
+                                    {showToggleItemID === items.id && (
+                                        <div className="absolute right-[13rem] md:right-[15rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap">
+                                            <ul className="space-y-2 list-none">
+                                                {listAction.map((items, index) => (
+                                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
+                                                        {items.title}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </OutsideClickHandler>
-                            )}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

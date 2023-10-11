@@ -66,18 +66,42 @@ const ReportManagement = () => {
 
     return (
         <section className="relative flex flex-col px-6 py-10">
-            <div className="flex flex-row justify-between items-center text-gray-600 pb-10">
+            <div className="
+                    flex 
+                    flex-col 
+                    text-gray-600 
+                    gap-5
+                    pb-10
+                    md:flex-row 
+                    md:justify-between 
+                    md:items-center 
+                    md:gap-0
+                "
+            >
                 <h1 className="font-semibold text-3xl whitespace-nowrap">
                     Báo cáo thường niên
                 </h1>
-                <div className="flex flex-row w-full justify-end items-center space-x-3">
-                    <Search value="" onChange={() => { }} />
-                    <Button
-                        title="Tạo báo cáo mới"
-                        iconLeft={<IoMdAdd size={30} />}
-                        style=""
-                        onClick={() => { }}
-                    />
+                <div className="
+                        flex 
+                        flex-col
+                        gap-5
+                        md:flex-row 
+                        md:w-full 
+                        md:justify-end 
+                        md:items-center 
+                        md:space-x-3
+                        md:gap-0
+                    "
+                >
+                    <Search value="" onChange={() => { }} style="md:w-2/5 w-full" />
+                    <div className="relative">
+                        <Button
+                            title="Tạo báo cáo mới"
+                            iconLeft={<IoMdAdd size={30} />}
+                            style=""
+                            onClick={() => { }}
+                        />
+                    </div>
                 </div>
             </div>
             <table className="table-auto border-collapse text-gray-600 text-center z-[1000]">
@@ -95,24 +119,24 @@ const ReportManagement = () => {
                             <td className="py-3 border-r border-black border-opacity-10 truncate">{items.title}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{items.datePost}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{items.dateEdit}</td>
-                            <td className="py-3 border-r border-black border-opacity-10">
-                                <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
-                                    ...
-                                </button>
-                            </td>
-                            {showToggleItemID === items.id && (
+                            <td className="py-3 border-r border-black border-opacity-10 relative">
                                 <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-                                    <div className="absolute bg-gray-100 shadow-md rounded-lg w-auto top-auto left-auto bottom-auto right-0 -translate-x-40 translate-y-7 transition p-2 z-[1001] text-left">
-                                        <ul className="space-y-2 list-none">
-                                            {listAction.map((items, index) => (
-                                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                    {items.title}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                    <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
+                                        ...
+                                    </button>
+                                    {showToggleItemID === items.id && (
+                                        <div className="absolute right-[14rem] sm:right-[16rem] md:right-[17rem] xl:right-[18rem] bottom-4 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap">
+                                            <ul className="space-y-2 list-none">
+                                                {listAction.map((items, index) => (
+                                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
+                                                        {items.title}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
                                 </OutsideClickHandler>
-                            )}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

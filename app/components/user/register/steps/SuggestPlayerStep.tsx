@@ -15,7 +15,7 @@ const SuggestPlayerStep = () => {
         if (setIsLoading) setIsLoading(true)
         const fetchUsers = async () => {
             try {
-                const users = await getSuggestPlayer(user?.id!)
+                const users = await getSuggestPlayer(user?.id ?? "1")
                 setListUser(users)
                 console.log(users)
                 if (setIsLoading) setIsLoading(false)

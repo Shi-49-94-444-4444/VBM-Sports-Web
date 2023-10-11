@@ -15,7 +15,18 @@ const Search: React.FC<SearchProps> = ({ value, onChange, style }) => {
         <div className={`relative flex items-center w-2/5 h-full ${style}`}>
             <input
                 type="text"
-                className="w-full px-4 py-2 text-xl border border-black border-opacity-10 bg-[#F7F7F7] rounded-md focus:ring-0 focus:outline-none"
+                className="
+                    w-full 
+                    px-4 py-2 
+                    text-xl 
+                    border 
+                    border-black 
+                    border-opacity-10 
+                    bg-[#F7F7F7] 
+                    rounded-md 
+                    focus:ring-0 
+                    focus:outline-none
+                "
                 placeholder="Tìm kiếm"
                 value={value}
                 onChange={handleInputChange}

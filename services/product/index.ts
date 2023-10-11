@@ -6,7 +6,7 @@ export const getListProductService = async () => {
 
         return response.data;
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }
 
@@ -14,9 +14,9 @@ export const getProductService = async (id: string) => {
     try {
         const response = await AxiosClient.get(`/api/posts/${id}/details`);
 
-        return response.data;
+        return response;
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }
 
@@ -26,6 +26,6 @@ export const getProductSuggestService = async (id: string) => {
 
         return response.data;
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }

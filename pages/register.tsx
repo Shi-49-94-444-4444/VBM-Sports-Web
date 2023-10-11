@@ -1,6 +1,6 @@
 import { FormatUI, RegisterFooter, RegisterForm } from "@/app/components";
 
-const Register = () => {
+const RegisterPage = () => {
     return (
         <FormatUI
             src="/images/background_4.png"
@@ -11,4 +11,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default RegisterPage

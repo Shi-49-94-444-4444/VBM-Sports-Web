@@ -6,16 +6,16 @@ export const getListUserService = async () => {
 
         return response.data;
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }
 
 export const getUserProfileService = async (id: string) => {
     try {
-        const response = await AxiosClient.get(`/api/users/${id}/profile`);
+        const response = await AxiosClient.get(`/api/users/${id}/profile`)
 
-        return response.data;
+        return response
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }

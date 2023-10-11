@@ -60,7 +60,3 @@ export interface ListProduct {
     } | null
     flagTooltip?: boolean | false;
 }
-
-export interface ListProducts {
-    listProduct: ListProduct[]
-}

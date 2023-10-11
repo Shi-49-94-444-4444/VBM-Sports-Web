@@ -4,13 +4,24 @@ import { LocationStep, SkillStep, StylePlayStep, SuggestPlayerStep } from "./ste
 import { StepperControl, StepperHorizontal } from "../../providers";
 import { useForm } from 'react-hook-form';
 import { GlobalContext } from '@/contexts';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { postPlayLevelService, postPlayWayService, postPlaygroundService } from "@/services/step";
 import { toast } from "react-toastify";
 import { FormStep } from "@/types";
 
 const StepperHorizontalContent = ({ }) => {
-    const [currentStep, setCurrentStep] = useState(1);
+    const [currentStep, setCurrentStep] = useState<number>(1);
+
+    useEffect(() => {
+        const savedStep = localStorage.getItem('selectedStep');
+        if (savedStep) {
+            setCurrentStep(Number(savedStep));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('selectedStep', String(currentStep));
+    }, [currentStep]);
 
     const steps = [
         "Chọn khu vực của bạn",

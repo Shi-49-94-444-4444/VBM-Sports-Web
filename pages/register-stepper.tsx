@@ -1,6 +1,6 @@
 import { Container, StepperHorizontalContent } from "@/app/components"
 
-const RegisterStepper = () => {
+const RegisterStepperPage = () => {
     return (
         <div className="relative bg-[#F8FAFC] min-h-screen max-h-full flex justify-center items-center">
             <div className="relative w-full">
@@ -12,4 +12,4 @@ const RegisterStepper = () => {
     )
 }
 
-export default RegisterStepper
+export default RegisterStepperPage

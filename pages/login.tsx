@@ -1,6 +1,6 @@
 import { FormatUI, LoginFooter, LoginForm, LoginSubBody } from "@/app/components";
 
-const Login = () => {
+const LoginPage = () => {
     return (
         <FormatUI
             src="/images/background_2.png"
@@ -12,4 +12,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginPage

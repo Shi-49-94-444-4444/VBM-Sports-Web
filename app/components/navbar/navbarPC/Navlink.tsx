@@ -54,7 +54,7 @@ const NavLink = () => {
                             duration-300
                         "
                     >
-                        {item.label !== "Giá tiền" ? (
+                        {item.linkItems ? (
                             <button
                                 className="
                                 border-none

@@ -5,7 +5,7 @@ import Layout from "@/app/layout"
 import { listBlog } from "@/utils"
 import { useRouter } from "next/router"
 
-const Blog = () => {
+const BlogPage = () => {
 
     const router = useRouter()
     const { id } = router.query
@@ -39,4 +39,4 @@ const Blog = () => {
     )
 }
 
-export default Blog
+export default BlogPage

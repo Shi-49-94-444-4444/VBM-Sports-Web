@@ -35,7 +35,7 @@ const CustomModal: React.FC<ModalProps> = ({
             <div className="flex flex-col items-center ">
                 <h2 className="text-2xl font-bold mb-4">{title}</h2>
                 {children}
-                <button className="mt-4 text-pink-cus-tx hover:underline" onClick={onClose}>
+                <button className="mt-4 hover:underline" onClick={onClose}>
                     Close
                 </button>
             </div>

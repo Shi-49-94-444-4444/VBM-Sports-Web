@@ -1,7 +1,7 @@
 import { Container, FormatPayment, OtherExtra } from '@/app/components';
 import Layout from '@/app/layout';
 
-const PaymentError = () => {
+const PaymentErrorPage = () => {
     return (
         <Layout>
             <Container>
@@ -18,4 +18,4 @@ const PaymentError = () => {
     )
 }
 
-export default PaymentError
+export default PaymentErrorPage

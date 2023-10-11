@@ -10,14 +10,12 @@ const registerService = async (data: RegisterFormData) => {
             email: data.email,
             password: data.password,
             reEnterPass: data.confirmPassword,
-            userName: "",
+            userName: data.name.trim(),
         });
 
         if (!response.data) {
             throw new Error('Đăng ký thất bại');
         }
-
-        // console.log(response.data);
 
         toast.success('Đăng ký thành công!');
 

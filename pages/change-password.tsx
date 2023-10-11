@@ -1,6 +1,6 @@
 import { ChangePasswordForm, FormatUI } from "@/app/components"
 
-const ChangePassword = () => {
+const ChangePasswordPage = () => {
 
     return (
         <FormatUI 
@@ -11,4 +11,4 @@ const ChangePassword = () => {
     )
 }
 
-export default ChangePassword
+export default ChangePasswordPage

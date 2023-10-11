@@ -28,7 +28,7 @@ const UserCarousel = () => {
                     setListUser(users);
                 }
             } catch (error) {
-                console.log(error);
+                console.log(error)
             }
         };
 
