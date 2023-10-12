@@ -15,7 +15,7 @@ const UserOther: React.FC<ListUser> = ({
     imgUrl,
     userName,
     sortProfile,
-    rating,
+    totalRate,
     flagRegister
 }) => {
     return (
@@ -94,12 +94,12 @@ const UserOther: React.FC<ListUser> = ({
                             "
                         >
                             <span>Đánh giá:</span>
-                            <Rating rating={rating ?? 0} maxStars={5} sizeCus={25} />
+                            <Rating rating={totalRate ?? 0} maxStars={5} sizeCus={25} />
                         </div>
                     </div>
                 </>
             ) : (
-                <Link href={`/profile-user/${id ?? "1"}`}>
+                <Link href={`/user/profile-user/${id ?? "1"}`}>
                     <div className="
                             relative
                             pb-[70%]
@@ -164,7 +164,7 @@ const UserOther: React.FC<ListUser> = ({
                             "
                         >
                             <span>Đánh giá:</span>
-                            <Rating rating={rating ?? 0} maxStars={5} sizeCus={25} />
+                            <Rating rating={totalRate ?? 0} maxStars={5} sizeCus={25} />
                         </div>
                     </div>
                 </Link>

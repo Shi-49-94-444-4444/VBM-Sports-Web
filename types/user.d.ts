@@ -83,6 +83,15 @@ export interface ListUser {
     imgUrl?: string | null,
     userName?: string | nul,
     sortProfile?: string | null,
-    rating?: number | null,
+    totalRate?: number | null,
     flagRegister?: boolean | false,
+}
+
+export interface UserProfileSetting {
+    userName: string | null,
+    fullName: string | null,
+    phoneNumber: string | null,
+    userAddress: string | null,
+    sortProfile: string | null,
+    imgUrl: string | null
 }

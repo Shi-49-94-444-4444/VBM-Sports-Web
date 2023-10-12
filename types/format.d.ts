@@ -11,11 +11,7 @@ export interface BackgroundProps {
     children: React.ReactNode
 }
 
-export interface ClientOnlyProps {
-    children: React.ReactNode
-}
-
-export interface ContainerProps {
+export interface LayoutProps {
     children: React.ReactNode
 }
 

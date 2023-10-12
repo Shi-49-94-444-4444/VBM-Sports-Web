@@ -52,3 +52,20 @@ export interface PlayWay {
     userID: string;
     ways: string[];
 }
+
+export interface FormUserProfileSetting {
+    userName: string,
+    fullName: string,
+    phoneNumber: string,
+    userAddress: string,
+    sortProfile: string,
+}
+export interface FormPutUserProfile {
+    id?: string | null,
+    userName?: string | null,
+    fullName?: string | null,
+    phoneNumber?: string | null,
+    userAddress?: string | null,
+    sortProfile?: string | null,
+    imgURL?: string | null
+}

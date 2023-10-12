@@ -52,36 +52,20 @@ const LoginForm = () => {
             })
 
             if (setIsAuthUser && setUser) {
-                setIsAuthUser(true);
-                const user = {
-                    id: res.id,
-                    name: res.userName,
-                    avatar: res.avatar,
-                    playingArea: res.playingArea,
-                    playingLevel: res.playingLevel,
-                    playingWay: res.playingWay,
-                    token: res.token,
-                    isNewUser: res.isNewUser
-                }
-                setUser(user);
+                setIsAuthUser(true)
+                const user = res
+                setUser(user)
             }
 
             Cookies.set("token", res.token)
-            Cookies.set("userID", res.id)
             localStorage.setItem("user", JSON.stringify(res))
 
-            if (user?.isNewUser) {
-                router.push("/register-stepper")
-            } else if (isAuthUser) {
-                router.push("/");
-            }
-
             if (setIsLoading) setIsLoading(false)
-        } else if (res.ErrorEmail) {
-            setError("email", { message: res.ErrorEmail })
+        } else if (res.errorEmail) {
+            setError("email", { message: res.errorEmail })
             if (setIsLoading) setIsLoading(false)
-        } else if (res.ErrorPassword) {
-            setError("password", { message: res.ErrorPassword })
+        } else if (res.errorPassword) {
+            setError("password", { message: res.errorPassword })
             if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
@@ -90,6 +74,14 @@ const LoginForm = () => {
             if (setIsLoading) setIsLoading(false)
         }
     }
+
+    useEffect(() => {
+        if (user?.isNewUser) {
+            router.push("/register-stepper")
+        } else if (isAuthUser) {
+            router.push("/");
+        }
+    }, [router, user?.isNewUser, isAuthUser])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

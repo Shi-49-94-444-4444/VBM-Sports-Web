@@ -12,7 +12,7 @@ const loginService = async (data: LoginFormData) => {
 
         toast.success('Đăng nhập thành công!');
 
-        return response.data;
+        return response.data
     } catch (error) {
         toast.error('Đăng nhập thất bại. Vui lòng thử lại sau.');
         console.log(error);

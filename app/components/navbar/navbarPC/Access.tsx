@@ -192,7 +192,7 @@ const Access = () => {
                                             whitespace-nowrap
                                         "
                                             type="button"
-                                            onClick={() => router.push(`/profile-user/${user?.id ?? "1"}`)}
+                                            onClick={() => router.push(`/user/profile-user/${user?.id ?? "1"}`)}
                                         >
                                             Hồ sơ
                                         </button>
@@ -301,7 +301,7 @@ const Access = () => {
                                     align-middle
                                 "
                                 type="button"
-                                onClick={() => router.push("/setting")}
+                                onClick={() => router.push("/user/setting-profile")}
                             >
                                 <IoSettingsOutline size={30} />
                             </button>

@@ -3,80 +3,78 @@
 import { FaSadCry } from "react-icons/fa";
 import { Container, LoadingFullScreen, ProductOther } from "../providers";
 import { ListProduct } from "@/types";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { GlobalContext } from "@/contexts";
-import { getListProductService, getProductSuggestService } from "@/services/product";
+import { AxiosClient } from "@/services";
+import useSWR from 'swr';
+
+const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const QuickList = () => {
-    const [listProduct, setListProduct] = useState<ListProduct[]>([])
-    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { user } = useContext(GlobalContext) || {}
 
-    useEffect(() => {
-        if (setIsLoading) setIsLoading(true)
-        const fetchProduct = async () => {
-            try {
-                if (user) {
-                    const products = await getProductSuggestService(user?.id ?? "1")
-                    setListProduct(products)
-                    if (setIsLoading) setIsLoading(false)
-                } else {
-                    const products = await getListProductService()
-                    setListProduct(products)
-                    if (setIsLoading) setIsLoading(false)
-                }
-            } catch (error) {
-                console.log(error)
-                if (setIsLoading) setIsLoading(false)
-            }
-        }
+    const { data: listProduct, error } = useSWR<ListProduct[]>(user ? `/api/posts/${user.id}/post_suggestion` : '/api/posts/GetListPost', fetcher)
 
-        fetchProduct()
-    }, [setIsLoading, user])
+    const isLoading = !error && !listProduct
+
+    if (isLoading) {
+        return <LoadingFullScreen loading={isLoading} />
+    }
+
+    if (error) {
+        return (
+            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
+                <FaSadCry size={100} />
+            </div>
+        )
+    }
+
+    if (listProduct && listProduct.length === 0) {
+        return (
+            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
+                <FaSadCry size={100} />
+            </div>
+        )
+    }
 
     const sliceItems = listProduct && listProduct.length > 0 ? listProduct.slice(0, 12) : []
 
     return (
         <div className="relative py-10">
-            {isLoading ? (
-                <LoadingFullScreen loading={isLoading} />
-            ) : (
-                listProduct && listProduct.length > 0 ? (
-                    <Container>
-                        <div className="
-                            grid
-                            xl:grid-cols-4
-                            lg:grid-cols-3
-                            md:grid-cols-2
-                            grid-cols-1
-                            gap-2
-                            transition-all
-                            duration-500
-                        "
-                        >
-                            {sliceItems.map((items) => (
-                                <ProductOther
-                                    key={items.id}
-                                    id={items.id}
-                                    title={items.title}
-                                    idUserToNavigation={items.idUserToNavigation}
-                                    addressSlot={items.addressSlot}
-                                    contentPost={items.contentPost}
-                                    days={items.days}
-                                    endTime={items.endTime}
-                                    imgUrl={items.imgUrl}
-                                    quantitySlot={items.quantitySlot}
-                                    startTime={items.startTime}
-                                    flagTooltip
-                                />
-                            ))}
-                        </div>
-                    </Container>
-                ) : (
-                    <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
-                        <p className="text-3xl font-semibold">Không tìm thấy sản phẩm - Lỗi máy chủ</p>
-                        <FaSadCry size={100} />
-                    </div>
-                ))}
+            <Container>
+                <div className="
+                        grid
+                        xl:grid-cols-4
+                        lg:grid-cols-3
+                        md:grid-cols-2
+                        grid-cols-1
+                        gap-2
+                        transition-all
+                        duration-500
+                    "
+                >
+                    {sliceItems.map((items, index) => (
+                        <ProductOther
+                            key={items.id ?? index}
+                            id={items.id}
+                            title={items.title}
+                            idUserToNavigation={items.idUserToNavigation}
+                            addressSlot={items.addressSlot}
+                            contentPost={items.contentPost}
+                            days={items.days}
+                            endTime={items.endTime}
+                            imgUrl={items.imgUrl}
+                            quantitySlot={items.quantitySlot}
+                            startTime={items.startTime}
+                            priceSlot={items.priceSlot}
+                            slots={items.slots}
+                            flagTooltip
+                        />
+                    ))}
+                </div>
+            </Container>
         </div>
     );
 };

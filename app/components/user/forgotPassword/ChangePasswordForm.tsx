@@ -58,8 +58,6 @@ const ChangePasswordForm = () => {
             if (setUser) setUser(null)
             localStorage.clear()
             router.push("/change-password-success")
-        } else if (res.ErrorCode) {
-            setError("confirmPassword", { message: res.ErrorCode })
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,

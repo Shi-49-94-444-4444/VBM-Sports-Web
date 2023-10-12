@@ -1,9 +1,4 @@
 import { InputProps } from "@/types";
-// import {
-//     FieldErrors,
-//     FieldValues,
-//     UseFormRegister,
-// } from "react-hook-form";
 
 const Input: React.FC<InputProps> = ({
     id = "",
@@ -18,7 +13,8 @@ const Input: React.FC<InputProps> = ({
     errors,
     onChange,
     colorInput,
-    pattern
+    pattern,
+    flagInput
 }) => {
     return (
         <div className="gap-1 transition duration-300">
@@ -33,17 +29,45 @@ const Input: React.FC<InputProps> = ({
                         {icon}
                     </span>
                 )}
-                <input
-                    id={id}
-                    type={type}
-                    name={name}
-                    value={value}
-                    placeholder={placeholder}
-                    {...(register && register(name))}
-                    disabled={disabled}
-                    onChange={onChange}
-                    maxLength={100}
-                    className={`
+                {flagInput ? (
+                    <textarea
+                        id={id}
+                        typeof={type}
+                        rows={5}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
+                        {...(register && register(name))}
+                        disabled={disabled}
+                        onChange={onChange}
+                        className={`
+                                ${colorInput}
+                                w-full 
+                                rounded-lg 
+                                outline-none
+                                focus:ring-0
+                                text-base
+                                py-3    
+                                px-6
+                                transition
+                                duration-300
+                                ${errors && errors[id] ? "border border-red-500" : ""}
+                            `
+                        }
+                        pattern={pattern?.source}
+                    />
+                ) : (
+                    <input
+                        id={id}
+                        type={type}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
+                        {...(register && register(name))}
+                        disabled={disabled}
+                        onChange={onChange}
+                        maxLength={100}
+                        className={`
                             ${colorInput}
                             w-full 
                             rounded-lg 
@@ -56,9 +80,10 @@ const Input: React.FC<InputProps> = ({
                             duration-300
                             ${errors && errors[id] ? "border border-red-500" : ""}
                         `
-                    }
-                    pattern={pattern?.source}
-                />
+                        }
+                        pattern={pattern?.source}
+                    />
+                )}
             </div>
             {errors && (
                 <p className="text-red-500 font-medium h-4">

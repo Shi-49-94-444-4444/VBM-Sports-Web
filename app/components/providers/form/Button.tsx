@@ -7,7 +7,8 @@ const Button: React.FC<ButtonProps> = ({
     style,
     onClick,
     icon,
-    iconLeft
+    iconLeft,
+    type
 }) => {
     return (
         <button className={`
@@ -33,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
                 group
                 ${style}    
             `}
-            type="button"
+            type={type || "button"}
             onClick={onClick}
         >
             {iconLeft && (

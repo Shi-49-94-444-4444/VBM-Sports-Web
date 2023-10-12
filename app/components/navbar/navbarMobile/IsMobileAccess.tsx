@@ -93,7 +93,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                         "
                     >
                         {isAuthUser ? (
-                            <ul className="space-y-2 list-none">
+                            <ul className="space-y-2 list-none whitespace-nowrap">
                                 <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
                                     <button className="
                                        block 
@@ -102,7 +102,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                        py-2
                                    "
                                         type="button"
-                                        onClick={() => router.push(`/profile-user/${user?.id ?? "1"}`)}
+                                        onClick={() => router.push(`/user/profile-user/${user?.id ?? "1"}`)}
                                     >
                                         Hồ sơ
                                     </button>
@@ -122,7 +122,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                 </li>
                             </ul>
                         ) : (
-                            <ul className="space-y-2 list-none">
+                            <ul className="space-y-2 list-none whitespace-nowrap">
                                 {beforeNavUser.map((item, index) => (
                                     <li className="hover:bg-slate-200 hover:text-primary-blue-cus" key={index}>
                                         <button className="
@@ -207,7 +207,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                     align-middle
                                 "
                             >
-                                <Link href="/setting">
+                                <Link href="/user/setting-profile">
                                     <IoSettingsOutline size={24} />
                                 </Link>
                             </div>

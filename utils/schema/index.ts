@@ -41,4 +41,16 @@ export const changePasswordSchema = yup.object().shape({
 
 export const forgotPasswordSchema = yup.object().shape({
     email: yup.string().email('Email không hợp lệ').required('Email không được để trống'),
-});
+})
+
+export const settingProfileSchema = yup.object().shape({
+    userName: yup.string().required('Tên không được để trống '),
+    fullName: yup.string().required('Tên không được để trống '),
+    phoneNumber: yup.string().
+        matches(/^[0-9]$/, 'Số điện thoại phải nhập số').
+        min(7, 'Số điện thoại có ít nhất 7 số').
+        max(15, 'Số điện thoại nhiều nhất 15 số').
+        required('Số điện thoại không được để trống'),
+    userAddress: yup.string().required('Tên không được để trống '),
+    sortProfile: yup.string().required('Tên không được để trống '),
+}).required()

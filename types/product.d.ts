@@ -59,4 +59,9 @@ export interface ListProduct {
         imgUrl?: string | null;
     } | null
     flagTooltip?: boolean | false;
+    slots?: [
+        {
+            id?: string | null
+        }
+    ] | null
 }

@@ -9,15 +9,18 @@ interface GlobalStateProps {
 }
 
 interface User {
-    id?: string
-    name?: string
-    email?: string
-    avatar?: string
-    playingArea?: string[]
-    playingLevel?: number
-    playingWay?: string[]
-    token?: string
-    isNewUser?: boolean
+    id: string
+    fullName: string | null
+    email: string | null
+    avatar: string | null
+    playingArea: string[] | null
+    playingLevel: number | null
+    playingWay: string[] | null
+    token: string | null
+    isNewUser: boolean | null
+    phoneNumber: number | null
+    sortProfile: string | null
+    userName: string | null
 }
 
 // const routerForgotPassword = ["/change-password", "/change-password-success", "/verify-otp"]

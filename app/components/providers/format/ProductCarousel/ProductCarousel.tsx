@@ -6,38 +6,44 @@ import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
 import ProductOther from './ProductOther';
-import { useEffect, useState } from 'react';
-import { getListProductService } from '@/services/product';
 import { ListProduct } from '@/types';
-import Cookies from 'js-cookie';
+import { AxiosClient } from '@/services';
+import useSWR from 'swr';
+import { LoadingFullScreen } from '../../loader';
+import { FaSadCry } from 'react-icons/fa';
 
 SwiperCore.use([Pagination]);
 
+const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
+
 const ProductCarousel = () => {
-    const [listProduct, setListProduct] = useState<ListProduct[]>([])
+    const { data: listProduct, error } = useSWR<ListProduct[]>('/api/posts/GetListPost', fetcher)
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const products = await getListProductService();
-                const productID = Cookies.get("productID")
-                if (productID) {
-                    const filterProduct = products.filter((product: ListProduct) => product.id?.toString() !== productID)
-                    setListProduct(filterProduct)
-                    console.log(filterProduct)
-                } else {
-                    setListProduct(products)
-                    console.log(products)
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        };
+    const isLoading = !error && !listProduct
 
-        fetchProducts();
-    }, []);
+    if (isLoading) {
+        return <LoadingFullScreen loading={isLoading} />
+    }
 
-    const slicedItems = listProduct.slice(0, 16);
+    if (error) {
+        return (
+            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
+                <FaSadCry size={100} />
+            </div>
+        )
+    }
+
+    if (listProduct && listProduct.length === 0) {
+        return (
+            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
+                <FaSadCry size={100} />
+            </div>
+        )
+    }
+
+    const slicedItems = listProduct && listProduct.length > 0 ? listProduct.slice(0, 16) : []
 
     return (
         <Swiper

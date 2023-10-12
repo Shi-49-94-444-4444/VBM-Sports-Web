@@ -6,36 +6,53 @@ import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
 import UserOther from './UserOther';
-import { useEffect, useState } from 'react';
 import { ListUser } from '@/types';
-import { getListUserService } from '@/services';
-import Cookies from 'js-cookie';
+import { AxiosClient } from '@/services';
+import useSWR from 'swr';
+import { useContext } from 'react';
+import { GlobalContext } from '@/contexts';
+import { LoadingFullScreen } from '../../loader';
+import { FaSadCry } from 'react-icons/fa';
 
 SwiperCore.use([Pagination]);
 
+const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
+
 const UserCarousel = () => {
-    const [listUser, setListUser] = useState<ListUser[]>([])
+    const { user } = useContext(GlobalContext) || {}
+    const { data: listUser, error } = useSWR<ListUser[]>('/api/users/GetListUser', fetcher)
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const users = await getListUserService();
-                const userID = Cookies.get("userID")
-                if (userID) {
-                    const filterUser = users.filter((user: ListUser) => user.id?.toString() !== userID)
-                    setListUser(filterUser)
-                } else {
-                    setListUser(users);
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        };
+    const isLoading = !error && !listUser
 
-        fetchUsers();
-    }, []);
+    if (isLoading) {
+        return <LoadingFullScreen loading={isLoading} />
+    }
 
-    const sliceItems = listUser.slice(0, 12)
+    if (error) {
+        return (
+            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách người dùng - error 500</p>
+                <FaSadCry size={100} />
+            </div>
+        )
+    }
+
+    if (listUser && listUser.length === 0) {
+        return (
+            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="text-3xl font-semibold">Không tìm thấy danh sách người dùng</p>
+                <FaSadCry size={100} />
+            </div>
+        )
+    }
+
+    if (user) {
+        listUser?.filter(user => user.id?.toString() !== user.id?.toString())
+    } else {
+        listUser
+    }
+
+    const sliceItems = listUser && listUser.length > 0 ? listUser.slice(0, 12) : []
 
     return (
         <Swiper
@@ -68,7 +85,7 @@ const UserCarousel = () => {
                         imgUrl={item.imgUrl}
                         userName={item.userName}
                         sortProfile={item.sortProfile}
-                        rating={item.rating}
+                        totalRate={item.totalRate}
                     />
                 </SwiperSlide>
             ))}

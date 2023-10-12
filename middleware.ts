@@ -1,30 +1,39 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import jwt from 'jsonwebtoken';
-import Cookies from 'js-cookie';
 
 export function middleware(req: NextRequest) {
-    const token = Cookies.get('token')
+    const cookies = req.cookies.get("token")
+    const token = cookies?.value
+
     const secret = process.env.JWT_SECRET ?? ""
     const url = req.nextUrl
 
     try {
-        if (url.pathname.includes("/setting") || url.pathname.includes("/payment/:path*") || url.pathname.includes("/post-new")) {
+        if (url.pathname.includes("/user/setting-profile") ||
+            url.pathname.includes("/user/setting-ban") ||
+            url.pathname.includes("/user/setting-security") ||
+            url.pathname.includes("/user/setting-notify") ||
+            url.pathname.includes("/payment/:path*") ||
+            url.pathname.includes("/post-new")) {
             if (!token) {
                 return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 
-        if (url.pathname.includes("/login") || url.pathname.includes("/register") || url.pathname.includes("/forgot-password")) {
+        if (url.pathname.includes("/login") ||
+            url.pathname.includes("/register") ||
+            url.pathname.includes("/forgot-password")) {
             if (token) {
                 return NextResponse.redirect(`${url.origin}/`)
             }
         }
 
-        if (url.pathname.includes("/change-password") || url.pathname.includes("/verify-otp")) {
+        if (url.pathname.includes("/change-password") ||
+            url.pathname.includes("/verify-otp")) {
             if (token) {
                 const decoded = jwt.verify(token, secret)
-                console.log("decoded: ",decoded)
+                console.log("decoded: ", decoded)
                 if (typeof decoded === 'object' && 'otp' in decoded) {
                     if (!decoded.otp) {
                         return NextResponse.redirect(`${url.origin}/`)
@@ -38,7 +47,7 @@ export function middleware(req: NextRequest) {
         if (url.pathname.includes("/register-stepper")) {
             if (token) {
                 const decoded = jwt.verify(token, secret)
-                console.log("decoded: " ,decoded)
+                console.log("decoded: ", decoded)
                 if (typeof decoded === 'object' && 'isNewUser' in decoded) {
                     if (!decoded.isNewUser) {
                         return NextResponse.redirect(`${url.origin}/`)
@@ -57,7 +66,10 @@ export function middleware(req: NextRequest) {
 
 export const config = {
     matcher: [
-        "/setting",
+        "/user/setting-ban",
+        "/user/setting-profile",
+        "/user/setting-notify",
+        "/user/setting-security",
         "/payment/:path*",
         "/post-new",
         "/login",

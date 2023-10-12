@@ -31,14 +31,7 @@ const VerifyOTPForm = () => {
     const onSubmit = async () => {
         if (setIsLoading) setIsLoading(true)
 
-        const otp = JSON.parse(localStorage.getItem("otp")!)
         const email = JSON.parse(localStorage.getItem("email")!)
-
-        if (isOTP !== otp) {
-            setError('digit', { type: 'manual', message: 'Mã OTP không đúng, vui lòng nhập lại' })
-            if (setIsLoading) setIsLoading(false)
-            return
-        }
 
         const res = await verifyOTPService({ email: email, otp: isOTP })
 
@@ -51,15 +44,15 @@ const VerifyOTPForm = () => {
 
             localStorage.removeItem("otp")
             router.push("/change-password")
-        } else if (res.ErrorCode) {
-            setError("digit", { message: res.ErrorCode })
+        } else if (res.errorCode) {
+            setError("digit", { message: "Mã otp không đúng, vui lòng nhập lại!" })
+            if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
         }
-
-        if (setIsLoading) setIsLoading(false)
     };
 
     useEffect(() => {

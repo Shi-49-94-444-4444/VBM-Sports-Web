@@ -38,7 +38,7 @@ const UserProfileIntro: React.FC<UserProfile> = ({
                         title="Chat"
                         style="py-3 px-20 text-xl group"
                         onClick={() => { }}
-                        icon={<BsFillChatDotsFill size={20} className="group-hover:text-primary-blue-cus group-hover:bg-white" />}
+                        icon={<BsFillChatDotsFill size={20} className="group-hover:text-primary-blue-cus" />}
                     />
                     <div className="relative">
                         <BiSolidBellRing size={40} className="text-black text-opacity-80 cursor-pointer" />

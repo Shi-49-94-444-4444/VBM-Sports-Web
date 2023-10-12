@@ -5,6 +5,7 @@ export interface ButtonProps {
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
     icon?: Icon
     iconLeft?: Icon
+    type?: "submit" | "reset"
 }
 
 export interface InputProps {
@@ -21,6 +22,7 @@ export interface InputProps {
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     colorInput?: string;
     pattern?: RegExp;
+    flagInput?: boolean | false
 }
 
 export interface FilterItem {
@@ -55,4 +57,3 @@ export interface OptionsOverviewProps {
     selectedOption: number;
     onOptionSelect: (id: number) => void;
 }
-

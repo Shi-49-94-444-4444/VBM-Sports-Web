@@ -1102,10 +1102,10 @@ export const listBlog = [
 ]
 
 export const settingOptions: Option[] = [
-    { id: 1, label: "Profile", icon: FaUserEdit },
-    { id: 2, label: "Security", icon: IoShieldCheckmark },
-    { id: 3, label: "Ban", icon: FaUserSlash },
-    { id: 4, label: "Notify", icon: BiSolidBellRing },
+    { id: 1, label: "Hồ sơ", icon: FaUserEdit },
+    { id: 2, label: "Bảo mật", icon: IoShieldCheckmark },
+    { id: 3, label: "Chặn người dùng", icon: FaUserSlash },
+    { id: 4, label: "Thông báo", icon: BiSolidBellRing },
 ];
 
 export const adminOptions: Option[] = [

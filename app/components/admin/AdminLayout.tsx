@@ -7,12 +7,9 @@ import ClientOnly from "../ClientOnly";
 import NavAdmin from "./NavAdmin";
 import AdminOverview from "./AdminOverview";
 import AdminLogout from "./AdminLogout";
+import { LayoutProps } from "@/types";
 
-interface AdminLayoutProps {
-    children: React.ReactNode
-}
-
-const AdminLayout: React.FC<AdminLayoutProps> = ({
+const AdminLayout: React.FC<LayoutProps> = ({
     children
 }) => {
     const [selectedOption, setSelectedOption] = useState<number>(1)

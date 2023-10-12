@@ -3,7 +3,7 @@
 import { ListProduct } from "@/types";
 import Image from "next/image"
 import Link from "next/link";
-import { formatDateFunc, FormatTime, getDates, GetFirstDate } from "@/utils"
+import { formatDateFunc, formatMoney, FormatTime, getDates, GetFirstDate } from "@/utils"
 import {
     validateAddress,
     validateDate,
@@ -27,13 +27,12 @@ const ProductOther: React.FC<ListProduct> = ({
     imgUrl,
     quantitySlot,
     startTime,
-    flagTooltip
+    flagTooltip,
+    priceSlot,
+    slots
 }) => {
     const dates = getDates(validateDate(days))
-
-    const handleClickDetail = () => {
-        Cookies.set("productID", id ?? "1")
-    }
+    const availableSlot = (quantitySlot ?? 0) - (slots?.length ?? 0)
 
     return (
         <div className="relative">
@@ -51,7 +50,7 @@ const ProductOther: React.FC<ListProduct> = ({
                 "
                 key={id ?? "1"}
             >
-                <Link href={`/detail-badminton/${id ?? "1"}`} onClick={handleClickDetail}>
+                <Link href={`/detail-badminton/${id ?? "1"}`}>
                     <div className="
                             relative
                             pb-[70%]
@@ -248,10 +247,10 @@ const ProductOther: React.FC<ListProduct> = ({
                     <div className="relative flex flex-col p-2 h-full gap-2 text-lg z-50">
                         <div className="flex flex-row justify-between font-semibold text-xl text-primary-blue-cus">
                             <span>
-                                3 buổi
+                                {dates.length} buổi
                             </span>
                             <span>
-                                150000đ/1 chỗ
+                                {formatMoney(priceSlot ?? 0)}VNĐ/1 chỗ
                             </span>
                         </div>
                         <div className="space-x-1 line-clamp-3 min-h-[5.25rem]">
@@ -278,7 +277,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 Số chỗ còn trống:
                             </span>
                             <span>
-                                8
+                                {availableSlot}
                             </span>
                         </div>
                     </div>

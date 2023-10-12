@@ -57,8 +57,8 @@ const ForgotPasswordForm = () => {
             }
 
             if (setIsLoading) setIsLoading(false)
-        } else if (res.ErrorCode) {
-            setError("email", { message: res.ErrorCode })
+        } else if (res.errorCode) {
+            setError("email", { message: "Tài khoản không tồn tại" })
             if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {

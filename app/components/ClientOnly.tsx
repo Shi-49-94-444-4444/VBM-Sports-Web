@@ -1,9 +1,9 @@
 'use client'
 
-import { ClientOnlyProps } from "@/types"
+import { LayoutProps } from "@/types"
 import { useEffect, useState } from "react"
 
-const ClientOnly: React.FC<ClientOnlyProps> = ({
+const ClientOnly: React.FC<LayoutProps> = ({
     children
 }) => {
     const [hasMounted, setHasMounted] = useState(false)

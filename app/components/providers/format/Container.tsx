@@ -1,6 +1,6 @@
-import { ContainerProps } from "@/types"
+import { LayoutProps } from "@/types"
 
-const Container: React.FC<ContainerProps> = ({
+const Container: React.FC<LayoutProps> = ({
     children
 }) => {
     return (

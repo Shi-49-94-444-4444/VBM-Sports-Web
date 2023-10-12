@@ -81,7 +81,7 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
                             <Button
                                 title="Xem trang cá nhân"
                                 style=""
-                                onClick={() => { router.push(`/profile-user/1`); }}
+                                onClick={() => { router.push(`/user/profile-user/1`); }}
                             />
                         </div>
                         <div className="text-gray-500 text-xl">

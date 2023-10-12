@@ -1,5 +1,5 @@
 export function validateURLAvatar(url: string | undefined | null) {
-    if (!url) {
+    if (!url || url.trim() === "") {
         return "/images/avatar.jpg"
     }
 
@@ -12,7 +12,7 @@ export function validateURLAvatar(url: string | undefined | null) {
 }
 
 export function validateURLProduct(url: string | undefined | null) {
-    if (!url) {
+    if (!url || url.trim() === "") {
         return "/images/item_1.jpg"
     }
 
@@ -22,6 +22,20 @@ export function validateURLProduct(url: string | undefined | null) {
     } catch (err) {
         return "/images/item_1.jpg"
     }
+}
+
+export function isValidUrl(url: string | undefined | null) {
+    if (!url || url.trim() === "") {
+        return false
+    }
+
+    try {
+        new URL(url);
+    } catch (_) {
+        return false;
+    }
+
+    return true;
 }
 
 export function validateDate(value: string | undefined | null) {
@@ -35,7 +49,7 @@ export function validateDate(value: string | undefined | null) {
 
 export function validateName(value: string | undefined | null) {
     if (!value || value.trim() === '') {
-        return "Shi" 
+        return "Shi"
     }
 
     return value;
@@ -43,7 +57,7 @@ export function validateName(value: string | undefined | null) {
 
 export function validateTitle(value: string | undefined | null) {
     if (!value || value.trim() === '') {
-        return "Sân minh họa" 
+        return "Sân minh họa"
     }
 
     return value;
@@ -51,7 +65,7 @@ export function validateTitle(value: string | undefined | null) {
 
 export function validateDes(value: string | undefined | null) {
     if (!value || value.trim() === '') {
-        return "Văn bản chỉ mang tính chất" 
+        return "Văn bản chỉ mang tính chất"
     }
 
     return value;
@@ -59,7 +73,7 @@ export function validateDes(value: string | undefined | null) {
 
 export function validateAddress(value: string | undefined | null) {
     if (!value || value.trim() === '') {
-        return "Hồ Chí Minh" 
+        return "Hồ Chí Minh"
     }
 
     return value;

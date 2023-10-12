@@ -6,8 +6,21 @@ const SettingOverview: React.FC<OptionsOverviewProps> = ({
     selectedOption
 }) => {
     return (
-        <div className="flex flex-col p-4 gap-5">
-            <div className="text-gray-500 text-xl">
+        <div className="
+                flex 
+                lg:flex-col 
+                lg:justify-normal 
+                lg:p-4
+                sm:px-6 
+                px-4
+                sm:justify-between
+                justify-normal
+                flex-row 
+                py-4 
+                gap-5
+            "
+        >
+            <div className="text-gray-500 text-xl sm:block hidden">
                 Setting
             </div>
             {options.map((option) => (

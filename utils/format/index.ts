@@ -23,7 +23,7 @@ export function formatDateFunc(dateString: string): string {
   const month = parseInt(dateParts[1], 10);
   const year = parseInt(dateParts[2], 10);
 
-  const date = new Date(year, month - 1, day); 
+  const date = new Date(year, month - 1, day);
 
   const formattedDate = format(date, "cccc 'ngày' dd 'tháng' MM 'năm' yyyy", { locale: vi });
 
@@ -56,3 +56,8 @@ export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
 
   return formattedTime
 };
+
+export function formatMoney(data: number): string {
+  const money = data.toLocaleString("vi-VN")
+  return money
+}
