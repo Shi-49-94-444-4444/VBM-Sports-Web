@@ -22,7 +22,17 @@ export const getUserProfileService = async (id: string) => {
     }
 }
 
-export const putProfileUser = async (data: FormPutUserProfile) => {
+export const getUserProfileSettingService = async (id: string) => {
+    try {
+        const response = await AxiosClient.get(`/api/users/user_id?user_id=${id}`)
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const putProfileUserService = async (data: FormPutUserProfile) => {
     try {
         const response = await AxiosClient.put(`/api/users/${data.id}`, {
             userName: data.userName,
@@ -32,6 +42,8 @@ export const putProfileUser = async (data: FormPutUserProfile) => {
             sortProfile: data.sortProfile,
             imgUrl: data.imgURL
         });
+
+        console.log(response);
 
         if (!response.data) {
             throw new Error('Lưu thất bại');

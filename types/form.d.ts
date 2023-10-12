@@ -59,6 +59,7 @@ export interface FormUserProfileSetting {
     phoneNumber: string,
     userAddress: string,
     sortProfile: string,
+    imgURL: string
 }
 export interface FormPutUserProfile {
     id?: string | null,

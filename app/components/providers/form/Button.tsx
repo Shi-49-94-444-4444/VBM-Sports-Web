@@ -1,5 +1,3 @@
-"use client"
-
 import { ButtonProps } from "@/types"
 
 const Button: React.FC<ButtonProps> = ({
@@ -8,7 +6,7 @@ const Button: React.FC<ButtonProps> = ({
     onClick,
     icon,
     iconLeft,
-    type
+    type,
 }) => {
     return (
         <button className={`

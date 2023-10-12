@@ -3,17 +3,17 @@
 import { PulseLoader, RingLoader } from "react-spinners";
 
 interface LoadingProps {
-    text?: string;
     color?: string;
     loading: boolean;
     size?: number;
     height?: string
 }
 
-export function Loading({ text, color, loading, size }: LoadingProps) {
+export function Loading({ color, loading, size }: LoadingProps) {
     return (
-        <span className="flex gap-1 items-center justify-center">
-            {text}
+        <span
+            className="flex gap-1 items-center justify-center"
+        >
             <PulseLoader
                 color={color || "#204D94"}
                 loading={loading}

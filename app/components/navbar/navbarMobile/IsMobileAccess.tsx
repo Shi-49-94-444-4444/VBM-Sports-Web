@@ -117,7 +117,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                         type="button"
                                         onClick={handleLogout}
                                     >
-                                        Logout
+                                        Đăng xuất
                                     </button>
                                 </li>
                             </ul>
