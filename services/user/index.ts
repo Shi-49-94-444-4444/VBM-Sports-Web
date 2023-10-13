@@ -1,4 +1,4 @@
-import { FormPutUserProfile } from "@/types";
+import { CommentFormData, UserProfileFormData } from "@/types";
 import AxiosClient from "../AxiosInstance";
 import { toast } from "react-toastify";
 
@@ -16,7 +16,7 @@ export const getUserProfileService = async (id: string) => {
     try {
         const response = await AxiosClient.get(`/api/users/${id}/profile`)
 
-        return response
+        return response.data
     } catch (error) {
         console.log(error)
     }
@@ -32,7 +32,7 @@ export const getUserProfileSettingService = async (id: string) => {
     }
 }
 
-export const putProfileUserService = async (data: FormPutUserProfile) => {
+export const putProfileUserService = async (data: UserProfileFormData) => {
     try {
         const response = await AxiosClient.put(`/api/users/${data.id}`, {
             userName: data.userName,
@@ -42,8 +42,6 @@ export const putProfileUserService = async (data: FormPutUserProfile) => {
             sortProfile: data.sortProfile,
             imgUrl: data.imgURL
         });
-
-        console.log(response);
 
         if (!response.data) {
             throw new Error('Lưu thất bại');
@@ -57,3 +55,32 @@ export const putProfileUserService = async (data: FormPutUserProfile) => {
         console.log(error);
     }
 };
+
+export const postCommentService = async (data: CommentFormData) => {
+    try {
+        const response = await AxiosClient.post(`/api/users/${data.fromUserID}/comments/${data.toUserID}`, {
+            content: data.content
+        });
+
+        if (!response.data) {
+            throw new Error('Bình luận thất bại');
+        }
+
+        toast.success('Bình luận thành công!');
+
+        return response.data
+    } catch (error) {
+        toast.error('Bình luận thất bại. Vui lòng thử lại sau.');
+        console.log(error);
+    }
+};
+
+export const getCommentService = async (id: string) => {
+    try {
+        const response = await AxiosClient.get(`/api/users/${id}/comments`)
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -13,7 +13,6 @@ const VerifyOTPForm = () => {
     const [isOTP, setIsOTP] = useState("")
     const {
         setIsLoading,
-        isAuthUser,
         isLoading
     } = useContext(GlobalContext) || {}
     const {
@@ -46,18 +45,14 @@ const VerifyOTPForm = () => {
             router.push("/change-password")
         } else if (res.errorCode) {
             setError("digit", { message: "Mã otp không đúng, vui lòng nhập lại!" })
-            if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
-    };
 
-    useEffect(() => {
-        if (isAuthUser) router.push("/")
-    }, [isAuthUser, router])
+        if (setIsLoading) setIsLoading(false)
+    }
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

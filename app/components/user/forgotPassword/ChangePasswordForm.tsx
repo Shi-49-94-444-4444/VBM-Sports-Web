@@ -67,10 +67,6 @@ const ChangePasswordForm = () => {
         if (setIsLoading) setIsLoading(false)
     }
 
-    useEffect(() => {
-        if (isAuthUser) router.push("/");
-    }, [isAuthUser, router]);
-
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
             <Input

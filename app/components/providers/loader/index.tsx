@@ -12,7 +12,7 @@ interface LoadingProps {
 export function Loading({ color, loading, size }: LoadingProps) {
     return (
         <span
-            className="flex gap-1 items-center justify-center"
+            className="flex gap-1 items-center justify-center h-[1.75rem]"
         >
             <PulseLoader
                 color={color || "#204D94"}

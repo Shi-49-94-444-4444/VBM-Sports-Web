@@ -7,11 +7,11 @@ const NavAdmin = () => {
             <Link href="/admin">
                 <section className="flex items-center space-x-2">
                     <Image
+                        height="40"
                         src="/images/vector.png"
                         alt="logo"
-                        width="20"
-                        height="20"
-                        className="object-cover"
+                        className="object-contain w-auto h-auto"
+                        width="40"
                     />
                     <h1 className="uppercase text-xl font-semibold text-[#343B63]">
                         VNB SPORTS

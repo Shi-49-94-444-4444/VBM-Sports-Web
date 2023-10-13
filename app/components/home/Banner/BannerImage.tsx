@@ -22,6 +22,7 @@ const BannerImage = () => {
                     justify-end
                     transition-all
                     duration-500
+                    relative
                 "
             >
                 <Image

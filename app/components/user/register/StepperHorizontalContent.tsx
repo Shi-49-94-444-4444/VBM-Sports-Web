@@ -7,7 +7,7 @@ import { GlobalContext } from '@/contexts';
 import { useContext, useEffect, useState } from "react";
 import { postPlayLevelService, postPlayWayService, postPlaygroundService } from "@/services/step";
 import { toast } from "react-toastify";
-import { FormStep } from "@/types";
+import { StepFormData } from "@/types";
 
 const StepperHorizontalContent = ({ }) => {
     const [currentStep, setCurrentStep] = useState<number>(1);
@@ -31,7 +31,7 @@ const StepperHorizontalContent = ({ }) => {
     ];
 
     const { setIsLoading, user, setUser } = useContext(GlobalContext) || {}
-    const { handleSubmit } = useForm<FormStep>()
+    const { handleSubmit } = useForm<StepFormData>()
 
     // console.log("global user", user);
 

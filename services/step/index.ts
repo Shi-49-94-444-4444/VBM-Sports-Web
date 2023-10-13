@@ -1,4 +1,4 @@
-import { FormStep, PlayGround, PlayLevel, PlayWay } from "@/types";
+import { StepFormData, PlayGroundFormData, PlayLevelFormData, PlayWayFormData } from "@/types";
 import AxiosClient from "../AxiosInstance";
 import { toast } from "react-toastify";
 
@@ -12,7 +12,7 @@ export const getPlayGroundService = async () => {
     }
 };
 
-export const postPlaygroundService = async (data: PlayGround) => {
+export const postPlaygroundService = async (data: PlayGroundFormData) => {
     try {
         const response = await AxiosClient.post(`/api/users/${data.userID}/playing_area`, {
             listArea: data.grounds
@@ -31,7 +31,7 @@ export const postPlaygroundService = async (data: PlayGround) => {
     }
 }
 
-export const postPlayLevelService = async (data: PlayLevel) => {
+export const postPlayLevelService = async (data: PlayLevelFormData) => {
     try {
         const response = await AxiosClient.post(`/api/users/${data.userID}/playing_level`, {
             point : data.levels
@@ -50,7 +50,7 @@ export const postPlayLevelService = async (data: PlayLevel) => {
     }
 }
 
-export const postPlayWayService = async (data: PlayWay) => {
+export const postPlayWayService = async (data: PlayWayFormData) => {
     try {
         const response = await AxiosClient.post(`/api/users/${data.userID}/playing_way`, {
             playingWays : data.ways
@@ -69,7 +69,7 @@ export const postPlayWayService = async (data: PlayWay) => {
     }
 }
 
-export const getSuggestPlayerService = async (data: FormStep) => {
+export const getSuggestPlayerService = async (data: StepFormData) => {
     try {
         const response = await AxiosClient.get(`/api/posts/user/${data.userID}}/suggestion`);
 

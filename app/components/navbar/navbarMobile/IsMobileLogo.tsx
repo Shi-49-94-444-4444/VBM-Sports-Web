@@ -11,18 +11,20 @@ const IsMobileLogo = () => {
                 pb-1
             "
         >
-            <Link href="/" className="flex">
+            <Link href="/" className="flex relative">
                 <Image
+                    height="40"
+                    src="/images/Vector.png"
                     alt="Logo"
                     className="
                         cursor-pointer 
                         self-center 
                         fill-transparent
-                        object-cover
+                        object-contain
+                        h-auto
+                        w-auto
                     "
-                    height="20"
-                    width="20"
-                    src="/images/Vector.png"
+                    width="40"
                 />
             </Link>
         </div>

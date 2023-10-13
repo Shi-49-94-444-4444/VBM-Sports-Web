@@ -34,26 +34,26 @@ export interface ChangePasswordFormData {
     confirmPassword: string;
 }
 
-export interface FormStep {
+export interface StepFormData {
     userID?: string;
     grounds?: string[];
     level?: number;
     way?: string[];
 }
-export interface PlayGround {
+export interface PlayGroundFormData {
     userID: string;
     grounds: string[];
 }
-export interface PlayLevel {
+export interface PlayLevelFormData {
     userID: string;
     levels: number;
 }
-export interface PlayWay {
+export interface PlayWayFormData {
     userID: string;
     ways: string[];
 }
 
-export interface FormUserProfileSetting {
+export interface UserProfileSettingForm {
     userName: string,
     fullName: string,
     phoneNumber: string,
@@ -61,7 +61,7 @@ export interface FormUserProfileSetting {
     sortProfile: string,
     imgURL: string
 }
-export interface FormPutUserProfile {
+export interface UserProfileFormData {
     id?: string | null,
     userName?: string | null,
     fullName?: string | null,
@@ -69,4 +69,10 @@ export interface FormPutUserProfile {
     userAddress?: string | null,
     sortProfile?: string | null,
     imgURL?: string | null
+}
+
+export interface CommentFormData {
+    fromUserID: string
+    content: string
+    toUserID: string
 }

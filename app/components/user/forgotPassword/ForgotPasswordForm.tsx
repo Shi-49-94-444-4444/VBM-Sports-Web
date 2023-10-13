@@ -20,7 +20,6 @@ const ForgotPasswordForm = () => {
     const {
         setIsLoading,
         isAuthUser,
-        setIsRouterForgotPassword,
         isLoading,
     } = useContext(GlobalContext) || {}
     const router = useRouter()
@@ -52,20 +51,17 @@ const ForgotPasswordForm = () => {
             const result = await sendOTP(formData.email, res.token)
 
             if (result.success) {
-                if (setIsRouterForgotPassword) setIsRouterForgotPassword(true)
                 router.push("/verify-otp")
             }
-
-            if (setIsLoading) setIsLoading(false)
         } else if (res.errorCode) {
             setError("email", { message: "Tài khoản không tồn tại" })
-            if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+
+        if (setIsLoading) setIsLoading(false)
     }
 
     return (

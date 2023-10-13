@@ -14,7 +14,8 @@ const Input: React.FC<InputProps> = ({
     onChange,
     colorInput,
     pattern,
-    flagInput
+    flagInput,
+    rowArea
 }) => {
     return (
         <div className="gap-1 transition duration-300">
@@ -33,12 +34,17 @@ const Input: React.FC<InputProps> = ({
                     <textarea
                         id={id}
                         typeof={type}
-                        rows={5}
+                        rows={rowArea || 5}
                         name={name}
                         value={value}
                         placeholder={placeholder}
                         {...(register && register(name))}
                         disabled={disabled}
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                                event.preventDefault();
+                            }
+                        }}
                         onChange={onChange}
                         className={`
                                 ${colorInput}

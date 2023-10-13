@@ -19,7 +19,8 @@ const LoginForm = () => {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
-    });
+    })
+
     const {
         isAuthUser,
         setIsAuthUser,
@@ -60,19 +61,17 @@ const LoginForm = () => {
             Cookies.set("token", res.token)
             localStorage.setItem("user", JSON.stringify(res))
 
-            if (setIsLoading) setIsLoading(false)
         } else if (res.errorEmail) {
             setError("email", { message: res.errorEmail })
-            if (setIsLoading) setIsLoading(false)
         } else if (res.errorPassword) {
             setError("password", { message: res.errorPassword })
-            if (setIsLoading) setIsLoading(false)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+
+        if (setIsLoading) setIsLoading(false)
     }
 
     useEffect(() => {

@@ -3,25 +3,23 @@ import {
     UserOtherExtra,
     UserProfileContent
 } from '@/app/components';
+import UserFormComment from '@/app/components/user/profile/UserFormComment';
+import UserProfileComments from '@/app/components/user/profile/UserProfileComments';
 import Layout from '@/app/layout';
+import Custom404 from '@/pages/404';
 import Custom500 from '@/pages/500';
 import { getListUserService, getUserProfileService } from '@/services';
 import { UserProfile } from '@/types';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    try {
-        const users = await getListUserService();
-        const paths = users.map((user: UserProfile) => ({
-            params: { id: user?.id?.toString() },
-        }));
+    const users = await getListUserService();
+    const paths = users.map((user: UserProfile) => ({
+        params: { id: user?.id?.toString() },
+    }));
 
-        return { paths, fallback: false };
-    } catch (error) {
-        console.log(error)
-        return { paths: [], fallback: false };
-    }
-};
+    return { paths, fallback: true }
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const id = context.params?.id
@@ -33,28 +31,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
 
     try {
-        const res = await getUserProfileService(id)
-        if (res && res.status === 200) {
-            const User = res.data
-            return {
-                props: {
-                    User
-                },
-                revalidate: 60
-            }
-        } else if (res && res.status === 404) {
+        const User = await getUserProfileService(id)
+        if (!User) {
             return {
                 notFound: true,
             }
-        } else {
-            return {
-                props: {
-                    internalError: true
-                }
-            }
+        }
+
+        return {
+            props: {
+                User,
+                id
+            },
+            revalidate: 60
         }
     } catch (error) {
-        console.log(error)
         return {
             props: {
                 internalError: true
@@ -63,8 +54,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
 };
 
-const ProfileUserPage = ({ User, internalError }: { User: UserProfile, internalError?: boolean }) => {
-    if (internalError || !User) {
+const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, internalError?: boolean, id: string }) => {
+    if (internalError) {
         return <Custom500 />
     }
 
@@ -81,6 +72,8 @@ const ProfileUserPage = ({ User, internalError }: { User: UserProfile, internalE
                     totalRate={User.totalRate}
                     trusted={User.totalRate}
                 />
+                <UserFormComment id={id} />
+                <UserProfileComments id={id} />
                 <UserOtherExtra />
             </Container>
         </Layout>

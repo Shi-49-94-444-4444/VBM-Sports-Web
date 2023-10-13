@@ -47,17 +47,15 @@ const RegisterForm = () => {
             })
 
             setIsRegistered(true)
-
-            if (setIsLoading) setIsLoading(false)
         } else if (res.errorEmail) {
             setError("email", { message: "Tài khoản đã tồn tại" })
-            if (setIsLoading) setIsLoading(false)
         }  else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
         }
+        
+        if (setIsLoading) setIsLoading(false)
     }
 
     useEffect(() => {

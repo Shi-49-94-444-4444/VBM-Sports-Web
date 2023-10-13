@@ -78,7 +78,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                         object-cover
                                     "
                                     fill
-                                    priority={true}
+                                    sizes="(max-width: 600px) 100vw, 600px"
                                     draggable="false"
                                 />
                             ) : (
@@ -91,7 +91,8 @@ const ProductOther: React.FC<ListProduct> = ({
                                         object-cover
                                     "
                                     fill
-                                    priority={true}
+                                    sizes="(max-width: 600px) 100vw, 600px"
+                                    priority
                                     draggable="false"
                                 />
                             )}

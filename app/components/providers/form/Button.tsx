@@ -7,6 +7,8 @@ const Button: React.FC<ButtonProps> = ({
     icon,
     iconLeft,
     type,
+    disabled = false,
+    isHover = true
 }) => {
     return (
         <button className={`
@@ -14,10 +16,8 @@ const Button: React.FC<ButtonProps> = ({
                 flex
                 text-white 
                 bg-primary-blue-cus 
-                hover:text-primary-blue-cus
-                hover:bg-white
-                hover:border
-                hover:border-primary-blue-cus
+                ${isHover ? "hover:text-primary-blue-cus hover:border-primary-blue-cus hover:bg-white hover:border" : ""}
+                ${disabled ? "cursor-not-allowed" : ""}
                 border
                 border-primary-blue-cus
                 text-center
@@ -26,7 +26,6 @@ const Button: React.FC<ButtonProps> = ({
                 py-2
                 px-10
                 rounded-lg
-                whitespace-nowrap
                 transition
                 duration-500
                 group
@@ -34,6 +33,7 @@ const Button: React.FC<ButtonProps> = ({
             `}
             type={type || "button"}
             onClick={onClick}
+            disabled={disabled}
         >
             {iconLeft && (
                 <span className="mr-3 text-white group-hover:text-primary-blue-cus">

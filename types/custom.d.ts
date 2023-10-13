@@ -1,11 +1,13 @@
 import { IconType } from "react-icons/lib";
 export interface ButtonProps {
-    title: string;
+    title: string | React.ReactNode;
     style: string;
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     icon?: Icon
     iconLeft?: Icon
     type?: "submit" | "reset"
+    disabled?: boolean
+    isHover?: boolean
 }
 
 export interface InputProps {
@@ -23,6 +25,7 @@ export interface InputProps {
     colorInput?: string;
     pattern?: RegExp;
     flagInput?: boolean | false
+    rowArea?: number
 }
 
 export interface FilterItem {

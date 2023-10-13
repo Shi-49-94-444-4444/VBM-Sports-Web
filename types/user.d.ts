@@ -1,10 +1,10 @@
 export interface Comment {
-    id?: string | null;
-    src?: string | null;
-    name?: string | null;
-    rating?: number | null;
-    date?: string | null;
-    comment?: string | null
+    userId?: string | null;
+    userAvatar?: string | null;
+    userName?: string | null;
+    totalRate?: number | null;
+    savedDate?: string | null;
+    content?: string | null
 }
 
 export interface UserFullField {

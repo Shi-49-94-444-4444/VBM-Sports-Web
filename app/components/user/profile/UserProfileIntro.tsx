@@ -13,45 +13,76 @@ const UserProfileIntro: React.FC<UserProfile> = ({
     sortProfile
 }) => {
     return (
-        <div className="relative flex flex-row gap-8 items-center">
-            <div className="relative flex-shrink-0">
-                <Image
-                    src={validateURLAvatar(imgUrl)}
-                    alt="avatar"
-                    width="250"
-                    height="250"
-                    className="rounded-full object-cover"
-                />
-            </div>
-            <div className="relative flex flex-col flex-grow gap-5">
-                <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0">
-                    <div className="text-4xl font-semibold whitespace-nowrap">
-                        {validateName(fullName)}
+        <div className="relative flex flex-col gap-5 sm:block">
+            <div className="relative flex flex-row gap-8 items-center justify-center sm:justify-normal">
+                <div className="relative flex-shrink-0">
+                    <Image
+                        src={validateURLAvatar(imgUrl)}
+                        priority
+                        alt="avatar"
+                        width="0"
+                        height="0"
+                        sizes="100vw"
+                        className="w-36 h-36 sm:w-64 sm:h-64 rounded-full object-cover border border-primary-blue-cus transition-all duration-500"
+                    />
+                </div>
+                <div className="relative flex flex-col sm:flex-grow gap-5">
+                    <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0 transition-all duration-500">
+                        <div className="md:text-4xl text-3xl font-semibold whitespace-nowrap">
+                            {validateName(fullName)}
+                        </div>
+                        <div className="md:flex-grow md:block hidden" />
+                        <div className="text-gray-500 text-lg font-medium underline cursor-pointer">
+                            Báo cáo người dùng
+                        </div>
                     </div>
-                    <div className="md:flex-grow md:block hidden" />
-                    <div className="text-gray-500 text-lg font-medium underline cursor-pointer">
-                        Báo cáo người dùng
+                    <div className="sm:relative sm:flex md:flex-row sm:flex-col md:items-center sm:gap-5 hidden transition-all duration-500">
+                        <div className="relative">
+                            <Button
+                                title="Trò chuyện"
+                                style="py-3 px-14 text-xl group"
+                                icon={<BsFillChatDotsFill size={20} className="group-hover:text-primary-blue-cus" />}
+                            />
+                        </div>
+                        <div className="relative">
+                            <Button
+                                title="Đăng ký"
+                                style="py-3 px-12 text-xl"
+                            />
+                        </div>
+                    </div>
+                    <div className="sm:relative sm:block sm:space-x-1 hidden">
+                        <span className="text-xl font-semibold text-gray-600">
+                            Mô tả:
+                        </span>
+                        <span className="text-lg font-medium text-gray-500">
+                            {validateDes(sortProfile)}
+                        </span>
                     </div>
                 </div>
-                <div className="relative flex flex-row items-center gap-5">
+            </div>
+            <div className="relative flex flex-row justify-center gap-5 sm:hidden">
+                <div className="relative">
                     <Button
-                        title="Chat"
-                        style="py-3 px-20 text-xl group"
-                        onClick={() => { }}
+                        title="Trò chuyện"
+                        style="py-3 px-14 text-xl group"
                         icon={<BsFillChatDotsFill size={20} className="group-hover:text-primary-blue-cus" />}
                     />
-                    <div className="relative">
-                        <BiSolidBellRing size={40} className="text-black text-opacity-80 cursor-pointer" />
-                    </div>
                 </div>
-                <div className="relative flex flex-col gap-5">
-                    <div className="text-xl font-semibold text-gray-600">
-                        Mô tả
-                    </div>
-                    <div className="text-lg font-medium text-gray-500">
-                        {validateDes(sortProfile)}
-                    </div>
+                <div className="relative">
+                    <Button
+                        title="Đăng ký"
+                        style="py-3 px-12 text-xl"
+                    />
                 </div>
+            </div>
+            <div className="relative space-x-1 sm:hidden">
+                <span className="text-xl font-semibold text-gray-600">
+                    Mô tả:
+                </span>
+                <span className="text-lg font-medium text-gray-500">
+                    {validateDes(sortProfile)}
+                </span>
             </div>
         </div>
     )

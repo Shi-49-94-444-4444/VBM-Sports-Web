@@ -8,23 +8,23 @@ import { useContext, useEffect, useState } from 'react';
 const LocationStep = () => {
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const [locations, setLocations] = useState<string[]>([]);
-    const { setUser, user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { setUser, user, setIsLoadingPage, isLoadingPage } = useContext(GlobalContext) || {}
 
     useEffect(() => {
-        if (setIsLoading) setIsLoading(true)
+        if (setIsLoadingPage) setIsLoadingPage(true)
         const fetchPlayGround = async () => {
             try {
                 const locations = await getPlayGroundService()
                 setLocations(locations)
-                if (setIsLoading) setIsLoading(false)
+                if (setIsLoadingPage) setIsLoadingPage(false)
             } catch (error) {
                 console.log(error)
-                if (setIsLoading) setIsLoading(false)
+                if (setIsLoadingPage) setIsLoadingPage(false)
             }
         }
 
         fetchPlayGround()
-    }, [setIsLoading])
+    }, [setIsLoadingPage])
 
     useEffect(() => {
         if (user?.playingArea && user.playingArea.length > 0 && selectedItem === null) {
@@ -50,7 +50,7 @@ const LocationStep = () => {
     };
 
     if (!locations) {
-        return <LoadingFullScreen loading={isLoading ?? true} />
+        return <LoadingFullScreen loading={isLoadingPage ?? true} />
     }
 
     return (
@@ -66,8 +66,8 @@ const LocationStep = () => {
                 overflow-y-auto
             "
         >
-            {isLoading ? (
-                <LoadingFullScreen loading={isLoading} />
+            {isLoadingPage ? (
+                <LoadingFullScreen loading={isLoadingPage} />
             ) : (
                 <ul className="
                         p-8 

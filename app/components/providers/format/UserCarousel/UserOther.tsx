@@ -49,13 +49,14 @@ const UserOther: React.FC<ListUser> = ({
                         >
                             <Image
                                 src={validateURLAvatar(imgUrl)}
-                                alt="QuickList"
+                                alt={`Player ${id ?? 1}`}
                                 className="
                                     rounded-t-lg 
                                     hover:rounded-t-lg
                                     object-cover
                                 "
                                 fill
+                                sizes="(max-width: 600px) 100vw, 600px"
                                 draggable="false"
                             />
                         </div>
@@ -119,13 +120,15 @@ const UserOther: React.FC<ListUser> = ({
                         >
                             <Image
                                 src={validateURLAvatar(imgUrl)}
-                                alt="QuickList"
+                                alt={`Player ${id ?? 1}`}
                                 className="
                                     rounded-t-lg 
                                     hover:rounded-t-lg
                                     object-cover
                                 "
+                                priority
                                 fill
+                                sizes="(max-width: 600px) 100vw, 600px"
                                 draggable="false"
                             />
                         </div>

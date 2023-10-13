@@ -47,7 +47,6 @@ const SuggestPlayerStep = () => {
                                 imgUrl={item.userImgUrl}
                                 userName={item.userName}
                                 sortProfile={item.sortDescript}
-                                rating={4}
                             />
                         </div>
                     ))}

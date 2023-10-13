@@ -4,18 +4,17 @@ import Image from 'next/image';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiFillCamera } from 'react-icons/ai';
-import { Button, Input, Loading, LoadingFullScreen } from '../../providers';
+import { Input, Loading, LoadingFullScreen } from '../../providers';
 import { GlobalContext } from '@/contexts';
-import { AxiosClient, getUserProfileSettingService, putProfileUserService } from '@/services';
-import { FormUserProfileSetting, UserProfileSetting } from '@/types';
+import { getUserProfileSettingService, putProfileUserService } from '@/services';
+import { UserProfileSettingForm } from '@/types';
 import { handleChange, isValidUrl, settingProfileSchema, validateURLAvatar } from '@/utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import useSWR from 'swr';
-
-const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
+import { toast } from 'react-toastify';
 
 const SettingProfile = () => {
+    const maxSize = 1048576
     const [formData, setFormData] = useState({
         userName: '',
         fullName: '',
@@ -25,55 +24,73 @@ const SettingProfile = () => {
         imgURL: ''
     })
 
-    // console.log(formData);
-
-    const { user, isLoading, setIsLoading } = useContext(GlobalContext) || {}
-
-    const { data: listUser, error } = useSWR<UserProfileSetting>(`/api/users/user_id?user_id=${user?.id}`, fetcher)
-
-    const isLoadingForm = !listUser && !error
+    const { user, isLoading, setIsLoading, isLoadingPage, setIsLoadingPage, setUser } = useContext(GlobalContext) || {}
 
     useEffect(() => {
-        if (listUser) {
-            setFormData({
-                userName: listUser.userName ?? "",
-                fullName: listUser.fullName ?? "",
-                phoneNumber: listUser.phoneNumber ?? "",
-                userAddress: listUser.userAddress ?? "",
-                sortProfile: listUser.sortProfile ?? "",
-                imgURL: listUser.imgUrl ?? ""
-            })
-            reset({
-                userName: listUser.userName ?? "",
-                fullName: listUser.fullName ?? "",
-                phoneNumber: listUser.phoneNumber ?? "",
-                userAddress: listUser.userAddress ?? "",
-                sortProfile: listUser.sortProfile ?? "",
-                imgURL: listUser.imgUrl ?? ""
-            });
-        }
-    }, [listUser])
+        if (setIsLoadingPage) setIsLoadingPage(true)
 
-    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormUserProfileSetting>({
+        const fetchUser = async () => {
+            try {
+                if (user && user.id) {
+                    const listUser = await getUserProfileSettingService(user.id)
+                    if (listUser) {
+                        setFormData({
+                            userName: listUser.userName,
+                            fullName: listUser.fullName,
+                            phoneNumber: listUser.phoneNumber,
+                            userAddress: listUser.userAddress,
+                            sortProfile: listUser.sortProfile,
+                            imgURL: listUser.imgUrl
+                        })
+                        reset({
+                            userName: listUser.userName,
+                            fullName: listUser.fullName,
+                            phoneNumber: listUser.phoneNumber,
+                            userAddress: listUser.userAddress,
+                            sortProfile: listUser.sortProfile,
+                            imgURL: listUser.imgUrl
+                        })
+                    }
+                }
+
+                if (setIsLoadingPage) setIsLoadingPage(false)
+            } catch (error) {
+                console.log(error);
+                if (setIsLoadingPage) setIsLoadingPage(false)
+            }
+        }
+
+        fetchUser()
+    }, [user, setIsLoadingPage])
+
+    const { register, handleSubmit, formState: { errors }, reset, setValue, setError } = useForm<UserProfileSettingForm>({
         resolver: yupResolver(settingProfileSchema),
     })
 
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
-        const fileReader = new FileReader();
-        fileReader.onload = (event) => {
-            const base64Image = event.target?.result;
-            console.log(base64Image);
-            if (typeof base64Image === 'string') {
-                setUploadedImage(base64Image)
-                setValue('imgURL', base64Image)
-            }
-        };
         acceptedFiles.forEach((file) => {
-            fileReader.readAsDataURL(file);
+            if (file.size <= maxSize) {
+                const fileReader = new FileReader()
+                fileReader.onload = (event) => {
+                    const base64Image = event.target?.result;
+                    console.log(base64Image)
+                    if (typeof base64Image === 'string') {
+                        setUploadedImage(base64Image)
+                        setValue('imgURL', base64Image)
+                        setFormData(prev => ({
+                            ...prev,
+                            imgURL: base64Image
+                        }))
+                    }
+                };
+                fileReader.readAsDataURL(file);
+            } else {
+                setError("imgURL", { message: "Chỉ được upload ảnh dưới một 1MB" })
+            }
         });
-    }, [setValue]);
+    }, [setValue, setError])
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: {
@@ -94,19 +111,39 @@ const SettingProfile = () => {
             phoneNumber: formData.phoneNumber,
             userAddress: formData.userAddress,
             sortProfile: formData.sortProfile,
-            imgURL: uploadedImage
+            imgURL: formData.imgURL
         })
 
-        console.log(res);
+        console.log(res)
+
+        if (res.message) {
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+
+            if (setUser) setUser(prevUser => ({
+                ...prevUser,
+                avatar: formData.imgURL,
+                fullName: formData.fullName,
+                userName: formData.userName,
+                userAddress: formData.userAddress,
+                sortProfile: formData.sortProfile
+            }))
+            localStorage.setItem("user", JSON.stringify(user))
+        } else {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+        }
 
         if (setIsLoading) setIsLoading(false)
     }
 
     return (
         <form className="relative p-8 flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
-            {isLoadingForm ? (
+            {isLoadingPage ? (
                 <div className="h-screen flex items-center justify-center">
-                    <LoadingFullScreen loading={isLoadingForm} />
+                    <LoadingFullScreen loading={isLoadingPage} />
                 </div>
             ) : (
                 <>
@@ -238,7 +275,7 @@ const SettingProfile = () => {
                     <div className="relative flex justify-center">
                         <button className="text-white text-xl font-semibold bg-primary-blue-cus px-12 py-3 rounded-xl">
                             {isLoading ? (
-                                <Loading loading={isLoading} />
+                                <Loading loading={isLoading} color="white" />
                             ) : (
                                 "Lưu"
                             )}
