@@ -11,16 +11,9 @@ import { RegisterFormData } from '@/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import registerService from '@/services/register';
 import { toast } from 'react-toastify';
-import { handleChange, registerSchema } from '@/utils';
+import { registerSchema } from '@/utils';
 
 const RegisterForm = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-    });
     const { setIsLoading, isLoading } = useContext(GlobalContext) || {}
     const [isRegistered, setIsRegistered] = useState(false);
     const router = useRouter()
@@ -72,8 +65,6 @@ const RegisterForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="name"
                 name="name"
-                value={formData.name}
-                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -85,13 +76,6 @@ const RegisterForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        email: e.target.value
-                    })
-                }
                 register={register}
                 errors={errors}
             />
@@ -103,13 +87,6 @@ const RegisterForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="phone"
                 name="phone"
-                value={formData.phone}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        phone: e.target.value
-                    })
-                }
                 register={register}
                 errors={errors}
             />
@@ -121,13 +98,6 @@ const RegisterForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="password"
                 name="password"
-                value={formData.password}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        password: e.target.value
-                    })
-                }
                 register={register}
                 errors={errors}
             />
@@ -139,13 +109,6 @@ const RegisterForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="confirmPassword"
                 name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={(e) =>
-                    setFormData({
-                        ...formData,
-                        confirmPassword: e.target.value
-                    })
-                }
                 register={register}
                 errors={errors}
             />

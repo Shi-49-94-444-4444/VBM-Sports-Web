@@ -8,23 +8,27 @@ import { Input, Loading, LoadingFullScreen } from '../../providers';
 import { GlobalContext } from '@/contexts';
 import { getUserProfileSettingService, putProfileUserService } from '@/services';
 import { UserProfileSettingForm } from '@/types';
-import { handleChange, isValidUrl, settingProfileSchema, validateURLAvatar } from '@/utils';
+import { isValidUrl, settingProfileSchema, validateURLAvatar } from '@/utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 
 const SettingProfile = () => {
     const maxSize = 1048576
-    const [formData, setFormData] = useState({
-        userName: '',
-        fullName: '',
-        phoneNumber: '',
-        userAddress: '',
-        sortProfile: '',
-        imgURL: ''
+    const { user, isLoading, setIsLoading, isLoadingPage, setIsLoadingPage, setUser } = useContext(GlobalContext) || {}
+    const { register, handleSubmit, formState: { errors }, setValue, setError, watch } = useForm<UserProfileSettingForm>({
+        resolver: yupResolver(settingProfileSchema),
+        defaultValues: {
+            userName: '',
+            fullName: '',
+            phoneNumber: '',
+            userAddress: '',
+            sortProfile: '',
+            imgURL: ''
+        }
     })
 
-    const { user, isLoading, setIsLoading, isLoadingPage, setIsLoadingPage, setUser } = useContext(GlobalContext) || {}
+    const imgURL = watch('imgURL')
 
     useEffect(() => {
         if (setIsLoadingPage) setIsLoadingPage(true)
@@ -34,22 +38,12 @@ const SettingProfile = () => {
                 if (user && user.id) {
                     const listUser = await getUserProfileSettingService(user.id)
                     if (listUser) {
-                        setFormData({
-                            userName: listUser.userName,
-                            fullName: listUser.fullName,
-                            phoneNumber: listUser.phoneNumber,
-                            userAddress: listUser.userAddress,
-                            sortProfile: listUser.sortProfile,
-                            imgURL: listUser.imgUrl
-                        })
-                        reset({
-                            userName: listUser.userName,
-                            fullName: listUser.fullName,
-                            phoneNumber: listUser.phoneNumber,
-                            userAddress: listUser.userAddress,
-                            sortProfile: listUser.sortProfile,
-                            imgURL: listUser.imgUrl
-                        })
+                        setValue('userName', listUser.userName);
+                        setValue('fullName', listUser.fullName);
+                        setValue('phoneNumber', listUser.phoneNumber);
+                        setValue('userAddress', listUser.userAddress);
+                        setValue('sortProfile', listUser.sortProfile);
+                        setValue('imgURL', listUser.imgUrl);
                     }
                 }
 
@@ -61,11 +55,7 @@ const SettingProfile = () => {
         }
 
         fetchUser()
-    }, [user, setIsLoadingPage])
-
-    const { register, handleSubmit, formState: { errors }, reset, setValue, setError } = useForm<UserProfileSettingForm>({
-        resolver: yupResolver(settingProfileSchema),
-    })
+    }, [user, setIsLoadingPage, setValue])
 
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
@@ -79,10 +69,6 @@ const SettingProfile = () => {
                     if (typeof base64Image === 'string') {
                         setUploadedImage(base64Image)
                         setValue('imgURL', base64Image)
-                        setFormData(prev => ({
-                            ...prev,
-                            imgURL: base64Image
-                        }))
                     }
                 };
                 fileReader.readAsDataURL(file);
@@ -101,17 +87,17 @@ const SettingProfile = () => {
         onDrop,
     });
 
-    const onSubmit = async () => {
+    const onSubmit = async (data: UserProfileSettingForm) => {
         if (setIsLoading) setIsLoading(true)
 
         const res = await putProfileUserService({
             id: user?.id,
-            userName: formData.userName,
-            fullName: formData.fullName,
-            phoneNumber: formData.phoneNumber,
-            userAddress: formData.userAddress,
-            sortProfile: formData.sortProfile,
-            imgURL: formData.imgURL
+            userName: data.userName,
+            fullName: data.fullName,
+            phoneNumber: data.phoneNumber,
+            userAddress: data.userAddress,
+            sortProfile: data.sortProfile,
+            imgURL: data.imgURL
         })
 
         console.log(res)
@@ -123,11 +109,11 @@ const SettingProfile = () => {
 
             if (setUser) setUser(prevUser => ({
                 ...prevUser,
-                avatar: formData.imgURL,
-                fullName: formData.fullName,
-                userName: formData.userName,
-                userAddress: formData.userAddress,
-                sortProfile: formData.sortProfile
+                avatar: data.imgURL,
+                fullName: data.fullName,
+                userName: data.userName,
+                userAddress: data.userAddress,
+                sortProfile: data.sortProfile
             }))
             localStorage.setItem("user", JSON.stringify(user))
         } else {
@@ -150,7 +136,7 @@ const SettingProfile = () => {
                     <div className="text-gray-600 text-3xl font-semibold">Hồ sơ</div>
                     <div className="relative flex flex-col w-2/5 gap-3 items-center">
                         <div {...getRootProps()} className="relative w-full pb-[100%] border-2 border-gray-400 p-4 rounded-xl cursor-pointer">
-                            <input {...getInputProps()} />
+                            <input {...getInputProps()} {...register('imgURL')}/>
                             {uploadedImage ? (
                                 <Image
                                     src={uploadedImage}
@@ -158,15 +144,15 @@ const SettingProfile = () => {
                                     className="object-cover rounded-xl"
                                     fill
                                 />
-                            ) : isValidUrl(formData.imgURL) ? (
+                            ) : isValidUrl(imgURL) ? (
                                 <Image
-                                    src={validateURLAvatar(formData.imgURL)}
+                                    src={validateURLAvatar(imgURL)}
                                     alt="avatar"
                                     className="object-cover rounded-xl"
                                     fill
                                 />
                             ) : (
-                                <input {...getInputProps()} />
+                                <input {...getInputProps()} {...register('imgURL')}/>
                             )}
                         </div>
                         <div className="flex flex-row text-primary-blue-cus items-center gap-2 whitespace-nowrap">
@@ -188,8 +174,6 @@ const SettingProfile = () => {
                                 name="userName"
                                 type="text"
                                 id="userName"
-                                value={formData.userName ?? ""}
-                                onChange={(e) => handleChange(e, setFormData)}
                                 register={register}
                                 errors={errors}
                             />
@@ -207,8 +191,6 @@ const SettingProfile = () => {
                                 name="fullName"
                                 type="text"
                                 id="fullName"
-                                value={formData.fullName ?? ""}
-                                onChange={(e) => handleChange(e, setFormData)}
                                 register={register}
                                 errors={errors}
                             />
@@ -226,8 +208,6 @@ const SettingProfile = () => {
                                 name="phoneNumber"
                                 type="number"
                                 id="phoneNumber"
-                                value={formData.phoneNumber ?? 0}
-                                onChange={(e) => handleChange(e, setFormData)}
                                 register={register}
                                 errors={errors}
                             />
@@ -245,8 +225,6 @@ const SettingProfile = () => {
                                 name="userAddress"
                                 type="text"
                                 id="userAddress"
-                                value={formData.userAddress ?? ""}
-                                onChange={(e) => handleChange(e, setFormData)}
                                 register={register}
                                 errors={errors}
                             />
@@ -264,8 +242,6 @@ const SettingProfile = () => {
                                 name="sortProfile"
                                 type="text"
                                 id="sortProfile"
-                                value={formData.sortProfile ?? ""}
-                                onChange={(e) => handleChange(e, setFormData)}
                                 register={register}
                                 errors={errors}
                                 flagInput

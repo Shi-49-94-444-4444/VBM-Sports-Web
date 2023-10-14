@@ -5,7 +5,7 @@ import { Button } from "../providers"
 import Input from "../providers/form/Input"
 import Datepicker from "react-tailwindcss-datepicker"
 import { useState } from "react"
-import { addYears, differenceInDays, eachDayOfInterval, format, isSameDay, startOfDay } from 'date-fns';
+import { addDays, addYears, differenceInDays, eachDayOfInterval, format, isSameDay, startOfDay } from 'date-fns';
 import { vi } from 'date-fns/locale';
 
 const PostNewInput = () => {
@@ -171,6 +171,38 @@ const PostNewInput = () => {
                             inputClassName="light w-full bg-[#F5F5F5] border-none py-3 px-6 focus:ring-0 rounded-lg"
                             minDate={startOfDay(new Date())}
                             maxDate={addYears(new Date(), 2)}
+                            showShortcuts={true}
+                            showFooter={true}
+                            configs={{
+                                shortcuts: {
+                                    today: "Hôm nay",
+                                    next3Days: {
+                                        text: "Chọn 3 ngày",
+                                        period: {
+                                            start: new Date(),
+                                            end: addDays(new Date(), 2)
+                                        },
+                                    },
+                                    next5Days: {
+                                        text: "Chọn 5 ngày",
+                                        period: {
+                                            start: new Date(),
+                                            end: addDays(new Date(), 4)
+                                        },
+                                    },
+                                    next7Days: {
+                                        text: "Chọn 7 ngày",
+                                        period: {
+                                            start: new Date(),
+                                            end: addDays(new Date(), 6)
+                                        },
+                                    }
+                                },
+                                footer: {
+                                    cancel: "Đóng",
+                                    apply: "Áp dụng"
+                                }
+                            }}
                         />
                     </div>
                 </div>

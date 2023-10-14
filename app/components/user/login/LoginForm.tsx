@@ -7,20 +7,15 @@ import { BiSolidLockAlt } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { LoginFormData } from '@/types';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { yupResolver } from "@hookform/resolvers/yup"
 import loginService from '@/services/login';
-import { handleChange, loginSchema } from '@/utils';
+import { loginSchema } from '@/utils';
 
 const LoginForm = () => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    })
-
     const {
         isAuthUser,
         setIsAuthUser,
@@ -92,8 +87,6 @@ const LoginForm = () => {
                 type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="email"
-                value={formData.email}
-                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -105,8 +98,6 @@ const LoginForm = () => {
                 type="password"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="password"
-                value={formData.password}
-                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />

@@ -70,6 +70,11 @@ const Input: React.FC<InputProps> = ({
                         placeholder={placeholder}
                         {...(register && register(name))}
                         disabled={disabled}
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                                event.preventDefault();
+                            }
+                        }}
                         onChange={onChange}
                         maxLength={rowArea || 100}
                         className={`

@@ -11,6 +11,7 @@ import { useRouter } from "next/router"
 
 const VerifyOTPForm = () => {
     const [isOTP, setIsOTP] = useState("")
+    const [isVerify, setIsVerify] = useState(false)
     const {
         setIsLoading,
         isLoading
@@ -42,7 +43,7 @@ const VerifyOTPForm = () => {
             })
 
             localStorage.removeItem("otp")
-            router.push("/change-password")
+            setIsVerify(true)
         } else if (res.errorCode) {
             setError("digit", { message: "Mã otp không đúng, vui lòng nhập lại!" })
         } else {
@@ -53,6 +54,10 @@ const VerifyOTPForm = () => {
 
         if (setIsLoading) setIsLoading(false)
     }
+
+    useEffect(() => {
+        if (isVerify) router.push("/change-password")
+    }, [router, isVerify])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

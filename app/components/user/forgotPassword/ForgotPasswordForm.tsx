@@ -11,15 +11,12 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { forgotPasswordService } from "@/services/forgotPassword";
 import { sendOTP } from "@/utils/functions/sendOTP";
-import { forgotPasswordSchema, handleChange } from "@/utils";
+import { forgotPasswordSchema } from "@/utils";
 
 const ForgotPasswordForm = () => {
-    const [formData, setFormData] = useState({
-        email: ""
-    });
+    const [isForgot, setIsForgot] = useState(false)
     const {
         setIsLoading,
-        isAuthUser,
         isLoading,
     } = useContext(GlobalContext) || {}
     const router = useRouter()
@@ -45,13 +42,13 @@ const ForgotPasswordForm = () => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            localStorage.setItem("email", JSON.stringify(formData.email))
+            localStorage.setItem("email", JSON.stringify(data.email))
             localStorage.setItem("otp", JSON.stringify(res.token))
 
-            const result = await sendOTP(formData.email, res.token)
+            const result = await sendOTP(data.email, res.token)
 
             if (result.success) {
-                router.push("/verify-otp")
+                setIsForgot(true)
             }
         } else if (res.errorCode) {
             setError("email", { message: "Tài khoản không tồn tại" })
@@ -64,6 +61,10 @@ const ForgotPasswordForm = () => {
         if (setIsLoading) setIsLoading(false)
     }
 
+    useEffect(() => {
+        if (isForgot) router.push("/verify-otp")
+    }, [router, isForgot])
+
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -74,8 +75,6 @@ const ForgotPasswordForm = () => {
                 type="email"
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="email"
-                value={formData.email}
-                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />

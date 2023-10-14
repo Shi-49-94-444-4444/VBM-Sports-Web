@@ -6,21 +6,16 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/contexts";
 import { useRouter } from "next/router";
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { ChangePasswordFormData, FormData } from "@/types";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { changePasswordService } from "@/services/forgotPassword";
-import { changePasswordSchema, handleChange } from "@/utils";
+import { changePasswordSchema } from "@/utils";
 
 const ChangePasswordForm = () => {
-    const [formData, setFormData] = useState({
-        password: "",
-        confirmPassword: "",
-    });
+    const [isChange, setIsChange] = useState(false)
     const {
         setIsAuthUser,
-        isAuthUser,
         setUser,
         setIsLoading,
         isLoading
@@ -30,7 +25,6 @@ const ChangePasswordForm = () => {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors }
     } = useForm<ChangePasswordFormData>({
         resolver: yupResolver(changePasswordSchema),
@@ -57,7 +51,7 @@ const ChangePasswordForm = () => {
             if (setIsAuthUser) setIsAuthUser(false)
             if (setUser) setUser(null)
             localStorage.clear()
-            router.push("/change-password-success")
+            setIsChange(true)
         } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
@@ -66,6 +60,10 @@ const ChangePasswordForm = () => {
 
         if (setIsLoading) setIsLoading(false)
     }
+
+    useEffect(() => {
+        if (isChange) router.push("/change-password-success")
+    }, [router, isChange])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
@@ -77,8 +75,6 @@ const ChangePasswordForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="password"
                 name="password"
-                value={formData.password}
-                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />
@@ -90,8 +86,6 @@ const ChangePasswordForm = () => {
                 colorInput="bg-inherit border-2 border-solid text-white pl-10"
                 id="confirmPassword"
                 name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={(e) => handleChange(e, setFormData)}
                 register={register}
                 errors={errors}
             />

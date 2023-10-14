@@ -12,7 +12,8 @@ import { FcAddImage } from 'react-icons/fc';
 
 SwiperCore.use([Thumbs]);
 
-const ThumbGallery = () => {
+const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateAction<string[]>> }) => {
+    const maxSize = 2097152
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore | null>(null);
     const [uploadedImages, setUploadedImages] = useState<string[]>([]);
     const [showUploadButton, setShowUploadButton] = useState<boolean>(false);
@@ -24,17 +25,41 @@ const ThumbGallery = () => {
             'image/jpeg': ['.jpeg'],
         },
         onDrop: (acceptedFiles) => {
-            const imageUrls = acceptedFiles.map((file) => URL.createObjectURL(file))
-            setUploadedImages([...uploadedImages, ...imageUrls])
-            setShowUploadButton(true)
+            const newImages: string[] = [];
+            acceptedFiles.forEach((file) => {
+                if (file.size <= maxSize) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        if (typeof reader.result === 'string') {
+                            const base64data = reader.result;
+                            newImages.push(base64data)
+                            if (newImages.length === acceptedFiles.length) {
+                                setUploadedImages(prevState => [...prevState, ...newImages]);
+                                setImages(prevState => [...prevState, ...newImages])
+                                setShowUploadButton(true)
+                            }
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    console.log('File quá lớn!');
+                }
+            });
         },
         multiple: true,
-    })
+    });
 
     const handleThumbsSwiper = (swiper: SwiperCore) => {
         if (!thumbsSwiper) {
             setThumbsSwiper(swiper)
         }
+    }
+
+    const handleRemove = (index: number) => {
+        const newImages = [...uploadedImages];
+        newImages.splice(index, 1);
+        setUploadedImages(newImages);
+        setImages(newImages)
     }
 
     return (
