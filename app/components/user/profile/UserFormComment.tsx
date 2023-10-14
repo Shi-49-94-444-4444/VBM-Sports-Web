@@ -4,9 +4,12 @@ import { GlobalContext } from "@/contexts"
 import { Button, Input, Loading } from "../../providers"
 import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
-import { handleChange } from "@/utils"
+import { commentSchema, handleChange } from "@/utils"
 import { postCommentService } from "@/services"
 import { toast } from "react-toastify"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { CommentForm } from "@/types"
+import { error } from "console"
 
 const UserFormComment = ({ id }: { id: string }) => {
     const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
@@ -14,7 +17,9 @@ const UserFormComment = ({ id }: { id: string }) => {
         comment: ""
     })
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm<CommentForm>({
+        resolver: yupResolver(commentSchema)
+    })
 
     const onSubmit = async () => {
         if (setIsLoading) setIsLoading(true)
@@ -64,12 +69,13 @@ const UserFormComment = ({ id }: { id: string }) => {
                         name="comment"
                         value={formData.comment}
                         onChange={(e) => handleChange(e, setFormData)}
+                        errors={errors}
                     />
                 </div>
                 <div className="sm:col-span-1 col-span-2">
                     {isLoading ? (
                         <Button
-                            title={<Loading loading={isLoading} color="white"/>}
+                            title={<Loading loading={isLoading} color="white" />}
                             style="h-full w-full justify-center rounded-xl text-xl"
                             type="submit"
                             isHover={false}

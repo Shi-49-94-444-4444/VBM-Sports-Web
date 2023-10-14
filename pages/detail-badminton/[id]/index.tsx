@@ -9,6 +9,7 @@ import { getListProductService, getProductService } from "@/services/product";
 import { ProductDetailContent } from "@/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Custom500 from '@/pages/500';
+import Custom404 from '@/pages/404';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
@@ -34,25 +35,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
 
     try {
-        const res = await getProductService(id)
-        if (res && res.status === 200) {
-            const Product = res.data
+        const Product = await getProductService(id)
+        if (!Product) {
             return {
-                props: {
-                    Product,
-                },
-                revalidate: 60
+                notFound: true
             }
-        } else if (res && res.status === 404) {
-            return {
-                notFound: true,
-            }
-        } else {
-            return {
-                props: {
-                    internalError: true
-                }
-            }
+        }
+
+        return {
+            props: {
+                Product,
+            },
+            revalidate: 60
         }
     } catch (error) {
         console.log(error)
@@ -65,7 +59,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const DetailBadmintonPage = ({ Product, internalError }: { Product: ProductDetailContent, internalError?: boolean }) => {
-    if (internalError || !Product) {
+    if (!Product) {
+        return <Custom404 />
+    }
+
+    if (internalError) {
         return <Custom500 />
     }
 

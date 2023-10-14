@@ -12,7 +12,7 @@ import { FcAddImage } from 'react-icons/fc';
 
 SwiperCore.use([Thumbs]);
 
-const ThumbGallery: React.FC<{ images: string[] }> = ({ }) => {
+const ThumbGallery = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore | null>(null);
     const [uploadedImages, setUploadedImages] = useState<string[]>([]);
     const [showUploadButton, setShowUploadButton] = useState<boolean>(false);
@@ -24,18 +24,18 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ }) => {
             'image/jpeg': ['.jpeg'],
         },
         onDrop: (acceptedFiles) => {
-            const imageUrls = acceptedFiles.map((file) => URL.createObjectURL(file));
-            setUploadedImages([...uploadedImages, ...imageUrls]);
-            setShowUploadButton(true);
+            const imageUrls = acceptedFiles.map((file) => URL.createObjectURL(file))
+            setUploadedImages([...uploadedImages, ...imageUrls])
+            setShowUploadButton(true)
         },
         multiple: true,
-    });
+    })
 
     const handleThumbsSwiper = (swiper: SwiperCore) => {
         if (!thumbsSwiper) {
-            setThumbsSwiper(swiper);
+            setThumbsSwiper(swiper)
         }
-    };
+    }
 
     return (
         <div>
@@ -68,7 +68,8 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ }) => {
                                     <Image
                                         src={image}
                                         alt={`Image ${index}`}
-                                        className="rounded-lg object-cover w-full h-full"
+                                        className="rounded-lg object-cover w-full h-full border border-black border-opacity-10"
+                                        sizes="(max-width: 600px) 100vw, 600px"
                                         fill
                                     />
                                 </div>
@@ -145,7 +146,8 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ }) => {
                                         <Image
                                             src={image}
                                             alt={`Image ${index}`}
-                                            className="rounded-lg object-cover w-full h-full"
+                                            className="rounded-lg object-cover w-full h-full border border-black border-opacity-10"
+                                            sizes="(max-width: 600px) 100vw, 600px"
                                             fill
                                         />
                                     </div>
@@ -174,19 +176,20 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ }) => {
                         >
                             <input {...getInputProps()} />
                             <div className="
-                                        absolute 
-                                        top-0 
-                                        left-0 
-                                        w-full 
-                                        h-full
-                                        transition
-                                        duration-300
-                                    "
+                                    absolute 
+                                    top-0 
+                                    left-0 
+                                    w-full 
+                                    h-full
+                                    transition
+                                    duration-300
+                                "
                             >
                                 <Image
                                     src="/images/more.png"
                                     alt="Add"
-                                    className="rounded-lg object-cover w-full h-full"
+                                    className="rounded-lg object-cover w-full h-full border border-black border-opacity-10"
+                                    sizes="(max-width: 600px) 100vw, 600px"
                                     fill
                                 />
                             </div>
@@ -198,4 +201,4 @@ const ThumbGallery: React.FC<{ images: string[] }> = ({ }) => {
     );
 };
 
-export default ThumbGallery;
+export default ThumbGallery

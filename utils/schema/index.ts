@@ -68,3 +68,7 @@ export const settingProfileSchema = yup.object().shape({
             : yup.string().trim().url('Không phải là URL').required('Hình ảnh không được để trống'),
     ),
 }).required()
+
+export const commentSchema = yup.object().shape({
+    comment: yup.string().min(10, 'Tối thiểu phải 10 kí tự').required('Không được để trống'),
+})

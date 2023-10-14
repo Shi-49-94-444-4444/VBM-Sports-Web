@@ -31,25 +31,37 @@ export function formatDateFunc(dateString: string): string {
 };
 
 export function getDates(dateString: string): string[] {
-  const [days, month, year] = dateString.split(":");
-  const dates = days.split(";").map(day => {
+  const [days, months, years] = dateString.split(":").map(part => part.split(";"));
+  const dates = [];
+
+  for (let i = 0; i < days.length; i++) {
+    const day = days[i];
+    const month = months[i % months.length];
+    const year = years[i % years.length];
     const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date());
-    return format(parsedDate, "dd/MM/yyyy");
-  });
+    dates.push(format(parsedDate, "dd/MM/yyyy"));
+  }
 
   return dates;
 };
 
 export const GetFirstDate: React.FC<FormatDateProps> = ({ dateString }) => {
-  const [days, month, year] = dateString.split(":");
-  const dates = days.split(";").map(day => {
+  const [days, months, years] = dateString.split(":").map(part => part.split(";"));
+  const dates = [];
+
+  for (let i = 0; i < days.length; i++) {
+    const day = days[i];
+    const month = months[i % months.length];
+    const year = years[i % years.length];
     const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date());
-    return format(parsedDate, "dd/MM/yyyy");
-  });
+    dates.push(format(parsedDate, "dd/MM/yyyy"));
+  }
+
   const firstDate = dates[0];
 
-  return firstDate
+  return firstDate;
 };
+
 
 export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
   const formattedTime = timeString.replace(":", "h");

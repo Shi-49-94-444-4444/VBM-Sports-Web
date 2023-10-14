@@ -47,19 +47,18 @@ const Input: React.FC<InputProps> = ({
                         }}
                         onChange={onChange}
                         className={`
-                                ${colorInput}
-                                w-full 
-                                rounded-lg 
-                                outline-none
-                                focus:ring-0
-                                text-base
-                                py-3    
-                                px-6
-                                transition
-                                duration-300
-                                ${errors && errors[id] ? "border border-red-500" : ""}
-                            `
-                        }
+                            ${colorInput}
+                            w-full 
+                            rounded-lg 
+                            outline-none
+                            focus:ring-0
+                            text-base
+                            py-3    
+                            px-6
+                            transition
+                            duration-300
+                            ${errors && errors[id] ? "border border-red-500" : ""}
+                        `}
                         pattern={pattern?.source}
                     />
                 ) : (
@@ -72,7 +71,7 @@ const Input: React.FC<InputProps> = ({
                         {...(register && register(name))}
                         disabled={disabled}
                         onChange={onChange}
-                        maxLength={100}
+                        maxLength={rowArea || 100}
                         className={`
                             ${colorInput}
                             w-full 
@@ -85,8 +84,7 @@ const Input: React.FC<InputProps> = ({
                             transition
                             duration-300
                             ${errors && errors[id] ? "border border-red-500" : ""}
-                        `
-                        }
+                        `}
                         pattern={pattern?.source}
                     />
                 )}

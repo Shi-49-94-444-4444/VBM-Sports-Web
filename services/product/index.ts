@@ -14,7 +14,7 @@ export const getProductService = async (id: string) => {
     try {
         const response = await AxiosClient.get(`/api/posts/${id}/details`);
 
-        return response;
+        return response.data
     } catch (error) {
         console.log(error)
     }

@@ -76,3 +76,6 @@ export interface CommentFormData {
     content: string
     toUserID: string
 }
+export interface CommentForm {
+    comment: string
+}

@@ -1,9 +1,4 @@
-import { 
-    Container, 
-    PostNewForm, 
-    ThumbGallery 
-} from '@/app/components';
-import { images } from '@/utils';
+import { Container, PostNewForm, } from '@/app/components';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 
@@ -14,7 +9,7 @@ const PostNewPage = () => {
                 <div className="relative mb-10">
                     <div className="relative py-10">
                         <div className="flex justify-center">
-                            <h1 className="title-custom">
+                            <h1 className="text-gray-600 font-semibold text-3xl">
                                 Tạo Bài Đăng mới
                             </h1>
                         </div>
@@ -37,14 +32,7 @@ const PostNewPage = () => {
                             </h2>
                         </div>
                     </div>
-                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-10">
-                        <div className="col-span-1">
-                            <ThumbGallery images={images} />
-                        </div>
-                        <div className="col-span-1">
-                            <PostNewForm />
-                        </div>
-                    </div>
+                    <PostNewForm />
                 </div>
             </Container>
         </Layout>

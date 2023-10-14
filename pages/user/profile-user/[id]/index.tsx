@@ -55,6 +55,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, internalError?: boolean, id: string }) => {
+    if (!User) {
+        return <Custom404 />
+    }
+
     if (internalError) {
         return <Custom500 />
     }

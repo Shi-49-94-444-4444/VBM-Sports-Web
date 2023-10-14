@@ -38,17 +38,17 @@ export const navlinks = [
     },
     {
         id: "3",
-        label: "Thêm",
+        label: "Xem thêm",
         linkItems: [
             {
                 id: "1",
-                label: "Huế",
-                href: "/"
+                label: "Danh sách sân",
+                href: "/list-badminton"
             },
             {
                 id: "2",
-                label: "Huế",
-                href: "/"
+                label: "Đăng bài",
+                href: "/post-new"
             },
             {
                 id: "3",
