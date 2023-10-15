@@ -4,14 +4,14 @@ import { Input, Loading } from '../../providers';
 import { AiFillMail } from 'react-icons/ai';
 import { BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from 'react-icons/bi';
 import { useForm } from 'react-hook-form';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
 import { useRouter } from 'next/router';
 import { RegisterFormData } from '@/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import registerService from '@/services/register';
 import { toast } from 'react-toastify';
-import { registerSchema } from '@/utils';
+import { registerInputs, registerSchema } from '@/utils';
 
 const RegisterForm = () => {
     const { setIsLoading, isLoading } = useContext(GlobalContext) || {}
@@ -42,12 +42,12 @@ const RegisterForm = () => {
             setIsRegistered(true)
         } else if (res.errorEmail) {
             setError("email", { message: "Tài khoản đã tồn tại" })
-        }  else {
+        } else {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
         }
-        
+
         if (setIsLoading) setIsLoading(false)
     }
 
@@ -57,61 +57,22 @@ const RegisterForm = () => {
 
     return (
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-            <Input
-                icon={<BiSolidUser size={25} />}
-                label="Họ và tên"
-                placeholder="Nhập họ và tên"
-                type="text"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                id="name"
-                name="name"
-                register={register}
-                errors={errors}
-            />
-            <Input
-                icon={<AiFillMail size={25} />}
-                label="Email"
-                placeholder="Nhập email của bạn"
-                type="email"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                id="email"
-                name="email"
-                register={register}
-                errors={errors}
-            />
-            <Input
-                icon={<BiSolidPhoneCall size={25} />}
-                label="Số điện thoại"
-                placeholder="Nhập số điện thoại"
-                type="number"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                id="phone"
-                name="phone"
-                register={register}
-                errors={errors}
-            />
-            <Input
-                icon={<BiSolidLockAlt size={25} />}
-                label="Mật khẩu"
-                placeholder="Nhập mật khẩu của bạn"
-                type="password"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                id="password"
-                name="password"
-                register={register}
-                errors={errors}
-            />
-            <Input
-                icon={<BiSolidLockAlt size={25} />}
-                label="Xác nhận mật khẩu"
-                placeholder="Nhập lại mật khẩu của bạn"
-                type="password"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                id="confirmPassword"
-                name="confirmPassword"
-                register={register}
-                errors={errors}
-            />
+            {registerInputs.map((item) => (
+                <React.Fragment key={item.id}>
+                    <Input
+                        IconType={item.icon}
+                        label={item.label}
+                        name={item.name}
+                        placeholder={item.placeholder}
+                        type={item.type}
+                        colorInput="bg-inherit border-2 border-solid text-white pl-10"
+                        id={item.id}
+                        register={register}
+                        errors={errors}
+                        maxLength={item.maxLength}
+                    />
+                </React.Fragment>
+            ))}
             <button className="
                     w-full 
                     bg-primary-blue-cus 

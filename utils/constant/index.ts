@@ -1,5 +1,6 @@
 import { Option } from "@/types";
-import { BiSolidBellRing } from "react-icons/bi";
+import { AiFillMail } from "react-icons/ai";
+import { BiSolidBellRing, BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from "react-icons/bi";
 import { BsFileEarmarkPost, BsFillFileEarmarkPostFill, BsFillFileEarmarkRuledFill } from "react-icons/bs";
 import { FaPollH, FaUserEdit, FaUserFriends, FaUserSlash } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
@@ -25,8 +26,8 @@ export const navlinks = [
                 href: "/"
             },
             {
-                id:"4",
-                label:"Xem tất cả",
+                id: "4",
+                label: "Xem tất cả",
                 href: "/list-badminton"
             }
         ]
@@ -57,6 +58,146 @@ export const navlinks = [
             }
         ]
     }
+]
+
+export const loginInputs = [
+    {
+        id: "email",
+        icon: AiFillMail,
+        label: "Email",
+        placeholder: "Nhập email của bạn",
+        type: "email",
+        name: "email"
+    },
+    {
+        id: "password",
+        icon: BiSolidLockAlt,
+        label: "Mật khẩu",
+        placeholder: "Nhập mật khẩu của bạn",
+        type: "password",
+        name: "password"
+    }
+];
+
+export const registerInputs = [
+    {
+        id: "name",
+        icon: BiSolidUser,
+        label: "Họ và tên",
+        placeholder: "Nhập họ và tên",
+        type: "text",
+        name: "name"
+    },
+    {
+        id: "email",
+        icon: AiFillMail,
+        label: "Email",
+        placeholder: "Nhập email của bạn",
+        type: "email",
+        name: "email"
+    },
+    {
+        id: "phone",
+        icon: BiSolidPhoneCall,
+        label: "Số điện thoại",
+        placeholder: "Nhập số điện thoại",
+        type: "number",
+        name: "phone",
+        maxLength: 15
+    },
+    {
+        id: "password",
+        icon: BiSolidLockAlt,
+        label: "Mật khẩu",
+        placeholder: "Nhập mật khẩu của bạn",
+        type: "password",
+        name: "password"
+    },
+    {
+        id: "confirmPassword",
+        icon: BiSolidLockAlt,
+        label: "Xác nhận mật khẩu",
+        placeholder: "Nhập lại mật khẩu của bạn",
+        type: "password",
+        name: "confirmPassword"
+    }
+];
+
+export const changePasswordInputs = [
+    {
+        id: "password",
+        icon: BiSolidLockAlt,
+        label: "Mật khẩu",
+        placeholder: "Nhập mật khẩu của bạn",
+        type: "password",
+        name: "password"
+    },
+    {
+        id: "confirmPassword",
+        icon: BiSolidLockAlt,
+        label: "Xác nhận mật khẩu",
+        placeholder: "Nhập lại mật khẩu của bạn",
+        type: "password",
+        name: "confirmPassword"
+    }
+];
+
+export const settingProfileInputs = [
+    {
+        id: "userName",
+        label: "Biệt danh:",
+        type: "text",
+        name: "userName"
+    },
+    {
+        id: "fullName",
+        label: "Họ và tên:",
+        type: "text",
+        name: "fullName"
+    },
+    {
+        id: "phoneNumber",
+        label: "Số điện thoại:",
+        type: "number",
+        name: "phoneNumber",
+        maxLength: 15
+    },
+    {
+        id: "userAddress",
+        label: "Quận/huyện:",
+        type: "text",
+        name: "userAddress",
+        maxLength: 100
+    },
+    {
+        id: "sortProfile",
+        label: "Mô tả:",
+        type: "text",
+        name: "sortProfile",
+        flagInput: true,
+        maxLength: 500
+    },
+
+];
+
+export const settingOptions: Option[] = [
+    { id: 1, label: "Hồ sơ", icon: FaUserEdit },
+    { id: 2, label: "Bảo mật", icon: IoShieldCheckmark },
+    { id: 3, label: "Chặn người dùng", icon: FaUserSlash },
+    { id: 4, label: "Thông báo", icon: BiSolidBellRing },
+];
+
+export const adminOptions: Option[] = [
+    { id: 1, label: "Danh sách người dùng", icon: FaUserFriends },
+    { id: 2, label: "Danh sách bài viết", icon: BsFillFileEarmarkPostFill },
+    { id: 3, label: "Báo cáo thường niên", icon: BsFillFileEarmarkRuledFill },
+    { id: 4, label: "Chính sách", icon: FaPollH },
+    { id: 5, label: "Danh sách người dùng đã báo cáo", icon: BsFileEarmarkPost },
+];
+
+export const beforeNavUser = [
+    { label: "Đăng nhập", href: "/login" },
+    { label: "Đăng ký", href: "/register" },
 ]
 
 export const images = [
@@ -1101,22 +1242,28 @@ export const listBlog = [
     },
 ]
 
-export const settingOptions: Option[] = [
-    { id: 1, label: "Hồ sơ", icon: FaUserEdit },
-    { id: 2, label: "Bảo mật", icon: IoShieldCheckmark },
-    { id: 3, label: "Chặn người dùng", icon: FaUserSlash },
-    { id: 4, label: "Thông báo", icon: BiSolidBellRing },
-];
-
-export const adminOptions: Option[] = [
-    { id: 1, label: "Danh sách người dùng", icon: FaUserFriends },
-    { id: 2, label: "Danh sách bài viết", icon: BsFillFileEarmarkPostFill },
-    { id: 3, label: "Báo cáo thường niên", icon: BsFillFileEarmarkRuledFill },
-    { id: 4, label: "Chính sách", icon: FaPollH },
-    { id: 5, label: "Danh sách người dùng đã báo cáo", icon: BsFileEarmarkPost },
-];
-
-export const beforeNavUser = [
-    { label: "Đăng nhập", href: "/login" },
-    { label: "Đăng ký", href: "/register" },
-]
+export const customStyles = {
+    control: (provided: any) => ({
+        ...provided,
+        border: 'none',
+        paddingLeft: '1rem',
+        marginLeft: '0px',
+        backgroundColor: '#F5F5F5',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        boxShadow: 'none !important',
+        "*": {
+            boxShadow: "none !important",
+        },
+        '&:hover': {
+            border: 'none !important',
+            boxShadow: 'none !important',
+            outline: 'none !important',
+        },
+        '&:focus': {
+            border: 'none !important',
+            boxShadow: 'none !important',
+            outline: 'none !important',
+        },
+    }),
+};

@@ -70,6 +70,10 @@ const QuickList = () => {
                             startTime={items.startTime}
                             priceSlot={items.priceSlot}
                             slots={items.slots}
+                            fullName={items.fullName}
+                            userImgUrl={items.userImgUrl}
+                            price={items.price}
+                            highlightUrl={items.highlightUrl}
                             flagTooltip
                         />
                     ))}

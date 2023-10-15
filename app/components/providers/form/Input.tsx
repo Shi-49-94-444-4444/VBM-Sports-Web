@@ -3,6 +3,7 @@ import { InputProps } from "@/types";
 const Input: React.FC<InputProps> = ({
     id = "",
     icon,
+    IconType,
     label,
     name,
     placeholder,
@@ -15,7 +16,8 @@ const Input: React.FC<InputProps> = ({
     colorInput,
     pattern,
     flagInput,
-    rowArea
+    rowArea,
+    maxLength
 }) => {
     return (
         <div className="gap-1 transition duration-300">
@@ -30,11 +32,17 @@ const Input: React.FC<InputProps> = ({
                         {icon}
                     </span>
                 )}
+                {IconType && (
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white-cus">
+                        <IconType size={25}/>
+                    </span>
+                )}
                 {flagInput ? (
                     <textarea
                         id={id}
                         typeof={type}
                         rows={rowArea || 5}
+                        maxLength={maxLength || 100}
                         name={name}
                         value={value}
                         placeholder={placeholder}
@@ -76,7 +84,7 @@ const Input: React.FC<InputProps> = ({
                             }
                         }}
                         onChange={onChange}
-                        maxLength={rowArea || 100}
+                        maxLength={maxLength || 50}
                         className={`
                             ${colorInput}
                             w-full 

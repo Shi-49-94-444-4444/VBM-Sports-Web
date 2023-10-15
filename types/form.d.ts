@@ -79,3 +79,33 @@ export interface CommentFormData {
 export interface CommentForm {
     comment: string
 }
+
+export interface CreateBadmintonForm {
+    id?: string,
+    title: string,
+    address: string,
+    day: string,
+    month: string,
+    year: string,
+    startTime: string,
+    endTime: string,
+    price: string,
+    availableSlot: string,
+    description: string,
+    highlightUrl: string,
+    imgURL: string[],
+}
+export interface CreateBadmintonFormData {
+    title: string,
+    city?: string,
+    district?: string,
+    ward?: string,
+    address: string,
+    day?: string,
+    startTime?: string,
+    endTime?: string,
+    price: string,
+    availableSlot: string,
+    description: string,
+    imgURL?: string[],
+}

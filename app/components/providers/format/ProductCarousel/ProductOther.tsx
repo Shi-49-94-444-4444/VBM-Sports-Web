@@ -3,7 +3,7 @@
 import { ListProduct } from "@/types";
 import Image from "next/image"
 import Link from "next/link";
-import { formatDateFunc, formatMoney, FormatTime, getDates, GetFirstDate } from "@/utils"
+import { formatAddress, formatDateFunc, formatMoney, FormatTime, getDates, GetFirstDate } from "@/utils"
 import {
     validateAddress,
     validateDate,
@@ -14,7 +14,6 @@ import {
     validateURLProduct
 } from "@/utils";
 import { Tooltip } from 'react-tooltip';
-import Cookies from "js-cookie";
 
 const ProductOther: React.FC<ListProduct> = ({
     id,
@@ -29,10 +28,17 @@ const ProductOther: React.FC<ListProduct> = ({
     startTime,
     flagTooltip,
     priceSlot,
-    slots
+    slots,
+    fullName,
+    userImgUrl,
+    price,
+    highlightUrl
 }) => {
     const dates = getDates(validateDate(days))
     const availableSlot = (quantitySlot ?? 0) - (slots?.length ?? 0)
+    const address = formatAddress(addressSlot ?? "")
+    console.log(address);
+    
 
     return (
         <div className="relative">
@@ -70,7 +76,7 @@ const ProductOther: React.FC<ListProduct> = ({
                         >
                             {!imgUrl ? (
                                 <Image
-                                    src="/images/item_1.jpg"
+                                    src={validateURLProduct(highlightUrl)}
                                     alt={`product ${id ?? "1"}`}
                                     className="
                                         rounded-t-xl
@@ -96,7 +102,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                     draggable="false"
                                 />
                             )}
-                        </div>
+                        </div>.imgUrlPost.imgUrlPost
                     </div>
                     <div className="
                             p-4 
@@ -126,7 +132,7 @@ const ProductOther: React.FC<ListProduct> = ({
                             <div className="flex flex-row space-x-2 items-center">
                                 <span>
                                     <Image
-                                        src="/images/avatar.jpg"
+                                        src={validateURLAvatar(userImgUrl)}
                                         alt="avatar"
                                         width={50}
                                         height={50}
@@ -134,7 +140,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                     />
                                 </span>
                                 <span className="text-gray-600 font-semibold text-xl">
-                                    Shi
+                                    {validateName(fullName)}
                                 </span>
                             </div>
                         ) : (
@@ -161,7 +167,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 Địa điểm sân:
                             </span>
                             <span className="text-black font-semibold">
-                                {validateAddress(addressSlot)}
+                                {address.slice(3)}
                             </span>
                         </div>
                         <div className="space-x-3 line-clamp-1 whitespace-nowrap md:hidden block truncate">
@@ -251,7 +257,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 {dates.length} buổi
                             </span>
                             <span>
-                                {formatMoney(priceSlot ?? 0)}VNĐ/1 chỗ
+                                {formatMoney(priceSlot || price || 0)}/1 chỗ
                             </span>
                         </div>
                         <div className="space-x-1 line-clamp-3 min-h-[5.25rem]">
@@ -259,7 +265,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 Địa điểm chi tiết:
                             </span>
                             <span className="text-gray-500">
-                                TP.Hồ Chí Minh, Quận 9, P.Long Mỹ Thạnh, {validateAddress(addressSlot)}
+                                {validateAddress(addressSlot)}
                             </span>
                         </div>
                         <div className="flex flex-col gap-1 min-h-[8.75rem]">

@@ -1,6 +1,7 @@
 "use client"
 
 import { OptionsOverviewProps } from "@/types"
+import { customStyles } from "@/utils";
 import Select from 'react-select'
 
 const AdminOverview: React.FC<OptionsOverviewProps> = ({
@@ -8,32 +9,6 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
     onOptionSelect,
     selectedOption
 }) => {
-    const customStyles = {
-        control: (provided: any) => ({
-            ...provided,
-            border: 'none',
-            paddingLeft: '1rem',
-            marginLeft: '0px',
-            backgroundColor: '#F5F5F5',
-            paddingTop: '5px',
-            paddingBottom: '5px',
-            boxShadow: 'none !important',
-            "*": {
-                boxShadow: "none !important",
-            },
-            '&:hover': {
-                border: 'none !important',
-                boxShadow: 'none !important',
-                outline: 'none !important',
-            },
-            '&:focus': {
-                border: 'none !important',
-                boxShadow: 'none !important',
-                outline: 'none !important',
-            },
-        }),
-    }
-
     const selectOptions = options.map(option => ({
         value: option.id,
         label: option.label,

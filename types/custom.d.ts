@@ -1,8 +1,8 @@
-import { IconType } from "react-icons/lib";
+import { IconType } from "react-icons/lib"
 export interface ButtonProps {
-    title: string | React.ReactNode;
-    style: string;
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    title: string | React.ReactNode
+    style: string
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
     icon?: Icon
     iconLeft?: Icon
     type?: "submit" | "reset"
@@ -11,38 +11,40 @@ export interface ButtonProps {
 }
 
 export interface InputProps {
-    id?: string;
-    icon?: React.ReactNode;
-    label?: string;
-    name?: string;
-    placeholder?: string;
-    value?: string | number;
-    type?: string;
-    disabled?: boolean;
-    register?: UseFormRegister<FieldValues>;
-    errors?: FieldErrors;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    colorInput?: string;
-    pattern?: RegExp;
+    id?: string
+    icon?: React.ReactNode
+    IconType?: IconType
+    label?: string
+    name?: string
+    placeholder?: string
+    value?: string | number
+    type?: string
+    disabled?: boolean
+    register?: UseFormRegister<FieldValues>
+    errors?: FieldErrors
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+    colorInput?: string
+    pattern?: RegExp
     flagInput?: boolean | false
     rowArea?: number
+    maxLength?: number
 }
 
 export interface FilterItem {
-    id: string;
-    title: string;
-    src: string;
+    id: string
+    title: string
+    src: string
 }
 
 export interface FilterCusProps {
-    id: string;
-    title: string;
+    id: string
+    title: string
     listItem: FilterItem[]
 }
 
 export interface linkItem {
-    id: string;
-    label: string;
+    id: string
+    label: string
     href?: string
 }
 
@@ -51,12 +53,12 @@ export interface NavlinkItemProps {
 }
 
 export interface Option {
-    id: number;
-    label: string;
+    id: number
+    label: string
     icon: IconType
 }
 export interface OptionsOverviewProps {
-    options: Option[];
-    selectedOption: number;
-    onOptionSelect: (id: number) => void;
+    options: Option[]
+    selectedOption: number
+    onOptionSelect: (id: number) => void
 }

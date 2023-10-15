@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Thumbs } from 'swiper';
 import { useDropzone } from 'react-dropzone';
@@ -34,9 +34,8 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                             const base64data = reader.result;
                             newImages.push(base64data)
                             if (newImages.length === acceptedFiles.length) {
-                                setUploadedImages(prevState => [...prevState, ...newImages]);
+                                setUploadedImages(prevState => [...prevState, ...newImages])
                                 setImages(prevState => [...prevState, ...newImages])
-                                setShowUploadButton(true)
                             }
                         }
                     };
@@ -47,7 +46,7 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
             });
         },
         multiple: true,
-    });
+    })
 
     const handleThumbsSwiper = (swiper: SwiperCore) => {
         if (!thumbsSwiper) {
@@ -61,6 +60,14 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
         setUploadedImages(newImages);
         setImages(newImages)
     }
+
+    useEffect(() => {
+        if (uploadedImages.length >= 4) {
+            setShowUploadButton(false);
+        } else {
+            setShowUploadButton(true);
+        }
+    }, [uploadedImages.length])
 
     return (
         <div>
@@ -127,10 +134,10 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                         </div>
                         <div className="text-2xl whitespace-nowrap space-x-1">
                             <span className="text-gray-600">
-                                Drop your image here or
+                                Thả hình ảnh của bạn ở đây hoặc
                             </span>
                             <span className="text-primary-blue-cus font-semibold">
-                                browser
+                                trình duyệt
                             </span>
                         </div>
                         <p className="text-gray-500 text-xl text-center">Tải hình ảnh lên định dạng jpg, png dung lượng tối đa 2MB</p>
@@ -175,6 +182,22 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                                             sizes="(max-width: 600px) 100vw, 600px"
                                             fill
                                         />
+                                        <div
+                                            className="
+                                                absolute 
+                                                -top-2 
+                                                right-0 
+                                                rounded-full 
+                                                text-2xl
+                                                flex 
+                                                items-center 
+                                                justify-center 
+                                                cursor-pointer
+                                            "
+                                            onClick={() => handleRemove(index)}
+                                        >
+                                            &times;
+                                        </div>
                                     </div>
                                 </div>
                             </div>

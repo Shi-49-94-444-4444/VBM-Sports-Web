@@ -33,7 +33,6 @@ export function middleware(req: NextRequest) {
             url.pathname.includes("/verify-otp")) {
             if (token) {
                 const decoded = jwt.verify(token, secret)
-                console.log("decoded: ", decoded)
                 if (typeof decoded === 'object' && 'otp' in decoded) {
                     if (!decoded.otp) {
                         return NextResponse.redirect(`${url.origin}/`)
@@ -47,7 +46,6 @@ export function middleware(req: NextRequest) {
         if (url.pathname.includes("/register-stepper")) {
             if (token) {
                 const decoded = jwt.verify(token, secret)
-                console.log("decoded: ", decoded)
                 if (typeof decoded === 'object' && 'isNewUser' in decoded) {
                     if (!decoded.isNewUser) {
                         return NextResponse.redirect(`${url.origin}/`)

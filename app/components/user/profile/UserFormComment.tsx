@@ -61,6 +61,7 @@ const UserFormComment = ({ id }: { id: string }) => {
                     <Input
                         flagInput
                         rowArea={6}
+                        maxLength={500}
                         colorInput="text-xl"
                         placeholder="Nhập bình luận..."
                         register={register}

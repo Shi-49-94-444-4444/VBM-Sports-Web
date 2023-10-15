@@ -31,7 +31,7 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
                         {validateTitle(title)}
                     </h2>
                     <p className="text-red-500 text-3xl">
-                        {priceSlot ?? "999999"} VND/Slot
+                        {priceSlot ?? "999999"}/1 chỗ
                     </p>
                 </div>
                 <div className="flex flex-col gap-3">

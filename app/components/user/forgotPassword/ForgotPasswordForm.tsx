@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { forgotPasswordService } from "@/services/forgotPassword";
 import { sendOTP } from "@/utils/functions/sendOTP";
 import { forgotPasswordSchema } from "@/utils";
+import Cookies from "js-cookie";
 
 const ForgotPasswordForm = () => {
     const [isForgot, setIsForgot] = useState(false)
@@ -43,9 +44,9 @@ const ForgotPasswordForm = () => {
             })
 
             localStorage.setItem("email", JSON.stringify(data.email))
-            localStorage.setItem("otp", JSON.stringify(res.token))
+            Cookies.set("token", res.token)
 
-            const result = await sendOTP(data.email, res.token)
+            const result = await sendOTP(data.email, res.otp)
 
             if (result.success) {
                 setIsForgot(true)

@@ -64,4 +64,21 @@ export interface ListProduct {
             id?: string | null
         }
     ] | null
+    fullName?: string | null,
+    userImgUrl?: string | null,
+    price?: number | null
+    highlightUrl?: string | null
+}
+
+export interface ListCity {
+    id: string;
+    name: string;
+}
+export interface ListDistrict {
+    id: string;
+    name: string;
+}
+export interface ListWard {
+    id: string;
+    name: string;
 }

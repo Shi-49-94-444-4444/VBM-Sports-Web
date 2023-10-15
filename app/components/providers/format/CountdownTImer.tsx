@@ -38,8 +38,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
 
     const email = JSON.parse(localStorage.getItem("email")!)
     const res = await forgotPasswordService({ email: email })
-    localStorage.setItem("otp", JSON.stringify(res.token))
-    const result = await sendOTP(email, res.token)
+    const result = await sendOTP(email, res.otp)
 
     if (result.success) {
       toast.success(res.message, {

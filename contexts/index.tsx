@@ -48,9 +48,14 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
     useEffect(() => {
         if (Cookies.get('token') !== undefined) {
-            setIsAuthUser(true);
-            const userData = JSON.parse(localStorage.getItem('user')!) || {};
-            setUser(userData);
+            setIsAuthUser(true)
+            const userData = JSON.parse(localStorage.getItem('user')!) || {}
+            if (userData) {
+                setUser(userData)
+            } else {
+                setIsAuthUser(false)
+                setUser(null)
+            }
         } else {
             setIsAuthUser(false);
             setUser(null);

@@ -8,15 +8,29 @@ import { Input, Loading, LoadingFullScreen } from '../../providers';
 import { GlobalContext } from '@/contexts';
 import { getUserProfileSettingService, putProfileUserService } from '@/services';
 import { UserProfileSettingForm } from '@/types';
-import { isValidUrl, settingProfileSchema, validateURLAvatar } from '@/utils';
+import { isValidUrl, settingProfileInputs, settingProfileSchema, validateURLAvatar } from '@/utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 
 const SettingProfile = () => {
     const maxSize = 1048576
-    const { user, isLoading, setIsLoading, isLoadingPage, setIsLoadingPage, setUser } = useContext(GlobalContext) || {}
-    const { register, handleSubmit, formState: { errors }, setValue, setError, watch } = useForm<UserProfileSettingForm>({
+    const {
+        user,
+        isLoading,
+        setIsLoading,
+        isLoadingPage,
+        setIsLoadingPage,
+        setUser
+    } = useContext(GlobalContext) || {}
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+        setError,
+        watch
+    } = useForm<UserProfileSettingForm>({
         resolver: yupResolver(settingProfileSchema),
         defaultValues: {
             userName: '',
@@ -136,7 +150,7 @@ const SettingProfile = () => {
                     <div className="text-gray-600 text-3xl font-semibold">Hồ sơ</div>
                     <div className="relative flex flex-col w-2/5 gap-3 items-center">
                         <div {...getRootProps()} className="relative w-full pb-[100%] border-2 border-gray-400 p-4 rounded-xl cursor-pointer">
-                            <input {...getInputProps()} {...register('imgURL')}/>
+                            <input {...getInputProps()} {...register('imgURL')} />
                             {uploadedImage ? (
                                 <Image
                                     src={uploadedImage}
@@ -152,7 +166,7 @@ const SettingProfile = () => {
                                     fill
                                 />
                             ) : (
-                                <input {...getInputProps()} {...register('imgURL')}/>
+                                <input {...getInputProps()} {...register('imgURL')} />
                             )}
                         </div>
                         <div className="flex flex-row text-primary-blue-cus items-center gap-2 whitespace-nowrap">
@@ -162,92 +176,27 @@ const SettingProfile = () => {
                         {errors.imgURL && <p className="text-red-500 font-medium h-4">{errors.imgURL.message}</p>}
                     </div>
                     <div className="border border-black border-opacity-10" />
-                    <div className="grid grid-cols-7 items-center">
-                        <div className="col-span-2">
-                            <label className="text-gray-600 font-semibold text-xl">
-                                Biệt danh:
-                            </label>
+                    {settingProfileInputs.map((input) => (
+                        <div className="grid grid-cols-7 items-center" key={input.id}>
+                            <div className="col-span-2">
+                                <label className="text-gray-600 font-semibold text-xl">
+                                    {input.label}
+                                </label>
+                            </div>
+                            <div className="col-span-5">
+                                <Input
+                                    colorInput="bg-[#F5F5F5] border-none"
+                                    name={input.name}
+                                    type={input.type}
+                                    id={input.id}
+                                    register={register}
+                                    errors={errors}
+                                    maxLength={input.maxLength}
+                                    flagInput={input.flagInput}
+                                />
+                            </div>
                         </div>
-                        <div className="col-span-5">
-                            <Input
-                                colorInput="bg-[#F5F5F5] border-none"
-                                name="userName"
-                                type="text"
-                                id="userName"
-                                register={register}
-                                errors={errors}
-                            />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-7 items-center">
-                        <div className="col-span-2">
-                            <label className="text-gray-600 font-semibold text-xl">
-                                Họ và tên:
-                            </label>
-                        </div>
-                        <div className="col-span-5">
-                            <Input
-                                colorInput="bg-[#F5F5F5] border-none"
-                                name="fullName"
-                                type="text"
-                                id="fullName"
-                                register={register}
-                                errors={errors}
-                            />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-7 items-center">
-                        <div className="col-span-2">
-                            <label className="text-gray-600 font-semibold text-xl">
-                                Số điện thoại:
-                            </label>
-                        </div>
-                        <div className="col-span-5">
-                            <Input
-                                colorInput="bg-[#F5F5F5] border-none"
-                                name="phoneNumber"
-                                type="number"
-                                id="phoneNumber"
-                                register={register}
-                                errors={errors}
-                            />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-7 items-center">
-                        <div className="col-span-2">
-                            <label className="text-gray-600 font-semibold text-xl">
-                                Quận/huyện:
-                            </label>
-                        </div>
-                        <div className="col-span-5">
-                            <Input
-                                colorInput="bg-[#F5F5F5] border-none"
-                                name="userAddress"
-                                type="text"
-                                id="userAddress"
-                                register={register}
-                                errors={errors}
-                            />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-7 items-center">
-                        <div className="col-span-2">
-                            <label className="text-gray-600 font-semibold text-xl">
-                                Mô tả:
-                            </label>
-                        </div>
-                        <div className="col-span-5">
-                            <Input
-                                colorInput="bg-[#F5F5F5] border-none"
-                                name="sortProfile"
-                                type="text"
-                                id="sortProfile"
-                                register={register}
-                                errors={errors}
-                                flagInput
-                            />
-                        </div>
-                    </div>
+                    ))}
                     <div className="relative flex justify-center">
                         <button className="text-white text-xl font-semibold bg-primary-blue-cus px-12 py-3 rounded-xl">
                             {isLoading ? (

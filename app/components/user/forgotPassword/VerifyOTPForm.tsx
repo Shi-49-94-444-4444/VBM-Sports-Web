@@ -12,10 +12,7 @@ import { useRouter } from "next/router"
 const VerifyOTPForm = () => {
     const [isOTP, setIsOTP] = useState("")
     const [isVerify, setIsVerify] = useState(false)
-    const {
-        setIsLoading,
-        isLoading
-    } = useContext(GlobalContext) || {}
+    const { setIsLoading, isLoading } = useContext(GlobalContext) || {}
     const {
         handleSubmit,
         setError,
@@ -42,7 +39,6 @@ const VerifyOTPForm = () => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            localStorage.removeItem("otp")
             setIsVerify(true)
         } else if (res.errorCode) {
             setError("digit", { message: "Mã otp không đúng, vui lòng nhập lại!" })

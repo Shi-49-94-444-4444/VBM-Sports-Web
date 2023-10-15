@@ -7,13 +7,13 @@ import { BiSolidLockAlt } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { LoginFormData } from '@/types';
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { yupResolver } from "@hookform/resolvers/yup"
 import loginService from '@/services/login';
-import { loginSchema } from '@/utils';
+import { loginInputs, loginSchema } from '@/utils';
 
 const LoginForm = () => {
     const {
@@ -79,28 +79,21 @@ const LoginForm = () => {
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
-            <Input
-                icon={<AiFillMail size={25} />}
-                label="Email"
-                name="email"
-                placeholder="Nhập email của bạn"
-                type="email"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                id="email"
-                register={register}
-                errors={errors}
-            />
-            <Input
-                icon={<BiSolidLockAlt size={25} />}
-                label="Mật khẩu"
-                name="password"
-                placeholder="Nhập mật khẩu của bạn"
-                type="password"
-                colorInput="bg-inherit border-2 border-solid text-white pl-10"
-                id="password"
-                register={register}
-                errors={errors}
-            />
+            {loginInputs.map((input) => (
+                <React.Fragment key={input.id}>
+                    <Input
+                        IconType={input.icon}
+                        label={input.label}
+                        name={input.name}
+                        placeholder={input.placeholder}
+                        type={input.type}
+                        colorInput="bg-inherit border-2 border-solid text-white pl-10"
+                        id={input.id}
+                        register={register}
+                        errors={errors}
+                    />
+                </React.Fragment>
+            ))}
             <div className="
                     font-semibold 
                     cursor-pointer 

@@ -70,6 +70,12 @@ export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
 };
 
 export function formatMoney(data: number): string {
-  const money = data.toLocaleString("vi-VN")
+  const money = data.toLocaleString("vi-VN", { style: 'currency', currency: 'VND' })
   return money
+}
+
+export function formatAddress(data: string): string[] {
+  const address = data.split(",")
+
+  return address
 }
