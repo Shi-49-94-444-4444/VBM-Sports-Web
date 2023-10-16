@@ -1,8 +1,3 @@
-export interface Images {
-    id?: string | null;
-    src?: string | null;
-}
-
 export interface ProductFullField {
     id?: string | null;
     idType?: string | null;
@@ -14,7 +9,7 @@ export interface ProductFullField {
     levelSlot?: number | null;
     categorySlot?: string | null; // replace with the actual type if not null
     contentPost?: string | null;
-    imgUrl?: Images[] | null; // replace with the actual type if not null
+    imgUrl?: string | null; // replace with the actual type if not null
     status?: boolean | null;
     days?: string | null;
     startTime?: string | null;
@@ -24,7 +19,7 @@ export interface ProductFullField {
 
 export interface ProductDetailContent {
     id?: string;
-    imgUrl?: Images[] | null;
+    imgUrl?: string | null;
     title?: string | null;
     addressSlot?: string | null;
     levelSlot?: string | null;
@@ -42,7 +37,7 @@ export interface ProductDetailContent {
 
 export interface ListProduct {
     id?: string | null;
-    imgUrl?: Images[] | null;
+    imgUrl?: string | null;
     title?: string | null;
     addressSlot?: string | null;
     levelSlot?: string | null;
@@ -55,7 +50,7 @@ export interface ListProduct {
     quantitySlot?: number | null;
     idUserToNavigation?: {
         id?: string | null;
-        userName?: string | null;
+        fullName?: string | null;
         imgUrl?: string | null;
     } | null
     flagTooltip?: boolean | false;
@@ -66,8 +61,9 @@ export interface ListProduct {
     ] | null
     fullName?: string | null,
     userImgUrl?: string | null,
-    price?: number | null
-    highlightUrl?: string | null
+    price?: number | null,
+    highlightUrl?: string | null,
+    imgUrlPost?: string[] | null
 }
 
 export interface ListCity {

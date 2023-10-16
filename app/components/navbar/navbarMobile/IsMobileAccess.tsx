@@ -10,6 +10,7 @@ import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { beforeNavUser } from '@/utils';
+import { LiaWindowClose } from 'react-icons/lia';
 
 interface IsMobileAccessPros {
     onclick: () => void;
@@ -18,6 +19,7 @@ interface IsMobileAccessPros {
 const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
     onclick
 }) => {
+    const { showMenu } = useContext(GlobalContext) || {}
     const [showToggle, setShowToggle] = useState(false);
     const router = useRouter()
     const { isAuthUser, setIsAuthUser, setUser, user } = useContext(GlobalContext) || {}
@@ -240,10 +242,16 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                         <div className="
                                 inline-flex 
                                 items-center 
+                                justify-center
                                 cursor-pointer
                             "
                         >
-                            <BiMenu size={30} />
+                            {showMenu ? (
+                                <LiaWindowClose size={30} />
+                            ) : (
+
+                                <BiMenu size={30} />
+                            )}
                         </div>
                     </div>
                 </button>

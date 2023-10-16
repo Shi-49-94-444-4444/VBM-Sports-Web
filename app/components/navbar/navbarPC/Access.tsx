@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import Cookies from "js-cookie";
 import { beforeNavUser } from "@/utils"
 import OutsideClickHandler from "react-outside-click-handler"
+import SearchBar from "../SearchBar"
 
 const Access = () => {
     const [showToggle, setShowToggle] = useState(false);
@@ -54,81 +55,7 @@ const Access = () => {
                             py-4 
                         "
                     >
-                        <div className="
-                                box-border
-                                md:flex
-                            "
-                        >
-                            <div className="
-                                    box-border 
-                                    flex-grow-[2px] 
-                                "
-                            >
-                                <form
-                                    role="search"
-                                    className="
-                                        relative 
-                                        flex 
-                                        flex-row 
-                                        items-center
-                                    "
-                                >
-                                    <div className="
-                                            absolute
-                                            bg-search-cus
-                                            rounded-full
-                                            cursor-default
-                                            py-1
-                                            px-3
-                                            right-0
-                                            w-auto
-                                            z-[1000]
-                                        "
-                                    >
-                                        <div className="relative box-border">
-                                            <div className="
-                                                    bg-transparent 
-                                                    border-none 
-                                                    cursor-pointer
-                                                "
-                                            >
-                                                <div className="
-                                                        items-center 
-                                                        box-border 
-                                                        flex
-                                                    "
-                                                >
-                                                    <div className="
-                                                                self-center
-                                                                items-center
-                                                                inline-flex
-                                                                cursor-pointer
-                                                                align-middle
-                                                            "
-                                                    >
-                                                        <BiSearch size={24} />
-                                                    </div>
-                                                    <input
-                                                        className="
-                                                            bg-search-cus 
-                                                            border-0 
-                                                            outline-none 
-                                                            focus:ring-0
-                                                            font-medium 
-                                                            pl-2 
-                                                            text-base 
-                                                            w-64 
-                                                            z-[900]
-                                                        "
-                                                        placeholder="Tìm kiếm"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <SearchBar />
                     </div>
                 </div>
             </li>

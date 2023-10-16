@@ -26,18 +26,21 @@ const IsMobileNavLink = () => {
                 px-4
                 md:px-6
                 py-2
-                w-screen
-                z-[-1]
+                md:w-80
+                w-full
+                h-screen 
+                fixed
+                right-0
+                top-16 
                 overflow-auto
                 font-bold
                 text-lg
                 text-gray-600
+                z-[2000]
             "
         >
             <ul className="
                     list-none 
-                    pr-6 
-                    md:pr-10 
                     space-y-2
                 "
             >
@@ -104,4 +107,4 @@ const IsMobileNavLink = () => {
     )
 }
 
-export default IsMobileNavLink
+export default IsMobileNavLink;

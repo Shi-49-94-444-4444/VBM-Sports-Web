@@ -3,6 +3,7 @@
 import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import { ListProduct } from '@/types';
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -34,6 +35,12 @@ interface GlobalContextProps {
     setIsLoading: React.Dispatch<React.SetStateAction<boolean | null>>
     isLoadingPage: boolean | null
     setIsLoadingPage: React.Dispatch<React.SetStateAction<boolean | null>>
+    showMenu: boolean | null
+    setShowMenu: React.Dispatch<React.SetStateAction<boolean | null>>
+    searchValue: string | null
+    setSearchValue: React.Dispatch<React.SetStateAction<string | null>>
+    searchResults: ListProduct[] | null
+    setSearchResults: React.Dispatch<React.SetStateAction<ListProduct[] | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -43,6 +50,9 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState<boolean | null>(false);
     const [isLoadingPage, setIsLoadingPage] = useState<boolean | null>(false);
+    const [showMenu, setShowMenu] = useState<boolean | null>(false)
+    const [searchValue, setSearchValue] = useState<string | null>("")
+    const [searchResults, setSearchResults] = useState<ListProduct[] | null>([])
 
     const router = useRouter()
 
@@ -72,7 +82,13 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 isLoading,
                 setIsLoading,
                 isLoadingPage,
-                setIsLoadingPage
+                setIsLoadingPage,
+                setShowMenu,
+                showMenu,
+                searchResults,
+                searchValue,
+                setSearchResults,
+                setSearchValue
             }}
         >
             {children}

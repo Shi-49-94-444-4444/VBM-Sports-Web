@@ -1,15 +1,26 @@
 "use client"
 
-import { useState } from "react"
+import { useContext, useEffect } from "react"
 import { Access, Logo, NavLink } from "./navbarPC";
-import { IsMobileAccess, IsMobileLogo, IsMobileNavLink, IsMobileSearch } from "./navbarMobile";
+import { IsMobileAccess, IsMobileLogo, IsMobileNavLink } from "./navbarMobile"
+import { GlobalContext } from "@/contexts";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
+  const { setShowMenu, showMenu } = useContext(GlobalContext) || {}
 
   const handleShowMenu = () => {
-    setShowMenu(!showMenu);
+    if (setShowMenu)
+      setShowMenu(!showMenu);
   }
+
+  useEffect(() => {
+    if (showMenu) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [showMenu])
 
   return (
     <div className="
@@ -67,13 +78,15 @@ const Navbar = () => {
             <IsMobileLogo />
           </div>
           <div className="justify-self-end">
-            <IsMobileAccess onclick={handleShowMenu}/>
+            <IsMobileAccess onclick={handleShowMenu} />
           </div>
           <div className="grid-row-start-2 grid-col-full">
-            <IsMobileSearch />
+            <SearchBar />
           </div>
         </nav>
-        {showMenu && <IsMobileNavLink />}
+        {showMenu &&
+          <IsMobileNavLink />
+        }
       </div>
     </div>
   )

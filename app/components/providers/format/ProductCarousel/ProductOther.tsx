@@ -3,7 +3,7 @@
 import { ListProduct } from "@/types";
 import Image from "next/image"
 import Link from "next/link";
-import { formatAddress, formatDateFunc, formatMoney, FormatTime, getDates, GetFirstDate } from "@/utils"
+import { formatAddress, formatDateFunc, formatMoney, FormatTime, formatURL, getDates, GetFirstDate } from "@/utils"
 import {
     validateAddress,
     validateDate,
@@ -13,7 +13,8 @@ import {
     validateURLAvatar,
     validateURLProduct
 } from "@/utils";
-import { Tooltip } from 'react-tooltip';
+import { Tooltip } from 'react-tooltip'
+import { Decimal } from 'decimal.js'
 
 const ProductOther: React.FC<ListProduct> = ({
     id,
@@ -32,13 +33,13 @@ const ProductOther: React.FC<ListProduct> = ({
     fullName,
     userImgUrl,
     price,
-    highlightUrl
+    highlightUrl,
+    imgUrlPost
 }) => {
     const dates = getDates(validateDate(days))
     const availableSlot = (quantitySlot ?? 0) - (slots?.length ?? 0)
     const address = formatAddress(addressSlot ?? "")
-    console.log(address);
-    
+    const priceValue = new Decimal(priceSlot || price || 0)
 
     return (
         <div className="relative">
@@ -74,35 +75,19 @@ const ProductOther: React.FC<ListProduct> = ({
                                 h-full
                             "
                         >
-                            {!imgUrl ? (
-                                <Image
-                                    src={validateURLProduct(highlightUrl)}
-                                    alt={`product ${id ?? "1"}`}
-                                    className="
+                            <Image
+                                src={validateURLProduct(imgUrl || highlightUrl)}
+                                alt={`product ${id ?? "1"}`}
+                                className="
                                         rounded-t-xl
                                         hover:rounded-t-xl
                                         object-cover
                                     "
-                                    fill
-                                    sizes="(max-width: 600px) 100vw, 600px"
-                                    draggable="false"
-                                />
-                            ) : (
-                                <Image
-                                    src={validateURLProduct(imgUrl[1].src)}
-                                    alt={`product ${id ?? "1"}`}
-                                    className="
-                                        rounded-t-xl
-                                        hover:rounded-t-xl
-                                        object-cover
-                                    "
-                                    fill
-                                    sizes="(max-width: 600px) 100vw, 600px"
-                                    priority
-                                    draggable="false"
-                                />
-                            )}
-                        </div>.imgUrlPost.imgUrlPost
+                                fill
+                                sizes="(max-width: 600px) 100vw, 600px"
+                                draggable="false"
+                            />
+                        </div>
                     </div>
                     <div className="
                             p-4 
@@ -155,7 +140,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                     />
                                 </span>
                                 <span className="text-gray-600 font-semibold text-xl truncate">
-                                    {validateName(idUserToNavigation.userName)}
+                                    {validateName(idUserToNavigation.fullName)}
                                 </span>
                             </div>
                         )}
@@ -175,7 +160,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 Địa điểm sân:
                             </span>
                             <span className="text-black font-semibold">
-                                TP.Hồ Chí Minh, Quận 9, P.Long Mỹ Thạnh, CBL dsds sdsddsadasdasd
+                                {validateAddress(addressSlot)}
                             </span>
                         </div>
                         <div className="whitespace-nowrap line-clamp-1 space-x-3 md:space-x-8">
@@ -183,8 +168,8 @@ const ProductOther: React.FC<ListProduct> = ({
                                 Thời gian:
                             </span>
                             <span className="text-black font-semibold">
-                                <FormatTime timeString={startTime ?? "00:00"} /> AM -
-                                <FormatTime timeString={endTime ?? "00:00"} /> PM
+                                <FormatTime timeString={startTime ?? "00:00"} /> -
+                                <FormatTime timeString={endTime ?? "00:00"} />
                             </span>
                         </div>
                         <div className="space-x-7 line-clamp-1 whitespace-nowrap md:block hidden truncate">
@@ -233,7 +218,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                     Số chỗ còn trống:
                                 </span>
                                 <span className="text-black font-semibold">
-                                    8
+                                    {availableSlot}
                                 </span>
                             </div>
                         </div>
@@ -247,7 +232,7 @@ const ProductOther: React.FC<ListProduct> = ({
                     border={"1px #0000001A solid"}
                     style={{
                         maxWidth: "25rem",
-                        zIndex: "99999",
+                        zIndex: "9998",
                     }}
                     positionStrategy="absolute"
                 >
@@ -257,14 +242,14 @@ const ProductOther: React.FC<ListProduct> = ({
                                 {dates.length} buổi
                             </span>
                             <span>
-                                {formatMoney(priceSlot || price || 0)}/1 chỗ
+                                {formatMoney(priceValue)}/1 chỗ
                             </span>
                         </div>
                         <div className="space-x-1 line-clamp-3 min-h-[5.25rem]">
                             <span className="text-gray-600">
                                 Địa điểm chi tiết:
                             </span>
-                            <span className="text-gray-500">
+                            <span className="text-gray-500 font-semibold">
                                 {validateAddress(addressSlot)}
                             </span>
                         </div>
@@ -273,7 +258,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 Ngày chơi cụ thể:
                             </div>
                             {dates.slice(0, 3).map((date, index) => (
-                                <div key={index} className="text-gray-500 truncate">
+                                <div key={index} className="text-gray-500 font-semibold italic truncate">
                                     - {formatDateFunc(date)}
                                 </div>
                             ))}
@@ -283,8 +268,8 @@ const ProductOther: React.FC<ListProduct> = ({
                             <span className="text-gray-600">
                                 Số chỗ còn trống:
                             </span>
-                            <span>
-                                {availableSlot}
+                            <span className="text-gray-500 font-semibold">
+                                {availableSlot} chỗ
                             </span>
                         </div>
                     </div>
