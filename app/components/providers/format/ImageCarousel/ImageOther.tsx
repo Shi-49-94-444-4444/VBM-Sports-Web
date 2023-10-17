@@ -1,13 +1,9 @@
 "use client"
 
-import { Images } from "@/types"
 import { validateURLProduct } from "@/utils"
 import Image from "next/image"
 
-const ImageItemOther: React.FC<Images> = ({
-    id,
-    src
-}) => {
+const ImageItemOther = ({ src }: { src?: string | null }) => {
     return (
         <div className="
                 relative
@@ -24,7 +20,6 @@ const ImageItemOther: React.FC<Images> = ({
                     w-full 
                     h-full
                 "
-                key={id ?? "1"}
             >
                 <Image
                     src={validateURLProduct(src)}

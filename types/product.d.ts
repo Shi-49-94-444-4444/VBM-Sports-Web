@@ -18,8 +18,8 @@ export interface ProductFullField {
 }
 
 export interface ProductDetailContent {
-    id?: string;
-    imgUrl?: string | null;
+    id?: string | null;
+    imgUrl?: string[] | string | null;
     title?: string | null;
     addressSlot?: string | null;
     levelSlot?: string | null;
@@ -28,14 +28,17 @@ export interface ProductDetailContent {
     startTime?: string | null;
     endTime?: string | null;
     contentPost?: string | null;
-    quantitySlot?: number | null;
+    availableSlot?: number | null;
     fullName?: string | null;
     imgUrlUser?: string | null;
     sortProfile?: string | null;
     categorySlot?: string | null;
+    totalRate?: number | null;
+    userId?: string | null;
 }
 
 export interface ListProduct {
+    idPost?: string | null;
     id?: string | null;
     imgUrl?: string | null;
     title?: string | null;

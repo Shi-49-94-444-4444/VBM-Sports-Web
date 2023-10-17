@@ -26,18 +26,19 @@ const CustomModal: React.FC<ModalProps> = ({
             contentLabel={title}
             className={`
                     custom-modal 
+                    rounded-xl
                     ${width}
                     ${height}
                 `
             }
             overlayClassName="custom-overlay"
         >
-            <div className="flex flex-col items-center ">
-                <h2 className="text-2xl font-bold mb-4">{title}</h2>
+            <button className="absolute top-0 text-3xl font-semibold right-2" onClick={onClose}>
+                &times;
+            </button>
+            <div className="relative">
+                <h2 className="text-3xl font-bold mb-4 text-gray-600 text-center">{title}</h2>
                 {children}
-                <button className="mt-4 hover:underline" onClick={onClose}>
-                    Close
-                </button>
             </div>
         </Modal>
     );

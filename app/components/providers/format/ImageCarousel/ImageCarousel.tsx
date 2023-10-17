@@ -13,6 +13,8 @@ SwiperCore.use([Pagination]);
 const ImageCarousel: React.FC<ProductDetailContent> = ({
     imgUrl
 }) => {
+    const images = Array.isArray(imgUrl) ? imgUrl : (imgUrl ? [imgUrl] : []);
+
     return (
         <Swiper
             pagination={{ clickable: true }}
@@ -20,21 +22,20 @@ const ImageCarousel: React.FC<ProductDetailContent> = ({
             slidesPerView={1}
             className="h-full rounded-lg"
         >
-            {imgUrl ?  (imgUrl.map((item) => (
-                <SwiperSlide key={item.id}>
-                    <ImageItemOther
-                        id={item.id}
-                        src={item.src}
-                    />
-                </SwiperSlide>
-            ))) : (
-                <SwiperSlide key="1">
-                    <ImageItemOther
-                        id="1"
-                        src="/images/item_1.jpg"
-                    />
-                </SwiperSlide>
-            )}
+            {images.length > 0 ?
+                (images.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <ImageItemOther
+                            src={item}
+                        />
+                    </SwiperSlide>
+                ))) : (
+                    <SwiperSlide key="1">
+                        <ImageItemOther
+                            src={images.toString()}
+                        />
+                    </SwiperSlide>
+                )}
             <div className="mt-20" />
         </Swiper>
     );

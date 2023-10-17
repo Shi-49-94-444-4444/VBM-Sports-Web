@@ -17,6 +17,7 @@ import { Tooltip } from 'react-tooltip'
 import { Decimal } from 'decimal.js'
 
 const ProductOther: React.FC<ListProduct> = ({
+    idPost,
     id,
     title,
     idUserToNavigation,
@@ -55,9 +56,9 @@ const ProductOther: React.FC<ListProduct> = ({
                     shadow-sm
                     z-20
                 "
-                key={id ?? "1"}
+                key={id || idPost}
             >
-                <Link href={`/detail-badminton/${id ?? "1"}`}>
+                <Link href={`/detail-badminton/${id || idPost}`}>
                     <div className="
                             relative
                             pb-[70%]
@@ -77,7 +78,7 @@ const ProductOther: React.FC<ListProduct> = ({
                         >
                             <Image
                                 src={validateURLProduct(imgUrl || highlightUrl)}
-                                alt={`product ${id ?? "1"}`}
+                                alt={`product ${id || idPost}`}
                                 className="
                                         rounded-t-xl
                                         hover:rounded-t-xl
@@ -97,7 +98,7 @@ const ProductOther: React.FC<ListProduct> = ({
                             transition-all
                             duration-500
                         "
-                        data-tooltip-id={`tooltip-${id}`}
+                        data-tooltip-id={`tooltip-${id || idPost}`}
                         data-tooltip-variant="light"
                         data-tooltip-position-strategy="absolute"
                     >
@@ -227,7 +228,7 @@ const ProductOther: React.FC<ListProduct> = ({
             </div>
             {flagTooltip && (
                 <Tooltip
-                    id={`tooltip-${id}`}
+                    id={`tooltip-${id || idPost}`}
                     place="right"
                     border={"1px #0000001A solid"}
                     style={{
@@ -242,7 +243,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 {dates.length} buổi
                             </span>
                             <span>
-                                {formatMoney(priceValue)}/1 chỗ
+                                {formatMoney(priceValue)}/Chỗ
                             </span>
                         </div>
                         <div className="space-x-1 line-clamp-3 min-h-[5.25rem]">

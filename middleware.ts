@@ -25,7 +25,14 @@ export function middleware(req: NextRequest) {
             url.pathname.includes("/register") ||
             url.pathname.includes("/forgot-password")) {
             if (token) {
-                return NextResponse.redirect(`${url.origin}/`)
+                const decoded = jwt.verify(token, secret)
+                if (typeof decoded === 'object' && 'otp' in decoded) {
+                    if (decoded.otp) {
+                        return NextResponse.next()
+                    } else {
+                        return NextResponse.redirect(`${url.origin}/`)
+                    }
+                }
             }
         }
 

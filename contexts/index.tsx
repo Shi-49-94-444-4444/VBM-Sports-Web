@@ -2,7 +2,6 @@
 
 import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
 import { ListProduct } from '@/types';
 
 interface GlobalStateProps {
@@ -25,7 +24,6 @@ interface User {
     userAddress?: string | null
 }
 
-// const routerForgotPassword = ["/change-password", "/change-password-success", "/verify-otp"]
 interface GlobalContextProps {
     isAuthUser: boolean | null
     setIsAuthUser: React.Dispatch<React.SetStateAction<boolean | null>>
@@ -53,8 +51,6 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
     const [searchResults, setSearchResults] = useState<ListProduct[] | null>([])
-
-    const router = useRouter()
 
     useEffect(() => {
         if (Cookies.get('token') !== undefined) {

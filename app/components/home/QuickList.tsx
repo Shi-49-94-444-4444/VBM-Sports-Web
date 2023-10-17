@@ -57,8 +57,9 @@ const QuickList = () => {
                 >
                     {sliceItems.map((items, index) => (
                         <ProductOther
-                            key={items.id ?? index}
+                            key={items.id || items.idPost || index}
                             id={items.id}
+                            idPost={items.idPost}
                             title={items.title}
                             idUserToNavigation={items.idUserToNavigation}
                             addressSlot={items.addressSlot}

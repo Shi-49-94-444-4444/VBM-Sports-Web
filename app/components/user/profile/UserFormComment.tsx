@@ -9,7 +9,6 @@ import { postCommentService } from "@/services"
 import { toast } from "react-toastify"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { CommentForm } from "@/types"
-import { error } from "console"
 
 const UserFormComment = ({ id }: { id: string }) => {
     const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
@@ -23,6 +22,12 @@ const UserFormComment = ({ id }: { id: string }) => {
 
     const onSubmit = async () => {
         if (setIsLoading) setIsLoading(true)
+
+        if (errors) {
+            toast.error(errors.comment?.message, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+        }
 
         if (user?.id) {
             const res = await postCommentService({
@@ -62,7 +67,7 @@ const UserFormComment = ({ id }: { id: string }) => {
                         flagInput
                         rowArea={6}
                         maxLength={500}
-                        colorInput="text-xl"
+                        colorInput="text-xl h-full"
                         placeholder="Nhập bình luận..."
                         register={register}
                         type="text"
@@ -70,7 +75,6 @@ const UserFormComment = ({ id }: { id: string }) => {
                         name="comment"
                         value={formData.comment}
                         onChange={(e) => handleChange(e, setFormData)}
-                        errors={errors}
                     />
                 </div>
                 <div className="sm:col-span-1 col-span-2">

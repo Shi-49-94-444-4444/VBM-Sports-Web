@@ -79,7 +79,7 @@ const DetailBadmintonPage = ({ Product, internalError }: { Product: ProductDetai
                     addressSlot={Product.addressSlot}
                     categorySlot={Product.categorySlot}
                     levelSlot={Product.levelSlot}
-                    quantitySlot={Product.quantitySlot}
+                    availableSlot={Product.availableSlot}
                 />
                 <ProductUserPost
                     id={Product.id}
@@ -89,6 +89,8 @@ const DetailBadmintonPage = ({ Product, internalError }: { Product: ProductDetai
                     imgUrlUser={Product.imgUrlUser}
                     sortProfile={Product.sortProfile}
                     fullName={Product.fullName}
+                    totalRate={Product.totalRate}
+                    userId={Product.userId}
                 />
                 <ProductOtherExtra />
             </Container>

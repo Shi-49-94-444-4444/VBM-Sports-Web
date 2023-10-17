@@ -182,7 +182,7 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                                             sizes="(max-width: 600px) 100vw, 600px"
                                             fill
                                         />
-                                        <div
+                                        <button
                                             className="
                                                 absolute 
                                                 -top-2 
@@ -194,10 +194,11 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                                                 justify-center 
                                                 cursor-pointer
                                             "
+                                            type="button"
                                             onClick={() => handleRemove(index)}
                                         >
                                             &times;
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

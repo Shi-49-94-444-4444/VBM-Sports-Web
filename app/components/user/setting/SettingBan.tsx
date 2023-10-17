@@ -25,7 +25,7 @@ const SettingBan = () => {
                             <div className="text-gray-600 text-xl font-semibold">
                                 {items.name}
                             </div>
-                            <div className="cursor-pointer text-3xl">&times;</div>
+                            <button className="cursor-pointer text-3xl">&times;</button>
                         </div>
                     ))}
                 </div>

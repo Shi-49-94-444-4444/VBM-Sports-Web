@@ -10,7 +10,7 @@ const ProductContent: React.FC<ProductDetailContent> = ({
     days,
     startTime,
     endTime,
-    quantitySlot,
+    availableSlot,
     levelSlot,
     categorySlot,
     addressSlot
@@ -31,7 +31,7 @@ const ProductContent: React.FC<ProductDetailContent> = ({
                     days={days}
                     startTime={startTime}
                     endTime={endTime}
-                    quantitySlot={quantitySlot}
+                    availableSlot={availableSlot}
                     levelSlot={levelSlot}
                     categorySlot={categorySlot}
                     addressSlot={addressSlot}

@@ -109,3 +109,9 @@ export interface CreateBadmintonFormData {
     description: string,
     imgURL?: string[],
 }
+
+export interface ReportUserFormData {
+    fromUserID: string
+    content: string
+    toUserID: string
+}

@@ -4,7 +4,8 @@ import { ProductDetailContent } from "@/types";
 import { Button, Rating, Share } from "../../providers";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { validateDes, validateName, validateTitle, validateURLAvatar } from "@/utils";
+import { formatMoney, validateDes, validateName, validateTitle, validateURLAvatar } from "@/utils";
+import Decimal from "decimal.js";
 
 const ProductUserPost: React.FC<ProductDetailContent> = ({
     id,
@@ -13,9 +14,16 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
     contentPost,
     imgUrlUser,
     sortProfile,
-    fullName
+    fullName,
+    totalRate,
+    userId
 }) => {
     const router = useRouter()
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        router.push(`/user/profile-user/${userId}`)
+        event.preventDefault()
+    }
 
     return (
         <div className="relative py-10" key={id}>
@@ -31,7 +39,7 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
                         {validateTitle(title)}
                     </h2>
                     <p className="text-red-500 text-3xl">
-                        {priceSlot ?? "999999"}/1 chỗ
+                        {formatMoney(new Decimal(priceSlot ?? 0))}/Chỗ
                     </p>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -50,38 +58,27 @@ const ProductUserPost: React.FC<ProductDetailContent> = ({
                     "
                 >
                     <div className="relative flex-shrink-0">
-                        {imgUrlUser ? (
-                            <Image
-                                src="/images/avatar.jpg"
-                                alt="avatar"
-                                className="object-cover rounded-full"
-                                width={120}
-                                height={120}
-                                draggable="false"
-                            />
-                        ) : (
-                            <Image
-                                src={validateURLAvatar(imgUrlUser)}
-                                alt="avatar"
-                                className="object-cover rounded-full"
-                                width={120}
-                                height={120}
-                                draggable="false"
-                            />
-                        )}
+                        <Image
+                            src={validateURLAvatar(imgUrlUser)}
+                            alt="avatar"
+                            className="object-cover rounded-full"
+                            width={120}
+                            height={120}
+                            draggable="false"
+                        />
                     </div>
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-row gap-3 items-center">
                             <h1 className="text-xl text-gray-600 font-semibold">
                                 {validateName(fullName)}
                             </h1>
-                            <Rating rating={4} maxStars={5} sizeCus={20} />
+                            <Rating rating={totalRate ?? 0} maxStars={5} sizeCus={20} />
                         </div>
                         <div className="relative">
                             <Button
                                 title="Xem trang cá nhân"
                                 style=""
-                                onClick={() => { router.push(`/user/profile-user/1`); }}
+                                onClick={handleClick}
                             />
                         </div>
                         <div className="text-gray-500 text-xl">

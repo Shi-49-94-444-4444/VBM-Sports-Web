@@ -2,29 +2,49 @@
 
 import Image from "next/image"
 import { BsFillChatDotsFill } from "react-icons/bs"
-import { BiSolidBellRing } from "react-icons/bi"
 import { UserProfile } from "@/types"
 import { Button } from "../../providers"
-import { validateDes, validateName, validateURLAvatar } from "@/utils"
+import { isValidUrl, validateDes, validateName, validateURLAvatar } from "@/utils"
+import { useReportModal } from "@/hooks"
 
 const UserProfileIntro: React.FC<UserProfile> = ({
     imgUrl,
     fullName,
     sortProfile
 }) => {
+    const reportModal = useReportModal()
+
+    const handleReportModal = () => {
+        reportModal.onOpen()
+    }
+
     return (
         <div className="relative flex flex-col gap-5 sm:block">
             <div className="relative flex flex-row gap-8 items-center justify-center sm:justify-normal">
                 <div className="relative flex-shrink-0">
-                    <Image
-                        src={validateURLAvatar(imgUrl)}
-                        priority
-                        alt="avatar"
-                        width="0"
-                        height="0"
-                        sizes="100vw"
-                        className="w-36 h-36 sm:w-64 sm:h-64 rounded-full object-cover border border-primary-blue-cus transition-all duration-500"
-                    />
+                    {isValidUrl(imgUrl) ? (
+                        <Image
+                            src={validateURLAvatar(imgUrl)}
+                            alt="avatar"
+                            width="0"
+                            height="0"
+                            className="w-36 h-36 sm:w-64 sm:h-64 rounded-full object-cover border border-primary-blue-cus transition-all duration-500"
+                            sizes="100vw"
+                            placeholder="blur"
+                            blurDataURL={validateURLAvatar(imgUrl)}
+                        />
+                    ) : (
+                        <Image
+                            src="/images/avatar.jpg"
+                            alt="avatar"
+                            width="0"
+                            height="0"
+                            className="w-36 h-36 sm:w-64 sm:h-64 rounded-full object-cover border border-primary-blue-cus transition-all duration-500"
+                            sizes="100vw"
+                            placeholder="blur"
+                            blurDataURL="/images/avatar.jpg"
+                        />
+                    )}
                 </div>
                 <div className="relative flex flex-col sm:flex-grow gap-5">
                     <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0 transition-all duration-500">
@@ -32,9 +52,9 @@ const UserProfileIntro: React.FC<UserProfile> = ({
                             {validateName(fullName)}
                         </div>
                         <div className="md:flex-grow md:block hidden" />
-                        <div className="text-gray-500 text-lg font-medium underline cursor-pointer">
+                        <button className="text-gray-500 text-lg font-medium underline cursor-pointer" type="button" onClick={handleReportModal}>
                             Báo cáo người dùng
-                        </div>
+                        </button>
                     </div>
                     <div className="sm:relative sm:flex md:flex-row sm:flex-col md:items-center sm:gap-5 hidden transition-all duration-500">
                         <div className="relative">

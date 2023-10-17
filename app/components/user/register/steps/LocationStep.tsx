@@ -94,9 +94,9 @@ const LocationStep = () => {
                             <div>
                                 {location}
                             </div>
-                            <div className='text-3xl'>
+                            <button className='text-3xl'>
                                 &times;
-                            </div>
+                            </button>
                         </li>
                     ))}
                 </ul>

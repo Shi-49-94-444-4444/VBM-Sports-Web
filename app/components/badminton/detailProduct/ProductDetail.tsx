@@ -3,7 +3,7 @@
 import { ProductDetailContent } from "@/types"
 import { Button } from "../../providers"
 import { useRouter } from "next/router";
-import { FormatTime, GetFirstDate, validateAddress, validateDate } from "@/utils";
+import { FormatTime, formatDateFunc, getDates, validateAddress, validateDate } from "@/utils";
 
 const ProductDetail: React.FC<ProductDetailContent> = ({
     id,
@@ -11,11 +11,12 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
     startTime,
     endTime,
     addressSlot,
-    quantitySlot,
+    availableSlot,
     levelSlot,
     categorySlot
 }) => {
     const router = useRouter();
+    const dates = getDates(validateDate(days))
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         router.push(`/payment/${id}`);
@@ -31,27 +32,31 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
                 w-full 
                 rounded-xl 
                 p-6 
-                gap-5
+                gap-3
                 transition-all
                 duration-500
             "
             key={id ?? "1"}
         >
-            <div className="relative space-x-1 text-lg font-semibold">
-                <span className="whitespace-nowrap">
+            <div className="relative space-x-1 text-lg">
+                <span className="whitespace-nowrap font-semibold">
                     Địa chỉ:
                 </span>
-                <span className="break-words">
+                <span className="break-words text-gray-600 font-semibold">
                     {validateAddress(addressSlot)}
                 </span>
             </div>
-            <div className="relative space-x-1 text-lg font-semibold">
-                <span className="whitespace-nowrap">
+            <div className="relative flex flex-col gap-2">
+                <div className="text-lg font-semibold">
                     Ngày:
-                </span>
-                <span className="break-words">
-                    <GetFirstDate dateString={validateDate(days)} />
-                </span>
+                </div>
+                <div className="text-gray-600 font-semibold italic">
+                    {dates.map((date, index) => (
+                        <div className="" key={index}>
+                            - {formatDateFunc(date)}
+                        </div>
+                    ))}
+                </div>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
                 <span className="whitespace-nowrap">
@@ -67,7 +72,7 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
                     Vị trí còn trống:
                 </span>
                 <span className="break-words">
-                    {quantitySlot ?? 0}
+                    {availableSlot ?? 0}
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
@@ -75,7 +80,7 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
                     Thể loại:
                 </span>
                 <span className="break-words">
-                    {categorySlot ?? "Đánh tự do"}
+                    {categorySlot ?? "null"}
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
@@ -83,7 +88,7 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
                     Kĩ năng:
                 </span>
                 <span className="break-words">
-                    {levelSlot ?? "Trung bình"}
+                    {levelSlot ?? "null"}
                 </span>
             </div>
             <div className="relative space-x-1 text-lg font-semibold">
