@@ -11,6 +11,8 @@ module.exports = {
     extend: {
       colors: {
         "primary-blue-cus": "#204D94",
+        "linear-blue-cus-1": "#2962BC",
+        "linear-blue-cus-2": "#5889d6",
         "secondary-blue-cus": "#0A142F",
         "search-cus": "#f5f4f2",
         "white-cus": "#e5e3dd",

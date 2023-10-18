@@ -2,7 +2,7 @@ import { Container, PostNewForm, } from '@/app/components';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 
-const PostNewPage = () => {
+const PostBadmintonPage = () => {
     return (
         <Layout>
             <Container>
@@ -39,4 +39,4 @@ const PostNewPage = () => {
     )
 }
 
-export default PostNewPage
+export default PostBadmintonPage

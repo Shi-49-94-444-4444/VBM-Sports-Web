@@ -19,7 +19,7 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
     const dates = getDates(validateDate(days))
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        router.push(`/payment/${id}`);
+        router.push(`/payment`);
         event.preventDefault();
     };
 

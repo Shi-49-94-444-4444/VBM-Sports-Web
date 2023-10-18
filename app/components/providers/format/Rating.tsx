@@ -19,7 +19,7 @@ const Rating: React.FC<RatingProps> = ({
           <div
             key={starNumber}
             className={`
-                ${starNumber <= rating ? 'text-yellow-500' : 'text-gray-400'}
+                ${starNumber <= rating ? 'text-[#F8E011]' : 'text-gray-300'}
               `
             }
           >

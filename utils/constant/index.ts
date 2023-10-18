@@ -28,7 +28,7 @@ export const navlinks = [
             {
                 id: "4",
                 label: "Xem tất cả",
-                href: "/list-badminton"
+                href: "/product/list-badminton"
             }
         ]
     },
@@ -44,12 +44,12 @@ export const navlinks = [
             {
                 id: "1",
                 label: "Danh sách sân",
-                href: "/list-badminton"
+                href: "/product/list-badminton"
             },
             {
                 id: "2",
                 label: "Đăng bài",
-                href: "/post-new"
+                href: "/post-badminton"
             },
             {
                 id: "3",

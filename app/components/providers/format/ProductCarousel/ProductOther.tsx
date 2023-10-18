@@ -58,7 +58,7 @@ const ProductOther: React.FC<ListProduct> = ({
                 "
                 key={id || idPost}
             >
-                <Link href={`/detail-badminton/${id || idPost}`}>
+                <Link href={`/product/detail-badminton/${id || idPost}`}>
                     <div className="
                             relative
                             pb-[70%]

@@ -1,7 +1,7 @@
 import { IconType } from "react-icons/lib"
 export interface ButtonProps {
     title: string | React.ReactNode
-    style: string
+    style?: string
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
     icon?: Icon
     iconLeft?: Icon
