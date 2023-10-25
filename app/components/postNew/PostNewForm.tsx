@@ -262,7 +262,7 @@ const PostNewForm = () => {
                             <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Quận/Huyện:</label>
                             </div>
-                            <div className="col-span-2">
+                            <div className={`col-span-2 ${!selectCity ? "cursor-not-allowed" : ""}`}>
                                 <Select
                                     name="district"
                                     options={optionDistrict}
@@ -284,7 +284,7 @@ const PostNewForm = () => {
                             <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Phường/Xã:</label>
                             </div>
-                            <div className="col-span-2">
+                            <div className={`col-span-2 ${!selectDistrict ? "cursor-not-allowed" : ""}`}>
                                 <Select
                                     name="ward"
                                     options={optionWard}
@@ -374,6 +374,8 @@ const PostNewForm = () => {
                                     type="number"
                                     value={sessions}
                                     onChange={handleSessionChange}
+                                    disabled={!dateRange.startDate || !dateRange.endDate}
+                                    maxLength={1}
                                 />
                             </div>
                         </div>

@@ -1,5 +1,5 @@
-import { Container, MPContent, MPUserSlot } from '@/app/components';
-import Layout from '@/app/layout';
+import { Container, MPContent, MPUserSlot } from "@/app/components"
+import Layout from "@/app/layout"
 
 const ManagementBadmintonPage = () => {
     return (

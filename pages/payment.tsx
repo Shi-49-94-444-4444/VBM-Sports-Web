@@ -7,10 +7,10 @@ import {
     PaymentMethod,
     PaymentOverview,
     PaymentVoucher
-} from '@/app/components';
-import { listItems } from '@/utils';
-import Layout from '@/app/layout';
-import { useRouter } from 'next/router';
+} from "@/app/components"
+import { listItems } from "@/utils"
+import Layout from "@/app/layout"
+import { useRouter } from "next/router"
 
 const PaymentPage = () => {
     const router = useRouter()

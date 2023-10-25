@@ -1,5 +1,5 @@
-import { Container } from '@/app/components';
-import Layout from '@/app/layout';
+import { Container } from '@/app/components'
+import Layout from '@/app/layout'
 
 export default function Custom500() {
     return (

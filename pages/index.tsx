@@ -3,7 +3,7 @@ import {
   BlogOtherExtra,
   QuickList,
 } from "@/app/components"
-import Layout from '@/app/layout';
+import Layout from '@/app/layout'
 
 const Home = () => {
   return (

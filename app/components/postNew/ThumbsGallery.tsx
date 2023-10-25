@@ -132,13 +132,8 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                         <div className="relative w-20 h-20 flex justify-center items-center bg-[#F5FAFF] rounded-full">
                             <FcAddImage size={40} />
                         </div>
-                        <div className="text-2xl whitespace-nowrap space-x-1">
-                            <span className="text-gray-600">
-                                Thả hình ảnh của bạn ở đây hoặc
-                            </span>
-                            <span className="text-primary-blue-cus font-semibold">
-                                trình duyệt
-                            </span>
+                        <div className="text-2xl whitespace-nowrap space-x-1 text-gray-600">
+                            Thả hình ảnh của bạn ở đây
                         </div>
                         <p className="text-gray-500 text-xl text-center">Tải hình ảnh lên định dạng jpg, png dung lượng tối đa 2MB</p>
                     </div>

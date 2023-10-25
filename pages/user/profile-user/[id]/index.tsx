@@ -3,18 +3,18 @@ import {
     ModalReport,
     UserOtherExtra,
     UserProfileContent
-} from '@/app/components';
-import UserFormComment from '@/app/components/user/profile/UserFormComment';
-import UserProfileComments from '@/app/components/user/profile/UserProfileComments';
-import Layout from '@/app/layout';
-import Custom404 from '@/pages/404';
-import Custom500 from '@/pages/500';
-import { getListUserService, getUserProfileService } from '@/services';
-import { UserProfile } from '@/types';
-import { GetStaticPaths, GetStaticProps } from 'next';
+} from "@/app/components"
+import UserFormComment from "@/app/components/user/profile/UserFormComment"
+import UserProfileComments from "@/app/components/user/profile/UserProfileComments"
+import Layout from "@/app/layout"
+import Custom404 from "@/pages/404"
+import Custom500 from "@/pages/500"
+import { getListUserService, getUserProfileService } from "@/services"
+import { UserProfile } from "@/types"
+import { GetStaticPaths, GetStaticProps } from "next"
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const users = await getListUserService();
+    const users = await getListUserService()
     const paths = users.map((user: UserProfile) => ({
         params: { id: user?.id?.toString() },
     }));
@@ -66,7 +66,7 @@ const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, inter
 
     return (
         <Layout>
-            <ModalReport id={id}/>
+            <ModalReport id={id} />
             <Container>
                 <UserProfileContent
                     friendly={User.friendly}

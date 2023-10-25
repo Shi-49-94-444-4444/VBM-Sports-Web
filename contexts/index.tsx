@@ -3,6 +3,7 @@
 import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { ListProduct } from '@/types';
+import Decimal from 'decimal.js';
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -22,6 +23,7 @@ interface User {
     sortProfile?: string | null
     userName?: string | null
     userAddress?: string | null
+    balance?: number | null
 }
 
 interface GlobalContextProps {

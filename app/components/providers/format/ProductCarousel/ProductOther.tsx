@@ -164,7 +164,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 {validateAddress(addressSlot)}
                             </span>
                         </div>
-                        <div className="whitespace-nowrap line-clamp-1 space-x-3 md:space-x-8">
+                        <div className="whitespace-nowrap line-clamp-1 space-x-3 md:space-x-9">
                             <span className='text-gray-500'>
                                 Thời gian:
                             </span>
@@ -173,7 +173,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                 <FormatTime timeString={endTime ?? "00:00"} />
                             </span>
                         </div>
-                        <div className="space-x-7 line-clamp-1 whitespace-nowrap md:block hidden truncate">
+                        <div className="space-x-8 line-clamp-1 whitespace-nowrap md:block hidden truncate">
                             <span className="text-gray-500">
                                 Ngày chơi:
                             </span>
@@ -194,11 +194,11 @@ const ProductOther: React.FC<ListProduct> = ({
                         </div>
                         <div className="flex flex-row md:flex-none space-x-10 md:justify-normal transition-all duration-500">
                             <div className="
-                                text-gray-500 
-                                line-clamp-1
-                                md:space-x-[4.5rem]
-                                space-x-3
-                            "
+                                    text-gray-500 
+                                    line-clamp-1
+                                    md:space-x-[4.75rem]
+                                    space-x-3
+                                "
                             >
                                 <span>
                                     Chỗ:

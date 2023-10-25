@@ -1,5 +1,5 @@
 import { FormatDateProps, FormatTimeProps } from '@/types/format'
-import { format, parse } from 'date-fns'
+import { format, isValid, parse } from 'date-fns'
 import { vi } from 'date-fns/locale'
 import Decimal from 'decimal.js'
 import currency from 'currency.js'
@@ -32,14 +32,14 @@ export function formatDateFunc(dateString: string): string {
 
 export function getDates(dateString: string): string[] {
   const [days, months, years] = dateString.split(":").map(part => part.split(";"))
-  const dates = []
+  const dates: string[] = []
   let lastDay = 0
   let currentMonthIndex = 0
 
   for (let i = 0; i < days.length; i++) {
     let day = parseInt(days[i])
     let month = parseInt(months[currentMonthIndex])
-    const year = years[i % years.length]
+    const year = parseInt(years[i % years.length])
 
     if (day < lastDay) {
       currentMonthIndex++
@@ -47,7 +47,9 @@ export function getDates(dateString: string): string[] {
     }
 
     const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date())
-    dates.push(format(parsedDate, "dd/MM/yyyy"))
+    if (isValid(parsedDate)) {
+      dates.push(format(parsedDate, "dd/MM/yyyy"))
+    }
 
     lastDay = day
   }
@@ -55,16 +57,16 @@ export function getDates(dateString: string): string[] {
   return dates
 }
 
-export const GetFirstDate: React.FC<FormatDateProps> = ({ dateString }) => {
+export const GetFirstDate: React.FC<{ dateString: string }> = ({ dateString }) => {
   const [days, months, years] = dateString.split(":").map(part => part.split(";"))
-  const dates = []
+  const dates: string[] = []
   let lastDay = 0
   let currentMonthIndex = 0
 
   for (let i = 0; i < days.length; i++) {
     let day = parseInt(days[i])
     let month = parseInt(months[currentMonthIndex])
-    const year = years[i % years.length]
+    const year = parseInt(years[i % years.length])
 
     if (day < lastDay) {
       currentMonthIndex++
@@ -72,16 +74,17 @@ export const GetFirstDate: React.FC<FormatDateProps> = ({ dateString }) => {
     }
 
     const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date())
-    dates.push(format(parsedDate, "dd/MM/yyyy"))
+    if (isValid(parsedDate)) {
+      dates.push(format(parsedDate, "dd/MM/yyyy"))
+    }
 
     lastDay = day
   }
 
-  const firstDate = dates[0]
+  const firstDate: string | undefined = dates[0]
 
   return firstDate
 }
-
 
 export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
   const formattedTime = timeString.replace(":", "h")
@@ -92,8 +95,8 @@ export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
 export function formatMoney(data: Decimal): string {
   const numberValue = data.toNumber()
   const roundedNumber = Math.round(numberValue)
-  const formattedNumber = currency(roundedNumber, { symbol: "", separator: ".", decimal: ",", precision: 0  }).format()
-  return formattedNumber + " đ"
+  const formattedNumber = currency(roundedNumber, { symbol: "", separator: ",", decimal: ",", precision: 0  }).format()
+  return formattedNumber + " VNĐ"
 }
 
 export function formatAddress(data: string): string[] {

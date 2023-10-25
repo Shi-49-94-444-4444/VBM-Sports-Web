@@ -10,7 +10,7 @@ const nextConfig = {
     EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID,
   },
   images: {
-    domains: ['hungphatsaigon.vn'],
+    domains: ['res.cloudinary.com'],
   },
 };
 

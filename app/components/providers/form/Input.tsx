@@ -97,6 +97,7 @@ const Input: React.FC<InputProps> = ({
                             transition
                             duration-300
                             ${errors && errors[id] ? "border border-red-500" : ""}
+                            ${disabled && disabled ? "cursor-not-allowed" : ""}
                         `}
                         pattern={pattern?.source}
                     />

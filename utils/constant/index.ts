@@ -34,8 +34,8 @@ export const navlinks = [
     },
     {
         id: "2",
-        label: "Giá tiền",
-        href: "/"
+        label: "Ví tiền",
+        href: "/wallet"
     },
     {
         id: "3",
@@ -49,7 +49,7 @@ export const navlinks = [
             {
                 id: "2",
                 label: "Đăng bài",
-                href: "/post-badminton"
+                href: "/product/post-badminton"
             },
             {
                 id: "3",
@@ -1151,26 +1151,8 @@ export const listMethodsPayment = [
     },
     {
         id: "2",
-        src: "/images/vpnpay.png",
-        title: "Vn Pay",
-        number: 789,
-    },
-    {
-        id: "3",
-        src: "/images/viettelpay.png",
-        title: "Viettel Pay",
-        number: 789,
-    },
-    {
-        id: "4",
-        src: "/images/zalopay.png",
-        title: "Zalo Pay",
-        number: 789,
-    },
-    {
-        id: "5",
-        src: "/images/more.png",
-        title: "Lựa chọn khác",
+        src: "/images/walletIcon.png",
+        title: "Ví VBM",
         number: 789,
     },
 ]
