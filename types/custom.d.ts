@@ -28,6 +28,7 @@ export interface InputProps {
     flagInput?: boolean | false
     rowArea?: number
     maxLength?: number
+    isMoney?: boolean | false
 }
 
 export interface FilterItem {

@@ -1,4 +1,5 @@
 import { InputProps } from "@/types";
+import { formatMoneyType } from "@/utils";
 
 const Input: React.FC<InputProps> = ({
     id = "",
@@ -17,7 +18,8 @@ const Input: React.FC<InputProps> = ({
     pattern,
     flagInput,
     rowArea,
-    maxLength
+    maxLength,
+    isMoney
 }) => {
     return (
         <div className="gap-1 transition duration-300">
@@ -34,7 +36,7 @@ const Input: React.FC<InputProps> = ({
                 )}
                 {IconType && (
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white-cus">
-                        <IconType size={25}/>
+                        <IconType size={25} />
                     </span>
                 )}
                 {flagInput ? (
@@ -83,7 +85,12 @@ const Input: React.FC<InputProps> = ({
                                 event.preventDefault();
                             }
                         }}
-                        onChange={onChange}
+                        onChange={(e) => {
+                            if (isMoney) {
+                                e.target.value = formatMoneyType(e.target.value)
+                            }
+                            if (onChange) onChange(e)
+                        }}
                         maxLength={maxLength || 50}
                         className={`
                             ${colorInput}
@@ -101,6 +108,11 @@ const Input: React.FC<InputProps> = ({
                         `}
                         pattern={pattern?.source}
                     />
+                )}
+                {isMoney && (
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-600">
+                        VND
+                    </span>
                 )}
             </div>
             {errors && (

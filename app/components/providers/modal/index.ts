@@ -1,5 +1,9 @@
-import ModalReport from "./ModalReport";
+import ModalReport from "./ModalReport"
+import ModalRecharge from "./ModalRecharge"
+import ModalWithdraw from "./ModalWithdraw"
 
 export {
-    ModalReport
+    ModalReport,
+    ModalWithdraw,
+    ModalRecharge
 }

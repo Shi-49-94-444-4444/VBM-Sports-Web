@@ -110,3 +110,7 @@ export function formatURL(data: string): string[] {
 
   return url
 }
+
+export const formatMoneyType = (value: string) => {
+  return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

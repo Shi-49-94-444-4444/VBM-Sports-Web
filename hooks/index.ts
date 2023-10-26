@@ -1,5 +1,9 @@
-import useReportModal from "./useReportModal";
+import useReportModal from "./useReportModal"
+import useWithdrawModal from "./useWithdrawModal"
+import useRechargeModal from "./useRechargeModal"
 
 export {
-    useReportModal
+    useReportModal,
+    useRechargeModal,
+    useWithdrawModal
 }

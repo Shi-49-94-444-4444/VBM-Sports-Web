@@ -4,6 +4,8 @@ import "../app/globals.css";
 import Modal from 'react-modal'
 import { Inter } from 'next/font/google'
 import GlobalState from '@/contexts';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ['latin'] })
 class MyApp extends App {
@@ -24,6 +26,18 @@ class MyApp extends App {
                     <GlobalState>
                         <Component {...pageProps} />
                     </GlobalState>
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={4000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        rtl={false}
+                    />
                 </main>
             </>
         );

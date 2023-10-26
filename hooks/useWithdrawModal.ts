@@ -1,16 +1,16 @@
 import { create } from 'zustand';
 
-interface ReportModalStore {
+interface WithdrawModalStore {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
 
-const useReportModal = create<ReportModalStore>((set) => ({
+const useWithdrawModal = create<WithdrawModalStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false })
 }))
 
 
-export default useReportModal
+export default useWithdrawModal
