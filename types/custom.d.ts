@@ -8,6 +8,7 @@ export interface ButtonProps {
     type?: "submit" | "reset"
     disabled?: boolean
     isHover?: boolean
+    color?: string
 }
 
 export interface InputProps {

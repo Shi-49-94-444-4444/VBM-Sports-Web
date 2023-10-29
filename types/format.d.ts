@@ -28,3 +28,8 @@ export interface QuickBannerTitle {
     title: string;
     subTitle: string;
 }
+
+export interface DateSlot {
+    date: string,
+    slot: number
+}

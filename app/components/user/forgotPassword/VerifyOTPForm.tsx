@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { verifyOTPService } from "@/services/forgotPassword"
 import { toast } from "react-toastify"
 import { OTP } from "@/types"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 const VerifyOTPForm = () => {
     const [isOTP, setIsOTP] = useState("")

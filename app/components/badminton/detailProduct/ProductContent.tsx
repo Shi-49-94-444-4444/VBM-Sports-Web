@@ -16,15 +16,15 @@ const ProductContent: React.FC<ProductDetailContent> = ({
     addressSlot
 }) => {
     return (
-        <div className="grid lg:grid-cols-7 grid-cols-1 gap-5 py-5">
-            <div className="lg:col-span-5 md:h-96 sm:h-80 h-72 lg:h-full transition-all duration-500">
+        <div className="grid lg:grid-cols-9 grid-cols-1 gap-5 py-5">
+            <div className="lg:col-span-6 md:h-[30rem] sm:h-[26rem] h-96 lg:h-full transition-all duration-500">
                 <ImageCarousel
                     key={id}
                     id={id}
                     imgUrl={imgUrl}
                 />
             </div>
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-3">
                 <ProductDetail
                     key={id}
                     id={id}

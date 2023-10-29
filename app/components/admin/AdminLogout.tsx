@@ -1,6 +1,24 @@
+import { GlobalContext } from "@/contexts"
+import Cookies from "js-cookie"
+import { useRouter } from "next/navigation"
+import { useContext } from "react"
 import { ImExit } from "react-icons/im"
 
 const AdminLogout = () => {
+    const router = useRouter()
+
+    const { setUser, setIsAuthUser } = useContext(GlobalContext) || {}
+
+    const handleBack = () => {
+        if (setUser && setIsAuthUser) {
+            setUser(null)
+            setIsAuthUser(false)
+        }
+        Cookies.remove("token")
+        localStorage.clear()
+        router.push("/")
+    }
+
     return (
         <div className="
                 border 
@@ -17,14 +35,14 @@ const AdminLogout = () => {
                 items-start
             "
         >
-            <div className="flex flex-row space-x-2 p-6 lg:items-center cursor-pointer">
+            <button className="flex flex-row space-x-2 p-6 lg:items-center cursor-pointer" type="button" onClick={handleBack}>
                 <div className="flex-shrink-0">
                     <ImExit size={24} />
                 </div>
                 <p className="text-lg font-medium">
                     Đăng Xuất
                 </p>
-            </div>
+            </button>
         </div>
     )
 }

@@ -3,7 +3,7 @@
 import { ProductDetailContent } from "@/types";
 import { Button, Rating, Share } from "../../providers";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { formatMoney, validateDes, validateName, validateTitle, validateURLAvatar } from "@/utils";
 import Decimal from "decimal.js";
 

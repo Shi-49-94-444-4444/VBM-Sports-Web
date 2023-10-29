@@ -26,9 +26,9 @@ const WalletHistory = () => {
                     <tr>
                         {listTitleHistoryWallet.map((item, index) => (
                             <th className={`
-                                                font-semibold 
-                                                py-5 
-                                                ${index < listTitleHistoryWallet.length - 1 ?
+                                    font-semibold 
+                                    py-5 
+                                    ${index < listTitleHistoryWallet.length - 1 ?
                                     "border-r border-b border-black border-opacity-10" :
                                     "border-b"
                                 }`}

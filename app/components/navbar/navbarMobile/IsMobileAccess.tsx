@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { VscAccount } from 'react-icons/vsc';
@@ -9,7 +9,7 @@ import { BiMenu } from 'react-icons/bi'
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import { beforeNavUser } from '@/utils';
+import { beforeNavUser, useOutsideClick } from '@/utils';
 import { LiaWindowClose } from 'react-icons/lia';
 
 interface IsMobileAccessPros {
@@ -26,7 +26,11 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
-    };
+    }
+
+    const handleOutsideClick = () => {
+        setShowToggle(false);
+    }
 
     const handleLogout = () => {
         if (setIsAuthUser && setUser) {
@@ -38,6 +42,9 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
         router.push("/")
     }
 
+    const ref = useRef<HTMLLIElement | null>(null)
+    useOutsideClick(ref, handleOutsideClick)
+
     return (
         <ul className="
                 flex 
@@ -45,7 +52,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                 list-none
             "
         >
-            <li className="relative inline-flex">
+            <li className="relative inline-flex" ref={ref}>
                 <div
                     className="
                         border-box 

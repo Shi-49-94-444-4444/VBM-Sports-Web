@@ -1,7 +1,7 @@
 "use client"
 
 import { GlobalContext } from "@/contexts";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { Loading } from "../loader";
 

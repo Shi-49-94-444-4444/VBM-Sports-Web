@@ -1,7 +1,9 @@
 "use client"
 
+import { GlobalContext } from "@/contexts";
 import { OptionsOverviewProps } from "@/types"
 import { customStyles } from "@/utils";
+import { useContext } from "react";
 import Select from 'react-select'
 
 const AdminOverview: React.FC<OptionsOverviewProps> = ({
@@ -13,11 +15,13 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
         value: option.id,
         label: option.label,
         icon: option.icon,
-    }));
+    }))
 
     const handleChange = (selectedOption: any) => {
         onOptionSelect(selectedOption.value);
-    };
+    }
+
+    const { user } = useContext(GlobalContext) || {}
 
     return (
         <div className="
@@ -53,10 +57,10 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
             >
                 <div className="flex flex-col gap-1">
                     <div className="text-gray-600 font-semibold text-xl">
-                        UserName
+                        {(user && user.fullName) ?? "name"}
                     </div>
                     <div className="text-gray-500 font-medium text-lg">
-                        UserId
+                        {(user && user.id) ?? "id"}
                     </div>
                 </div>
                 <div className="text-lg font-semibold italic text-gray-500">

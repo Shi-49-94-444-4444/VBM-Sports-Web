@@ -1,9 +1,10 @@
-import RuleList from "./RuleList";
-import PostManagement from "./PostManagement";
-import UserManagement from "./UserManagement";
-import UserReportManagement from "./UserReportManagement";
-import ReportManagement from "./ReportManagement";
-import AdminLayout from "./AdminLayout";
+import RuleList from "./RuleList"
+import PostManagement from "./PostManagement"
+import UserManagement from "./UserManagement"
+import UserReportManagement from "./UserReportManagement"
+import ReportManagement from "./ReportManagement"
+import AdminLayout from "./AdminLayout"
+import UserDetailManage from "./UserDetailManage"
 
 export {
     PostManagement,
@@ -11,5 +12,6 @@ export {
     RuleList,
     UserManagement,
     UserReportManagement,
-    AdminLayout
+    AdminLayout,
+    UserDetailManage
 }

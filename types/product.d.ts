@@ -28,7 +28,7 @@ export interface ProductDetailContent {
     startTime?: string | null;
     endTime?: string | null;
     contentPost?: string | null;
-    availableSlot?: number | null;
+    availableSlot?: string[] | null;
     fullName?: string | null;
     imgUrlUser?: string | null;
     sortProfile?: string | null;

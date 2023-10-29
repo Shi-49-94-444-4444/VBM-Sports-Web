@@ -4,7 +4,7 @@ import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { Background } from "../providers"
 import Cookies from "js-cookie"
 

@@ -1,8 +1,9 @@
-import { FormatDateProps, FormatTimeProps } from '@/types/format'
+import { FormatDateProps, FormatTimeProps } from '@/types'
 import { format, isValid, parse } from 'date-fns'
 import { vi } from 'date-fns/locale'
 import Decimal from 'decimal.js'
 import currency from 'currency.js'
+import { DateSlot } from '@/types'
 
 export const FormatDate: React.FC<FormatDateProps> = ({ dateString }) => {
   const dateParts = dateString.split('/')
@@ -95,7 +96,7 @@ export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
 export function formatMoney(data: Decimal): string {
   const numberValue = data.toNumber()
   const roundedNumber = Math.round(numberValue)
-  const formattedNumber = currency(roundedNumber, { symbol: "", separator: ",", decimal: ",", precision: 0  }).format()
+  const formattedNumber = currency(roundedNumber, { symbol: "", separator: ",", decimal: ",", precision: 0 }).format()
   return formattedNumber + " VNĐ"
 }
 
@@ -113,4 +114,11 @@ export function formatURL(data: string): string[] {
 
 export const formatMoneyType = (value: string) => {
   return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+export function parseSlots(value: string[]): DateSlot[] {
+  return value.map((item) => {
+    const [date, slot] = item.split(":")
+    return { date, slot: Number(slot) }
+  })
 }

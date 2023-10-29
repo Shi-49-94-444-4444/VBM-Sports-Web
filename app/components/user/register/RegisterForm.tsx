@@ -1,12 +1,10 @@
 "use client"
 
 import { Input, Loading } from '../../providers';
-import { AiFillMail } from 'react-icons/ai';
-import { BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from 'react-icons/bi';
 import { useForm } from 'react-hook-form';
 import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { RegisterFormData } from '@/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import registerService from '@/services/register';

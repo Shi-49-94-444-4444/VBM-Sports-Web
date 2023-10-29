@@ -8,18 +8,19 @@ const Button: React.FC<ButtonProps> = ({
     iconLeft,
     type,
     disabled = false,
-    isHover = true
+    isHover = true,
+    color
 }) => {
     return (
         <button className={`
                 relative
                 flex
                 text-white 
-                bg-primary-blue-cus 
-                ${isHover ? "hover:text-primary-blue-cus hover:border-primary-blue-cus hover:bg-white hover:border" : ""}
+                ${color || "bg-primary-blue-cus"}
+                ${isHover ? `${color || "hover:text-primary-blue-cus hover:border-primary-blue-cus hover:bg-white hover:border"}` : ""}
                 ${disabled ? "cursor-not-allowed" : ""}
                 border
-                border-primary-blue-cus
+                ${color || "border-primary-blue-cus"}
                 text-center
                 items-center
                 font-semibold

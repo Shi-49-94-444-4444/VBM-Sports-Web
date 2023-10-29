@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { toast } from "react-toastify";
 import { getOtp } from "@/types";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { forgotPasswordService } from "@/services/forgotPassword";
 import { sendOTP } from "@/utils/functions/sendOTP";
 import { forgotPasswordSchema } from "@/utils";

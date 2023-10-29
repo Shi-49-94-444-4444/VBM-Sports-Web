@@ -71,7 +71,6 @@ const AdminLayout: React.FC<LayoutProps> = ({
                         flex-col
                         lg:grid 
                         lg:grid-cols-5 
-                        lg:pt-10
                     "
                 >
                     <div className="

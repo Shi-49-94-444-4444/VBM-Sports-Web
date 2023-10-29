@@ -3,7 +3,7 @@
 import { Input, Loading } from "../../providers"
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/contexts";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ChangePasswordFormData, FormData } from "@/types";
 import { useForm } from "react-hook-form";

@@ -13,27 +13,25 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const QuickList = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listProduct, error } = useSWR<ListProduct[]>(user ? `/api/posts/${user.id}/post_suggestion` : '/api/posts/GetListPost', fetcher)
-
-    const isLoading = !error && !listProduct
+    const { data: listProduct, error, isLoading } = useSWR<ListProduct[]>(user ? `/api/posts/${user.id}/post_suggestion` : '/api/posts/GetListPost', fetcher)
 
     if (isLoading) {
         return <LoadingFullScreen loading={isLoading} />
-    }
-
-    if (error) {
-        return (
-            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
-                <FaSadCry size={100} />
-            </div>
-        )
     }
 
     if (listProduct && listProduct.length === 0) {
         return (
             <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
+                <FaSadCry size={100} />
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
                 <FaSadCry size={100} />
             </div>
         )

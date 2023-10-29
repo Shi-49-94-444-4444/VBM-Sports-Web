@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 interface Option {
     id: string;

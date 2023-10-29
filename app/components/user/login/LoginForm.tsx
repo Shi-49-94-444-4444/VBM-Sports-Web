@@ -2,15 +2,13 @@
 
 import Link from 'next/link';
 import { Input, Loading } from '../../providers';
-import { AiFillMail } from 'react-icons/ai';
-import { BiSolidLockAlt } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { LoginFormData } from '@/types';
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { yupResolver } from "@hookform/resolvers/yup"
 import loginService from '@/services/login';
 import { loginInputs, loginSchema } from '@/utils';

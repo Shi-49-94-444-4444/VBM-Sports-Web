@@ -2,7 +2,7 @@
 
 import { Product } from "@/types"
 import Image from "next/image"
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import { Button } from "../../providers";
