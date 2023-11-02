@@ -3,7 +3,8 @@
 import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { ListProduct } from '@/types';
-import Decimal from 'decimal.js';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
+import { auth } from '@/firebase';
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -24,6 +25,11 @@ interface User {
     userName?: string | null
     userAddress?: string | null
     balance?: number | null
+    displayName?: string | null
+    stsTokenManager?: {
+        accessToken?: string | null
+    }
+    uid?: string | null
 }
 
 interface GlobalContextProps {
@@ -70,6 +76,21 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         }
     }, []);
 
+    useEffect(() => {
+        return onAuthStateChanged(auth, (user: any) => {
+            if (user) {
+                setIsAuthUser(true)
+                setUser(user);
+                localStorage.setItem("user", JSON.stringify(user))
+                Cookies.set("token", user?.stsTokenManager?.accessToken ?? "")
+                setIsAuthUser(true);
+            } else {
+                setUser(null)
+                setIsAuthUser(false)
+            }
+        })
+    }, [])
+
     return (
         <GlobalContext.Provider
             value={{
@@ -86,7 +107,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 searchResults,
                 searchValue,
                 setSearchResults,
-                setSearchValue
+                setSearchValue,
             }}
         >
             {children}

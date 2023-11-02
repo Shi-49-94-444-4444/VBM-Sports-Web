@@ -11,6 +11,8 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { beforeNavUser, useOutsideClick } from '@/utils';
 import { LiaWindowClose } from 'react-icons/lia';
+import { auth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 
 interface IsMobileAccessPros {
     onclick: () => void;
@@ -32,11 +34,12 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
         setShowToggle(false);
     }
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         if (setIsAuthUser && setUser) {
             setIsAuthUser(false)
             setUser(null)
         }
+        await signOut(auth)
         Cookies.remove("token")
         localStorage.clear()
         router.push("/")

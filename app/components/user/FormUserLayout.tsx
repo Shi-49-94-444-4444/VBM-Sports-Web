@@ -7,6 +7,8 @@ import { GlobalContext } from "@/contexts"
 import { useRouter } from "next/navigation"
 import { Background } from "../providers"
 import Cookies from "js-cookie"
+import { signOut } from "firebase/auth"
+import { auth } from "@/firebase"
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,
@@ -19,11 +21,12 @@ const FormatUI: React.FC<FormatUIProps> = ({
     const { setUser, setIsAuthUser } = useContext(GlobalContext) || {}
     const router = useRouter()
 
-    const handleBack = () => {
+    const handleBack = async () => {
         if (setUser && setIsAuthUser) {
             setUser(null)
             setIsAuthUser(false)
         }
+        await signOut(auth)
         Cookies.remove("token")
         localStorage.clear()
         router.push("/")

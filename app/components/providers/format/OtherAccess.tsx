@@ -1,7 +1,29 @@
+"use client"
+
+import { auth } from "@/firebase"
+import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth"
 import { AiFillFacebook, AiOutlineTwitter } from "react-icons/ai"
 import { FcGoogle } from "react-icons/fc"
 
 const OtherAccess = () => {
+    const provider = new GoogleAuthProvider();
+
+    provider.setCustomParameters({
+        prompt: "select_account",
+    })
+
+    const siginWithGoogle = () => {
+        signInWithRedirect(auth, provider)
+    }
+
+    const handleLoginWithGoogle = async () => {
+        try {
+            await siginWithGoogle()
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="
                 flex 
@@ -20,22 +42,23 @@ const OtherAccess = () => {
                     duration-300
                 "
             >
-                <AiFillFacebook 
-                    size={40} 
-                    className="text-blue-600" 
+                <AiFillFacebook
+                    size={40}
+                    className="text-blue-600"
                 />
             </div>
-            <div className="
+            <button className="
                     flex 
                     justify-center 
                     items-center 
-                    cursor-pointer
                     transition
                     duration-300
                 "
+                type="button"
+                onClick={handleLoginWithGoogle}
             >
                 <FcGoogle size={40} />
-            </div>
+            </button>
             <div className="
                     flex justify-center 
                     items-center 
@@ -44,9 +67,9 @@ const OtherAccess = () => {
                     duration-300
                 "
             >
-                <AiOutlineTwitter 
-                    size={40} 
-                    className="text-blue-400" 
+                <AiOutlineTwitter
+                    size={40}
+                    className="text-blue-400"
                 />
             </div>
         </div>

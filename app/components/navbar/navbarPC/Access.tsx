@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import Cookies from "js-cookie";
 import { beforeNavUser, useOutsideClick } from "@/utils"
 import SearchBar from "../SearchBar"
+import { signOut } from "firebase/auth"
+import { auth } from "@/firebase"
 
 const Access = () => {
     const [showToggle, setShowToggle] = useState(false);
@@ -23,11 +25,12 @@ const Access = () => {
         setShowToggle(false);
     }
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         if (setIsAuthUser && setUser) {
             setIsAuthUser(false)
             setUser(null)
         }
+        await signOut(auth)
         Cookies.remove("token")
         localStorage.clear()
         router.push("/")
