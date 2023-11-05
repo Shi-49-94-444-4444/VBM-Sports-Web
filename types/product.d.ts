@@ -66,7 +66,7 @@ export interface ListProduct {
     userImgUrl?: string | null,
     price?: number | null,
     highlightUrl?: string | null,
-    imgUrlPost?: string[] | null
+    imgUrlPost?: string[] | string | null
 }
 
 export interface ListCity {

@@ -7,7 +7,7 @@ import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { postReportUser } from "@/services"
+import { postReportUserService } from "@/services"
 import { Loading } from "../loader"
 
 const ModalReport = ({ id }: { id: string }) => {
@@ -36,7 +36,7 @@ const ModalReport = ({ id }: { id: string }) => {
         }
 
         if (user && user.id) {
-            const res = await postReportUser({
+            const res = await postReportUserService({
                 fromUserID: user.id,
                 content: selectedReport,
                 toUserID: id

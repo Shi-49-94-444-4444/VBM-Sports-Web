@@ -1,6 +1,6 @@
 import ModalReport from "./ModalReport"
-import ModalRecharge from "./ModalRecharge"
 import ModalWithdraw from "./ModalWithdraw"
+import ModalRecharge from "./ModalRecharge"
 
 export {
     ModalReport,

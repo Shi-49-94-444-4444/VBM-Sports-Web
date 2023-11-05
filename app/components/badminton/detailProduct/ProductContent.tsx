@@ -1,5 +1,3 @@
-"use client"
-
 import { ProductDetailContent } from "@/types";
 import ProductDetail from "./ProductDetail"
 import { ImageCarousel } from "../../providers";

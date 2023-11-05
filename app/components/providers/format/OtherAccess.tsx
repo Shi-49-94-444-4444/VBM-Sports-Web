@@ -1,11 +1,16 @@
 "use client"
 
+import { GlobalContext } from "@/contexts"
 import { auth } from "@/firebase"
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth"
+import { GoogleAuthProvider, onAuthStateChanged, signInWithRedirect } from "firebase/auth"
+import Cookies from "js-cookie"
+import { useContext } from "react"
 import { AiFillFacebook, AiOutlineTwitter } from "react-icons/ai"
 import { FcGoogle } from "react-icons/fc"
 
 const OtherAccess = () => {
+    const { setUser, setIsAuthUser } = useContext(GlobalContext) || {}
+
     const provider = new GoogleAuthProvider();
 
     provider.setCustomParameters({
@@ -19,6 +24,22 @@ const OtherAccess = () => {
     const handleLoginWithGoogle = async () => {
         try {
             await siginWithGoogle()
+
+            onAuthStateChanged(auth, (user: any) => {
+                if (user) {
+                    if (setUser && setIsAuthUser) {
+                        setUser(user);
+                        localStorage.setItem("user", JSON.stringify(user))
+                        Cookies.set("token", user?.stsTokenManager?.accessToken ?? "")
+                        setIsAuthUser(true)
+                    }
+                } else {
+                    if (setUser && setIsAuthUser) {
+                        setUser(null)
+                        setIsAuthUser(false)
+                    }
+                }
+            })
         } catch (error) {
             console.log(error);
         }

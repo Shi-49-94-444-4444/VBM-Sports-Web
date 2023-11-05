@@ -35,7 +35,7 @@ export const navlinks = [
     {
         id: "2",
         label: "Ví tiền",
-        href: "/wallet"
+        href: "/user/wallet"
     },
     {
         id: "3",

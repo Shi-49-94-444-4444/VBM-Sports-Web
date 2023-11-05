@@ -115,3 +115,19 @@ export interface ReportUserFormData {
     content: string
     toUserID: string
 }
+
+export interface RechargeFrom {
+    money: number
+}
+
+export interface RechargeFromData {
+    id: string
+    money: number
+}
+
+export interface checkSlotFormData {
+    userId: string
+    numberSlot: number
+    postId: string
+    dateRegis: string
+}

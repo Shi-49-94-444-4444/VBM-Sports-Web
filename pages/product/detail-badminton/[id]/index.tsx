@@ -45,6 +45,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         return {
             props: {
                 Product,
+                postId: id.toString()
             },
             revalidate: 60
         }
@@ -58,7 +59,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
 }
 
-const DetailBadmintonPage = ({ Product, internalError }: { Product: ProductDetailContent, internalError?: boolean }) => {
+const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: ProductDetailContent, internalError?: boolean, postId: string }) => {
     if (!Product) {
         return <Custom404 />
     }
@@ -71,7 +72,7 @@ const DetailBadmintonPage = ({ Product, internalError }: { Product: ProductDetai
         <Layout>
             <Container>
                 <ProductContent
-                    id={Product.id}
+                    id={postId}
                     imgUrl={Product.imgUrl}
                     days={Product.days}
                     startTime={Product.startTime}
@@ -82,7 +83,7 @@ const DetailBadmintonPage = ({ Product, internalError }: { Product: ProductDetai
                     availableSlot={Product.availableSlot}
                 />
                 <ProductUserPost
-                    id={Product.id}
+                    id={postId}
                     title={Product.title}
                     priceSlot={Product.priceSlot}
                     contentPost={Product.contentPost}

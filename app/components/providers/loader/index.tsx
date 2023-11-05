@@ -1,6 +1,6 @@
 "use client";
 
-import { PulseLoader, RingLoader } from "react-spinners";
+import { PulseLoader, RingLoader, FadeLoader } from "react-spinners";
 
 interface LoadingProps {
     color?: string;
@@ -31,6 +31,20 @@ export function LoadingFullScreen({ color, loading, size, height }: LoadingProps
                 color={color || "#204D94"}
                 loading={loading}
                 size={size || 100}
+                data-testid="loader"
+            />
+        </div>
+    );
+}
+
+export function LoadingAction({ color, loading, size }: LoadingProps) {
+    return (
+        <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${loading ? 'bg-black bg-opacity-50 z-[99999]' : ''}`}>
+            <FadeLoader
+                color={color || "#204D94"}
+                loading={loading}
+                height={size || 15}
+                width={size || 5}
                 data-testid="loader"
             />
         </div>

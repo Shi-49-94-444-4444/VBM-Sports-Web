@@ -3,8 +3,6 @@
 import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { ListProduct } from '@/types';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithRedirect } from 'firebase/auth';
-import { auth } from '@/firebase';
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -75,21 +73,6 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
             setUser(null);
         }
     }, []);
-
-    useEffect(() => {
-        return onAuthStateChanged(auth, (user: any) => {
-            if (user) {
-                setIsAuthUser(true)
-                setUser(user);
-                localStorage.setItem("user", JSON.stringify(user))
-                Cookies.set("token", user?.stsTokenManager?.accessToken ?? "")
-                setIsAuthUser(true);
-            } else {
-                setUser(null)
-                setIsAuthUser(false)
-            }
-        })
-    }, [])
 
     return (
         <GlobalContext.Provider

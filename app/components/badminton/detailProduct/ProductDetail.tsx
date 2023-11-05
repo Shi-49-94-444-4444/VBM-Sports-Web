@@ -4,11 +4,12 @@ import { ProductDetailContent } from "@/types"
 import { Button } from "../../providers"
 import { useRouter } from "next/navigation";
 import { FormatTime, parseSlots, validateAddress } from "@/utils";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { GlobalContext } from "@/contexts";
 
 const ProductDetail: React.FC<ProductDetailContent> = ({
     id,
-    days,
     startTime,
     endTime,
     addressSlot,
@@ -17,11 +18,8 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
     categorySlot
 }) => {
     const router = useRouter()
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        router.push(`/payment`)
-        event.preventDefault()
-    }
+    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { handleSubmit } = useForm()
 
     const DateSlot = parseSlots(availableSlot ?? [])
 
@@ -53,8 +51,13 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
             event.preventDefault();
     }
 
+    const onSubmit = () => {
+        
+        router.push(`/product/payment/${id}`)
+    }
+
     return (
-        <div className="
+        <form className="
                 relative
                 bg-gray-200 
                 flex 
@@ -151,9 +154,9 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
             <Button
                 title="Đặt chỗ ngay"
                 style="py-4 justify-center"
-                onClick={handleClick}
+                onClick={onSubmit}
             />
-        </div>
+        </form>
     )
 }
 

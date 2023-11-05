@@ -19,7 +19,6 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
                 right-0 
                 w-full
                 overflow-auto
-                rounded-xl
                 shadow-xl
                 flex
                 flex-col

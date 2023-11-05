@@ -1,5 +1,4 @@
 import { InputProps } from "@/types";
-import { formatMoneyType } from "@/utils";
 
 const Input: React.FC<InputProps> = ({
     id = "",
@@ -85,12 +84,7 @@ const Input: React.FC<InputProps> = ({
                                 event.preventDefault();
                             }
                         }}
-                        onChange={(e) => {
-                            if (isMoney) {
-                                e.target.value = formatMoneyType(e.target.value)
-                            }
-                            if (onChange) onChange(e)
-                        }}
+                        onChange={onChange}
                         maxLength={maxLength || 50}
                         className={`
                             ${colorInput}

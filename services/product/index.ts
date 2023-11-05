@@ -1,4 +1,4 @@
-import { CreateBadmintonForm } from "@/types";
+import { CreateBadmintonForm, checkSlotFormData } from "@/types";
 import AxiosClient from "../AxiosInstance";
 import { toast } from "react-toastify";
 
@@ -50,14 +50,27 @@ export const postBadmintonService = async (data: CreateBadmintonForm) => {
         })
 
         if (!response.data) {
-            throw new Error('Đăng bài thất bại');
+            throw new Error('Đăng bài thất bại')
         }
 
-        toast.success('Đăng bài thành công!');
+        toast.success('Đăng bài thành công!')
 
         return response.data;
     } catch (error) {
-        toast.error('Đăng bài thất bại. Vui lòng thử lại sau.');
+        toast.error('Đăng bài thất bại. Vui lòng thử lại sau.')
         console.log(error)
+    }
+}
+
+export const checkSlotService = async (data: checkSlotFormData) => {
+    try {
+        const response = await AxiosClient.post(`/api/slots/available`, {
+            userId: data.userId,
+            numSlot: data.numberSlot
+        })
+
+        return response.data
+    } catch (error) {
+        toast.error('Đăng bài thất bại. Vui lòng thử lại sau.')
     }
 }

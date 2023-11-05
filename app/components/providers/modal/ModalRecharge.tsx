@@ -4,19 +4,73 @@ import { useRechargeModal } from "@/hooks"
 import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button, Input } from "../form"
+import { useForm } from "react-hook-form"
+import { RechargeFrom } from "@/types"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { rechargeSchema } from "@/utils"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
+import { rechargeWalletService } from "@/services"
+import { toast } from "react-toastify"
+import { LoadingAction } from "../loader"
 
 const ModalRecharge = () => {
     const rechargeModal = useRechargeModal()
+
+    const { user, setIsLoading, isLoading, setUser } = useContext(GlobalContext) || {}
+
+    const { register, handleSubmit, formState: { errors } } = useForm<RechargeFrom>({
+        resolver: yupResolver(rechargeSchema)
+    })
+
+    const onSubmit = async (data: RechargeFrom) => {
+        if (setIsLoading) setIsLoading(true)
+
+        if (user && user.id) {
+            const res = await rechargeWalletService({
+                id: user.id,
+                money: data.money
+            })
+
+            console.log(res)
+
+            if (res.newBalance) {
+                toast.success(res.message, {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+
+                if (setUser) {
+                    setUser(prevUser => {
+                        const updatedUser = { ...prevUser, balance: res.newBalance }
+                        localStorage.setItem("user", JSON.stringify(updatedUser))
+                        return updatedUser
+                    })
+                }
+
+                rechargeModal.onClose()
+                if (setIsLoading) setIsLoading(false)
+            } else {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+            }
+        }
+    }
+
+    if (isLoading) {
+        return <LoadingAction loading={isLoading} />
+    }
 
     return (
         <CustomModal
             isOpen={rechargeModal.isOpen}
             onClose={rechargeModal.onClose}
             title="Nhập chi tiết giao dịch"
-            width="w-full md:w-3/4 max-w-full"
+            width="w-full lg:w-2/4 md:3/4 max-w-full"
             height="h-auto"
         >
-            <div className="relative flex flex-col justify-center items-center gap-10 py-5">
+            <div className="relative flex flex-col justify-center items-center gap-5 py-5">
                 <div className="flex items-center space-x-5">
                     <div className="relative flex-shrink-0">
                         <Image
@@ -31,32 +85,24 @@ const ModalRecharge = () => {
                         Thanh toán momo
                     </div>
                 </div>
-                <form className="relative flex flex-col gap-5 w-full px-2 md:px-10">
-                    <div className="flex flex-col gap-5 w-full">
-                        <label className="text-gray-600 text-xl font-semibold text-left">
-                            Số tài khoản momo của bạn:
-                        </label>
-                        <Input
-                            colorInput="w-full bg-[#F5F5F5] text-gray-600 text-xl"
-                            id="withdraw"
-                            type="number"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-5 w-full">
-                        <label className="text-gray-600 text-xl font-semibold text-left">
-                            Nhập số tiền cần rút:
-                        </label>
-                        <Input
-                            isMoney
-                            colorInput="w-full bg-[#F5F5F5] text-gray-600 text-xl"
-                            id="withdraw"
-                            type="number"
-                        />
-                    </div>
-                    <div className="relative flex self-end pt-5">
+                <form className="relative flex flex-col gap-3 w-full px-2 md:px-10" onSubmit={handleSubmit(onSubmit)}>
+                    <label className="text-gray-600 text-xl font-semibold text-left">
+                        Nhập số tiền cần nạp:
+                    </label>
+                    <Input
+                        isMoney
+                        colorInput="w-full bg-[#F5F5F5] text-gray-600 text-xl"
+                        id="money"
+                        type="number"
+                        register={register}
+                        name="money"
+                        errors={errors}
+                    />
+                    <div className="relative flex self-end">
                         <Button
                             title="Đồng ý"
                             style="py-3 px-12"
+                            type="submit"
                         />
                     </div>
                 </form>

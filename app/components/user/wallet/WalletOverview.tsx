@@ -42,7 +42,7 @@ const WalletOverview = () => {
                 </section>
             </div>
             <div className="flex space-x-3 h-full md:py-0 md:px-0 p-5 md:bg-white md:border-none bg-[#F5F5F5] border border-black border-opacity-10 md:rounded-none rounded-lg">
-                <button className="flex flex-col h-full w-36 py-2 items-center justify-center bg-primary-blue-cus text-white rounded-lg" type="button" onClick={handleWithdrawModal}>
+                <button className="flex flex-col h-full w-36 py-2 items-center justify-center bg-primary-blue-cus text-white rounded-lg" type="button" onClick={handleRechargeModal}>
                     <div className="relative flex-shrink-0">
                         <Image
                             src="/images/withdraw.png"
@@ -53,10 +53,10 @@ const WalletOverview = () => {
                         />
                     </div>
                     <div className="font-semibold text-lg">
-                        Rút tiền
+                        Nạp tiền
                     </div>
                 </button>
-                <button className="flex flex-col h-full w-36 py-2 items-center justify-center bg-primary-blue-cus text-white rounded-lg" type="button" onClick={handleRechargeModal}>
+                <button className="flex flex-col h-full w-36 py-2 items-center justify-center bg-primary-blue-cus text-white rounded-lg" type="button" onClick={handleWithdrawModal}>
                     <div className="relative flex-shrink-0">
                         <Image
                             src="/images/recharge.png"
@@ -67,7 +67,7 @@ const WalletOverview = () => {
                         />
                     </div>
                     <div className="font-semibold text-lg">
-                        Nạp tiền
+                        Rút tiền
                     </div>
                 </button>
             </div>

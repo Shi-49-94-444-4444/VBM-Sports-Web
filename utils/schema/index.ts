@@ -116,3 +116,10 @@ export const postNewInputSchema = yup.object().shape({
         max(300, "Nhiều nhất 50 ký tự").
         required("Không được để trống"),
 })
+
+export const rechargeSchema = yup.object().shape({
+    money: yup.number()
+        .min(10000, "Số tiền nạp tối thiểu là 10000")
+        .max(100000000, "Số tiền nạp tối đa là 100000000")
+        .required("Không được để trống")
+})

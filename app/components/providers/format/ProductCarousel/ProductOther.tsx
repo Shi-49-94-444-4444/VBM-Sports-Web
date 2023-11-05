@@ -125,7 +125,7 @@ const ProductOther: React.FC<ListProduct> = ({
                                         className="rounded-full"
                                     />
                                 </span>
-                                <span className="text-gray-600 font-semibold text-xl">
+                                <span className="text-gray-600 font-semibold text-lg truncate">
                                     {validateName(fullName)}
                                 </span>
                             </div>
@@ -140,12 +140,12 @@ const ProductOther: React.FC<ListProduct> = ({
                                         className="rounded-full"
                                     />
                                 </span>
-                                <span className="text-gray-600 font-semibold text-xl truncate">
+                                <span className="text-gray-600 font-semibold text-lg truncate">
                                     {validateName(idUserToNavigation.fullName)}
                                 </span>
                             </div>
                         )}
-                        <p className="text-gray-500 line-clamp-4 min-h-[6rem]">
+                        <p className="text-gray-500 line-clamp-3 min-h-[4.5rem]">
                             Mô tả ngắn: {validateDes(contentPost)}
                         </p>
                         <div className="space-x-1 line-clamp-1 whitespace-nowrap md:block hidden truncate">

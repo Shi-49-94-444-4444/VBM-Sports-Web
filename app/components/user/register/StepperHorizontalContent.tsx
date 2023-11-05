@@ -54,8 +54,13 @@ const StepperHorizontalContent = ({ }) => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            if (setUser) setUser(prevUser => ({ ...prevUser, playingArea: user?.playingArea }))
-            localStorage.setItem("user", JSON.stringify(user))
+            if (setUser) {
+                setUser(prevUser => {
+                    const updatedUser = { ...prevUser, playingArea: user?.playingArea }
+                    localStorage.setItem("user", JSON.stringify(updatedUser))
+                    return updatedUser
+                })
+            }
 
             console.log("After: ", user)
 
@@ -92,8 +97,13 @@ const StepperHorizontalContent = ({ }) => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            if (setUser) setUser(prevUser => ({ ...prevUser, playingLevel: user?.playingLevel }))
-            localStorage.setItem("user", JSON.stringify(user))
+            if (setUser) {
+                setUser(prevUser => {
+                    const updatedUser = { ...prevUser, playingLevel: user?.playingLevel }
+                    localStorage.setItem("user", JSON.stringify(updatedUser))
+                    return updatedUser
+                })
+            }
 
             console.log("After: ", user)
 
@@ -130,8 +140,13 @@ const StepperHorizontalContent = ({ }) => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            if (setUser) setUser(prevUser => ({ ...prevUser, playingWay: user?.playingWay }))
-            localStorage.setItem("user", JSON.stringify(user))
+            if (setUser) {
+                setUser(prevUser => {
+                    const updatedUser = { ...prevUser, playingWay: user?.playingWay }
+                    localStorage.setItem("user", JSON.stringify(updatedUser))
+                    return updatedUser
+                })
+            }
 
             console.log("After: ", user)
 
