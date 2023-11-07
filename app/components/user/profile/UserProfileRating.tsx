@@ -1,7 +1,7 @@
-import { UserProfile } from "@/types"
+import { UserProfileData } from "@/types"
 import { Rating } from "../../providers/format"
 
-const UserProfileRating: React.FC<UserProfile> = ({
+const UserProfileRating: React.FC<UserProfileData> = ({
     friendly,
     trusted,
     helpful,

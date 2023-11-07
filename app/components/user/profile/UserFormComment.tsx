@@ -27,9 +27,11 @@ const UserFormComment = ({ id }: { id: string }) => {
             toast.error(errors.comment?.message, {
                 position: toast.POSITION.TOP_RIGHT
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
 
-        if (user?.id) {
+        if (user && user.id) {
             const res = await postCommentService({
                 fromUserID: user.id,
                 content: formData.comment,
@@ -38,19 +40,23 @@ const UserFormComment = ({ id }: { id: string }) => {
 
             console.log(res)
 
-            if (res.message === "Update Success") {
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-            } else {
+            if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
+                if (setIsLoading) setIsLoading(true)
+                return
             }
+
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT
+            })
         } else {
             toast.error("Bình luận thất bại! Vui lòng thử lại", {
                 position: toast.POSITION.TOP_RIGHT
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
 
         if (setIsLoading) setIsLoading(false)

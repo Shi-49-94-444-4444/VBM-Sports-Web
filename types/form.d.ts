@@ -54,20 +54,20 @@ export interface PlayWayFormData {
 }
 
 export interface UserProfileSettingForm {
-    userName: string,
-    fullName: string,
-    phoneNumber: string,
-    userAddress: string,
-    sortProfile: string,
+    userName: string 
+    fullName: string 
+    phoneNumber: string 
+    userAddress: string 
+    sortProfile: string 
     imgURL: string
 }
 export interface UserProfileFormData {
-    id?: string | null,
-    userName?: string | null,
-    fullName?: string | null,
-    phoneNumber?: string | null,
-    userAddress?: string | null,
-    sortProfile?: string | null,
+    id?: string | null 
+    userName?: string | null 
+    fullName?: string | null 
+    phoneNumber?: string | null 
+    userAddress?: string | null 
+    sortProfile?: string | null 
     imgURL?: string | null
 }
 
@@ -81,33 +81,35 @@ export interface CommentForm {
 }
 
 export interface CreateBadmintonForm {
-    id?: string,
-    title: string,
-    address: string,
-    day: string,
-    month: string,
-    year: string,
-    startTime: string,
-    endTime: string,
-    price: string,
-    availableSlot: string,
-    description: string,
-    highlightUrl: string,
-    imgURL: string[],
+    id?: string 
+    title: string 
+    address: string 
+    day: string 
+    month: string 
+    year: string 
+    startTime: string 
+    endTime: string 
+    price: number 
+    availableSlot: string 
+    description: string 
+    highlightUrl: string 
+    imgURL: string[] 
 }
 export interface CreateBadmintonFormData {
-    title: string,
-    city?: string,
-    district?: string,
-    ward?: string,
-    address: string,
-    day?: string,
-    startTime?: string,
-    endTime?: string,
-    price: string,
-    availableSlot: string,
-    description: string,
-    imgURL?: string[],
+    title: string 
+    city?: string 
+    district?: string 
+    ward?: string 
+    address: string 
+    dateScope?: string 
+    session?: number
+    day?: string 
+    startTime?: string 
+    endTime?: string 
+    price: number 
+    availableSlot: string 
+    description: string 
+    imgURL?: string[] 
 }
 
 export interface ReportUserFormData {
@@ -116,11 +118,11 @@ export interface ReportUserFormData {
     toUserID: string
 }
 
-export interface RechargeFrom {
+export interface WalletFrom {
     money: number
 }
 
-export interface RechargeFromData {
+export interface WalletFromData {
     id: string
     money: number
 }

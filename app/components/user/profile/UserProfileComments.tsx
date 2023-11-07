@@ -15,16 +15,16 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const UserProfileComments = ({ id }: { id: string }) => {
     const [showMoreComments, setShowMoreComments] = useState(false);
     const initialCommentCount = 3;
-    const { data: listComment, error } = useSWR<Comment[]>(`/api/users/${id}/comments`, fetcher)
+    const { data: listComment, error } = useSWR<Comment>(`/api/users/${id}/comments`, fetcher)
 
     const isLoading = !listComment && !error
 
     const displayedComments = showMoreComments
-        ? listComment
-        : listComment?.slice(0, initialCommentCount);
+        ? listComment?.data
+        : listComment?.data.slice(0, initialCommentCount)
 
     const handleShowMoreClick = () => {
-        setShowMoreComments(true);
+        setShowMoreComments(true)
     };
 
     return (
@@ -75,13 +75,13 @@ const UserProfileComments = ({ id }: { id: string }) => {
                             )}
                         </React.Fragment>
                     ))}
-                    {!showMoreComments && listComment && listComment.length > initialCommentCount && (
+                    {!showMoreComments && listComment && listComment.data && listComment.data.length > initialCommentCount && (
                         <div className="ml-auto">
                             <button
                                 className="text-gray-600 text-xl font-semibold cursor-pointer flex items-center space-x-1"
                                 onClick={handleShowMoreClick}
                             >
-                                <span>Xem thêm ({listComment.length - initialCommentCount})</span>
+                                <span>Xem thêm ({listComment.data.length - initialCommentCount})</span>
                                 <span className="inline-block">
                                     <BsChevronDoubleDown />
                                 </span>

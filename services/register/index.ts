@@ -13,16 +13,16 @@ const registerService = async (data: RegisterFormData) => {
             userName: data.name.trim(),
         });
 
-        if (!response.data) {
-            throw new Error('Đăng ký thất bại');
-        }
+        // if (!response.data) {
+        //     throw new Error('Đăng ký thất bại');
+        // }
 
-        toast.success('Đăng ký thành công!');
+        // toast.success('Đăng ký thành công!');
 
         return response.data;
 
     } catch (error) {
-        toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');
+        // toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');
         console.log(error);
     }
 };

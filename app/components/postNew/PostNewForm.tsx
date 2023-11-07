@@ -6,11 +6,11 @@ import { Button, Loading, TimeRangePicker } from "../providers"
 import Input from "../providers/form/Input"
 import Datepicker from "react-tailwindcss-datepicker"
 import { useContext, useState } from "react"
-import { addDays, addYears, differenceInDays, eachDayOfInterval, format, isSameDay, startOfDay } from 'date-fns'
+import { addDays, addYears, differenceInDays, differenceInHours, eachDayOfInterval, format, isBefore, isSameDay, setHours, setMinutes, startOfDay } from 'date-fns'
 import { vi } from 'date-fns/locale'
 import { AxiosClient, postBadmintonService } from "@/services"
 import useSWR from "swr"
-import { CreateBadmintonFormData, ListCity, ListDistrict, ListWard } from "@/types"
+import { CreateBadmintonFormData, ListCity, ListDistrict, ListWard, Time } from "@/types"
 import { customStyles, postNewInputSchema } from "@/utils"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -53,7 +53,9 @@ const PostNewForm = () => {
         if (dateRange.startDate && dateRange.endDate) {
             const diffInDays = differenceInDays(new Date(dateRange.endDate), new Date(dateRange.startDate)) + 1
             if (value > diffInDays) {
-                alert(`Bạn chỉ có thể nhập tối đa ${diffInDays} buổi`)
+                toast.error(`Bạn chỉ có thể nhập tối đa ${diffInDays} buổi`, {
+                    position: toast.POSITION.TOP_RIGHT
+                })
                 return
             }
         }
@@ -67,7 +69,9 @@ const PostNewForm = () => {
         if (startDate && endDate) {
             const diffInDays = differenceInDays(new Date(endDate), new Date(startDate));
             if (diffInDays > 7) {
-                alert('Khoảng cách giữa ngày bắt đầu và ngày kết thúc không được vượt quá 7 ngày')
+                toast.error('Khoảng cách giữa ngày bắt đầu và ngày kết thúc không được vượt quá 7 ngày', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
                 return;
             }
         }
@@ -104,8 +108,11 @@ const PostNewForm = () => {
     }
 
     //Fetch city
-    const { data: listCity } = useSWR<ListCity[]>(`/api/cities`, fetcher)
-    const optionCity = listCity?.map(city => ({ id: city.id, value: city.name, label: city.name })) || []
+    const { data: listCity, error: errorCity } = useSWR<ListCity>(`/api/cities`, fetcher)
+    if (errorCity) toast.error(listCity?.message, {
+        position: toast.POSITION.TOP_RIGHT
+    })
+    const optionCity = listCity?.data.map(city => ({ id: city.id, value: city.name, label: city.name })) || []
 
     // Get state city
     const handleCityChange = (newValue: Option | null) => {
@@ -117,8 +124,11 @@ const PostNewForm = () => {
     }
 
     // fetch district
-    const { data: listDistrict } = useSWR<ListDistrict[]>(selectCity ? `/api/districts/city/${selectCity.id}` : null, fetcher)
-    const optionDistrict = listDistrict?.map(district => ({ id: district.id, value: district.name, label: district.name })) || []
+    const { data: listDistrict, error: errorDistrict } = useSWR<ListDistrict>(selectCity ? `/api/districts/city/${selectCity.id}` : null, fetcher)
+    if (errorDistrict) toast.error(listDistrict?.message, {
+        position: toast.POSITION.TOP_RIGHT
+    })
+    const optionDistrict = listDistrict?.data.map(district => ({ id: district.id, value: district.name, label: district.name })) || []
 
     // Get state district
     const handleDistrictChange = (newValue: Option | null) => {
@@ -129,8 +139,11 @@ const PostNewForm = () => {
     }
 
     // fetch ward
-    const { data: listWard } = useSWR<ListWard[]>(selectDistrict ? `/api/wards/district/${selectDistrict.id}` : null, fetcher)
-    const optionWard = listWard?.map(ward => ({ id: ward.id, value: ward.name, label: ward.name })) || []
+    const { data: listWard, error: errorWard } = useSWR<ListWard>(selectDistrict ? `/api/wards/district/${selectDistrict.id}` : null, fetcher)
+    if (errorWard) toast.error(listWard?.message, {
+        position: toast.POSITION.TOP_RIGHT
+    })
+    const optionWard = listWard?.data.map(ward => ({ id: ward.id, value: ward.name, label: ward.name })) || []
 
     // Get state ward
     const handleWardChange = (newValue: Option | null) => {
@@ -139,13 +152,57 @@ const PostNewForm = () => {
         }
     }
 
+    // String to Time
+    const stringToTime = (timeString: string): Date => {
+        const [hour, minute] = timeString.split(':')
+        let date = new Date()
+        date = setHours(date, parseInt(hour))
+        date = setMinutes(date, parseInt(minute))
+        return date
+    }
+
+    // Format Date Time
+    const formatTime = (time: Time): Date => {
+        let dateTime = new Date();
+        dateTime = setHours(dateTime, parseInt(time.hour));
+        dateTime = setMinutes(dateTime, parseInt(time.minute));
+        return dateTime
+    }
+
     const onSubmit = async (data: CreateBadmintonFormData) => {
         if (setIsLoading) setIsLoading(true)
 
-        const formattedDates = formatSelectedDays();
+        const formattedDates = formatSelectedDays()
         const { days, months, years } = formattedDates
 
-        if (!uploadImages[0] || !days || !startTime || !endTime || !selectCity || !selectDistrict || !selectWard) {
+        if (!uploadImages[0] || !days || !startTime || !endTime || !selectCity || !selectDistrict || !selectWard || !dateRange.endDate || !dateRange.startDate || !sessions || sessions < 0) {
+            const start = stringToTime(startTime)
+            const end = stringToTime(endTime)
+
+            if (!dateRange.endDate || !dateRange.startDate) {
+                setError("dateScope", { message: "Không được để trống" })
+            }
+
+            if (!sessions || sessions < 0) {
+                setError("session", { message: "Phải lớn hơn 0" })
+            }
+
+            if (isBefore(end, start)) {
+                setError("startTime", { message: "Thời gian kết thúc không thể nhỏ hơn thời gian bắt đầu" })
+            }
+
+            if (differenceInHours(end, start) < 1) {
+                setError("startTime", { message: "Thời gian bắt đầu và kết thúc phải cách nhau ít nhất 1 giờ" })
+            }
+
+            if (isBefore(start, formatTime({ hour: '5', minute: '00' }))) {
+                setError("startTime", { message: "Thời gian bắt đầu không thể trước 6:00 AM" })
+            }
+
+            if (isBefore(formatTime({ hour: '24', minute: '00' }), end)) {
+                setError("startTime", { message: "Thời gian kết thúc không thể sau 24:00" })
+            }
+
             if (!uploadImages[0]) {
                 setError("imgURL", { message: "Không được để trống" })
             }
@@ -170,9 +227,15 @@ const PostNewForm = () => {
                 setError("startTime", { message: "Không được để trống" })
             }
 
+            if (selectedDays.length < sessions) {
+                setError("day", { message: `Bạn phải chọn ${sessions} ngày chơi theo số buổi` })
+            }
+
             if (setIsLoading) setIsLoading(false)
             return
         }
+
+        // console.log(user?.id, data.title, `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${data.address}`, days, months, years, startTime, endTime, data.availableSlot, data.price, data.description, uploadImages)
 
         if (user) {
             const res = await postBadmintonService({
@@ -193,17 +256,18 @@ const PostNewForm = () => {
 
             console.log(res)
 
-            if (res.postId) {
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-
-                router.push("/")
-            } else {
+            if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
+                if (setIsLoading) setIsLoading(false)
+                return
             }
+
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+            router.push("/")
         }
 
         if (setIsLoading) setIsLoading(false)
@@ -360,6 +424,11 @@ const PostNewForm = () => {
                                         },
                                     }}
                                 />
+                                {errors.dateScope &&
+                                    <p className="text-red-500 font-medium h-4">
+                                        {errors.dateScope.message}
+                                    </p>
+                                }
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
@@ -377,6 +446,11 @@ const PostNewForm = () => {
                                     disabled={!dateRange.startDate || !dateRange.endDate}
                                     maxLength={1}
                                 />
+                                {errors.session &&
+                                    <p className="text-red-500 font-medium h-4">
+                                        {errors.session.message}
+                                    </p>
+                                }
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
@@ -442,6 +516,7 @@ const PostNewForm = () => {
                             </div>
                             <div className="col-span-2">
                                 <Input
+                                    isMoney
                                     id="price"
                                     name="price"
                                     colorInput="bg-[#F5F5F5] border-none"
@@ -471,7 +546,7 @@ const PostNewForm = () => {
                         <div className="grid grid-cols-3 gap-3 items-center">
                             <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Mô tả:</label>
-                                <p className="text-gray-500"> (Từ 10 -300 từ) </p>
+                                <p className="text-gray-500"> (Từ 50 -300 từ) </p>
                             </div>
                             <div className="col-span-2">
                                 <Input
@@ -491,7 +566,7 @@ const PostNewForm = () => {
                             <div className="lg:col-span-2 col-span-1 py-4 flex justify-center">
                                 {isLoading ? (
                                     <Button
-                                        title={<Loading loading={isLoading} color="white"/>}
+                                        title={<Loading loading={isLoading} color="white" />}
                                         style="px-16 py-3 text-xl"
                                         type="submit"
                                         isHover={false}

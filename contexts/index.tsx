@@ -69,10 +69,10 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 setUser(null)
             }
         } else {
-            setIsAuthUser(false);
-            setUser(null);
+            setIsAuthUser(false)
+            setUser(null)
         }
-    }, []);
+    }, [])
 
     return (
         <GlobalContext.Provider

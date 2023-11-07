@@ -6,24 +6,19 @@ import {
     ProductOtherExtra,
 } from "@/app/components";
 import { getListProductService, getProductService } from "@/services/product";
-import { ProductDetailContent } from "@/types";
+import { ProductDetailContent, ProductDetailContentData } from "@/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Custom500 from '@/pages/500';
 import Custom404 from '@/pages/404';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    try {
-        const products = await getListProductService();
-        const paths = products.map((product: ProductDetailContent) => ({
-            params: { id: product?.id?.toString() },
-        }));
+    const products = await getListProductService()
+    const paths = products.data.map((product: ProductDetailContentData) => ({
+        params: { id: product?.id?.toString() },
+    }));
 
-        return { paths, fallback: false };
-    } catch (error) {
-        console.log(error);
-        return { paths: [], fallback: false };
-    }
-};
+    return { paths, fallback: false }
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const id = context.params?.id
@@ -36,7 +31,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     try {
         const Product = await getProductService(id)
-        if (!Product) {
+        if (Product.data == null) {
             return {
                 notFound: true
             }
@@ -73,25 +68,25 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
             <Container>
                 <ProductContent
                     id={postId}
-                    imgUrl={Product.imgUrl}
-                    days={Product.days}
-                    startTime={Product.startTime}
-                    endTime={Product.endTime}
-                    addressSlot={Product.addressSlot}
-                    categorySlot={Product.categorySlot}
-                    levelSlot={Product.levelSlot}
-                    availableSlot={Product.availableSlot}
+                    imgUrl={Product.data.imgUrl}
+                    days={Product.data.days}
+                    startTime={Product.data.startTime}
+                    endTime={Product.data.endTime}
+                    addressSlot={Product.data.addressSlot}
+                    categorySlot={Product.data.categorySlot}
+                    levelSlot={Product.data.levelSlot}
+                    availableSlot={Product.data.availableSlot}
                 />
                 <ProductUserPost
                     id={postId}
-                    title={Product.title}
-                    priceSlot={Product.priceSlot}
-                    contentPost={Product.contentPost}
-                    imgUrlUser={Product.imgUrlUser}
-                    sortProfile={Product.sortProfile}
-                    fullName={Product.fullName}
-                    totalRate={Product.totalRate}
-                    userId={Product.userId}
+                    title={Product.data.title}
+                    priceSlot={Product.data.priceSlot}
+                    contentPost={Product.data.contentPost}
+                    imgUrlUser={Product.data.imgUrlUser}
+                    sortProfile={Product.data.sortProfile}
+                    fullName={Product.data.fullName}
+                    totalRate={Product.data.totalRate}
+                    userId={Product.data.userId}
                 />
                 <ProductOtherExtra />
             </Container>

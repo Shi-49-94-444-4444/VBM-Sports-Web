@@ -17,7 +17,7 @@ SwiperCore.use([Pagination]);
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const ProductCarousel = () => {
-    const { data: listProduct, error } = useSWR<ListProduct[]>('/api/posts/GetListPost', fetcher)
+    const { data: listProduct, error } = useSWR<ListProduct>('/api/posts/GetListPost', fetcher)
 
     const isLoading = !error && !listProduct
 
@@ -34,7 +34,7 @@ const ProductCarousel = () => {
         )
     }
 
-    if (listProduct && listProduct.length === 0) {
+    if (listProduct && listProduct.data && listProduct.data.length === 0) {
         return (
             <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
@@ -43,7 +43,7 @@ const ProductCarousel = () => {
         )
     }
 
-    const slicedItems = listProduct && listProduct.length > 0 ? listProduct.slice(0, 16) : []
+    const slicedItems = listProduct && listProduct.data && listProduct.data.length > 0 ? listProduct.data.slice(0, 16) : []
 
     return (
         <Swiper

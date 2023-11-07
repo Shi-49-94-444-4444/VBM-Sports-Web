@@ -4,9 +4,63 @@ import { useWithdrawModal } from "@/hooks"
 import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button, Input } from "../form"
+import { toast } from "react-toastify"
+import { LoadingAction } from "../loader"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
+import { useForm } from "react-hook-form"
+import { WalletFrom } from "@/types"
+import { walletSchema } from "@/utils"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { WalletService } from "@/services"
 
 const ModalWithdraw = () => {
     const withdrawModal = useWithdrawModal()
+
+    const { user, setIsLoading, isLoading, setUser } = useContext(GlobalContext) || {}
+
+    const { register, handleSubmit, formState: { errors } } = useForm<WalletFrom>({
+        resolver: yupResolver(walletSchema)
+    })
+
+    const onSubmit = async (data: WalletFrom) => {
+        if (setIsLoading) setIsLoading(true)
+
+        if (user && user.id) {
+            const res = await WalletService({
+                id: user.id,
+                money: -data.money
+            })
+
+            console.log(res)
+
+            if (res.newBalance) {
+                toast.success("Rút tiền thành công", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+
+                if (setUser) {
+                    setUser(prevUser => {
+                        const updatedUser = { ...prevUser, balance: res.newBalance }
+                        localStorage.setItem("user", JSON.stringify(updatedUser))
+                        return updatedUser
+                    })
+                }
+
+                withdrawModal.onClose()
+                if (setIsLoading) setIsLoading(false)
+            } else {
+                toast.error("Rút tiền thất bại", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+            }
+        }
+    }
+
+    if (isLoading) {
+        return <LoadingAction loading={isLoading} />
+    }
 
     return (
         <CustomModal
@@ -31,7 +85,7 @@ const ModalWithdraw = () => {
                         Thanh toán momo
                     </div>
                 </div>
-                <form className="relative flex flex-col gap-3 w-full px-2 md:px-10">
+                <form className="relative flex flex-col gap-3 w-full px-2 md:px-10" onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex flex-col gap-3 w-full">
                         <label className="text-gray-600 text-xl font-semibold text-left">
                             Số tài khoản momo của bạn:
@@ -49,14 +103,18 @@ const ModalWithdraw = () => {
                         <Input
                             isMoney
                             colorInput="w-full bg-[#F5F5F5] text-gray-600 text-xl"
-                            id="withdraw"
+                            id="money"
                             type="number"
+                            register={register}
+                            name="money"
+                            errors={errors}
                         />
                     </div>
                     <div className="relative flex self-end">
                         <Button
                             title="Đồng ý"
                             style="py-3 px-12"
+                            type="submit"
                         />
                     </div>
                 </form>

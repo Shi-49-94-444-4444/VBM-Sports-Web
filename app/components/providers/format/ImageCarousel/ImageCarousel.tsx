@@ -6,11 +6,11 @@ import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
 import ImageItemOther from './ImageOther';
-import { ProductDetailContent } from '@/types';
+import { ProductDetailContentData } from '@/types';
 
 SwiperCore.use([Pagination]);
 
-const ImageCarousel: React.FC<ProductDetailContent> = ({
+const ImageCarousel: React.FC<ProductDetailContentData> = ({
     imgUrl
 }) => {
     const images = Array.isArray(imgUrl) ? imgUrl : (imgUrl ? [imgUrl] : []);

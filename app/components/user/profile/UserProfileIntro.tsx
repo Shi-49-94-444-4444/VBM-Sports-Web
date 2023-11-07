@@ -2,12 +2,12 @@
 
 import Image from "next/image"
 import { BsFillChatDotsFill } from "react-icons/bs"
-import { UserProfile } from "@/types"
+import { UserProfileData } from "@/types"
 import { Button } from "../../providers"
 import { isValidUrl, validateDes, validateName, validateURLAvatar } from "@/utils"
 import { useReportModal } from "@/hooks"
 
-const UserProfileIntro: React.FC<UserProfile> = ({
+const UserProfileIntro: React.FC<UserProfileData> = ({
     imgUrl,
     fullName,
     sortProfile

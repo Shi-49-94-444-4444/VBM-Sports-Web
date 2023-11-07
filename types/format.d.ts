@@ -1,13 +1,13 @@
 export interface FormatDateProps {
-    dateString: string;
+    dateString: string
 }
 
 export interface FormatTimeProps {
-    timeString: string;
+    timeString: string
 }
 
 export interface BackgroundProps {
-    src: string;
+    src: string
     children: React.ReactNode
 }
 
@@ -16,20 +16,25 @@ export interface LayoutProps {
 }
 
 export interface FormatUIProps {
-    src: string;
-    title?: string;
-    subTitle?: string;
-    body: React.ReactElement;
-    subBody?: React.ReactElement;
-    footer?: React.ReactElement;
+    src: string
+    title?: string
+    subTitle?: string
+    body: React.ReactElement
+    subBody?: React.ReactElement
+    footer?: React.ReactElement
 }
 
 export interface QuickBannerTitle {
-    title: string;
-    subTitle: string;
+    title: string
+    subTitle: string
 }
 
 export interface DateSlot {
     date: string,
     slot: number
+}
+
+interface Time {
+    hour: string
+    minute: string
 }

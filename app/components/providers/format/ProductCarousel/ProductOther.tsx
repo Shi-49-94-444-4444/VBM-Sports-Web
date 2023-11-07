@@ -1,9 +1,9 @@
 "use client"
 
-import { ListProduct } from "@/types";
+import { ListProductData } from "@/types";
 import Image from "next/image"
 import Link from "next/link";
-import { formatAddress, formatDateFunc, formatMoney, FormatTime, formatURL, getDates, GetFirstDate } from "@/utils"
+import { formatAddress, formatDateFunc, formatMoney, FormatTime, getDates, GetFirstDate } from "@/utils"
 import {
     validateAddress,
     validateDate,
@@ -16,7 +16,7 @@ import {
 import { Tooltip } from 'react-tooltip'
 import { Decimal } from 'decimal.js'
 
-const ProductOther: React.FC<ListProduct> = ({
+const ProductOther: React.FC<ListProductData> = ({
     idPost,
     id,
     title,

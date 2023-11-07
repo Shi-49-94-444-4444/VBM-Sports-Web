@@ -1,8 +1,8 @@
-import { UserProfile } from "@/types"
+import { UserProfileData } from "@/types"
 import UserProfileIntro from "./UserProfileIntro"
 import UserProfileRating from "./UserProfileRating"
 
-const UserProfileContent: React.FC<UserProfile> = ({
+const UserProfileContent: React.FC<UserProfileData> = ({
     friendly,
     fullName,
     helpful,

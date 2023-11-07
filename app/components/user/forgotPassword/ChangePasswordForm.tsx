@@ -41,20 +41,20 @@ const ChangePasswordForm = () => {
 
         console.log("Change: ", res)
 
-        if (res.message === "Update Success") {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
-            localStorage.clear()
-            Cookies.remove("token")
-            setIsChange(true)
-        } else {
+        if (res.data == null) {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
 
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+        localStorage.clear()
+        Cookies.remove("token")
+        setIsChange(true)
         if (setIsLoading) setIsLoading(false)
     }
 

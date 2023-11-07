@@ -15,7 +15,6 @@ const VerifyOTPForm = () => {
     const { setIsLoading, isLoading } = useContext(GlobalContext) || {}
     const {
         handleSubmit,
-        setError,
         formState: { errors }
     } = useForm<OTP>()
 
@@ -29,24 +28,21 @@ const VerifyOTPForm = () => {
         if (setIsLoading) setIsLoading(true)
 
         const email = JSON.parse(localStorage.getItem("email")!)
-
         const res = await verifyOTPService({ email: email, otp: isOTP })
-
         console.log("Verify_otp: ", res)
 
-        if (res.message === "Verify Success") {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
-            setIsVerify(true)
-        } else if (res.errorCode) {
-            setError("digit", { message: "Mã otp không đúng, vui lòng nhập lại!" })
-        } else {
+        if (res.data == null) {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
+
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+        setIsVerify(true)
 
         if (setIsLoading) setIsLoading(false)
     }

@@ -1,4 +1,4 @@
-import { CommentFormData, RechargeFromData, ReportUserFormData, UserProfileFormData } from "@/types"
+import { CommentFormData, WalletFromData, ReportUserFormData, UserProfileFormData } from "@/types"
 import AxiosClient from "../AxiosInstance"
 import { toast } from "react-toastify"
 
@@ -104,21 +104,14 @@ export const postReportUserService = async (data: ReportUserFormData) => {
     }
 }
 
-export const rechargeWalletService = async (data: RechargeFromData) => {
+export const WalletService = async (data: WalletFromData) => {
     try {
         const response = await AxiosClient.put(`/api/wallet/${data.id}`, {
             changes: data.money
         })
 
-        if (!response.data) {
-            throw new Error('Nạp tiền thất bại')
-        }
-
-        toast.success("Nạp tiền thành công")
-
         return response.data
     } catch (error) {
-        toast.error("Nạp tiền thất bại. Vui lòng thử lại sau.")
         console.log(error)
     }
 }

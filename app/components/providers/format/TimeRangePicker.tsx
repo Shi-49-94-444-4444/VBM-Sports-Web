@@ -2,13 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import { differenceInHours, setHours, setMinutes, isBefore, format } from 'date-fns';
-import { toast } from 'react-toastify';
-
-interface Time {
-    hour: string;
-    minute: string;
-}
+import { setHours, setMinutes, format } from 'date-fns';
+import { Time } from '@/types';
 
 interface Option {
     value: string | number;
@@ -49,48 +44,11 @@ const TimeRangePicker: React.FC<TimeRangePickerProps> = ({ onTimeChange }) => {
     const [endTime, setEndTime] = useState<Time>({ hour: '7', minute: '00' });
 
     useEffect(() => {
-        const start = formatTime(startTime);
-        const end = formatTime(endTime);
-
-        if (isBefore(end, start)) {
-            toast.error("Thời gian kết thúc không thể nhỏ hơn thời gian bắt đầu", {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            return
-        }
-
-        if (differenceInHours(end, start) < 1) {
-            toast.error("Thời gian bắt đầu và kết thúc phải cách nhau ít nhất 1 giờ", {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            return
-        }
-
-        if (isBefore(start, formatTime({ hour: '6', minute: '00' }))) {
-            toast.error("Thời gian bắt đầu không thể trước 6:00 AM", {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            return
-        }
-
-        if (isBefore(formatTime({ hour: '24', minute: '00' }), end)) {
-            toast.error("Thời gian kết thúc không thể sau 24:00", {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            return
-        }
         onTimeChange({
             startTime: formatTimeString(startTime),
             endTime: formatTimeString(endTime),
         });
-    }, [startTime, endTime]);
-
-    const formatTime = (time: Time): Date => {
-        let dateTime = new Date();
-        dateTime = setHours(dateTime, parseInt(time.hour));
-        dateTime = setMinutes(dateTime, parseInt(time.minute));
-        return dateTime
-    }
+    }, [startTime, endTime])
 
     const formatTimeString = (time: Time): string => {
         let dateTime = new Date();

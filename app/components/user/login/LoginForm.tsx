@@ -40,29 +40,26 @@ const LoginForm = () => {
 
         console.log("Data", res)
 
-        if (res.id) {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
-            if (setIsAuthUser && setUser) {
-                setIsAuthUser(true)
-                const user = res
-                setUser(user)
-            }
-
-            Cookies.set("token", res.token)
-            localStorage.setItem("user", JSON.stringify(res))
-
-        } else if (res.errorEmail) {
-            setError("email", { message: res.errorEmail })
-        } else if (res.errorPassword) {
-            setError("password", { message: res.errorPassword })
-        } else {
+        if (res.data == null) {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
+
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+
+        if (setIsAuthUser && setUser) {
+            setIsAuthUser(true)
+            const user = res.data
+            setUser(user)
+        }
+
+        Cookies.set("token", res.data.token)
+        localStorage.setItem("user", JSON.stringify(res.data))
 
         if (setIsLoading) setIsLoading(false)
     }

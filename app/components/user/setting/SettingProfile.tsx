@@ -116,25 +116,27 @@ const SettingProfile = () => {
 
         console.log(res)
 
-        if (res.message) {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
-            if (setUser) setUser(prevUser => ({
-                ...prevUser,
-                avatar: data.imgURL,
-                fullName: data.fullName,
-                userName: data.userName,
-                userAddress: data.userAddress,
-                sortProfile: data.sortProfile
-            }))
-            localStorage.setItem("user", JSON.stringify(user))
-        } else {
+        if (res.data == null) {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
+
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+
+        if (setUser) setUser(prevUser => ({
+            ...prevUser,
+            avatar: data.imgURL,
+            fullName: data.fullName,
+            userName: data.userName,
+            userAddress: data.userAddress,
+            sortProfile: data.sortProfile
+        }))
+        localStorage.setItem("user", JSON.stringify(user))
 
         if (setIsLoading) setIsLoading(false)
     }

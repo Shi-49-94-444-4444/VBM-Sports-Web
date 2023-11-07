@@ -1,8 +1,8 @@
-import { ProductDetailContent } from "@/types";
+import { ProductDetailContentData } from "@/types";
 import ProductDetail from "./ProductDetail"
 import { ImageCarousel } from "../../providers";
 
-const ProductContent: React.FC<ProductDetailContent> = ({
+const ProductContent: React.FC<ProductDetailContentData> = ({
     id,
     imgUrl,
     days,

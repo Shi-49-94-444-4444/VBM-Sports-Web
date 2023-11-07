@@ -10,14 +10,14 @@ import Layout from "@/app/layout"
 import Custom404 from "@/pages/404"
 import Custom500 from "@/pages/500"
 import { getListUserService, getUserProfileService } from "@/services"
-import { UserProfile } from "@/types"
+import { UserProfile, UserProfileData } from "@/types"
 import { GetStaticPaths, GetStaticProps } from "next"
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const users = await getListUserService()
-    const paths = users.map((user: UserProfile) => ({
+    const paths = users.data.map((user: UserProfileData) => ({
         params: { id: user?.id?.toString() },
-    }));
+    }))
 
     return { paths, fallback: true }
 }
@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     try {
         const User = await getUserProfileService(id)
-        if (!User) {
+        if (User.data == null) {
             return {
                 notFound: true,
             }
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             }
         }
     }
-};
+}
 
 const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, internalError?: boolean, id: string }) => {
     if (!User) {
@@ -69,14 +69,14 @@ const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, inter
             <ModalReport id={id} />
             <Container>
                 <UserProfileContent
-                    friendly={User.friendly}
-                    fullName={User.fullName}
-                    helpful={User.helpful}
-                    imgUrl={User.imgUrl}
-                    levelSkill={User.levelSkill}
-                    sortProfile={User.sortProfile}
-                    totalRate={User.totalRate}
-                    trusted={User.totalRate}
+                    friendly={User.data.friendly}
+                    fullName={User.data.fullName}
+                    helpful={User.data.helpful}
+                    imgUrl={User.data.imgUrl}
+                    levelSkill={User.data.levelSkill}
+                    sortProfile={User.data.sortProfile}
+                    totalRate={User.data.totalRate}
+                    trusted={User.data.totalRate}
                 />
                 <UserFormComment id={id} />
                 <UserProfileComments id={id} />

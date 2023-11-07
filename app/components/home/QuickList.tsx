@@ -13,13 +13,13 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const QuickList = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listProduct, error, isLoading } = useSWR<ListProduct[]>(user ? `/api/posts/${user.id}/post_suggestion` : '/api/posts/GetListPost', fetcher)
+    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(user ? `/api/posts/${user.id}/post_suggestion` : '/api/posts/GetListPost', fetcher)
 
     if (isLoading) {
         return <LoadingFullScreen loading={isLoading} />
     }
 
-    if (listProduct && listProduct.length === 0) {
+    if (listProduct && listProduct.data && listProduct.data.length == 0) {
         return (
             <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
@@ -37,7 +37,7 @@ const QuickList = () => {
         )
     }
 
-    const sliceItems = listProduct && listProduct.length > 0 ? listProduct.slice(0, 12) : []
+    const sliceItems = listProduct && listProduct.data && listProduct.data.length > 0 ? listProduct.data.slice(0, 12) : []
 
     return (
         <div className="relative py-10">

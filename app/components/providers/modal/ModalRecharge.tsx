@@ -5,12 +5,12 @@ import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button, Input } from "../form"
 import { useForm } from "react-hook-form"
-import { RechargeFrom } from "@/types"
+import { WalletFrom } from "@/types"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { rechargeSchema } from "@/utils"
+import { walletSchema } from "@/utils"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { rechargeWalletService } from "@/services"
+import { WalletService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingAction } from "../loader"
 
@@ -19,15 +19,15 @@ const ModalRecharge = () => {
 
     const { user, setIsLoading, isLoading, setUser } = useContext(GlobalContext) || {}
 
-    const { register, handleSubmit, formState: { errors } } = useForm<RechargeFrom>({
-        resolver: yupResolver(rechargeSchema)
+    const { register, handleSubmit, formState: { errors } } = useForm<WalletFrom>({
+        resolver: yupResolver(walletSchema)
     })
 
-    const onSubmit = async (data: RechargeFrom) => {
+    const onSubmit = async (data: WalletFrom) => {
         if (setIsLoading) setIsLoading(true)
 
         if (user && user.id) {
-            const res = await rechargeWalletService({
+            const res = await WalletService({
                 id: user.id,
                 money: data.money
             })
@@ -35,7 +35,7 @@ const ModalRecharge = () => {
             console.log(res)
 
             if (res.newBalance) {
-                toast.success(res.message, {
+                toast.success("Nạp tiền thành công", {
                     position: toast.POSITION.TOP_RIGHT
                 })
 
@@ -50,7 +50,7 @@ const ModalRecharge = () => {
                 rechargeModal.onClose()
                 if (setIsLoading) setIsLoading(false)
             } else {
-                toast.error(res.message, {
+                toast.error("Nạp tiền thất bại", {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 if (setIsLoading) setIsLoading(false)

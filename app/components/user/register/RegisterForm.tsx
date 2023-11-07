@@ -30,21 +30,18 @@ const RegisterForm = () => {
 
         const res = await registerService(data)
 
-        console.log(res)
-
-        if (res.userId) {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
-            setIsRegistered(true)
-        } else if (res.errorEmail) {
-            setError("email", { message: "Tài khoản đã tồn tại" })
-        } else {
+        if (res.data == null) {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
+
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+        setIsRegistered(true)
 
         if (setIsLoading) setIsLoading(false)
     }

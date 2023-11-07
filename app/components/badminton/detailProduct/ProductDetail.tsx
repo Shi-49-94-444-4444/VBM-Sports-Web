@@ -1,14 +1,16 @@
 "use client"
 
-import { ProductDetailContent } from "@/types"
+import { ProductDetailContentData } from "@/types"
 import { Button } from "../../providers"
 import { useRouter } from "next/navigation";
 import { FormatTime, parseSlots, validateAddress } from "@/utils";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GlobalContext } from "@/contexts";
+import { checkSlotService } from "@/services";
+import { toast } from "react-toastify";
 
-const ProductDetail: React.FC<ProductDetailContent> = ({
+const ProductDetail: React.FC<ProductDetailContentData> = ({
     id,
     startTime,
     endTime,
@@ -26,10 +28,17 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
     const [selectedSlots, setSelectedSlots] = useState<{ [key: string]: number }>({})
 
     const handleCheckboxChange = (date: string, isChecked: boolean) => {
-        setSelectedSlots(prevState => ({
-            ...prevState,
-            [date]: isChecked ? 1 : 0
-        }))
+        setSelectedSlots(prevState => {
+            if (isChecked) {
+                return {
+                    ...prevState,
+                    [date]: 1
+                }
+            } else {
+                const { [date]: _, ...rest } = prevState;
+                return rest;
+            }
+        })
     }
 
     const handleInputChange = (date: string, value: number) => {
@@ -51,9 +60,27 @@ const ProductDetail: React.FC<ProductDetailContent> = ({
             event.preventDefault();
     }
 
-    const onSubmit = () => {
-        
-        router.push(`/product/payment/${id}`)
+    const onSubmit = async () => {
+        for (const date in selectedSlots) {
+            const slot = selectedSlots[date]
+            console.log(slot, date)
+
+            if (id && user && user.id) {
+                const availableSlot = await checkSlotService({
+                    userId: user.id,
+                    numberSlot: slot,
+                    postId: id,
+                    dateRegis: date
+                })
+
+                if (availableSlot.errorMsg) {
+                    toast.error(`Chỗ ${slot} của ${date} không còn đủ`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    return
+                } 
+            }
+        }
     }
 
     return (

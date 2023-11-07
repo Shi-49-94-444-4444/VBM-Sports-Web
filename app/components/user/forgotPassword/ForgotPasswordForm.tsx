@@ -25,7 +25,6 @@ const ForgotPasswordForm = () => {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors }
     } = useForm<getOtp>({
         resolver: yupResolver(forgotPasswordSchema),
@@ -36,28 +35,22 @@ const ForgotPasswordForm = () => {
 
         const res = await forgotPasswordService(data)
 
-        console.log("forgot: ", res)
-
-        if (res.token) {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
-            localStorage.setItem("email", JSON.stringify(data.email))
-            Cookies.set("token", res.token)
-
-            const result = await sendOTP(data.email, res.otp)
-
-            if (result.success) {
-                setIsForgot(true)
-            }
-        } else if (res.errorCode) {
-            setError("email", { message: "Tài khoản không tồn tại" })
-        } else {
+        if (res.data == null) {
             toast.error(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
+            if (setIsLoading) setIsLoading(false)
+            return
         }
+
+        localStorage.setItem("email", JSON.stringify(data.email))
+        Cookies.set("token", res.data.token)
+
+        // const result = await sendOTP(data.email, res.otp)
+
+        // if (result.success) {
+        setIsForgot(true)
+        // }
 
         if (setIsLoading) setIsLoading(false)
     }
