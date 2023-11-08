@@ -1,6 +1,5 @@
-import { RegisterFormData } from '@/types';
-import { toast } from 'react-toastify';
-import AxiosClient from '../AxiosInstance';
+import { RegisterFormData } from '@/types'
+import AxiosClient from '../AxiosInstance'
 
 const registerService = async (data: RegisterFormData) => {
     try {
@@ -11,20 +10,17 @@ const registerService = async (data: RegisterFormData) => {
             password: data.password,
             reEnterPass: data.confirmPassword,
             userName: data.name.trim(),
-        });
-
-        // if (!response.data) {
-        //     throw new Error('Đăng ký thất bại');
-        // }
-
-        // toast.success('Đăng ký thành công!');
+        })
 
         return response.data;
 
-    } catch (error) {
-        // toast.error('Đăng ký thất bại. Vui lòng thử lại sau.');
-        console.log(error);
+    } catch (error: any) {
+        console.log(error)
+        
+        if (error && error.response) {
+            return error.response.data
+        }
     }
-};
+}
 
-export default registerService;
+export default registerService

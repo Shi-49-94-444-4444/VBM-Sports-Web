@@ -5,5 +5,5 @@ export default function UserDetailManagePage() {
         <AdminLayout>
             <UserDetailManage />
         </AdminLayout>
-    );
+    )
 }

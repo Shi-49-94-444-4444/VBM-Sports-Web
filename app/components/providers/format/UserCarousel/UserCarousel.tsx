@@ -20,7 +20,7 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const UserCarousel = () => {
     const { user } = useContext(GlobalContext) || {}
-    const { data: listUser, error } = useSWR<ListUser[]>('/api/users/GetListUser', fetcher)
+    const { data: listUser, error } = useSWR<ListUser>('/api/users/GetListUser', fetcher)
 
     const isLoading = !error && !listUser
 
@@ -37,7 +37,7 @@ const UserCarousel = () => {
         )
     }
 
-    if (listUser && listUser.length === 0) {
+    if (listUser && listUser.data == null) {
         return (
             <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách người dùng</p>
@@ -47,12 +47,12 @@ const UserCarousel = () => {
     }
 
     if (user) {
-        listUser?.filter(user => user.id?.toString() !== user.id?.toString())
+        listUser?.data.filter(users => users.id?.toString() !== user.id?.toString())
     } else {
         listUser
     }
 
-    const sliceItems = listUser && listUser.length > 0 ? listUser.slice(0, 12) : []
+    const sliceItems = listUser && listUser.data !== null ? listUser.data.slice(0, 12) : []
 
     return (
         <Swiper

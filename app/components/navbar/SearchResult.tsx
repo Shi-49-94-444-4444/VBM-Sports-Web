@@ -1,11 +1,11 @@
-import { ListProduct } from "@/types";
+import { ListProductData } from "@/types";
 import { formatMoney, validateTitle, validateURLProduct } from "@/utils";
 import Decimal from "decimal.js";
 import Image from "next/image";
 import Link from "next/link";
 
 interface SearchResultProps {
-    results: ListProduct[]
+    results: ListProductData[]
 }
 
 const SearchResult: React.FC<SearchResultProps> = ({ results }) => {

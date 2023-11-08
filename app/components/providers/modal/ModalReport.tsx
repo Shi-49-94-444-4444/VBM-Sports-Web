@@ -28,7 +28,7 @@ const ModalReport = ({ id }: { id: string }) => {
         if (setIsLoading) setIsLoading(true)
 
         if (!selectedReport) {
-            toast.error("Chọn tố cáo bạn muốn trước khi tố cáo", {
+            toast.error("Chọn tố cáo trước khi tố cáo", {
                 position: toast.POSITION.TOP_RIGHT
             })
             if (setIsLoading) setIsLoading(false)
@@ -42,20 +42,21 @@ const ModalReport = ({ id }: { id: string }) => {
                 toUserID: id
             })
 
-            console.log(res);
+            console.log(res)
             
-            if (res.message) {
-                toast.success(res.message, {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-
-                reportModal.onClose()
-            } else {
+            if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                reportModal.onClose()
+                if (setIsLoading) setIsLoading(false)
+                return
             }
+
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+
+            reportModal.onClose()
         }
 
         if (setIsLoading) setIsLoading(false)

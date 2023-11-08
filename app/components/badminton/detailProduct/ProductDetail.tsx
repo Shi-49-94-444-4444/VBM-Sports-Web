@@ -7,7 +7,7 @@ import { FormatTime, parseSlots, validateAddress } from "@/utils";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GlobalContext } from "@/contexts";
-import { checkSlotService } from "@/services";
+import { buySlotService, checkSlotService } from "@/services";
 import { toast } from "react-toastify";
 
 const ProductDetail: React.FC<ProductDetailContentData> = ({
@@ -44,7 +44,9 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     const handleInputChange = (date: string, value: number) => {
         const slot = DateSlot.find(item => item.date === date)?.slot || 0
         if (value > slot) {
-            alert(`Bạn chỉ có thể nhập tối đa ${slot}`)
+            toast.error(`Bạn chỉ có thể nhập tối đa ${slot}`, {
+                position: toast.POSITION.TOP_RIGHT
+            })
             return
         }
         setSelectedSlots(prevState => ({
@@ -61,9 +63,20 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     }
 
     const onSubmit = async () => {
+        if (setIsLoading) setIsLoading(true)
+
         for (const date in selectedSlots) {
             const slot = selectedSlots[date]
+
             console.log(slot, date)
+            
+            if (!date || slot === 0) {
+                toast.error("Phải chọn ngày và chỗ", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
 
             if (id && user && user.id) {
                 const availableSlot = await checkSlotService({
@@ -73,14 +86,36 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     dateRegis: date
                 })
 
-                if (availableSlot.errorMsg) {
-                    toast.error(`Chỗ ${slot} của ${date} không còn đủ`, {
+                if (availableSlot.data == null) {
+                    toast.error(`Chỗ đặt của ${date} không còn đủ`, {
                         position: toast.POSITION.TOP_RIGHT
                     })
+                    if (setIsLoading) setIsLoading(true)
                     return
-                } 
+                }
+
+                const res = await buySlotService({
+                    idUser: user.id,
+                    idSlot: availableSlot.data.slotsId
+                })
+
+                if (res.data == null) {
+                    toast.error("Đặt chỗ thất bại", {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(true)
+                    return
+                }
+
+                toast.success("Đặt chỗ thành công", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+
+                router.push(`/product/payment/${res.data.tranSactionId}`)
             }
         }
+
+        if (setIsLoading) setIsLoading(true)
     }
 
     return (

@@ -51,19 +51,26 @@ const SettingProfile = () => {
             try {
                 if (user && user.id) {
                     const listUser = await getUserProfileSettingService(user.id)
-                    if (listUser) {
-                        setValue('userName', listUser.userName);
-                        setValue('fullName', listUser.fullName);
-                        setValue('phoneNumber', listUser.phoneNumber);
-                        setValue('userAddress', listUser.userAddress);
-                        setValue('sortProfile', listUser.sortProfile);
-                        setValue('imgURL', listUser.imgUrl);
+
+                    if (listUser.data == null) {
+                        toast.error(listUser.message, {
+                            position: toast.POSITION.TOP_RIGHT
+                        })
+                        if (setIsLoadingPage) setIsLoadingPage(false)
+                        return
                     }
+
+                    setValue('userName', listUser.data.userName)
+                    setValue('fullName', listUser.data.fullName)
+                    setValue('phoneNumber', listUser.data.phoneNumber)
+                    setValue('userAddress', listUser.data.userAddress)
+                    setValue('sortProfile', listUser.data.sortProfile)
+                    setValue('imgURL', listUser.data.imgUrl)
                 }
 
                 if (setIsLoadingPage) setIsLoadingPage(false)
             } catch (error) {
-                console.log(error);
+                console.log(error)
                 if (setIsLoadingPage) setIsLoadingPage(false)
             }
         }

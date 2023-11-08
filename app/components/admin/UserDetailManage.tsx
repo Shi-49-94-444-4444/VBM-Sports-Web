@@ -47,7 +47,7 @@ const UserDetailManage = () => {
         { title: "Xoá bài viết", src: "" },
     ]
 
-    const { data: listPostForUser, error, isLoading } = useSWR<UserDetailManage[]>(id ? `/api/posts/${id}/managed_all_post` : "", fetcher)
+    const { data: listPostForUser, error, isLoading } = useSWR<UserDetailManage>(id ? `/api/posts/${id}/managed_all_post` : "", fetcher)
 
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
@@ -101,7 +101,7 @@ const UserDetailManage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {listPostForUser.map((item, index) => (
+                            {listPostForUser.data.map((item, index) => (
                                 <tr key={index}>
                                     <td className="py-3">{item.postId}</td>
                                     <td className="py-3"></td>

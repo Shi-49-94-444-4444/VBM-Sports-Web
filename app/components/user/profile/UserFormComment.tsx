@@ -23,14 +23,6 @@ const UserFormComment = ({ id }: { id: string }) => {
     const onSubmit = async () => {
         if (setIsLoading) setIsLoading(true)
 
-        if (errors) {
-            toast.error(errors.comment?.message, {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            if (setIsLoading) setIsLoading(false)
-            return
-        }
-
         if (user && user.id) {
             const res = await postCommentService({
                 fromUserID: user.id,
@@ -51,12 +43,6 @@ const UserFormComment = ({ id }: { id: string }) => {
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT
             })
-        } else {
-            toast.error("Bình luận thất bại! Vui lòng thử lại", {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            if (setIsLoading) setIsLoading(false)
-            return
         }
 
         if (setIsLoading) setIsLoading(false)
@@ -81,6 +67,7 @@ const UserFormComment = ({ id }: { id: string }) => {
                         name="comment"
                         value={formData.comment}
                         onChange={(e) => handleChange(e, setFormData)}
+                        errors={errors}
                     />
                 </div>
                 <div className="sm:col-span-1 col-span-2">

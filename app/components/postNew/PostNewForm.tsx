@@ -32,7 +32,6 @@ const PostNewForm = () => {
         startDate: null,
         endDate: null
     })
-    const [sessions, setSessions] = useState(0)
     const [selectedDays, setSelectedDays] = useState<Date[]>([])
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
@@ -47,22 +46,6 @@ const PostNewForm = () => {
 
     const { user, isLoading, setIsLoading } = useContext(GlobalContext) || {}
 
-    //Chọn buổi
-    const handleSessionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(e.target.value)
-        if (dateRange.startDate && dateRange.endDate) {
-            const diffInDays = differenceInDays(new Date(dateRange.endDate), new Date(dateRange.startDate)) + 1
-            if (value > diffInDays) {
-                toast.error(`Bạn chỉ có thể nhập tối đa ${diffInDays} buổi`, {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-                return
-            }
-        }
-        setSessions(value)
-        setSelectedDays([])
-    }
-
     //Chọn phạm vi ngày
     const handleDateChange = (newValue: any) => {
         const { startDate, endDate } = newValue;
@@ -72,21 +55,22 @@ const PostNewForm = () => {
                 toast.error('Khoảng cách giữa ngày bắt đầu và ngày kết thúc không được vượt quá 7 ngày', {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                return;
+                setDateRange({ startDate: null, endDate: null })
+                return
             }
         }
         setDateRange(newValue)
-        setSessions(0)
         setSelectedDays([])
     }
 
     //Chọn ngày
     const handleDayClick = (day: Date) => {
-        if (sessions > 0) {
-            const existingDay = selectedDays.find(selectedDate => isSameDay(selectedDate, day))
-            if (existingDay) {
-                setSelectedDays(prevDays => prevDays.filter(selectedDate => !isSameDay(selectedDate, day)))
-            } else if (selectedDays.length < sessions) {
+        const existingDay = selectedDays.find(selectedDate => isSameDay(selectedDate, day))
+        if (existingDay) {
+            setSelectedDays(prevDays => prevDays.filter(selectedDate => !isSameDay(selectedDate, day)))
+        } else if (dateRange.startDate && dateRange.endDate) {
+            const diffInDays = differenceInDays(new Date(dateRange.endDate), new Date(dateRange.startDate)) + 1
+            if (selectedDays.length < diffInDays) {
                 setSelectedDays(prevDays => [...prevDays, day])
             }
         }
@@ -175,16 +159,12 @@ const PostNewForm = () => {
         const formattedDates = formatSelectedDays()
         const { days, months, years } = formattedDates
 
-        if (!uploadImages[0] || !days || !startTime || !endTime || !selectCity || !selectDistrict || !selectWard || !dateRange.endDate || !dateRange.startDate || !sessions || sessions < 0) {
+        if (!uploadImages[0] || !startTime || !endTime || !selectCity || !selectDistrict || !selectWard || !dateRange.endDate || !dateRange.startDate || selectedDays.length === 0) {
             const start = stringToTime(startTime)
             const end = stringToTime(endTime)
 
             if (!dateRange.endDate || !dateRange.startDate) {
                 setError("dateScope", { message: "Không được để trống" })
-            }
-
-            if (!sessions || sessions < 0) {
-                setError("session", { message: "Phải lớn hơn 0" })
             }
 
             if (isBefore(end, start)) {
@@ -204,7 +184,7 @@ const PostNewForm = () => {
             }
 
             if (!uploadImages[0]) {
-                setError("imgURL", { message: "Không được để trống" })
+                setError("imgUrls", { message: "Không được để trống" })
             }
 
             if (!selectCity) {
@@ -219,23 +199,19 @@ const PostNewForm = () => {
                 setError("ward", { message: "Không được để trống" })
             }
 
-            if (!days) {
-                setError("day", { message: "Không được để trống" })
-            }
-
             if (!startTime || !endTime) {
                 setError("startTime", { message: "Không được để trống" })
             }
 
-            if (selectedDays.length < sessions) {
-                setError("day", { message: `Bạn phải chọn ${sessions} ngày chơi theo số buổi` })
+            if (selectedDays.length === 0) {
+                setError("day", { message: "Không được để trống" })
             }
 
             if (setIsLoading) setIsLoading(false)
             return
         }
 
-        // console.log(user?.id, data.title, `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${data.address}`, days, months, years, startTime, endTime, data.availableSlot, data.price, data.description, uploadImages)
+        console.log(user?.id, data.title, `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${data.address}`, days, months, years, startTime, endTime, data.availableSlot, data.price, data.description, uploadImages)
 
         if (user) {
             const res = await postBadmintonService({
@@ -251,7 +227,7 @@ const PostNewForm = () => {
                 price: data.price,
                 description: data.description,
                 highlightUrl: uploadImages[0],
-                imgURL: uploadImages
+                imgUrls: uploadImages
             })
 
             console.log(res)
@@ -273,13 +249,14 @@ const PostNewForm = () => {
         if (setIsLoading) setIsLoading(false)
     }
 
+
     return (
         <form className="grid lg:grid-cols-2 grid-cols-1 gap-10" onSubmit={handleSubmit(onSubmit)}>
             <div className="col-span-1">
                 <ThumbGallery setImages={setUploadImages} />
-                {errors.imgURL &&
+                {errors.imgUrls &&
                     <p className="text-red-500 font-medium h-4">
-                        {errors.imgURL.message}
+                        {errors.imgUrls.message}
                     </p>
                 }
             </div>
@@ -432,31 +409,8 @@ const PostNewForm = () => {
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1 flex flex-col">
-                                <label className="text-lg font-semibold text-gray-600">Buổi:</label>
-                                <span className="text-gray-500">(Số buổi nhập không được vượt qua số ngày chọn)</span>
-                            </div>
-                            <div className="col-span-2">
-                                <Input
-                                    name="sessions"
-                                    colorInput="bg-[#F5F5F5] border-none"
-                                    type="number"
-                                    value={sessions}
-                                    onChange={handleSessionChange}
-                                    disabled={!dateRange.startDate || !dateRange.endDate}
-                                    maxLength={1}
-                                />
-                                {errors.session &&
-                                    <p className="text-red-500 font-medium h-4">
-                                        {errors.session.message}
-                                    </p>
-                                }
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1 flex flex-col">
-                                <label className="text-lg font-semibold text-gray-600">Ngày:</label>
-                                <span className="text-gray-500">(Số ngày chọn không vượt qua số buổi nhập)</span>
+                            <div className="col-span-1">
+                                <label className="text-lg font-semibold text-gray-600">Chọn Ngày:</label>
                             </div>
                             <div className="col-span-2">
                                 {dateRange.startDate && dateRange.endDate && (
@@ -469,7 +423,6 @@ const PostNewForm = () => {
                                                 key={index}
                                                 title={format(date, 'dd/MM/yyyy')}
                                                 onClick={() => handleDayClick(date)}
-                                                style={{ cursor: sessions > 0 ? 'pointer' : 'not-allowed' }}
                                                 className={`
                                                     border 
                                                     border-black 

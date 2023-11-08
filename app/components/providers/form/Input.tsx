@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({
     flagInput,
     rowArea,
     maxLength,
-    isMoney
+    isMoney,
 }) => {
     return (
         <div className="gap-1 transition duration-300">
@@ -110,7 +110,7 @@ const Input: React.FC<InputProps> = ({
                 )}
             </div>
             {errors && (
-                <p className="text-red-500 font-medium h-4">
+                <p className="text-red-500 font-medium h-4 text-left">
                     {errors[id]?.message?.toString()}
                 </p>
             )}

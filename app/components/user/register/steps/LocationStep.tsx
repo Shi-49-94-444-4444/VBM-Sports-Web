@@ -47,7 +47,7 @@ const LocationStep = () => {
 
     const handleItemClick = (index: number) => {
         setSelectedItem(prevSelectedItem => prevSelectedItem === index ? null : index);
-    };
+    }
 
     if (!locations) {
         return <LoadingFullScreen loading={isLoadingPage ?? true} />

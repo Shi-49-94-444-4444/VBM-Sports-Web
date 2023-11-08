@@ -19,7 +19,7 @@ const QuickList = () => {
         return <LoadingFullScreen loading={isLoading} />
     }
 
-    if (listProduct && listProduct.data && listProduct.data.length == 0) {
+    if (listProduct && listProduct.data == null) {
         return (
             <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
@@ -37,7 +37,7 @@ const QuickList = () => {
         )
     }
 
-    const sliceItems = listProduct && listProduct.data && listProduct.data.length > 0 ? listProduct.data.slice(0, 12) : []
+    const sliceItems = listProduct && listProduct.data !== null ? listProduct.data.slice(0, 12) : []
 
     return (
         <div className="relative py-10">

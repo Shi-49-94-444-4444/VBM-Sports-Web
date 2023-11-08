@@ -34,27 +34,29 @@ const ModalRecharge = () => {
 
             console.log(res)
 
-            if (res.newBalance) {
-                toast.success("Nạp tiền thành công", {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-
-                if (setUser) {
-                    setUser(prevUser => {
-                        const updatedUser = { ...prevUser, balance: res.newBalance }
-                        localStorage.setItem("user", JSON.stringify(updatedUser))
-                        return updatedUser
-                    })
-                }
-
-                rechargeModal.onClose()
-                if (setIsLoading) setIsLoading(false)
-            } else {
-                toast.error("Nạp tiền thất bại", {
+            if (res.data == null) {
+                toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 if (setIsLoading) setIsLoading(false)
+                return
+            } 
+
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+
+            if (setUser) {
+                setUser(prevUser => {
+                    const updatedUser = { ...prevUser, balance: res.data.newBalance }
+                    localStorage.setItem("user", JSON.stringify(updatedUser))
+                    return updatedUser
+                })
             }
+
+            rechargeModal.onClose()
+            
+            if (setIsLoading) setIsLoading(false)
         }
     }
 

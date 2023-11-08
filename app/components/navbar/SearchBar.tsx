@@ -13,13 +13,13 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const SearchBar = () => {
     const { setSearchValue, searchValue, setSearchResults, searchResults } = useContext(GlobalContext) || {}
 
-    const { data: listProduct } = useSWR<ListProduct[]>('/api/posts/GetListPost', fetcher)
+    const { data: listProduct } = useSWR<ListProduct>('/api/posts/GetListPost', fetcher)
 
     const fetchValue = async (value: string) => {
         if (value.trim() === "") {
             if (setSearchResults) setSearchResults([]);
         } else {
-            const filterResult = listProduct?.filter((result) => {
+            const filterResult = listProduct?.data.filter((result) => {
                 return result.title?.toLowerCase().includes(value.toLowerCase())
             })
 

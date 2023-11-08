@@ -91,6 +91,17 @@ export interface UserProfileData {
     helpful?: number | null
 }
 export interface ListUser {
+    message: string
+    data: {
+        id?: string | null
+        imgUrl?: string | null
+        userName?: string | nul
+        sortProfile?: string | null
+        totalRate?: number | null
+        flagRegister?: boolean | false
+    }[]
+}
+export interface ListUserData {
     id?: string | null
     imgUrl?: string | null
     userName?: string | nul

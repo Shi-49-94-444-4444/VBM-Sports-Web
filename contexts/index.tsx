@@ -2,7 +2,7 @@
 
 import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { ListProduct } from '@/types';
+import { ListProductData } from '@/types';
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -43,8 +43,8 @@ interface GlobalContextProps {
     setShowMenu: React.Dispatch<React.SetStateAction<boolean | null>>
     searchValue: string | null
     setSearchValue: React.Dispatch<React.SetStateAction<string | null>>
-    searchResults: ListProduct[] | null
-    setSearchResults: React.Dispatch<React.SetStateAction<ListProduct[] | null>>
+    searchResults: ListProductData[] | null
+    setSearchResults: React.Dispatch<React.SetStateAction<ListProductData[] | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -56,7 +56,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isLoadingPage, setIsLoadingPage] = useState<boolean | null>(false);
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
-    const [searchResults, setSearchResults] = useState<ListProduct[] | null>([])
+    const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
 
     useEffect(() => {
         if (Cookies.get('token') !== undefined) {

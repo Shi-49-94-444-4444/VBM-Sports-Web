@@ -1,48 +1,50 @@
-import { FormData, getOtp, sendMail } from '@/types';
-import { toast } from 'react-toastify';
-import AxiosClient from '../AxiosInstance';
+import { FormData, getOtp, sendMail } from '@/types'
+import AxiosClient from '../AxiosInstance'
 
 export const forgotPasswordService = async (data: getOtp) => {
     try {
-        const response = await AxiosClient.get(`/api/users/${data.email}/verify_token`);
+        const response = await AxiosClient.get(`/api/users/${data.email}/verify_token`)
 
         return response.data
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
+        
+        if (error && error.response) {
+            return error.response.data
+        }
     }
-};
+}
 
 export const getSuggestPlayer = async (id: string) => {
     try {
-        const response = await AxiosClient.get(`/api/posts/user/${id}/suggestion`);
+        const response = await AxiosClient.get(`/api/posts/user/${id}/suggestion`)
 
         return response.data;
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
+        
+        if (error && error.response) {
+            return error.response.data
+        }
     }
-};
+}
 
 export const verifyOTPService = async (data: sendMail) => {
     try {
         const response = await AxiosClient.post('/api/users/verify_token', {
             verifyToken: data.otp,
             email: data.email,
-        });
-
-        if (!response.data) {
-            throw new Error('Xác thực thất bại');
-        }
-
-        // console.log(response.data);
-
-        toast.success('Xác thực thành công!');
+        })
 
         return response.data;
-    } catch (error) {
-        toast.error('Xác thực thất bại. Vui lòng thử lại sau.');
-        console.log(error);
+    } catch (error: any) {
+        console.log(error)
+        
+        if (error && error.response) {
+            return error.response.data
+        }
     }
-};
+}
 
 export const changePasswordService = async (data: FormData) => {
     try {
@@ -51,18 +53,13 @@ export const changePasswordService = async (data: FormData) => {
             reEnterPassword: data.confirmPassword,
         });
 
-        if (!response.data) {
-            throw new Error('Đổi mật khẩu thất bại');
-        }
-
-        // console.log(response.data);
-
-        toast.success('Đổi mật khẩu thành công!');
-
         return response.data;
-    } catch (error) {
-        toast.error('Đổi mật khẩu thất bại. Vui lòng thử lại sau.');
-        console.log(error);
+    } catch (error: any) {
+        console.log(error)
+        
+        if (error && error.response) {
+            return error.response.data
+        }
     }
-};
+}
 

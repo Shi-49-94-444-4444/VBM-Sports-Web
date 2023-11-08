@@ -93,7 +93,7 @@ export interface CreateBadmintonForm {
     availableSlot: string 
     description: string 
     highlightUrl: string 
-    imgURL: string[] 
+    imgUrls: string[] 
 }
 export interface CreateBadmintonFormData {
     title: string 
@@ -109,7 +109,7 @@ export interface CreateBadmintonFormData {
     price: number 
     availableSlot: string 
     description: string 
-    imgURL?: string[] 
+    imgUrls?: string[] 
 }
 
 export interface ReportUserFormData {
@@ -127,9 +127,13 @@ export interface WalletFromData {
     money: number
 }
 
-export interface checkSlotFormData {
+export interface CheckSlotFormData {
     userId: string
     numberSlot: number
     postId: string
     dateRegis: string
+}
+export interface buySlotFormData {
+    idUser: string
+    idSlot: number[]
 }

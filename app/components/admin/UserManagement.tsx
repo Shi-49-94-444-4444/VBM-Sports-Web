@@ -48,9 +48,9 @@ const UserManagement = () => {
         { title: "Xem trang cá nhân", src: (userId: String | null) => "" },
     ]
 
-    const { data: listManageUser, error, isLoading } = useSWR<ManageUser[]>(user ? `/api/users/managed/${user.id}` : "", fetcher)
+    const { data: listManageUser, error, isLoading } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : "", fetcher)
 
-    const filteredUsers = listManageUser && listManageUser.filter(user => user.fullName && user.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
+    const filteredUsers = listManageUser && listManageUser.data && listManageUser.data.filter(user => user.fullName && user.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
 
     console.log(searchTerm)
 
@@ -82,7 +82,7 @@ const UserManagement = () => {
             </div>
             {isLoading ? (
                 <LoadingFullScreen loading={isLoading} />
-            ) : !listManageUser ? (
+            ) : listManageUser && listManageUser.data == null ? (
                 <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold">
                     Không có người dùng nào tồn tại
                 </div>

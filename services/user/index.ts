@@ -1,14 +1,17 @@
 import { CommentFormData, WalletFromData, ReportUserFormData, UserProfileFormData } from "@/types"
 import AxiosClient from "../AxiosInstance"
-import { toast } from "react-toastify"
 
 export const getListUserService = async () => {
     try {
         const response = await AxiosClient.get(`/api/users/GetListUser`)
 
         return response.data
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }
 
@@ -17,8 +20,12 @@ export const getUserProfileService = async (id: string) => {
         const response = await AxiosClient.get(`/api/users/${id}/profile`)
 
         return response.data
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }
 
@@ -27,8 +34,12 @@ export const getUserProfileSettingService = async (id: string) => {
         const response = await AxiosClient.get(`/api/users/user_id?user_id=${id}`)
 
         return response.data
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }
 
@@ -43,16 +54,13 @@ export const putProfileUserService = async (data: UserProfileFormData) => {
             imgUrl: data.imgURL
         })
 
-        if (!response.data) {
-            throw new Error('Lưu thất bại')
-        }
-
-        toast.success('Lưu thành công!')
-
         return response.data
-    } catch (error) {
-        toast.error('Lưu thất bại. Vui lòng thử lại sau.')
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }
 
@@ -62,16 +70,13 @@ export const postCommentService = async (data: CommentFormData) => {
             content: data.content
         })
 
-        if (!response.data) {
-            throw new Error('Bình luận thất bại')
-        }
-
-        toast.success('Bình luận thành công!')
-
         return response.data
-    } catch (error) {
-        toast.error('Bình luận thất bại. Vui lòng thử lại sau.')
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }
 
@@ -80,8 +85,12 @@ export const getCommentService = async (id: string) => {
         const response = await AxiosClient.get(`/api/users/${id}/comments`)
 
         return response.data
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }
 
@@ -91,16 +100,13 @@ export const postReportUserService = async (data: ReportUserFormData) => {
             content: data.content
         })
 
-        if (!response.data) {
-            throw new Error('Tố cáo thất bại')
-        }
-
-        toast.success('Tố cáo thành công!')
-
         return response.data
-    } catch (error) {
-        toast.error('Tố cáo thất bại. Vui lòng thử lại sau.')
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }
 
@@ -111,7 +117,11 @@ export const WalletService = async (data: WalletFromData) => {
         })
 
         return response.data
-    } catch (error) {
+    } catch (error: any) {
         console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
     }
 }

@@ -8,9 +8,9 @@ import {
     validateName,
     validateURLAvatar
 } from "@/utils"
-import { ListUser } from "@/types"
+import { ListUserData } from "@/types"
 
-const UserOther: React.FC<ListUser> = ({
+const UserOther: React.FC<ListUserData> = ({
     id,
     imgUrl,
     userName,
@@ -126,7 +126,6 @@ const UserOther: React.FC<ListUser> = ({
                                     hover:rounded-t-lg
                                     object-cover
                                 "
-                                priority
                                 fill
                                 sizes="(max-width: 600px) 100vw, 600px"
                                 draggable="false"
