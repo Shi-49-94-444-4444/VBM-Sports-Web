@@ -2,7 +2,7 @@
 
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
-import { WalletService, deleteTransactionService, transactionStatusService } from "@/services"
+import { WalletService, transactionStatusService } from "@/services"
 import Decimal from "decimal.js"
 import { useContinuePaymentModal, useFailPaymentModal, useNotEnoughMoneyModal, useSuccessPaymentModal } from "@/hooks"
 import CustomModal from "./Modal"
@@ -55,7 +55,6 @@ const ModalContinuePayment = ({ total, tran_id }: { total: string, tran_id: stri
                 return
             }
 
-            await deleteTransactionService({ tran_id: Number(tran_id) })
             if (setTransactionId) setTransactionId(null)
             localStorage.removeItem("transactionID")
 
