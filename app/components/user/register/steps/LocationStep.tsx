@@ -40,7 +40,7 @@ const LocationStep = () => {
             const selectedGrounds = [locations[selectedItem]]
             setUser(prevUser => ({
                 ...prevUser,
-                playingArea: selectedGrounds
+                playingArea: selectedGrounds[1]
             }));
         }
     }, [selectedItem, locations, setUser]);

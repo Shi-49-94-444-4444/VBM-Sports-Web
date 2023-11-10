@@ -65,7 +65,7 @@ export const settingProfileSchema = yup.object().shape({
         matches(phoneRegExp, "Số điện thoại phải nhập số").
         min(7, "Số điện thoại có ít nhất 7 số").
         max(15, "Số điện thoại nhiều nhất 15 số"),
-    userAddress: yup.string().
+    playingArea: yup.string().
         required("Địa chỉ không được để trống ").
         min(10, "Tối thiểu 10 kí tự").
         max(100, "Nhiều nhất 100 kí tự"),

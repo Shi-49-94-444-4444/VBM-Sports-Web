@@ -26,7 +26,7 @@ const FormatMethod: React.FC<FormatMethodProps> = ({
                         alt="payment"
                         height={60}
                         width={60}
-                        className="object-cover"
+                        className="object-cover w-16 h-16"
                     />
                 </div>
                 <div className="flex flex-col gap-1">

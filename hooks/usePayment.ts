@@ -29,3 +29,9 @@ export const useContinuePaymentModal = create<PaymentModalStore>((set) => ({
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false })
 }))
+
+export const useRoutePaymentModal = create<PaymentModalStore>((set) => ({
+    isOpen: false,
+    onOpen: () => set({ isOpen: true }),
+    onClose: () => set({ isOpen: false })
+}))

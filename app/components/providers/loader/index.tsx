@@ -54,15 +54,19 @@ export function LoadingActionWallet({ color, loading, size }: LoadingProps) {
 export function LoadingActionPayment({ color, loading, size }: LoadingProps) {
     return (
         <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${loading ? 'bg-black bg-opacity-50 z-[99999]' : ''}`}>
-            <FadeLoader
-                color={color || "#204D94"}
-                loading={loading}
-                height={size || 15}
-                width={size || 5}
-                data-testid="loader"
-            />
-            <div className="pt-5 text-3xl font-semibold text-black">Đang trong quá trình thanh toán</div>
-            <div className="text-lg font-medium text-gray-500">Bạn vui lòng chờ trong giây lát, hệ thống đang chờ xử lý thanh toán của bạn</div>
+            <div className="flex flex-col items-center justify-center bg-white rounded-lg p-10">
+                <FadeLoader
+                    color={color || "#204D94"}
+                    loading={loading}
+                    height={size || 25}
+                    margin={20}
+                    width={size || 7}
+                    radius={10}
+                    data-testid="loader"
+                />
+                <div className="pt-5 text-3xl font-semibold text-black">Đang trong quá trình thanh toán</div>
+                <div className="text-lg font-medium text-gray-500">Bạn vui lòng chờ trong giây lát, hệ thống đang chờ xử lý thanh toán của bạn</div>
+            </div>
         </div>
     );
 }

@@ -49,7 +49,7 @@ export const putProfileUserService = async (data: UserProfileFormData) => {
             userName: data.userName,
             fullName: data.fullName,
             phoneNumber: data.phoneNumber,
-            userAddress: data.userAddress,
+            playingArea: data.playingArea,
             sortProfile: data.sortProfile,
             imgUrl: data.imgURL
         })

@@ -108,6 +108,20 @@ export const buySlotService = async (data: buySlotFormData) => {
     }
 }
 
+export const deleteTransactionService = async ({ tran_id }: { tran_id: number }) => {
+    try {
+        const response = await AxiosClient.delete(`/api/transactions/${tran_id}/discard`)
+
+        return response.data
+    } catch (error: any) {
+        console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
 export const transactionStatusService = async ({ tran_id, status_info }: { tran_id: number, status_info: number }) => {
     try {
         const response = await AxiosClient.put(`/api/transactions/${tran_id}/status_info/${status_info}`)

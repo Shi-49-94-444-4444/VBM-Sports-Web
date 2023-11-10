@@ -42,7 +42,7 @@ export interface StepFormData {
 }
 export interface PlayGroundFormData {
     userID: string;
-    grounds: string[];
+    grounds: string;
 }
 export interface PlayLevelFormData {
     userID: string;
@@ -57,7 +57,7 @@ export interface UserProfileSettingForm {
     userName: string 
     fullName: string 
     phoneNumber: string 
-    userAddress: string 
+    playingArea: string 
     sortProfile: string 
     imgURL: string
 }
@@ -66,7 +66,7 @@ export interface UserProfileFormData {
     userName?: string | null 
     fullName?: string | null 
     phoneNumber?: string | null 
-    userAddress?: string | null 
+    playingArea?: string | null 
     sortProfile?: string | null 
     imgURL?: string | null
 }

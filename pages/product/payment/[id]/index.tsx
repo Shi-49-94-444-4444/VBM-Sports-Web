@@ -4,6 +4,7 @@ import {
     Container,
     ModalFailPayment,
     ModalNotEnoughMoney,
+    ModalRoutePayment,
     ModalSuccessPayment,
     PaymentBillTotal,
     PaymentForm,
@@ -34,6 +35,7 @@ const PaymentPage = () => {
             <ModalNotEnoughMoney tran_id={payment.data.id}/>
             <ModalFailPayment tran_id={payment.data.id}/>
             <ModalSuccessPayment tran_id={payment.data.id}/>
+            <ModalRoutePayment tran_id={payment.data.id} />
             <Container>
                 <div className="relative py-5">
                     <div className="flex items-center justify-center py-5">
@@ -51,7 +53,7 @@ const PaymentPage = () => {
                     <PaymentVoucher />
                     <PaymentMethod />
                     <PaymentBillTotal total={payment.data.total} />
-                    <PaymentForm total={payment.data.total}/>
+                    <PaymentForm total={payment.data.total} tran_id={payment.data.id}/>
                 </div>
             </Container>
         </Layout>

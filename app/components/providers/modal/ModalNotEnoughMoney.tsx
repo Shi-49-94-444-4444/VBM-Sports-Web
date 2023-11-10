@@ -5,13 +5,19 @@ import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button } from "../form"
 import { useRouter } from "next/navigation"
+import { deleteTransactionService } from "@/services"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
 
 const ModalNotEnoughMoney = ({ tran_id }: { tran_id: string }) => {
     const router = useRouter()
     const notEnoughMoneyModal = useNotEnoughMoneyModal()
+    const { setTransactionId } = useContext(GlobalContext) || {}
 
-    const handleBackHome = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
+    const handleBackHome = async () => {
+        await deleteTransactionService({ tran_id: Number(tran_id) })
+        if (setTransactionId) setTransactionId(null)
+        localStorage.removeItem("transactionID")
         router.push("/")
     }
 

@@ -20,7 +20,7 @@ const PaymentVoucher = () => {
                         placeholder="Combo box"
                     />
                     <div className="text-gray-600 text-xl">
-                        0đ
+                        0 VNĐ
                     </div>
                 </div>
             </div>

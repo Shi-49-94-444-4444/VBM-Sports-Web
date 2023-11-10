@@ -10,8 +10,7 @@ const ModalSuccessPayment = ({ tran_id }: { tran_id: string }) => {
     const router = useRouter()
     const successPaymentModal = useSuccessPaymentModal()
 
-    const handleBackHome = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
+    const handleBackHome = () => {
         router.push("/")
     }
 

@@ -68,7 +68,7 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
             <Container>
                 <ProductContent
                     id={postId}
-                    imgUrl={Product.data.imgUrl}
+                    imageUrls={Product.data.imageUrls}
                     days={Product.data.days}
                     startTime={Product.data.startTime}
                     endTime={Product.data.endTime}
@@ -76,6 +76,7 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
                     categorySlot={Product.data.categorySlot}
                     levelSlot={Product.data.levelSlot}
                     availableSlot={Product.data.availableSlot}
+                    quantitySlot={Product.data.quantitySlot}
                 />
                 <ProductUserPost
                     id={postId}

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -43,27 +44,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    function ({ addComponents }) {
-      addComponents({
-        ".title-custom": {
-          fontWeight: "600",
-          fontSize: "1.25rem",
-          lineHeight: "1.75rem",
-          transitionProperty: "all",
-          transitionDuration: "0.5s",
-          "@screen md": {
-            fontSize: "1.5rem",
-            lineHeight: "2rem",
-          },
-          "@screen lg": {
-            fontSize: "1.875rem",
-            lineHeight: "2.25rem",
-          },
-          color: "#333",
-        },
-      });
-    },
-    require("@tailwindcss/forms"),
-  ],
+  plugins: [require("@tailwindcss/forms")],
 };

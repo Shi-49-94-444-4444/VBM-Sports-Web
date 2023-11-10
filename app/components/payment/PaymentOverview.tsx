@@ -15,7 +15,7 @@ const PaymentOverview: React.FC<TransactionPaymentDetailData> = ({
                 <ImageCarousel
                     key={id}
                     id={id}
-                    imgUrl={post && post.imageUrls}
+                    imageUrls={post && post.imageUrls}
                 />
             </div>
             <div className="xl:col-span-3 lg:col-span-4 p-4 col-span-1 transition-all duration-500">

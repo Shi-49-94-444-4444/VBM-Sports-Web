@@ -11,9 +11,9 @@ import { ProductDetailContentData } from '@/types';
 SwiperCore.use([Pagination]);
 
 const ImageCarousel: React.FC<ProductDetailContentData> = ({
-    imgUrl
+    imageUrls
 }) => {
-    const images = Array.isArray(imgUrl) ? imgUrl : (imgUrl ? [imgUrl] : []);
+    const images = Array.isArray(imageUrls) ? imageUrls : (imageUrls ? [imageUrls] : []);
 
     return (
         <Swiper

@@ -3,6 +3,9 @@
 import React, { FC, createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { ListProductData } from '@/types';
+import { useRouter } from 'next/router';
+import { useRoutePaymentModal } from '@/hooks';
+import { deleteTransactionService } from '@/services';
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -13,7 +16,7 @@ interface User {
     fullName?: string | null
     email?: string | null
     avatar?: string | null
-    playingArea?: string[] | null
+    playingArea?: string | null
     playingLevel?: number | null
     playingWay?: string[] | null
     token?: string | null
@@ -45,11 +48,17 @@ interface GlobalContextProps {
     setSearchValue: React.Dispatch<React.SetStateAction<string | null>>
     searchResults: ListProductData[] | null
     setSearchResults: React.Dispatch<React.SetStateAction<ListProductData[] | null>>
+    routeUrl: string | null
+    setRouteUrl: React.Dispatch<React.SetStateAction<string | null>>
+    transactionId: string | null
+    setTransactionId: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
 
 const GlobalState: FC<GlobalStateProps> = ({ children }) => {
+    const router = useRouter()
+    const routePaymentModal = useRoutePaymentModal()
     const [isAuthUser, setIsAuthUser] = useState<boolean | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState<boolean | null>(false);
@@ -57,22 +66,44 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
     const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
+    const [routeUrl, setRouteUrl] = useState<string | null>(null)
+    const [transactionId, setTransactionId] = useState<string | null>(null)
 
     useEffect(() => {
         if (Cookies.get('token') !== undefined) {
             setIsAuthUser(true)
             const userData = JSON.parse(localStorage.getItem('user')!) || {}
-            if (userData) {
-                setUser(userData)
-            } else {
-                setIsAuthUser(false)
-                setUser(null)
-            }
+            const transactionData = JSON.parse(localStorage.getItem('transactionId')!) || {}
+            setUser(userData)
+            setTransactionId(transactionData)
         } else {
             setIsAuthUser(false)
             setUser(null)
         }
     }, [])
+
+    useEffect(() => {
+        const handleRoutePayment = async (url: string) => {
+            if (transactionId && router.asPath.startsWith("/product/payment/") && !url.startsWith("/product/payment/")) {
+                const userConfirmed = window.confirm('Bạn có chắc chắn muốn rời khỏi trang này không?');
+                if (!userConfirmed) {
+                    router.events.emit('routeChangeError', new Error('Route change aborted'), url);
+                    throw 'Route change aborted'
+                }
+                //  else {
+                //     await deleteTransactionService({ tran_id: Number(transactionId) })
+                //     if (setTransactionId) setTransactionId(null)
+                //     localStorage.removeItem("transactionID")
+                // }
+            }
+        }
+
+        router.events.on('routeChangeStart', handleRoutePayment);
+
+        return () => {
+            router.events.off('routeChangeStart', handleRoutePayment);
+        }
+    }, [router])
 
     return (
         <GlobalContext.Provider
@@ -91,6 +122,10 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 searchValue,
                 setSearchResults,
                 setSearchValue,
+                routeUrl,
+                setRouteUrl,
+                setTransactionId,
+                transactionId
             }}
         >
             {children}

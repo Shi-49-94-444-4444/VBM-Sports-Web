@@ -4,6 +4,7 @@ import ModalRecharge from "./ModalRecharge"
 import ModalNotEnoughMoney from "./ModalNotEnoughMoney"
 import ModalFailPayment from "./ModalFailPayment"
 import ModalSuccessPayment from "./ModalSuccessPayment"
+import ModalRoutePayment from "./ModalRoutePayment"
 
 export {
     ModalReport,
@@ -11,5 +12,6 @@ export {
     ModalRecharge,
     ModalNotEnoughMoney,
     ModalFailPayment,
-    ModalSuccessPayment
+    ModalSuccessPayment,
+    ModalRoutePayment
 }

@@ -36,7 +36,7 @@ const SettingProfile = () => {
             userName: '',
             fullName: '',
             phoneNumber: '',
-            userAddress: '',
+            playingArea: '',
             sortProfile: '',
             imgURL: ''
         }
@@ -63,7 +63,7 @@ const SettingProfile = () => {
                     setValue('userName', listUser.data.userName)
                     setValue('fullName', listUser.data.fullName)
                     setValue('phoneNumber', listUser.data.phoneNumber)
-                    setValue('userAddress', listUser.data.userAddress)
+                    setValue('playingArea', listUser.data.playingArea)
                     setValue('sortProfile', listUser.data.sortProfile)
                     setValue('imgURL', listUser.data.imgUrl)
                 }
@@ -116,7 +116,7 @@ const SettingProfile = () => {
             userName: data.userName,
             fullName: data.fullName,
             phoneNumber: data.phoneNumber,
-            userAddress: data.userAddress,
+            playingArea: data.playingArea,
             sortProfile: data.sortProfile,
             imgURL: data.imgURL
         })
@@ -140,7 +140,7 @@ const SettingProfile = () => {
             avatar: data.imgURL,
             fullName: data.fullName,
             userName: data.userName,
-            userAddress: data.userAddress,
+            playingArea: data.playingArea,
             sortProfile: data.sortProfile
         }))
         localStorage.setItem("user", JSON.stringify(user))

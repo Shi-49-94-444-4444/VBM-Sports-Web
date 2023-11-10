@@ -3,7 +3,7 @@
 import { ProductDetailContentData } from "@/types"
 import { Button } from "../../providers"
 import { useRouter } from "next/navigation";
-import { FormatTime, parseSlots, validateAddress } from "@/utils";
+import { FormatTime, getDates, parseSlots, validateAddress, validateDate } from "@/utils";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { GlobalContext } from "@/contexts";
@@ -17,13 +17,16 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     addressSlot,
     availableSlot,
     levelSlot,
-    categorySlot
+    categorySlot,
+    days,
+    quantitySlot
 }) => {
     const router = useRouter()
-    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { user, setIsLoading, setTransactionId, isLoading } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
-    const DateSlot = parseSlots(availableSlot ?? [])
+    // const DateSlot = parseSlots(availableSlot ?? [])
+    const DateSlot = getDates(validateDate(days))
 
     const [selectedSlots, setSelectedSlots] = useState<{ [key: string]: number }>({})
 
@@ -42,17 +45,19 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     }
 
     const handleInputChange = (date: string, value: number) => {
-        const slot = DateSlot.find(item => item.date === date)?.slot || 0
-        if (value > slot) {
-            toast.error(`Bạn chỉ có thể nhập tối đa ${slot}`, {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            return
+        // const slot = DateSlot.find(item => item.date === date)?.slot || 0
+        if (quantitySlot) {
+            if (value > quantitySlot) {
+                toast.error(`Bạn chỉ có thể nhập tối đa ${quantitySlot}`, {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                return
+            }
+            setSelectedSlots(prevState => ({
+                ...prevState,
+                [date]: value
+            }))
         }
-        setSelectedSlots(prevState => ({
-            ...prevState,
-            [date]: value
-        }))
     }
 
     const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -69,7 +74,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
             const slot = selectedSlots[date]
 
             console.log(slot, date)
-            
+
             if (!date || slot === 0) {
                 toast.error("Phải chọn ngày và chỗ", {
                     position: toast.POSITION.TOP_RIGHT
@@ -86,11 +91,13 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     dateRegis: date
                 })
 
+                console.log(availableSlot)
+
                 if (availableSlot.data == null) {
                     toast.error(`Chỗ đặt của ${date} không còn đủ`, {
                         position: toast.POSITION.TOP_RIGHT
                     })
-                    if (setIsLoading) setIsLoading(true)
+                    if (setIsLoading) setIsLoading(false)
                     return
                 }
 
@@ -99,11 +106,13 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     idSlot: availableSlot.data.slotsId
                 })
 
+                console.log(res)
+
                 if (res.data == null) {
                     toast.error("Đặt chỗ thất bại", {
                         position: toast.POSITION.TOP_RIGHT
                     })
-                    if (setIsLoading) setIsLoading(true)
+                    if (setIsLoading) setIsLoading(false)
                     return
                 }
 
@@ -111,11 +120,13 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     position: toast.POSITION.TOP_RIGHT
                 })
 
+                if (setTransactionId) setTransactionId(res.data.tranSactionId)
+                localStorage.setItem("transactionId", res.data.transactionId)
                 router.push(`/product/payment/${res.data.tranSactionId}`)
             }
         }
 
-        if (setIsLoading) setIsLoading(true)
+        if (setIsLoading) setIsLoading(false)
     }
 
     return (
@@ -169,11 +180,11 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     <div className="break-words flex flex-wrap items-center gap-2" key={index}>
                         <input
                             type="checkbox"
-                            onChange={(e) => handleCheckboxChange(item.date, e.target.checked)}
+                            onChange={(e) => handleCheckboxChange(item, e.target.checked)}
                             className="ring-0 outline-none focus:ring-0 focus:outline-none"
                         />
                         <span>
-                            {item.date}
+                            {item}
                         </span>
                         <section className="flex space-x-1 items-center">
                             <span>-</span>
@@ -183,16 +194,16 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                             <input
                                 type="number"
                                 pattern="^(0|[1-9][0-9]*)$"
-                                min={selectedSlots[item.date] || 0}
-                                max={item.slot}
-                                value={selectedSlots[item.date] || 0}
-                                disabled={!selectedSlots[item.date]}
-                                onChange={(e) => handleInputChange(item.date, Number(e.target.value))}
+                                min={selectedSlots[item] || 0}
+                                max={item}
+                                value={selectedSlots[item] || 0}
+                                disabled={!selectedSlots[item]}
+                                onChange={(e) => handleInputChange(item, Number(e.target.value))}
                                 onKeyPress={handleKeyPress}
-                                className={`px-1 py-1 w-10 text-center ${selectedSlots[item.date] ? '' : 'cursor-not-allowed bg-gray-300'}`}
+                                className={`px-1 py-1 w-10 text-center ${selectedSlots[item] ? '' : 'cursor-not-allowed bg-gray-300'}`}
                             />
                             <span>
-                                /{item.slot}
+                                /{quantitySlot}
                             </span>
                         </section>
                     </div>

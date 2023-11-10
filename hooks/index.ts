@@ -1,5 +1,5 @@
 import { useWithdrawModal, useRechargeModal } from "./useWallet"
-import { useNotEnoughMoneyModal, useContinuePaymentModal, useFailPaymentModal, useSuccessPaymentModal } from "./usePayment"
+import { useNotEnoughMoneyModal, useRoutePaymentModal, useContinuePaymentModal, useFailPaymentModal, useSuccessPaymentModal } from "./usePayment"
 import { useReportModal } from "./useReport"
 
 export {
@@ -9,5 +9,6 @@ export {
     useNotEnoughMoneyModal,
     useSuccessPaymentModal,
     useReportModal,
-    useContinuePaymentModal
+    useContinuePaymentModal,
+    useRoutePaymentModal
 }
