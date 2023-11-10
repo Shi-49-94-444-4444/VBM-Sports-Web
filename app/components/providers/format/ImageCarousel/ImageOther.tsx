@@ -28,6 +28,8 @@ const ImageItemOther = ({ src }: { src?: string | null }) => {
                     sizes="(max-width: 600px) 100vw, 600px"
                     fill
                     draggable="false"
+                    loading="lazy"
+                    blurDataURL={validateURLProduct(src)}
                 />
             </div>
         </div>

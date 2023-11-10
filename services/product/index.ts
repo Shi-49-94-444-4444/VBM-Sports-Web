@@ -8,7 +8,7 @@ export const getListProductService = async () => {
         return response.data;
     } catch (error: any) {
         console.log(error)
-        
+
         if (error && error.response) {
             return error.response.data
         }
@@ -22,7 +22,7 @@ export const getProductService = async (id: string) => {
         return response.data
     } catch (error: any) {
         console.log(error)
-        
+
         if (error && error.response) {
             return error.response.data
         }
@@ -36,7 +36,7 @@ export const getProductSuggestService = async (id: string) => {
         return response.data;
     } catch (error: any) {
         console.log(error)
-        
+
         if (error && error.response) {
             return error.response.data
         }
@@ -61,11 +61,11 @@ export const postBadmintonService = async (data: CreateBadmintonForm) => {
             highlightUrl: data.highlightUrl,
             imgUrls: data.imgUrls
         })
-        
+
         return response.data;
     } catch (error: any) {
         console.log(error)
-        
+
         if (error && error.response) {
             return error.response.data
         }
@@ -84,7 +84,7 @@ export const checkSlotService = async (data: CheckSlotFormData) => {
         return response.data
     } catch (error: any) {
         console.log(error)
-        
+
         if (error && error.response) {
             return error.response.data
         }
@@ -101,7 +101,21 @@ export const buySlotService = async (data: buySlotFormData) => {
         return response.data
     } catch (error: any) {
         console.log(error)
-        
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
+export const transactionStatusService = async ({ tran_id, status_info }: { tran_id: number, status_info: number }) => {
+    try {
+        const response = await AxiosClient.put(`/api/transactions/${tran_id}/status_info/${status_info}`)
+
+        return response.data
+    } catch (error: any) {
+        console.log(error)
+
         if (error && error.response) {
             return error.response.data
         }

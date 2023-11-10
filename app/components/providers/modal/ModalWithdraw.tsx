@@ -5,7 +5,7 @@ import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button, Input } from "../form"
 import { toast } from "react-toastify"
-import { LoadingAction } from "../loader"
+import { LoadingActionWallet } from "../loader"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
@@ -61,7 +61,7 @@ const ModalWithdraw = () => {
     }
 
     if (isLoading) {
-        return <LoadingAction loading={isLoading} />
+        return <LoadingActionWallet loading={isLoading} />
     }
 
     return (

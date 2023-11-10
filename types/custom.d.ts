@@ -9,6 +9,7 @@ export interface ButtonProps {
     disabled?: boolean
     isHover?: boolean
     color?: string
+    text?: string
 }
 
 export interface InputProps {

@@ -1,9 +1,13 @@
-import useReportModal from "./useReportModal"
-import useWithdrawModal from "./useWithdrawModal"
-import useRechargeModal from "./useRechargeModal"
+import { useWithdrawModal, useRechargeModal } from "./useWallet"
+import { useNotEnoughMoneyModal, useContinuePaymentModal, useFailPaymentModal, useSuccessPaymentModal } from "./usePayment"
+import { useReportModal } from "./useReport"
 
 export {
-    useReportModal,
     useRechargeModal,
-    useWithdrawModal
+    useWithdrawModal,
+    useFailPaymentModal,
+    useNotEnoughMoneyModal,
+    useSuccessPaymentModal,
+    useReportModal,
+    useContinuePaymentModal
 }

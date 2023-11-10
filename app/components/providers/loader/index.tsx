@@ -37,7 +37,7 @@ export function LoadingFullScreen({ color, loading, size, height }: LoadingProps
     );
 }
 
-export function LoadingAction({ color, loading, size }: LoadingProps) {
+export function LoadingActionWallet({ color, loading, size }: LoadingProps) {
     return (
         <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${loading ? 'bg-black bg-opacity-50 z-[99999]' : ''}`}>
             <FadeLoader
@@ -47,6 +47,22 @@ export function LoadingAction({ color, loading, size }: LoadingProps) {
                 width={size || 5}
                 data-testid="loader"
             />
+        </div>
+    );
+}
+
+export function LoadingActionPayment({ color, loading, size }: LoadingProps) {
+    return (
+        <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${loading ? 'bg-black bg-opacity-50 z-[99999]' : ''}`}>
+            <FadeLoader
+                color={color || "#204D94"}
+                loading={loading}
+                height={size || 15}
+                width={size || 5}
+                data-testid="loader"
+            />
+            <div className="pt-5 text-3xl font-semibold text-black">Đang trong quá trình thanh toán</div>
+            <div className="text-lg font-medium text-gray-500">Bạn vui lòng chờ trong giây lát, hệ thống đang chờ xử lý thanh toán của bạn</div>
         </div>
     );
 }

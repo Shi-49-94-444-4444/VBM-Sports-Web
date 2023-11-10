@@ -38,6 +38,7 @@ const PostNewForm = () => {
     const [selectCity, setSelectedCity] = useState<Option | null>(null)
     const [selectDistrict, setSelectedDistrict] = useState<Option | null>(null)
     const [selectWard, setSelectedWard] = useState<Option | null>(null)
+    const [showDateField, setShowDateField] = useState(false)
     const router = useRouter()
 
     const { formState: { errors }, register, handleSubmit, setError } = useForm<CreateBadmintonFormData>({
@@ -56,11 +57,19 @@ const PostNewForm = () => {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 setDateRange({ startDate: null, endDate: null })
+                setShowDateField(false)
                 return
             }
         }
+
+        if (startDate == null || endDate == null) {
+            setShowDateField(false)
+            return
+        }
+
         setDateRange(newValue)
         setSelectedDays([])
+        setShowDateField(true)
     }
 
     //Chọn ngày
@@ -359,9 +368,8 @@ const PostNewForm = () => {
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1 flex flex-col">
+                            <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Phạm vi ngày:</label>
-                                <span className="text-gray-500">(Chọn tối đa 7 ngày & sau khi chọn mới hiển thị ngày)</span>
                             </div>
                             <div className="col-span-2">
                                 <Datepicker
@@ -408,22 +416,23 @@ const PostNewForm = () => {
                                 }
                             </div>
                         </div>
-                        <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1">
-                                <label className="text-lg font-semibold text-gray-600">Chọn Ngày:</label>
-                            </div>
-                            <div className="col-span-2">
-                                {dateRange.startDate && dateRange.endDate && (
-                                    <div className="flex flex-row flex-wrap gap-3">
-                                        {eachDayOfInterval({
-                                            start: new Date(dateRange.startDate),
-                                            end: new Date(dateRange.endDate)
-                                        }).map((date, index) => (
-                                            <div
-                                                key={index}
-                                                title={format(date, 'dd/MM/yyyy')}
-                                                onClick={() => handleDayClick(date)}
-                                                className={`
+                        {showDateField && (
+                            <div className="grid grid-cols-3 gap-3 items-center">
+                                <div className="col-span-1">
+                                    <label className="text-lg font-semibold text-gray-600">Chọn Ngày:</label>
+                                </div>
+                                <div className="col-span-2">
+                                    {dateRange.startDate && dateRange.endDate && (
+                                        <div className="flex flex-row flex-wrap gap-3">
+                                            {eachDayOfInterval({
+                                                start: new Date(dateRange.startDate),
+                                                end: new Date(dateRange.endDate)
+                                            }).map((date, index) => (
+                                                <div
+                                                    key={index}
+                                                    title={format(date, 'dd/MM/yyyy')}
+                                                    onClick={() => handleDayClick(date)}
+                                                    className={`
                                                     border 
                                                     border-black 
                                                     border-opacity-10 
@@ -432,23 +441,24 @@ const PostNewForm = () => {
                                                     py-1 
                                                     font-semibold 
                                                     ${selectedDays.find(selectedDate =>
-                                                    isSameDay(selectedDate, date)) ?
-                                                        'bg-primary-blue-cus text-white' :
-                                                        'text-primary-blue-cus bg-white'}
-                                        `}
-                                            >
-                                                {format(date, 'EEEE', { locale: vi })}
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                                {errors.day &&
-                                    <p className="text-red-500 font-medium h-4">
-                                        {errors.day.message}
-                                    </p>
-                                }
+                                                        isSameDay(selectedDate, date)) ?
+                                                            'bg-primary-blue-cus text-white' :
+                                                            'text-primary-blue-cus bg-white'}
+                                                    `}
+                                                >
+                                                    {format(date, 'EEEE', { locale: vi })}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                    {errors.day &&
+                                        <p className="text-red-500 font-medium h-4">
+                                            {errors.day.message}
+                                        </p>
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        )}
                         <div className="grid grid-cols-3 gap-3 items-center">
                             <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Thời gian:</label>
@@ -463,9 +473,8 @@ const PostNewForm = () => {
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1 flex flex-col">
+                            <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Giá:</label>
-                                <span className="text-gray-500">(Tối thiểu 10.000VND)</span>
                             </div>
                             <div className="col-span-2">
                                 <Input

@@ -10,7 +10,10 @@ const nextConfig = {
     EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID,
   },
   images: {
-    domains: ['res.cloudinary.com', 'lh3.googleusercontent.com'],
+    domains: ["res.cloudinary.com", "lh3.googleusercontent.com"],
+  },
+  experimental: {
+    largePageDataBytes: 128 * 100000,
   },
 };
 

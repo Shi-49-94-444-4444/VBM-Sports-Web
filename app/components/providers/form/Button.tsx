@@ -9,13 +9,14 @@ const Button: React.FC<ButtonProps> = ({
     type,
     disabled = false,
     isHover = true,
-    color
+    color,
+    text
 }) => {
     return (
         <button className={`
                 relative
                 flex
-                text-white 
+                ${text || "text-white"} 
                 ${color || "bg-primary-blue-cus"}
                 ${isHover ? `${color || "hover:text-primary-blue-cus hover:border-primary-blue-cus hover:bg-white hover:border"}` : ""}
                 ${disabled ? "cursor-not-allowed" : ""}

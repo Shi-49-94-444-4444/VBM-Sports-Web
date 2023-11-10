@@ -135,14 +135,15 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                 max-h-auto
             "
             key={id ?? "1"}
+            onSubmit={handleSubmit(onSubmit)}
         >
-            <section className="relative flex gap-3 text-lg">
-                <label className="whitespace-nowrap font-semibold text-gray-600">
+            <section className="relative space-x-3 text-lg">
+                <span className="whitespace-nowrap font-semibold text-gray-600">
                     Địa chỉ:
-                </label>
-                <p className="break-words font-semibold">
+                </span>
+                <span className="break-words font-semibold">
                     {validateAddress(addressSlot)}
-                </p>
+                </span>
             </section>
             <section className="flex flex-wrap relative gap-3 text-lg font-semibold">
                 <label className="whitespace-nowrap text-gray-600">
@@ -216,7 +217,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
             <Button
                 title="Đặt chỗ ngay"
                 style="py-4 justify-center"
-                onClick={onSubmit}
+                type="submit"
             />
         </form>
     )

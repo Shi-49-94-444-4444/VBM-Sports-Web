@@ -12,7 +12,7 @@ import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { WalletService } from "@/services"
 import { toast } from "react-toastify"
-import { LoadingAction } from "../loader"
+import { LoadingActionWallet } from "../loader"
 
 const ModalRecharge = () => {
     const rechargeModal = useRechargeModal()
@@ -61,7 +61,7 @@ const ModalRecharge = () => {
     }
 
     if (isLoading) {
-        return <LoadingAction loading={isLoading} />
+        return <LoadingActionWallet loading={isLoading} />
     }
 
     return (
