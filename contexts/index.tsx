@@ -58,7 +58,6 @@ export const GlobalContext = createContext<GlobalContextProps | null>(null);
 
 const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const router = useRouter()
-    const routePaymentModal = useRoutePaymentModal()
     const [isAuthUser, setIsAuthUser] = useState<boolean | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState<boolean | null>(false);
@@ -84,24 +83,17 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
     useEffect(() => {
         const handleRoutePayment = async (url: string) => {
-            if (transactionId && router.asPath.startsWith("/product/payment/") && !url.startsWith("/product/payment/")) {
-                const userConfirmed = window.confirm('Bạn có chắc chắn muốn rời khỏi trang này không?');
-                if (!userConfirmed) {
-                    router.events.emit('routeChangeError', new Error('Route change aborted'), url);
-                    throw 'Route change aborted'
-                }
-                //  else {
-                //     await deleteTransactionService({ tran_id: Number(transactionId) })
-                //     if (setTransactionId) setTransactionId(null)
-                //     localStorage.removeItem("transactionID")
-                // }
+            if (transactionId !== null && router.asPath.startsWith("/product/payment/") && !url.startsWith("/product/payment/")) {
+                await deleteTransactionService({ tran_id: Number(transactionId) })
+                setTransactionId(null)
+                localStorage.removeItem("transactionID")
             }
         }
 
-        router.events.on('routeChangeStart', handleRoutePayment);
+        router.events.on('routeChangeStart', handleRoutePayment)
 
         return () => {
-            router.events.off('routeChangeStart', handleRoutePayment);
+            router.events.off('routeChangeStart', handleRoutePayment)
         }
     }, [router])
 

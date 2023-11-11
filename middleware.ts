@@ -36,19 +36,19 @@ export function middleware(req: NextRequest) {
             }
         }
 
-        if (url.pathname.includes("/change-password") ||
-            url.pathname.includes("/verify-otp")) {
-            if (token) {
-                const decoded = jwt.verify(token, secret)
-                if (typeof decoded === 'object' && 'otp' in decoded) {
-                    if (!decoded.otp) {
-                        return NextResponse.redirect(`${url.origin}/`)
-                    }
-                }
-            } else {
-                return NextResponse.redirect(`${url.origin}/`)
-            }
-        }
+        // if (url.pathname.includes("/change-password") ||
+        //     url.pathname.includes("/verify-otp")) {
+        //     if (token) {
+        //         const decoded = jwt.verify(token, secret)
+        //         if (typeof decoded === 'object' && 'OTP' in decoded) {
+        //             if (!('OTP' in decoded)) {
+        //                 return NextResponse.redirect(`${url.origin}/`)
+        //             }
+        //         }
+        //     } else {
+        //         return NextResponse.redirect(`${url.origin}/`)
+        //     }
+        // }
 
         if (url.pathname.includes("/register-stepper")) {
             if (token) {

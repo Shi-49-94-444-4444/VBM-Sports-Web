@@ -43,8 +43,12 @@ const ForgotPasswordForm = () => {
             return
         }
 
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+        })
+
         localStorage.setItem("email", JSON.stringify(data.email))
-        Cookies.set("token", res.data.token)
+        // Cookies.set("token", res.data.token)
 
         // const result = await sendOTP(data.email, res.otp)
 
