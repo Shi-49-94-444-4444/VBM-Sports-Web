@@ -17,8 +17,9 @@ const ModalNotEnoughMoney = ({ tran_id }: { tran_id: string }) => {
     const handleBackHome = async () => {
         await deleteTransactionService({ tran_id: Number(tran_id) })
         if (setTransactionId) setTransactionId(null)
-        localStorage.removeItem("transactionID")
+        localStorage.removeItem("transactionId")
         router.push("/")
+        notEnoughMoneyModal.onClose()
     }
 
     return (

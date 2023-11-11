@@ -1,10 +1,7 @@
-"use client"
-
 import {
     Container,
     ModalFailPayment,
     ModalNotEnoughMoney,
-    ModalRoutePayment,
     ModalSuccessPayment,
     PaymentBillTotal,
     PaymentForm,
@@ -13,29 +10,58 @@ import {
     PaymentVoucher
 } from "@/app/components"
 import Layout from "@/app/layout"
-import { useRouter } from "next/router"
-import { AxiosClient } from "@/services"
-import useSWR from "swr"
+import Custom404 from "@/pages/404"
+import Custom500 from "@/pages/500"
+import { getPaymentDetail } from "@/services"
 import { TransactionPaymentDetail } from "@/types"
 
-const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
+export async function getServerSideProps(context: any) {
+    const id = context.params?.id
 
-const PaymentPage = () => {
-    const router = useRouter()
-    const { id } = router.query
+    if (!id || Array.isArray(id)) {
+        return {
+            notFound: true,
+        }
+    }
 
-    const { data: payment, error, isLoading } = useSWR<TransactionPaymentDetail>(id ? `/api/transactions/${id}/detail` : '', fetcher)
+    try {
+        const Payment = await getPaymentDetail({ id: Number(id) })
+        if (Payment.data == null) {
+            return {
+                notFound: true
+            }
+        }
 
-    if (!payment || payment.data == null) {
-        return <div>Sản phẩm không tồn tại</div>
+        return {
+            props: {
+                Payment,
+                tranId: id.toString()
+            },
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            props: {
+                internalError: true
+            }
+        }
+    }
+}
+
+const PaymentPage = ({ Payment, internalError, tranId }: { Payment: TransactionPaymentDetail, internalError?: boolean, tranId: string }) => {
+    if (!Payment) {
+        return <Custom404 />
+    }
+
+    if (internalError) {
+        return <Custom500 />
     }
 
     return (
         <Layout>
-            <ModalNotEnoughMoney tran_id={payment.data.id}/>
-            <ModalFailPayment tran_id={payment.data.id}/>
-            <ModalSuccessPayment tran_id={payment.data.id}/>
-            <ModalRoutePayment tran_id={payment.data.id} />
+            <ModalNotEnoughMoney tran_id={tranId} />
+            <ModalFailPayment tran_id={tranId} />
+            <ModalSuccessPayment tran_id={tranId} />
             <Container>
                 <div className="relative py-5">
                     <div className="flex items-center justify-center py-5">
@@ -44,16 +70,16 @@ const PaymentPage = () => {
                         </div>
                     </div>
                     <PaymentOverview
-                        key={payment.data.id}
-                        id={payment.data.id}
-                        slotCount={payment.data.slotCount}
-                        post={payment.data.post}
-                        slots={payment.data.slots}
+                        key={tranId}
+                        id={Payment.data.id}
+                        slotCount={Payment.data.slotCount}
+                        post={Payment.data.post}
+                        slots={Payment.data.slots}
                     />
                     <PaymentVoucher />
                     <PaymentMethod />
-                    <PaymentBillTotal total={payment.data.total} />
-                    <PaymentForm total={payment.data.total} tran_id={payment.data.id}/>
+                    <PaymentBillTotal total={Payment.data.total} />
+                    <PaymentForm total={Payment.data.total} tran_id={tranId} />
                 </div>
             </Container>
         </Layout>

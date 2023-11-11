@@ -1,11 +1,10 @@
 "use client"
 
-import React, { FC, createContext, useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import { ListProductData } from '@/types';
-import { useRouter } from 'next/router';
-import { useRoutePaymentModal } from '@/hooks';
-import { deleteTransactionService } from '@/services';
+import React, { FC, createContext, useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { ListProductData } from '@/types'
+import { useRouter } from 'next/router'
+import { deleteTransactionService } from '@/services'
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -86,7 +85,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
             if (transactionId !== null && router.asPath.startsWith("/product/payment/") && !url.startsWith("/product/payment/")) {
                 await deleteTransactionService({ tran_id: Number(transactionId) })
                 setTransactionId(null)
-                localStorage.removeItem("transactionID")
+                localStorage.removeItem("transactionId")
             }
         }
 

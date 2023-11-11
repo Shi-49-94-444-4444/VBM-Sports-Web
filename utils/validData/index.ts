@@ -49,7 +49,7 @@ export function validateDate(value: string | undefined | null) {
 
 export function validateName(value: string | undefined | null) {
     if (!value || value.trim() === '') {
-        return "Shi"
+        return "Tên minh họa"
     }
 
     return value;
@@ -73,7 +73,7 @@ export function validateDes(value: string | undefined | null) {
 
 export function validateAddress(value: string | undefined | null) {
     if (!value || value.trim() === '') {
-        return "Hồ Chí Minh"
+        return "Địa điểm chưa có"
     }
 
     return value;

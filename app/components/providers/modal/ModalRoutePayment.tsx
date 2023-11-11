@@ -17,7 +17,7 @@ const ModalRoutePayment = ({ tran_id }: { tran_id: string }) => {
     const handleRoute = async () => {
         await deleteTransactionService({ tran_id: Number(tran_id) })
         if (setTransactionId) setTransactionId(null)
-        localStorage.removeItem("transactionID")
+        localStorage.removeItem("transactionId")
         if (routeUrl) router.push(routeUrl)
     }
 

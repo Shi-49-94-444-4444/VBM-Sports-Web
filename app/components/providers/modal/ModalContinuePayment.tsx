@@ -56,7 +56,7 @@ const ModalContinuePayment = ({ total, tran_id }: { total: string, tran_id: stri
             }
 
             if (setTransactionId) setTransactionId(null)
-            localStorage.removeItem("transactionID")
+            localStorage.removeItem("transactionId")
 
             continuePaymentModal.onClose()
             successPaymentModal.onOpen()

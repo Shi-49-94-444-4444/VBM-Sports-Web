@@ -28,21 +28,47 @@ const PaymentOverview: React.FC<TransactionPaymentDetailData> = ({
                             {formatMoney(new Decimal(post ? post.pricePerSlot : 0))}
                         </div>
                     </div>
-                    <div className="flex flex-row text-gray-600 text-xl font-medium space-x-8">
-                        <ul className="space-y-4">
-                            <li>Địa điểm:</li>
-                            <li>Thể loại:</li>
-                            <li>Ngày:</li>
-                            <li>Thời gian:</li>
-                            <li>Chỗ đã đặt:</li>
-                        </ul>
-                        <ul className="space-y-4">
-                            <li>{validateAddress(post && post.address)}</li>
-                            <li>Chưa có</li>
-                            <li className="space-x-3">{slots && slots.map((slot) => <span key={slot.id}>{slot.playDate}</span>)}</li>
-                            <li><FormatTime timeString={post ? post.startTime : "00:00"} />-<FormatTime timeString={post ? post.endTime : "00:00"} /></li>
-                            <li>{slotCount}</li>
-                        </ul>
+                    <div className="flex flex-col gap-3 text-gray-600 text-xl font-medium">
+                        <section className="space-x-3">
+                            <span className="font-semibold">
+                                Địa điểm:
+                            </span>
+                            <span>
+                                {validateAddress(post && post.address)}
+                            </span>
+                        </section>
+                        <section className="flex flex-row space-x-3">
+                            <span className="font-semibold">
+                                Thể loại:
+                            </span>
+                            <span>
+                                Chưa có
+                            </span>
+                        </section>
+                        <section className="flex flex-row space-x-3">
+                            <span className="font-semibold">
+                                Ngày:
+                            </span>
+                            <div className="space-x-3">
+                                {slots && slots.map((slot) => <span key={slot.id}>{slot.playDate}</span>)}
+                            </div>
+                        </section>
+                        <section className="flex flex-row space-x-3">
+                            <span className="font-semibold">
+                                Thể loại:
+                            </span>
+                            <div>
+                                <FormatTime timeString={post ? post.startTime : "00:00"} />-<FormatTime timeString={post ? post.endTime : "00:00"} />
+                            </div>
+                        </section>
+                        <section className="flex flex-row space-x-3">
+                            <span className="font-semibold">
+                                Chỗ đã đặt:
+                            </span>
+                            <span>
+                                {slotCount}
+                            </span>
+                        </section>
                     </div>
                 </div>
             </div>

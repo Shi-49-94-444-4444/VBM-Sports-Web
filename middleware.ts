@@ -1,13 +1,18 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import jwt from 'jsonwebtoken';
+import * as jose from 'jose'
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
     const cookies = req.cookies.get("token")
     const token = cookies?.value
 
-    const secret = process.env.JWT_SECRET ?? ""
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET)
     const url = req.nextUrl
+
+    if (token) {
+        const { payload } = await jose.jwtVerify(token, secret)
+        console.log(payload.IsNewUser)
+    }
 
     try {
         if (url.pathname.includes("/user/setting-profile") ||
@@ -25,44 +30,33 @@ export function middleware(req: NextRequest) {
             url.pathname.includes("/register") ||
             url.pathname.includes("/forgot-password")) {
             if (token) {
-                const decoded = jwt.verify(token, secret)
-                if (typeof decoded === 'object' && 'otp' in decoded) {
-                    if (decoded.otp) {
-                        return NextResponse.next()
-                    } else {
-                        return NextResponse.redirect(`${url.origin}/`)
-                    }
+                const { payload } = await jose.jwtVerify(token, secret)
+                if (payload.OTP) {
+                    return NextResponse.next()
                 }
             }
         }
 
-        // if (url.pathname.includes("/change-password") ||
-        //     url.pathname.includes("/verify-otp")) {
-        //     if (token) {
-        //         const decoded = jwt.verify(token, secret)
-        //         if (typeof decoded === 'object' && 'OTP' in decoded) {
-        //             if (!('OTP' in decoded)) {
-        //                 return NextResponse.redirect(`${url.origin}/`)
-        //             }
-        //         }
-        //     } else {
-        //         return NextResponse.redirect(`${url.origin}/`)
-        //     }
-        // }
+        if (url.pathname.includes("/change-password") ||
+            url.pathname.includes("/verify-otp")) {
+            if (token) {
+                const { payload } = await jose.jwtVerify(token, secret)
+                if (!payload.OTP) {
+                    return NextResponse.redirect(`${url.origin}/`)
+                }
+            }
+        }
 
         if (url.pathname.includes("/register-stepper")) {
             if (token) {
-                const decoded = jwt.verify(token, secret)
-                if (typeof decoded === 'object' && 'isNewUser' in decoded) {
-                    if (!decoded.isNewUser) {
-                        return NextResponse.redirect(`${url.origin}/`)
-                    }
+                const { payload } = await jose.jwtVerify(token, secret)
+                if (!payload.IsNewUser) {
+                    return NextResponse.redirect(`${url.origin}/`)
                 }
-            } else {
-                return NextResponse.redirect(`${url.origin}/`)
             }
         }
     } catch (e) {
+        console.log(e)
         return NextResponse.redirect(`${url.origin}/`)
     }
 

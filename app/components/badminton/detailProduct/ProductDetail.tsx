@@ -22,7 +22,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     quantitySlot
 }) => {
     const router = useRouter()
-    const { user, setIsLoading, setTransactionId, isLoading } = useContext(GlobalContext) || {}
+    const { user, setIsLoading, setTransactionId, isLoading, transactionId } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     // const DateSlot = parseSlots(availableSlot ?? [])
@@ -121,7 +121,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                 })
 
                 if (setTransactionId) setTransactionId(res.data.tranSactionId)
-                localStorage.setItem("transactionId", res.data.transactionId)
+                if (transactionId) localStorage.setItem("transactionId", transactionId)
                 router.push(`/product/payment/${res.data.tranSactionId}`)
             }
         }
@@ -214,7 +214,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     Thể loại:
                 </label>
                 <span className="break-words">
-                    {categorySlot ?? "null"}
+                    {categorySlot ?? "Đánh đơn"}
                 </span>
             </section>
             <section className="relative flex gap-3 text-lg font-semibold">
@@ -222,7 +222,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     Kĩ năng:
                 </label>
                 <span className="break-words">
-                    {levelSlot ?? "null"}
+                    {levelSlot ?? "Sơ cấp"}
                 </span>
             </section>
             <Button

@@ -12,6 +12,7 @@ const ModalSuccessPayment = ({ tran_id }: { tran_id: string }) => {
 
     const handleBackHome = () => {
         router.push("/")
+        successPaymentModal.onClose()
     }
 
     return (
