@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { TbBellRinging2Filled } from "react-icons/tb"
-import { Button, ToggleSwitch } from "../../providers";
+import { Button, ToggleSwitch } from "../../providers"
 
 const SettingNotify = () => {
     const [isToggle1, setToggle1] = useState(false);
