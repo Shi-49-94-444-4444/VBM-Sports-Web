@@ -1,7 +1,7 @@
 "use client"
 
 import { ProductDetailContentData } from "@/types"
-import { Button } from "../../providers"
+import { Button, Loading } from "../../providers"
 import { useRouter } from "next/navigation";
 import { FormatTime, getDates, parseSlots, validateAddress, validateDate } from "@/utils";
 import { useContext, useState } from "react";
@@ -22,7 +22,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     quantitySlot
 }) => {
     const router = useRouter()
-    const { user, setIsLoading, setTransactionId, isLoading, transactionId } = useContext(GlobalContext) || {}
+    const { user, setIsLoading, setTransactionId, isLoading } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     // const DateSlot = parseSlots(availableSlot ?? [])
@@ -121,7 +121,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                 })
 
                 if (setTransactionId) setTransactionId(res.data.tranSactionId)
-                if (transactionId) localStorage.setItem("transactionId", transactionId)
+                localStorage.setItem("transactionId", res.data.tranSactionId)
                 router.push(`/product/payment/${res.data.tranSactionId}`)
             }
         }
@@ -225,11 +225,20 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     {levelSlot ?? "Sơ cấp"}
                 </span>
             </section>
-            <Button
-                title="Đặt chỗ ngay"
-                style="py-4 justify-center"
-                type="submit"
-            />
+            {isLoading ? (
+                <Button
+                    title={<Loading loading={isLoading} color="white" />}
+                    style="py-4 justify-center"
+                    type="submit"
+                    isHover={false}
+                />
+            ) : (
+                <Button
+                    title="Đặt chỗ ngay"
+                    style="py-4 justify-center"
+                    type="submit"
+                />
+            )}
         </form>
     )
 }
