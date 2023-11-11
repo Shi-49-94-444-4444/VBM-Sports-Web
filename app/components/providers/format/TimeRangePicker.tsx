@@ -48,7 +48,7 @@ const TimeRangePicker: React.FC<TimeRangePickerProps> = ({ onTimeChange }) => {
             startTime: formatTimeString(startTime),
             endTime: formatTimeString(endTime),
         });
-    }, [startTime, endTime])
+    }, [startTime, endTime, onTimeChange])
 
     const formatTimeString = (time: Time): string => {
         let dateTime = new Date();

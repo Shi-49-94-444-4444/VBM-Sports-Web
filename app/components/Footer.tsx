@@ -57,8 +57,8 @@ const Footer = () => {
                 Với sứ mệnh:
               </span>
               <span>
-                Với sứ mệnh: ”VNB cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
-                người chơi thể thao để nâng cao sức khỏe của chính mình”
+                Với sứ mệnh: VNB cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
+                người chơi thể thao để nâng cao sức khỏe của chính mình
               </span>
             </div>
             <div className="space-x-1">
@@ -66,11 +66,11 @@ const Footer = () => {
                 Tầm nhìn:
               </span>
               <span>
-                "Trở thành nhà phân phối và sản xuất thể thao lớn nhất Việt Nam"
+                Trở thành nhà phân phối và sản xuất thể thao lớn nhất Việt Nam
               </span>
             </div>
           </div>
-          <div className="lg:flex-grow lg:block hidden"/>
+          <div className="lg:flex-grow lg:block hidden" />
           <div className="
               lg:col-span-4
               md:col-span-6
@@ -151,7 +151,7 @@ const Footer = () => {
               </span>
             </div>
           </div>
-          <div className="lg:flex-grow lg:block hidden"/>
+          <div className="lg:flex-grow lg:block hidden" />
           <div className="
               lg:col-span-2
               md:col-span-6
