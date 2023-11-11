@@ -7,7 +7,7 @@ export const getPlayGroundService = async () => {
 
         return response.data;
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -23,7 +23,7 @@ export const postPlaygroundService = async (data: PlayGroundFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -39,7 +39,7 @@ export const postPlayLevelService = async (data: PlayLevelFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -55,7 +55,7 @@ export const postPlayWayService = async (data: PlayWayFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -69,7 +69,7 @@ export const getSuggestPlayerService = async (data: StepFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data

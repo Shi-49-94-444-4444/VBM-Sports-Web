@@ -52,7 +52,7 @@ const UserManagement = () => {
 
     const filteredUsers = listManageUser && listManageUser.data && listManageUser.data.filter(user => user.fullName && user.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
 
-    console.log(searchTerm)
+    //console.log(searchTerm)
 
     return (
         <form className="relative flex flex-col px-6 py-10">

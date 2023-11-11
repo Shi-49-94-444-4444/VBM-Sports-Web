@@ -47,7 +47,7 @@ const StepperHorizontalContent = ({ }) => {
 
         const res = await postPlaygroundService({ userID: user?.id!, grounds: user?.playingArea! })
 
-        console.log("Playing Area: ", res)
+        //console.log("Playing Area: ", res)
 
         if (res.message) {
             toast.success(res.message, {
@@ -62,7 +62,7 @@ const StepperHorizontalContent = ({ }) => {
                 })
             }
 
-            console.log("After: ", user)
+            //console.log("After: ", user)
 
         } else if (res.ErrorCode) {
             toast.error(res.ErrorCode, {
@@ -80,8 +80,8 @@ const StepperHorizontalContent = ({ }) => {
 
         const userData = JSON.parse(localStorage.getItem('user')!)
 
-        console.log(userData.playingLevel);
-        console.log(user?.playingLevel);
+        //console.log(userData.playingLevel);
+        //console.log(user?.playingLevel);
 
         if (JSON.stringify(userData.playingLevel) === JSON.stringify(user?.playingLevel)) {
             if (setIsLoading) setIsLoading(false)
@@ -90,7 +90,7 @@ const StepperHorizontalContent = ({ }) => {
 
         const res = await postPlayLevelService({ userID: user?.id!, levels: user?.playingLevel! })
 
-        console.log("Playing Level: ", res)
+        //console.log("Playing Level: ", res)
 
         if (res.message) {
             toast.success(res.message, {
@@ -105,7 +105,7 @@ const StepperHorizontalContent = ({ }) => {
                 })
             }
 
-            console.log("After: ", user)
+            //console.log("After: ", user)
 
         } else if (res.ErrorCode) {
             toast.error(res.ErrorCode, {
@@ -123,8 +123,8 @@ const StepperHorizontalContent = ({ }) => {
 
         const userData = JSON.parse(localStorage.getItem('user')!)
 
-        console.log(userData.playingWay);
-        console.log(user?.playingWay);
+        //console.log(userData.playingWay);
+        //console.log(user?.playingWay);
 
         if (JSON.stringify(userData.playingWay) === JSON.stringify(user?.playingWay)) {
             if (setIsLoading) setIsLoading(false)
@@ -133,7 +133,7 @@ const StepperHorizontalContent = ({ }) => {
 
         const res = await postPlayWayService({ userID: user?.id!, ways: user?.playingWay! })
 
-        console.log("Playing Way: ", res)
+        //console.log("Playing Way: ", res)
 
         if (res.message) {
             toast.success(res.message, {
@@ -148,7 +148,7 @@ const StepperHorizontalContent = ({ }) => {
                 })
             }
 
-            console.log("After: ", user)
+            //console.log("After: ", user)
 
         } else if (res.ErrorCode) {
             toast.error(res.ErrorCode, {
@@ -164,7 +164,7 @@ const StepperHorizontalContent = ({ }) => {
     const onSubmitSuggestPlayer = async () => {
         if (setIsLoading) setIsLoading(true);
 
-        console.log("Submit SuggestPlayer Data");
+        //console.log("Submit SuggestPlayer Data");
     }
 
     const getOnSubmitHandler = () => {

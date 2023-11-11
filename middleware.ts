@@ -11,7 +11,7 @@ export async function middleware(req: NextRequest) {
 
     if (token) {
         const { payload } = await jose.jwtVerify(token, secret)
-        console.log(payload.IsNewUser)
+        //console.log(payload.IsNewUser)
     }
 
     try {
@@ -56,7 +56,7 @@ export async function middleware(req: NextRequest) {
             }
         }
     } catch (e) {
-        console.log(e)
+        //console.log(e)
         return NextResponse.redirect(`${url.origin}/`)
     }
 

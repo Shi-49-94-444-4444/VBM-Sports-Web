@@ -220,7 +220,7 @@ const PostNewForm = () => {
             return
         }
 
-        console.log(user?.id, data.title, `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${data.address}`, days, months, years, startTime, endTime, data.availableSlot, data.price, data.description, uploadImages)
+        //console.log(user?.id, data.title, `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${data.address}`, days, months, years, startTime, endTime, data.availableSlot, data.price, data.description, uploadImages)
 
         if (user) {
             const res = await postBadmintonService({
@@ -239,7 +239,7 @@ const PostNewForm = () => {
                 imgUrls: uploadImages
             })
 
-            console.log(res)
+            //console.log(res)
 
             if (res.data == null) {
                 toast.error(res.message, {

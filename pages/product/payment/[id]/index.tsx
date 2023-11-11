@@ -39,7 +39,7 @@ export async function getServerSideProps(context: any) {
             },
         }
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         return {
             props: {
                 internalError: true

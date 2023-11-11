@@ -41,7 +41,7 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    console.log('File quá lớn!');
+                    //console.log('File quá lớn!');
                 }
             });
         },

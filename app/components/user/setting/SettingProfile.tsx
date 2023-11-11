@@ -70,7 +70,7 @@ const SettingProfile = () => {
 
                 if (setIsLoadingPage) setIsLoadingPage(false)
             } catch (error) {
-                console.log(error)
+                //console.log(error)
                 if (setIsLoadingPage) setIsLoadingPage(false)
             }
         }
@@ -86,7 +86,7 @@ const SettingProfile = () => {
                 const fileReader = new FileReader()
                 fileReader.onload = (event) => {
                     const base64Image = event.target?.result;
-                    console.log(base64Image)
+                    //console.log(base64Image)
                     if (typeof base64Image === 'string') {
                         setUploadedImage(base64Image)
                         setValue('imgURL', base64Image)
@@ -121,7 +121,7 @@ const SettingProfile = () => {
             imgURL: data.imgURL
         })
 
-        console.log(res)
+        //console.log(res)
 
         if (res.data == null) {
             toast.error(res.message, {

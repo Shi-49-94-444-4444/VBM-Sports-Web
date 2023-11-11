@@ -17,10 +17,10 @@ const SuggestPlayerStep = () => {
             try {
                 const users = await getSuggestPlayer(user?.id ?? "1")
                 setListUser(users)
-                console.log(users)
+                //console.log(users)
                 if (setIsLoading) setIsLoading(false)
             } catch (error) {
-                console.log(error)
+                //console.log(error)
                 if (setIsLoading) setIsLoading(false)
             }
         };
