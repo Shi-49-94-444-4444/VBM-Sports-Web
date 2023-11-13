@@ -15,7 +15,7 @@ const registerService = async (data: RegisterFormData) => {
         return response.data;
 
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
         
         if (error && error.response) {
             return error.response.data

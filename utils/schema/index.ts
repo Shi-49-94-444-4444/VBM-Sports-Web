@@ -95,28 +95,6 @@ export const commentSchema = yup.object().shape({
         max(500, "Nhiều nhất 500 kí tự"),
 })
 
-export const postNewInputSchema = yup.object().shape({
-    title: yup.string().
-        required("Không được để trống").
-        min(10, "Tối thiểu 10 kí tự").
-        max(50, "Nhiều nhất 50 kí tự"),
-    address: yup.string().
-        required("Không được để trống").
-        min(4, "Tói thiểu 4 ký tự").
-        max(50, "Nhiều nhất 50 ký tự"),
-    price: yup.number().
-        required("Không được để trống").
-        min(10000, "Tối thiểu phải 10,000 VND").
-        max(100000000, "Nhiều nhất chỉ được 100,000,000 VND"),
-    availableSlot: yup.string().
-        required("Không được để trống").
-        matches(/^[0-8]{1}$/, "Chỉ được một số"),
-    description: yup.string().
-        required("Không được để trống").
-        min(50, "Tói thiểu 50 ký tự").
-        max(300, "Nhiều nhất 50 ký tự"),
-})
-
 export const walletSchema = yup.object().shape({
     money: yup.number().
         required("Không được để trống").

@@ -41,7 +41,7 @@ const ChatMessages = () => {
                 messages.push({ ...data, id: doc.id })
             })
             setMessages(messages)
-            //console.log(messages)
+            console.log(messages)
         })
 
         return () => unsubscribe()
@@ -65,10 +65,10 @@ const ChatMessages = () => {
                 })
             }
         } catch (error) {
-            //console.log(error)
+            console.log(error)
         }
 
-        //console.log(value)
+        console.log(value)
         setValue("")
     }
 

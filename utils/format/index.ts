@@ -32,7 +32,7 @@ export function formatDateFunc(dateString: string): string {
 }
 
 export function getDates(dateString: string): string[] {
-  const [days, months, years] = dateString.split(":").map(part => part.split(";"))
+  const [days, months, years] = dateString.split("/").map(part => part.split(";"))
   const dates: string[] = []
   let lastDay = 0
   let currentMonthIndex = 0
@@ -59,7 +59,7 @@ export function getDates(dateString: string): string[] {
 }
 
 export const GetFirstDate: React.FC<{ dateString: string }> = ({ dateString }) => {
-  const [days, months, years] = dateString.split(":").map(part => part.split(";"))
+  const [days, months, years] = dateString.split("/").map(part => part.split(";"))
   const dates: string[] = []
   let lastDay = 0
   let currentMonthIndex = 0

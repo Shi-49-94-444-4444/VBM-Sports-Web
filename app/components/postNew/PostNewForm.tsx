@@ -10,10 +10,9 @@ import { addDays, addYears, differenceInDays, differenceInHours, eachDayOfInterv
 import { vi } from 'date-fns/locale'
 import { AxiosClient, postBadmintonService } from "@/services"
 import useSWR from "swr"
-import { CreateBadmintonFormData, ListCity, ListDistrict, ListWard, Time } from "@/types"
-import { customStyles, postNewInputSchema } from "@/utils"
+import { ListCity, ListDistrict, ListWard, Time } from "@/types"
+import { customStyles, handleChange } from "@/utils"
 import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
@@ -27,23 +26,39 @@ interface Option {
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const PostNewForm = () => {
+    const [formGlobal, setFormGlobal] = useState({
+        title: "",
+        address: "",
+        description: ""
+    })
     const [uploadImages, setUploadImages] = useState<string[]>([])
     const [dateRange, setDateRange] = useState({
         startDate: null,
         endDate: null
     })
     const [selectedDays, setSelectedDays] = useState<Date[]>([])
-    const [startTime, setStartTime] = useState('')
-    const [endTime, setEndTime] = useState('')
     const [selectCity, setSelectedCity] = useState<Option | null>(null)
     const [selectDistrict, setSelectedDistrict] = useState<Option | null>(null)
     const [selectWard, setSelectedWard] = useState<Option | null>(null)
+    const [selectLevel, setSelectLevel] = useState<Option | null>(null)
+    const [selectCategory, setSelectCategory] = useState<Option | null>(null)
     const [showDateField, setShowDateField] = useState(false)
+    const [forms, setForms] = useState<JSX.Element[]>([])
+    const [slots, setSlots] = useState<{ day: Date; startTime: string; endTime: string; price: number; availableSlot: number; }[]>([])
     const router = useRouter()
 
-    const { formState: { errors }, register, handleSubmit, setError } = useForm<CreateBadmintonFormData>({
-        resolver: yupResolver(postNewInputSchema)
-    })
+    const listLevel = [
+        { id: "1", value: "Sơ cấp", label: "Sơ cấp" },
+        { id: "2", value: "Trung cấp", label: "Trung cấp" },
+        { id: "3", value: "Cao cấp", label: "Cao cấp" },
+    ]
+
+    const listCategory = [
+        { id: "1", value: "Đánh đơn", label: "Đánh đơn" },
+        { id: "2", value: "Đánh đôi", label: "Đánh đôi" },
+    ]
+
+    const { handleSubmit } = useForm()
 
     const { user, isLoading, setIsLoading } = useContext(GlobalContext) || {}
 
@@ -58,12 +73,16 @@ const PostNewForm = () => {
                 })
                 setDateRange({ startDate: null, endDate: null })
                 setShowDateField(false)
+                setForms([])
+                setSlots([])
                 return
             }
         }
 
         if (startDate == null || endDate == null) {
             setShowDateField(false)
+            setForms([])
+            setSlots([])
             return
         }
 
@@ -72,32 +91,96 @@ const PostNewForm = () => {
         setShowDateField(true)
     }
 
+    //Xử lý time picker
+    const handleTimeChange = (time: { startTime: string; endTime: string }, day: Date) => {
+        setSlots(prevSlots => prevSlots.map((slot) => {
+            if (slot.day === day) {
+                return { ...slot, ...time, ...day }
+            } else {
+                return slot
+            }
+        }))
+    }
+
+    const handleChangeSlot = (event: React.ChangeEvent<HTMLInputElement>, day: Date) => {
+        const { name, value } = event.target;
+
+        setSlots(prevSlots => prevSlots.map((slot) => {
+            if (slot.day === day) {
+                return { ...slot, [name]: value };
+            } else {
+                return slot;
+            }
+        }));
+    }
+
+    console.log(slots)
+
+    // Form for Date
+    const showForm = (day: Date) => {
+        const formElement = (
+            <div key={day.toISOString()} className="border border-black border-opacity-10 py-4 px-4 flex flex-col gap-3 rounded-lg">
+                <label className="text-lg font-semibold">{format(day, 'EEEE', { locale: vi })} - {format(day, 'dd/MM/yyyy')}</label>
+                <div className="grid grid-cols-3 gap-3 items-center">
+                    <div className="col-span-1">
+                        <label className="text-lg font-semibold text-gray-600">Thời gian:</label>
+                    </div>
+                    <div className="col-span-2">
+                        <TimeRangePicker onTimeChange={(time) => handleTimeChange(time, day)} />
+                    </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3 items-center">
+                    <div className="col-span-1 flex flex-col">
+                        <label className="text-lg font-semibold text-gray-600">Số lượng chỗ:</label>
+                        <span className="text-gray-500">(1-8 chỗ)</span>
+                    </div>
+                    <div className="col-span-2">
+                        <Input
+                            id="availableSlot"
+                            name="availableSlot"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="number"
+                            maxLength={1}
+                            onChange={(event) => handleChangeSlot(event, day)}
+                        />
+                    </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3 items-center">
+                    <div className="col-span-1">
+                        <label className="text-lg font-semibold text-gray-600">Giá:</label>
+                    </div>
+                    <div className="col-span-2">
+                        <Input
+                            isMoney
+                            id="price"
+                            name="price"
+                            colorInput="bg-[#F5F5F5] border-none"
+                            type="number"
+                            onChange={(event) => handleChangeSlot(event, day)}
+                        />
+                    </div>
+                </div>
+            </div>
+        )
+
+        setForms(prevForms => [...prevForms, formElement])
+        setSlots(prevSlots => [...prevSlots, { day, startTime: '', endTime: '', price: 0, availableSlot: 0 }])
+    }
+
     //Chọn ngày
     const handleDayClick = (day: Date) => {
         const existingDay = selectedDays.find(selectedDate => isSameDay(selectedDate, day))
         if (existingDay) {
             setSelectedDays(prevDays => prevDays.filter(selectedDate => !isSameDay(selectedDate, day)))
+            setForms(prevForms => prevForms.filter(form => form.key !== day.toISOString()))
+            setSlots(prevSlots => prevSlots.filter(slot => slot.day.toISOString() !== day.toISOString()))
         } else if (dateRange.startDate && dateRange.endDate) {
             const diffInDays = differenceInDays(new Date(dateRange.endDate), new Date(dateRange.startDate)) + 1
             if (selectedDays.length < diffInDays) {
                 setSelectedDays(prevDays => [...prevDays, day])
+                showForm(day)
             }
         }
-    }
-
-    //Xử lý cắt chuỗi
-    const formatSelectedDays = () => {
-        const days = selectedDays.map(date => format(date, 'dd')).join(';')
-        const months = Array.from(new Set(selectedDays.map(date => format(date, 'MM')))).join(';')
-        const years = Array.from(new Set(selectedDays.map(date => format(date, 'yyyy')))).join(';')
-
-        return { days, months, years }
-    }
-
-    //Xử lý time picker
-    const handleTimeChange = (time: { startTime: string; endTime: string }) => {
-        setStartTime(time.startTime)
-        setEndTime(time.endTime)
     }
 
     //Fetch city
@@ -162,84 +245,215 @@ const PostNewForm = () => {
         return dateTime
     }
 
-    const onSubmit = async (data: CreateBadmintonFormData) => {
+    const onSubmit = async () => {
         if (setIsLoading) setIsLoading(true)
 
-        const formattedDates = formatSelectedDays()
-        const { days, months, years } = formattedDates
-
-        if (!uploadImages[0] || !startTime || !endTime || !selectCity || !selectDistrict || !selectWard || !dateRange.endDate || !dateRange.startDate || selectedDays.length === 0) {
-            const start = stringToTime(startTime)
-            const end = stringToTime(endTime)
-
-            if (!dateRange.endDate || !dateRange.startDate) {
-                setError("dateScope", { message: "Không được để trống" })
-            }
-
-            if (isBefore(end, start)) {
-                setError("startTime", { message: "Thời gian kết thúc không thể nhỏ hơn thời gian bắt đầu" })
-            }
-
-            if (differenceInHours(end, start) < 1) {
-                setError("startTime", { message: "Thời gian bắt đầu và kết thúc phải cách nhau ít nhất 1 giờ" })
-            }
-
-            if (isBefore(start, formatTime({ hour: '5', minute: '00' }))) {
-                setError("startTime", { message: "Thời gian bắt đầu không thể trước 6:00 AM" })
-            }
-
-            if (isBefore(formatTime({ hour: '24', minute: '00' }), end)) {
-                setError("startTime", { message: "Thời gian kết thúc không thể sau 24:00" })
-            }
+        if (!uploadImages[0] || !selectCity || !selectDistrict || !selectWard || !dateRange.endDate
+            || !dateRange.startDate || selectedDays.length === 0 || !formGlobal.title || formGlobal.title.trim() === ""
+            || formGlobal.title.length > 10 || formGlobal.title.length < 100 || !formGlobal.address || formGlobal.address.trim() === ""
+            || formGlobal.address.length > 10 || formGlobal.address.length < 100 || !formGlobal.description || formGlobal.description.trim() === ""
+            || formGlobal.description.length > 50 || formGlobal.description.length < 500 || !selectLevel || !selectCategory) {
 
             if (!uploadImages[0]) {
-                setError("imgUrls", { message: "Không được để trống" })
+                toast.error("Ảnh không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            } else if (!formGlobal.title || formGlobal.title.trim() === "") {
+                toast.error("Tên bài đăng không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
+            if (formGlobal.title.length < 10 || formGlobal.title.length > 100) {
+                toast.error("Tên bài đăng từ 10-100 ký tự", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
             }
 
             if (!selectCity) {
-                setError("city", { message: "Không được để trống" })
+                toast.error("Thành phố không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
             }
 
             if (!selectDistrict) {
-                setError("district", { message: "Không được để trống" })
+                toast.error("Quận không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
             }
 
             if (!selectWard) {
-                setError("ward", { message: "Không được để trống" })
+                toast.error("Phường không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
             }
 
-            if (!startTime || !endTime) {
-                setError("startTime", { message: "Không được để trống" })
+            if (!formGlobal.address || formGlobal.address.trim() === "") {
+                toast.error("Địa chỉ không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            } else if (formGlobal.address.length < 10 || formGlobal.address.length > 100) {
+                toast.error("Địa chỉ từ 10-100 ký tự", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
+            if (!dateRange.endDate || !dateRange.startDate) {
+                toast.error("Phạm vi ngày không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
             }
 
             if (selectedDays.length === 0) {
-                setError("day", { message: "Không được để trống" })
+                toast.error("Chọn ngày không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
             }
 
-            if (setIsLoading) setIsLoading(false)
-            return
+            for (const slot of slots) {
+                const start = stringToTime(slot.startTime)
+                const end = stringToTime(slot.endTime)
+
+                if (isBefore(end, start)) {
+                    toast.error(`Thời gian kết thúc không thể nhỏ hơn thời gian bắt đầu của ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                } else if (differenceInHours(end, start) < 1) {
+                    toast.error(`Thời gian bắt đầu và kết thúc phải cách nhau ít nhất 1 giờ của ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                } else if (isBefore(start, formatTime({ hour: '6', minute: '00' }))) {
+                    toast.error(`Thời gian bắt đầu không thể trước 6:00 AM của ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                } else if (isBefore(formatTime({ hour: '24', minute: '00' }), end)) {
+                    toast.error(`Thời gian kết thúc không thể sau 24:00 của ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                }
+
+                if (!slot.availableSlot || slot.availableSlot === 0) {
+                    toast.error(`Chỗ không được để trống của ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                } else if (slot.availableSlot < 1 || slot.availableSlot > 8) {
+                    toast.error(`Số lượng chỗ phải từ 1 đến 8 ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                }
+
+                if (!slot.price || slot.price === 0) {
+                    toast.error(`Giá không được để trống của ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                } else if (slot.price < 10000 || slot.price > 100000000) {
+                    toast.error(`Giá phải từ 10,000 VNĐ đến 100,000,000 VNĐ ${format(slot.day, 'dd/MM/yyyy')}`, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    if (setIsLoading) setIsLoading(false)
+                    return
+                }
+            }
+
+            if (!selectCategory) {
+                toast.error("Thể loại không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
+            if (!selectLevel) {
+                toast.error("Kỹ năng không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
+            if (!formGlobal.description || formGlobal.description.trim() === "") {
+                toast.error("Mô tả không được để trống", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            } else if (formGlobal.description.length < 50 || formGlobal.description.length > 500) {
+                toast.error("Mô tả từ 50-500 ký tự", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
         }
 
-        //console.log(user?.id, data.title, `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${data.address}`, days, months, years, startTime, endTime, data.availableSlot, data.price, data.description, uploadImages)
+        const formattedSlots = slots.map(slot => {
+            const startDate = new Date(slot.day);
+            const endDate = new Date(slot.day);
 
-        if (user) {
+            const [startHours, startMinutes] = slot.startTime.split(':').map(Number);
+            const [endHours, endMinutes] = slot.endTime.split(':').map(Number);
+
+            startDate.setHours(startHours, startMinutes);
+            endDate.setHours(endHours, endMinutes);
+
+            return {
+                startTime: startDate.toISOString(),
+                endTime: endDate.toISOString(),
+                price: slot.price,
+                availableSlot: slot.availableSlot,
+            }
+        })
+
+        console.log(formattedSlots)
+
+        if (user && user.id) {
             const res = await postBadmintonService({
                 id: user.id,
-                title: data.title,
-                address: `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${data.address}`,
-                day: days,
-                month: months,
-                year: years,
-                startTime: startTime,
-                endTime: endTime,
-                availableSlot: data.availableSlot,
-                price: data.price,
-                description: data.description,
+                title: formGlobal.title,
+                address: `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${formGlobal.address}`,
+                slots: formattedSlots,
+                levelSlot: selectLevel.value,
+                categorySlot: selectCategory.value,
+                description: formGlobal.description,
                 highlightUrl: uploadImages[0],
                 imgUrls: uploadImages
             })
 
-            //console.log(res)
+            console.log(res)
 
             if (res.data == null) {
                 toast.error(res.message, {
@@ -263,19 +477,13 @@ const PostNewForm = () => {
         <form className="grid lg:grid-cols-2 grid-cols-1 gap-10" onSubmit={handleSubmit(onSubmit)}>
             <div className="col-span-1">
                 <ThumbGallery setImages={setUploadImages} />
-                {errors.imgUrls &&
-                    <p className="text-red-500 font-medium h-4">
-                        {errors.imgUrls.message}
-                    </p>
-                }
             </div>
             <div className="col-span-1">
                 <div className="relative">
                     <div className="flex flex-col gap-8">
                         <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1 flex flex-col">
+                            <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Tên bài đăng:</label>
-                                <span className="text-gray-500">(10-50 ký tự)</span>
                             </div>
                             <div className="col-span-2">
                                 <Input
@@ -283,8 +491,9 @@ const PostNewForm = () => {
                                     name="title"
                                     colorInput="bg-[#F5F5F5] border-none"
                                     type="text"
-                                    register={register}
-                                    errors={errors}
+                                    maxLength={100}
+                                    value={formGlobal.title}
+                                    onChange={(e) => handleChange(e, setFormGlobal)}
                                 />
                             </div>
                         </div>
@@ -301,11 +510,6 @@ const PostNewForm = () => {
                                     placeholder="Chọn thành phố"
                                     onChange={handleCityChange}
                                 />
-                                {errors.city &&
-                                    <p className="text-red-500 font-medium h-4">
-                                        {errors.city.message}
-                                    </p>
-                                }
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
@@ -323,11 +527,6 @@ const PostNewForm = () => {
                                     isDisabled={!selectCity}
                                     value={selectDistrict}
                                 />
-                                {errors.district &&
-                                    <p className="text-red-500 font-medium h-4">
-                                        {errors.district.message}
-                                    </p>
-                                }
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
@@ -345,11 +544,6 @@ const PostNewForm = () => {
                                     isDisabled={!selectDistrict}
                                     value={selectWard}
                                 />
-                                {errors.ward &&
-                                    <p className="text-red-500 font-medium h-4">
-                                        {errors.ward.message}
-                                    </p>
-                                }
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
@@ -362,8 +556,9 @@ const PostNewForm = () => {
                                     name="address"
                                     colorInput="bg-[#F5F5F5] border-none"
                                     type="text"
-                                    register={register}
-                                    errors={errors}
+                                    maxLength={100}
+                                    value={formGlobal.address}
+                                    onChange={(e) => handleChange(e, setFormGlobal)}
                                 />
                             </div>
                         </div>
@@ -409,11 +604,6 @@ const PostNewForm = () => {
                                         },
                                     }}
                                 />
-                                {errors.dateScope &&
-                                    <p className="text-red-500 font-medium h-4">
-                                        {errors.dateScope.message}
-                                    </p>
-                                }
                             </div>
                         </div>
                         {showDateField && (
@@ -451,64 +641,45 @@ const PostNewForm = () => {
                                             ))}
                                         </div>
                                     )}
-                                    {errors.day &&
-                                        <p className="text-red-500 font-medium h-4">
-                                            {errors.day.message}
-                                        </p>
-                                    }
                                 </div>
                             </div>
                         )}
+                        {forms}
                         <div className="grid grid-cols-3 gap-3 items-center">
                             <div className="col-span-1">
-                                <label className="text-lg font-semibold text-gray-600">Thời gian:</label>
+                                <label className="text-lg font-semibold text-gray-600">Thể loại:</label>
                             </div>
                             <div className="col-span-2">
-                                <TimeRangePicker onTimeChange={handleTimeChange} />
-                                {errors.startTime &&
-                                    <p className="text-red-500 font-medium h-4">
-                                        {errors.startTime.message}
-                                    </p>
-                                }
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1">
-                                <label className="text-lg font-semibold text-gray-600">Giá:</label>
-                            </div>
-                            <div className="col-span-2">
-                                <Input
-                                    isMoney
-                                    id="price"
-                                    name="price"
-                                    colorInput="bg-[#F5F5F5] border-none"
-                                    type="number"
-                                    register={register}
-                                    errors={errors}
+                                <Select
+                                    name="category"
+                                    options={listCategory}
+                                    styles={customStyles}
+                                    instanceId="category"
+                                    placeholder="Chọn thể loại"
+                                    value={selectCategory}
+                                    onChange={setSelectCategory}
                                 />
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
-                            <div className="col-span-1 flex flex-col">
-                                <label className="text-lg font-semibold text-gray-600">Số lượng chỗ:</label>
-                                <span className="text-gray-500">(1-8 chỗ)</span>
+                            <div className="col-span-1">
+                                <label className="text-lg font-semibold text-gray-600">Kỹ năng:</label>
                             </div>
                             <div className="col-span-2">
-                                <Input
-                                    id="availableSlot"
-                                    name="availableSlot"
-                                    colorInput="bg-[#F5F5F5] border-none"
-                                    type="text"
-                                    register={register}
-                                    errors={errors}
-                                    maxLength={1}
+                                <Select
+                                    name="level"
+                                    options={listLevel}
+                                    styles={customStyles}
+                                    instanceId="level"
+                                    placeholder="Chọn kỹ cấp"
+                                    value={selectLevel}
+                                    onChange={setSelectLevel}
                                 />
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-3 items-center">
                             <div className="col-span-1">
                                 <label className="text-lg font-semibold text-gray-600">Mô tả:</label>
-                                <p className="text-gray-500"> (Từ 50 -300 từ) </p>
                             </div>
                             <div className="col-span-2">
                                 <Input
@@ -517,9 +688,9 @@ const PostNewForm = () => {
                                     name="description"
                                     colorInput="bg-[#F5F5F5] border-none"
                                     type="text"
-                                    register={register}
-                                    errors={errors}
-                                    maxLength={300}
+                                    value={formGlobal.description}
+                                    onChange={(e) => handleChange(e, setFormGlobal)}
+                                    maxLength={500}
                                 />
                             </div>
                         </div>

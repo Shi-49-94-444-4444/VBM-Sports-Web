@@ -7,7 +7,7 @@ export const getListProductService = async () => {
 
         return response.data;
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -21,7 +21,7 @@ export const getProductService = async (id: string) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -35,7 +35,7 @@ export const getProductSuggestService = async (id: string) => {
 
         return response.data;
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -45,28 +45,22 @@ export const getProductSuggestService = async (id: string) => {
 
 export const postBadmintonService = async (data: CreateBadmintonForm) => {
     try {
-        //console.log(data)
+        console.log(data)
 
         const response = await AxiosClient.post(`/api/posts/create_by/${data.id}`, {
             title: data.title,
             address: data.address,
-            day: data.day,
-            month: data.month,
-            year: data.year,
-            startTime: data.startTime,
-            endTime: data.endTime,
-            price: data.price.toString(),
-            availableSlot: data.availableSlot,
+            slots: data.slots,
             description: data.description,
             highlightUrl: data.highlightUrl,
             imgUrls: data.imgUrls,
-            levelSlot: "Sơ cấp",
-            categorySlot: "Đánh đơn"
+            levelSlot: data.levelSlot,
+            categorySlot: data.categorySlot
         })
 
         return response.data;
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data

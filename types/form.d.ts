@@ -81,35 +81,20 @@ export interface CommentForm {
 }
 
 export interface CreateBadmintonForm {
-    id?: string 
+    id: string 
     title: string 
     address: string 
-    day: string 
-    month: string 
-    year: string 
-    startTime: string 
-    endTime: string 
-    price: number 
-    availableSlot: string 
+    slots: {
+        startTime: string,
+        endTime: string,
+        price: number,
+        availableSlot: number,
+    }[]
+    levelSlot: string
+    categorySlot: string
     description: string 
     highlightUrl: string 
     imgUrls: string[] 
-}
-export interface CreateBadmintonFormData {
-    title: string 
-    city?: string 
-    district?: string 
-    ward?: string 
-    address: string 
-    dateScope?: string 
-    session?: number
-    day?: string 
-    startTime?: string 
-    endTime?: string 
-    price: number 
-    availableSlot: string 
-    description: string 
-    imgUrls?: string[] 
 }
 
 export interface ReportUserFormData {

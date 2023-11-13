@@ -38,7 +38,7 @@ const LoginForm = () => {
 
         const res = await loginService(data)
 
-        //console.log("Data", res)
+        console.log("Data", res)
 
         if (res.data == null) {
             toast.error(res.message, {

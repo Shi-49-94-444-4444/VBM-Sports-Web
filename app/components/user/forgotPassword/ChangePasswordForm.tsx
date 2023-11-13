@@ -39,7 +39,7 @@ const ChangePasswordForm = () => {
             confirmPassword: data.confirmPassword
         })
 
-        //console.log("Change: ", res)
+        console.log("Change: ", res)
 
         if (res.data == null) {
             toast.error(res.message, {

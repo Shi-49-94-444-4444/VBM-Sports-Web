@@ -18,7 +18,7 @@ const LocationStep = () => {
                 setLocations(locations)
                 if (setIsLoadingPage) setIsLoadingPage(false)
             } catch (error) {
-                //console.log(error)
+                console.log(error)
                 if (setIsLoadingPage) setIsLoadingPage(false)
             }
         }

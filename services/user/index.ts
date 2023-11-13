@@ -7,7 +7,7 @@ export const getListUserService = async () => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -21,7 +21,7 @@ export const getUserProfileService = async (id: string) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -35,7 +35,7 @@ export const getUserProfileSettingService = async (id: string) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -56,7 +56,7 @@ export const putProfileUserService = async (data: UserProfileFormData) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -72,7 +72,7 @@ export const postCommentService = async (data: CommentFormData) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -86,7 +86,7 @@ export const getCommentService = async (id: string) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -102,7 +102,7 @@ export const postReportUserService = async (data: ReportUserFormData) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -118,7 +118,7 @@ export const WalletService = async (data: WalletFromData) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data

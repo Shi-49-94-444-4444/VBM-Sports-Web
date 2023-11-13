@@ -32,7 +32,7 @@ const ModalWithdraw = () => {
                 money: -data.money
             })
 
-            //console.log(res)
+            console.log(res)
 
             if (res.data == null) {
                 toast.error(res.message, {

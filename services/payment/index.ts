@@ -12,7 +12,7 @@ export const checkSlotService = async (data: CheckSlotFormData) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -29,7 +29,7 @@ export const buySlotService = async (data: buySlotFormData) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -43,7 +43,7 @@ export const deleteTransactionService = async ({ tran_id }: { tran_id: number })
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -57,7 +57,7 @@ export const transactionStatusService = async ({ tran_id, status_info }: { tran_
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
@@ -71,7 +71,7 @@ export const getPaymentDetail = async ({ id }: { id: number }) => {
 
         return response.data
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
 
         if (error && error.response) {
             return error.response.data
