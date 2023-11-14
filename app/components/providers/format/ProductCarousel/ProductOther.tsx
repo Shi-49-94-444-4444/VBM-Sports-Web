@@ -77,7 +77,7 @@ const ProductOther: React.FC<ListProductData> = ({
                             "
                         >
                             <Image
-                                src={validateURLProduct(imgUrl || highlightUrl)}
+                                src={validateURLProduct(highlightUrl || imgUrl)}
                                 alt={`product ${id || idPost}`}
                                 className="
                                         rounded-t-xl

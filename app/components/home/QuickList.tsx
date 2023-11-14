@@ -13,7 +13,7 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const QuickList = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(user ? `/api/posts/${user.id}/post_suggestion` : '/api/posts/GetListPost', fetcher)
+    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(user ? `/api/posts/user/${user.id}/suggestion` : `/api/posts/GetListPost`, fetcher)
 
     if (isLoading) {
         return <LoadingFullScreen loading={isLoading} />

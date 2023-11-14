@@ -50,7 +50,7 @@ export async function middleware(req: NextRequest) {
         if (url.pathname.includes("/register-stepper")) {
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
-                if (!payload.IsNewUser) {
+                if (!payload.IsNewUser || payload.IsNewUser === "False") {
                     return NextResponse.redirect(`${url.origin}/`)
                 }
             }

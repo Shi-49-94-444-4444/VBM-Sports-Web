@@ -69,19 +69,15 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
                 <ProductContent
                     id={postId}
                     imageUrls={Product.data.imageUrls}
-                    days={Product.data.days}
-                    startTime={Product.data.startTime}
-                    endTime={Product.data.endTime}
                     addressSlot={Product.data.addressSlot}
                     categorySlot={Product.data.categorySlot}
                     levelSlot={Product.data.levelSlot}
-                    availableSlot={Product.data.availableSlot}
-                    quantitySlot={Product.data.quantitySlot}
+                    slotInfos={Product.data.slotInfos}
+                    title={Product.data.title}
                 />
                 <ProductUserPost
                     id={postId}
                     title={Product.data.title}
-                    priceSlot={Product.data.priceSlot}
                     contentPost={Product.data.contentPost}
                     imgUrlUser={Product.data.imgUrlUser}
                     sortProfile={Product.data.sortProfile}
@@ -89,7 +85,7 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
                     totalRate={Product.data.totalRate}
                     userId={Product.data.userId}
                 />
-                <ProductOtherExtra />
+                {/* <ProductOtherExtra /> */}
             </Container>
         </Layout>
     )

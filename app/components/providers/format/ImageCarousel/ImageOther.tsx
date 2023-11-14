@@ -24,8 +24,8 @@ const ImageItemOther = ({ src }: { src?: string | null }) => {
                 <Image
                     src={validateURLProduct(src)}
                     alt="QuickList"
-                    className="rounded-lg object-cover"
-                    sizes="(max-width: 600px) 100vw, 600px"
+                    className="rounded-lg object-center"
+                    sizes="(max-width: 600px) 100vw, 100vw"
                     fill
                     draggable="false"
                     loading="lazy"

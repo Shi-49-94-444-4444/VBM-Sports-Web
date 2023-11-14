@@ -48,14 +48,15 @@ const PostNewForm = () => {
     const router = useRouter()
 
     const listLevel = [
-        { id: "1", value: "Sơ cấp", label: "Sơ cấp" },
-        { id: "2", value: "Trung cấp", label: "Trung cấp" },
-        { id: "3", value: "Cao cấp", label: "Cao cấp" },
+        { id: "1", value: "Mới chơi", label: "Mới chơi" },
+        { id: "2", value: "Nghiệp dư", label: "Nghiệp dư" },
+        { id: "3", value: "Chuyên nghiệp", label: "Chuyên nghiệp" },
     ]
 
     const listCategory = [
         { id: "1", value: "Đánh đơn", label: "Đánh đơn" },
         { id: "2", value: "Đánh đôi", label: "Đánh đôi" },
+        { id: "3", value: "Hỗn hợp", label: "Hỗn hợp" },
     ]
 
     const { handleSubmit } = useForm()

@@ -26,19 +26,20 @@ export interface ProductDetailContent {
         title?: string | null
         addressSlot?: string | null
         levelSlot?: string | null
-        days?: string | null
-        priceSlot?: number | null
-        startTime?: string | null
-        endTime?: string | null
         contentPost?: string | null
-        quantitySlot?: number | null
-        availableSlot?: string[] | null
         fullName?: string | null
         imgUrlUser?: string | null
         sortProfile?: string | null
         categorySlot?: string | null
         totalRate?: number | null
         userId?: string | null
+        slotInfos?: {
+            startTime: string,
+            endTime: string,
+            price: number,
+            availableSlot: number,
+            saveData?: string,
+        }[]
     }
 }
 export interface ProductDetailContentData {
@@ -48,19 +49,20 @@ export interface ProductDetailContentData {
     title?: string | null
     addressSlot?: string | null
     levelSlot?: string | null
-    days?: string | null
-    priceSlot?: number | null
-    startTime?: string | null
-    endTime?: string | null
     contentPost?: string | null
-    quantitySlot?: number | null
-    availableSlot?: string[] | null
     fullName?: string | null
     imgUrlUser?: string | null
     sortProfile?: string | null
     categorySlot?: string | null
     totalRate?: number | null
     userId?: string | null
+    slotInfos?: {
+        startTime: string,
+        endTime: string,
+        price: number,
+        availableSlot: number,
+        saveData?: string,
+    }[]
 }
 
 export interface ListProduct {

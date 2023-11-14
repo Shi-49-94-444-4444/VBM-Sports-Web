@@ -4,13 +4,11 @@ import { ProductDetailContentData } from "@/types";
 import { Button, Rating, Share } from "../../providers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { formatMoney, validateDes, validateName, validateTitle, validateURLAvatar } from "@/utils";
-import Decimal from "decimal.js";
+import { validateDes, validateName, validateTitle, validateURLAvatar } from "@/utils";
 
 const ProductUserPost: React.FC<ProductDetailContentData> = ({
     id,
     title,
-    priceSlot,
     contentPost,
     imgUrlUser,
     sortProfile,
@@ -28,20 +26,6 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
     return (
         <div className="relative py-10" key={id}>
             <div className="flex flex-col gap-10">
-                <div className="
-                        flex 
-                        flex-col 
-                        font-semibold 
-                        gap-1
-                    "
-                >
-                    <h2 className="text-3xl">
-                        {validateTitle(title)}
-                    </h2>
-                    <p className="text-red-500 text-3xl">
-                        {formatMoney(new Decimal(priceSlot ?? 0))}/Chỗ
-                    </p>
-                </div>
                 <div className="flex flex-col gap-3">
                     <h3 className="text-xl font-semibold text-gray-600">
                         Mô tả:
