@@ -140,7 +140,7 @@ const SettingProfile = () => {
             avatar: data.imgURL,
             fullName: data.fullName,
             userName: data.userName,
-            playingArea: data.playingArea,
+            playingArea: [data.playingArea],
             sortProfile: data.sortProfile
         }))
         localStorage.setItem("user", JSON.stringify(user))
