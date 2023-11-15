@@ -97,6 +97,7 @@ export interface ListProduct {
         price?: number | null,
         highlightUrl?: string | null,
         imgUrlPost?: string[] | string | null
+        slotsInfo?: string | null
     }[]
 }
 
@@ -130,6 +131,7 @@ export interface ListProductData {
     price?: number | null,
     highlightUrl?: string | null,
     imgUrlPost?: string[] | string | null
+    slotsInfo?: string | null
 }
 
 export interface ListCity {

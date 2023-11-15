@@ -1,56 +1,56 @@
 export interface FormData {
     id?: string
-    email?: string;
-    password?: string;
-    phone?: string;
-    password?: string;
-    confirmPassword?: string;
-    otp?: string;
+    email?: string 
+    password?: string 
+    phone?: string 
+    password?: string 
+    confirmPassword?: string 
+    otp?: string 
 }
 export interface LoginFormData {
-    email: string;
-    password: string;
+    email: string 
+    password: string 
 }
 export interface RegisterFormData {
-    name: string;
-    email: string;
-    phone: string;
-    password: string;
-    confirmPassword: string;
+    name: string 
+    email: string 
+    phone: string 
+    password: string 
+    confirmPassword: string 
 }
 export interface OTP {
-    digit: string;
+    digit: string 
 }
 export interface getOtp {
-    email: string;
+    email: string 
 }
 export interface sendMail {
-    email: string;
-    otp: string;
+    email: string 
+    otp: string 
 }
 
 export interface ChangePasswordFormData {
-    password: string;
-    confirmPassword: string;
+    password: string 
+    confirmPassword: string 
 }
 
 export interface StepFormData {
-    userID?: string;
-    grounds?: string[];
-    level?: number;
-    way?: string[];
+    userID?: string 
+    grounds?: string[] 
+    level?: number 
+    way?: string[] 
 }
 export interface PlayGroundFormData {
-    userID: string;
-    grounds: string;
+    userID: string 
+    grounds: string[] 
 }
 export interface PlayLevelFormData {
-    userID: string;
-    levels: number;
+    userID: string 
+    levels: number 
 }
 export interface PlayWayFormData {
-    userID: string;
-    ways: string[];
+    userID: string 
+    ways: string[] 
 }
 
 export interface UserProfileSettingForm {

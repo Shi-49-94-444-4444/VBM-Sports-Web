@@ -55,15 +55,18 @@ export interface User {
     comments?: Comment[] | null
 }
 export interface UserSuggest {
-    postId?: string | null
-    userId?: string | null
-    userName?: string | null
-    sortDescript?: string | null
-    time?: string | null
-    availableSlot?: number | null
-    postImgUrl?: sting | null
-    userImgUrl?: string | null
-    address?: string | null
+    message: string
+    data: {
+        postId?: string | null
+        userId?: string | null
+        userName?: string | null
+        sortDescript?: string | null
+        time?: string | null
+        availableSlot?: number | null
+        postImgUrl?: sting | null
+        userImgUrl?: string | null
+        address?: string | null
+    }[]
 }
 export interface UserProfile {
     message: string

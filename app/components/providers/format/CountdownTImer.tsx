@@ -38,20 +38,21 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
 
     const email = JSON.parse(localStorage.getItem("email")!)
     const res = await forgotPasswordService({ email: email })
-    const result = await sendOTP(email, res.otp)
 
-    if (result.success) {
-      toast.success(res.message, {
+    if (res.data == null) {
+      toast.error(res.message, {
         position: toast.POSITION.TOP_RIGHT,
       })
-
-      setTimeLeft(initialMinutes * 60);
-      setIsReset(true);
-    } else {
-      toast.error(res.message), {
-        position: toast.POSITION.TOP_RIGHT
-      }
+      if (setIsLoading) setIsLoading(false)
+      return
     }
+
+    toast.success(res.message, {
+      position: toast.POSITION.TOP_RIGHT,
+    })
+
+    setTimeLeft(initialMinutes * 60);
+    setIsReset(true);
 
     if (setIsLoading) setIsLoading(false)
   };

@@ -33,7 +33,7 @@ const StepperHorizontalContent = ({ }) => {
     const { setIsLoading, user, setUser } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm<StepFormData>()
 
-    // console.log("global user", user);
+    // //console.log("global user", user);
 
     const onSubmitLocation = async () => {
         if (setIsLoading) setIsLoading(true);
@@ -45,76 +45,63 @@ const StepperHorizontalContent = ({ }) => {
             return Promise.resolve()
         }
 
-        const res = await postPlaygroundService({ userID: user?.id!, grounds: user?.playingArea! })
+        if (user && user.id && user.playingArea) {
+            const res = await postPlaygroundService({ userID: user.id, grounds: user.playingArea })
 
-        console.log("Playing Area: ", res)
+            //console.log("Playing Area: ", res)
 
-        if (res.message) {
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
+            if (res.data == null) {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
 
             if (setUser) {
                 setUser(prevUser => {
-                    const updatedUser = { ...prevUser, playingArea: user?.playingArea }
+                    const updatedUser = { ...prevUser, playingArea: user.playingArea }
                     localStorage.setItem("user", JSON.stringify(updatedUser))
                     return updatedUser
                 })
             }
-
-            console.log("After: ", user)
-
-        } else if (res.ErrorCode) {
-            toast.error(res.ErrorCode, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-        } else {
-            toast.error(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
         }
     }
 
     const onSubmitSkill = async () => {
-        if (setIsLoading) setIsLoading(true);
+        if (setIsLoading) setIsLoading(true)
 
         const userData = JSON.parse(localStorage.getItem('user')!)
-
-        console.log(userData.playingLevel);
-        console.log(user?.playingLevel);
 
         if (JSON.stringify(userData.playingLevel) === JSON.stringify(user?.playingLevel)) {
             if (setIsLoading) setIsLoading(false)
             return Promise.resolve()
         }
 
-        const res = await postPlayLevelService({ userID: user?.id!, levels: user?.playingLevel! })
+        if (user && user.id && user.playingLevel) {
+            const res = await postPlayLevelService({ userID: user.id, levels: user.playingLevel })
 
-        console.log("Playing Level: ", res)
+            //console.log("Playing Level: ", res)
 
-        if (res.message) {
+            if (res.data == null) {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
             if (setUser) {
                 setUser(prevUser => {
-                    const updatedUser = { ...prevUser, playingLevel: user?.playingLevel }
+                    const updatedUser = { ...prevUser, playingLevel: user.playingLevel }
                     localStorage.setItem("user", JSON.stringify(updatedUser))
                     return updatedUser
                 })
             }
-
-            console.log("After: ", user)
-
-        } else if (res.ErrorCode) {
-            toast.error(res.ErrorCode, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-        } else {
-            toast.error(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
         }
     }
 
@@ -123,48 +110,42 @@ const StepperHorizontalContent = ({ }) => {
 
         const userData = JSON.parse(localStorage.getItem('user')!)
 
-        console.log(userData.playingWay);
-        console.log(user?.playingWay);
-
         if (JSON.stringify(userData.playingWay) === JSON.stringify(user?.playingWay)) {
             if (setIsLoading) setIsLoading(false)
             return Promise.resolve()
         }
 
-        const res = await postPlayWayService({ userID: user?.id!, ways: user?.playingWay! })
+        if (user && user.id && user.playingWay) {
+            const res = await postPlayWayService({ userID: user.id, ways: user.playingWay })
 
-        console.log("Playing Way: ", res)
+            //console.log("Playing Way: ", res)
 
-        if (res.message) {
+            if (res.message) {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
             if (setUser) {
                 setUser(prevUser => {
-                    const updatedUser = { ...prevUser, playingWay: user?.playingWay }
+                    const updatedUser = { ...prevUser, playingWay: user.playingWay }
                     localStorage.setItem("user", JSON.stringify(updatedUser))
                     return updatedUser
                 })
             }
-
-            console.log("After: ", user)
-
-        } else if (res.ErrorCode) {
-            toast.error(res.ErrorCode, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-        } {
-            toast.error(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
         }
     }
 
     const onSubmitSuggestPlayer = async () => {
         if (setIsLoading) setIsLoading(true);
 
-        console.log("Submit SuggestPlayer Data");
+        //console.log("Submit SuggestPlayer Data");
     }
 
     const getOnSubmitHandler = () => {
@@ -186,6 +167,13 @@ const StepperHorizontalContent = ({ }) => {
         let newStep = currentStep;
 
         if (direction === "next") {
+            if ((user && user.playingArea == null && currentStep === 1) ||
+                (user && user.playingLevel == 0 && currentStep === 2) ||
+                (user && user.playingWay == null && currentStep === 3)) {
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
             const onSubmitHandler = getOnSubmitHandler();
             if (onSubmitHandler instanceof Function) {
                 await onSubmitHandler();
@@ -200,9 +188,8 @@ const StepperHorizontalContent = ({ }) => {
 
         setCurrentStep(newStep);
 
-        if (setIsLoading) setIsLoading(false);
-    };
-
+        if (setIsLoading) setIsLoading(false)
+    }
 
     return (
         <form className="p-4 rounded-lg bg-white border-2 border-[#E7EBEE] w-full h-full" onSubmit={handleSubmit(() => getOnSubmitHandler())}>

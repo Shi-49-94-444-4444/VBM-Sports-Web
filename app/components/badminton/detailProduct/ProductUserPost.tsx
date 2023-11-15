@@ -45,7 +45,7 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                         <Image
                             src={validateURLAvatar(imgUrlUser)}
                             alt="avatar"
-                            className="object-cover rounded-full"
+                            className="object-cover rounded-full w-40 h-40"
                             width={120}
                             height={120}
                             draggable="false"
@@ -53,7 +53,7 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                     </div>
                     <div className="flex flex-col gap-3">
                         <div className="flex flex-row gap-3 items-center">
-                            <h1 className="text-xl text-gray-600 font-semibold">
+                            <h1 className="text-3xl text-gray-600 font-semibold">
                                 {validateName(fullName)}
                             </h1>
                             <Rating rating={totalRate ?? 0} maxStars={5} sizeCus={20} />
@@ -65,7 +65,7 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                                 onClick={handleClick}
                             />
                         </div>
-                        <div className="text-gray-500 text-xl">
+                        <div className="text-gray-500 text-xl line-clamp-3">
                             {validateDes(sortProfile)}
                         </div>
                     </div>

@@ -29,7 +29,7 @@ const VerifyOTPForm = () => {
 
         const email = JSON.parse(localStorage.getItem("email")!)
         const res = await verifyOTPService({ email: email, otp: isOTP })
-        console.log("Verify_otp: ", res)
+        //console.log("Verify_otp: ", res)
 
         if (res.data == null) {
             toast.error(res.message, {

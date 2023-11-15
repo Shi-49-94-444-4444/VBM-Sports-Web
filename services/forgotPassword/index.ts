@@ -7,7 +7,7 @@ export const forgotPasswordService = async (data: getOtp) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -21,7 +21,7 @@ export const getSuggestPlayer = async (id: string) => {
 
         return response.data;
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -38,7 +38,7 @@ export const verifyOTPService = async (data: sendMail) => {
 
         return response.data;
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -55,7 +55,7 @@ export const changePasswordService = async (data: FormData) => {
 
         return response.data;
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data

@@ -1,20 +1,6 @@
 import { StepFormData, PlayGroundFormData, PlayLevelFormData, PlayWayFormData } from "@/types"
 import AxiosClient from "../AxiosInstance"
 
-export const getPlayGroundService = async () => {
-    try {
-        const response = await AxiosClient.get(`/api/posts/play_ground`);
-
-        return response.data;
-    } catch (error: any) {
-        console.log(error)
-        
-        if (error && error.response) {
-            return error.response.data
-        }
-    }
-}
-
 export const postPlaygroundService = async (data: PlayGroundFormData) => {
     try {
         const response = await AxiosClient.post(`/api/users/${data.userID}/playing_area`, {
@@ -23,7 +9,7 @@ export const postPlaygroundService = async (data: PlayGroundFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -39,7 +25,7 @@ export const postPlayLevelService = async (data: PlayLevelFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -55,7 +41,7 @@ export const postPlayWayService = async (data: PlayWayFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data
@@ -69,7 +55,7 @@ export const getSuggestPlayerService = async (data: StepFormData) => {
 
         return response.data
     } catch (error: any) {
-        console.log(error)
+        //console.log(error)
         
         if (error && error.response) {
             return error.response.data

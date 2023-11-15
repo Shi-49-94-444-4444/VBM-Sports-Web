@@ -82,6 +82,7 @@ const ProductCarousel = () => {
                         quantitySlot={item.quantitySlot}
                         startTime={item.startTime}
                         title={item.title}
+                        slotsInfo={item.slotsInfo}
                     />
                 </SwiperSlide>
             ))}

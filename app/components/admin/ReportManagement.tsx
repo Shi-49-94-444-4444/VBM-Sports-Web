@@ -1,10 +1,9 @@
 "use client"
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Search } from "../providers"
-import OutsideClickHandler from "react-outside-click-handler";
-import { GrAdd, GrFormAdd } from "react-icons/gr"
 import { IoMdAdd } from "react-icons/io";
+import { useOutsideClick } from "@/utils";
 
 const ReportManagement = () => {
     const [showToggleItemID, setShowToggleItemID] = useState<string | null>(null);
@@ -15,11 +14,14 @@ const ReportManagement = () => {
         } else {
             setShowToggleItemID(itemID)
         }
-    };
+    }
 
     const handleOutsideClick = () => {
         setShowToggleItemID(null);
-    };
+    }
+
+    const ref = useRef<HTMLDivElement | null>(null)
+    useOutsideClick(ref, handleOutsideClick)
 
     const listTitleUserManagement = [
         { title: "ID" },
@@ -120,22 +122,20 @@ const ReportManagement = () => {
                             <td className="py-3 border-r border-black border-opacity-10">{items.datePost}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{items.dateEdit}</td>
                             <td className="py-3 border-r border-black border-opacity-10 relative">
-                                <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-                                    <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
-                                        ...
-                                    </button>
-                                    {showToggleItemID === items.id && (
-                                        <div className="absolute right-[14rem] sm:right-[16rem] md:right-[17rem] xl:right-[18rem] bottom-4 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap">
-                                            <ul className="space-y-2 list-none">
-                                                {listAction.map((items, index) => (
-                                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                        {items.title}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
-                                </OutsideClickHandler>
+                                <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
+                                    ...
+                                </button>
+                                {showToggleItemID === items.id && (
+                                    <div className="absolute right-[14rem] sm:right-[16rem] md:right-[17rem] xl:right-[18rem] bottom-4 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
+                                        <ul className="space-y-2 list-none">
+                                            {listAction.map((items, index) => (
+                                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
+                                                    {items.title}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
                             </td>
                         </tr>
                     ))}

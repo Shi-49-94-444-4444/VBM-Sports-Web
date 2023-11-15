@@ -115,7 +115,7 @@ const PostNewForm = () => {
         }));
     }
 
-    console.log(slots)
+    //console.log(slots)
 
     // Form for Date
     const showForm = (day: Date) => {
@@ -432,14 +432,14 @@ const PostNewForm = () => {
             endDate.setHours(endHours, endMinutes);
 
             return {
-                startTime: startDate.toISOString(),
-                endTime: endDate.toISOString(),
+                startTime: format(startDate, "dd/MM/yyyy hh:mm:ss a"),
+                endTime: format(endDate, "dd/MM/yyyy hh:mm:ss a"),
                 price: slot.price,
                 availableSlot: slot.availableSlot,
             }
         })
 
-        console.log(formattedSlots)
+        //console.log(formattedSlots)
 
         if (user && user.id) {
             const res = await postBadmintonService({
@@ -454,7 +454,7 @@ const PostNewForm = () => {
                 imgUrls: uploadImages
             })
 
-            console.log(res)
+            //console.log(res)
 
             if (res.data == null) {
                 toast.error(res.message, {

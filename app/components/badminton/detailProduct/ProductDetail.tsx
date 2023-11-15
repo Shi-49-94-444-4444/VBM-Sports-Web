@@ -70,7 +70,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
         for (const date in selectedSlots) {
             const slot = selectedSlots[date]
 
-            console.log(slot, date)
+            //console.log(slot, date)
 
             if (!date || slot === 0) {
                 toast.error("Phải chọn ngày và chỗ", {
@@ -88,7 +88,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     dateRegis: date
                 })
 
-                console.log(availableSlot)
+                //console.log(availableSlot)
 
 
                 if (availableSlot.data == null) {
@@ -103,7 +103,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
             }
         }
 
-        console.log(slotsIdArray)
+        //console.log(slotsIdArray)
 
         if (id && user && user.id) {
             const res = await buySlotService({
@@ -111,7 +111,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                 idSlot: slotsIdArray.flat()
             })
 
-            console.log(res)
+            //console.log(res)
 
             if (res.data == null) {
                 toast.error("Đặt chỗ thất bại", {

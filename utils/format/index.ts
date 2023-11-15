@@ -6,110 +6,151 @@ import currency from 'currency.js'
 import { DateSlot } from '@/types'
 
 export const FormatDate: React.FC<FormatDateProps> = ({ dateString }) => {
-  const dateParts = dateString.split('/')
-  const day = parseInt(dateParts[0], 10)
-  const month = parseInt(dateParts[1], 10)
-  const year = parseInt(dateParts[2], 10)
+  try {
+    const dateParts = dateString.split('/')
+    const day = parseInt(dateParts[0], 10)
+    const month = parseInt(dateParts[1], 10)
+    const year = parseInt(dateParts[2], 10)
 
-  const date = new Date(year, month - 1, day)
+    const date = new Date(year, month - 1, day)
 
-  const formattedDate = format(date, "cccc, 'ngày' dd 'tháng' MM, yyyy", { locale: vi })
+    const formattedDate = format(date, "cccc, 'ngày' dd 'tháng' MM, yyyy", { locale: vi })
 
-  return formattedDate
+    return formattedDate
+  } catch (error) {
+    console.error("Error formatting date: ", error)
+    return ""
+  }
 }
 
 export function formatDateFunc(dateString: string): string {
-  const dateParts = dateString.split('/')
-  const day = parseInt(dateParts[0], 10)
-  const month = parseInt(dateParts[1], 10)
-  const year = parseInt(dateParts[2], 10)
+  try {
+    const dateParts = dateString.split('/')
+    const day = parseInt(dateParts[0], 10)
+    const month = parseInt(dateParts[1], 10)
+    const year = parseInt(dateParts[2], 10)
 
-  const date = new Date(year, month - 1, day)
+    const date = new Date(year, month - 1, day)
 
-  const formattedDate = format(date, "cccc 'ngày' dd 'tháng' MM 'năm' yyyy", { locale: vi })
+    const formattedDate = format(date, "cccc 'ngày' dd 'tháng' MM 'năm' yyyy", { locale: vi })
 
-  return formattedDate
+    return formattedDate
+  } catch (error) {
+    console.error("Error formatting date: ", error)
+    return ""
+  }
 }
 
+
 export function getDates(dateString: string): string[] {
-  const [days, months, years] = dateString.split("/").map(part => part.split(";"))
-  const dates: string[] = []
-  let lastDay = 0
-  let currentMonthIndex = 0
+  try {
+    const [days, months, years] = dateString.split("/").map(part => part.split(";"))
+    const dates: string[] = []
+    let lastDay = 0
+    let currentMonthIndex = 0
 
-  for (let i = 0; i < days.length; i++) {
-    let day = parseInt(days[i])
-    let month = parseInt(months[currentMonthIndex])
-    const year = parseInt(years[i % years.length])
+    for (let i = 0; i < days.length; i++) {
+      let day = parseInt(days[i])
+      let month = parseInt(months[currentMonthIndex])
+      const year = parseInt(years[i % years.length])
 
-    if (day < lastDay) {
-      currentMonthIndex++
-      month = parseInt(months[currentMonthIndex % months.length])
+      if (day < lastDay) {
+        currentMonthIndex++
+        month = parseInt(months[currentMonthIndex % months.length])
+      }
+
+      const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date())
+      if (isValid(parsedDate)) {
+        dates.push(format(parsedDate, "dd/MM/yyyy"))
+      }
+
+      lastDay = day
     }
 
-    const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date())
-    if (isValid(parsedDate)) {
-      dates.push(format(parsedDate, "dd/MM/yyyy"))
-    }
-
-    lastDay = day
+    return dates
+  } catch (error) {
+    console.error("Error formatting get dates: ", error)
+    return []
   }
-
-  return dates
 }
 
 export const GetFirstDate: React.FC<{ dateString: string }> = ({ dateString }) => {
-  const [days, months, years] = dateString.split("/").map(part => part.split(";"))
-  const dates: string[] = []
-  let lastDay = 0
-  let currentMonthIndex = 0
+  try {
+    const [days, months, years] = dateString.split("/").map(part => part.split(";"))
+    const dates: string[] = []
+    let lastDay = 0
+    let currentMonthIndex = 0
 
-  for (let i = 0; i < days.length; i++) {
-    let day = parseInt(days[i])
-    let month = parseInt(months[currentMonthIndex])
-    const year = parseInt(years[i % years.length])
+    for (let i = 0; i < days.length; i++) {
+      let day = parseInt(days[i])
+      let month = parseInt(months[currentMonthIndex])
+      const year = parseInt(years[i % years.length])
 
-    if (day < lastDay) {
-      currentMonthIndex++
-      month = parseInt(months[currentMonthIndex % months.length])
+      if (day < lastDay) {
+        currentMonthIndex++
+        month = parseInt(months[currentMonthIndex % months.length])
+      }
+
+      const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date())
+      if (isValid(parsedDate)) {
+        dates.push(format(parsedDate, "dd/MM/yyyy"))
+      }
+
+      lastDay = day
     }
 
-    const parsedDate = parse(`${day}/${month}/${year}`, "dd/MM/yyyy", new Date())
-    if (isValid(parsedDate)) {
-      dates.push(format(parsedDate, "dd/MM/yyyy"))
-    }
+    const firstDate: string | undefined = dates[0]
 
-    lastDay = day
+    return firstDate
+  } catch (error) {
+    console.error("Error formatting get first date: ", error)
+    return ""
   }
-
-  const firstDate: string | undefined = dates[0]
-
-  return firstDate
 }
 
 export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
-  const formattedTime = timeString.replace(":", "h")
+  try {
+    const formattedTime = timeString.replace(":", "h")
 
-  return formattedTime
+    return formattedTime
+  } catch (error) {
+    console.error("Error formatting time: ", error)
+    return ""
+  }
 }
 
 export function formatMoney(data: Decimal): string {
-  const numberValue = data.toNumber()
-  const roundedNumber = Math.round(numberValue)
-  const formattedNumber = currency(roundedNumber, { symbol: "", separator: ",", decimal: ",", precision: 0 }).format()
-  return formattedNumber + " VNĐ"
+  try {
+    const numberValue = data.toNumber()
+    const roundedNumber = Math.round(numberValue)
+    const formattedNumber = currency(roundedNumber, { symbol: "", separator: ",", decimal: ",", precision: 0 }).format()
+    return formattedNumber + " VNĐ"
+  } catch (error) {
+    console.error("Error formatting money: ", error)
+    return ""
+  }
 }
 
 export function formatAddress(data: string): string[] {
-  const address = data.split(",")
+  try {
+    const address = data.split(",")
 
-  return address
+    return address
+  } catch (error) {
+    console.error("Error formatting address: ", error)
+    return []
+  }
 }
 
 export function formatURL(data: string): string[] {
-  const url = data.split(";").filter(item => item !== "")
+  try {
+    const url = data.split(";").filter(item => item !== "")
 
-  return url
+    return url
+  } catch (error) {
+    console.error("Error formatting url: ", error)
+    return []
+  }
 }
 
 export function parseSlots(value: string[]): DateSlot[] {

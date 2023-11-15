@@ -2,42 +2,32 @@
 
 import { LoadingFullScreen, UserOther } from "@/app/components"
 import { GlobalContext } from "@/contexts"
-import { getSuggestPlayer } from "@/services"
+import { AxiosClient } from "@/services"
 import { UserSuggest } from "@/types"
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
+import useSWR from "swr"
+
+const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const SuggestPlayerStep = () => {
-    const [listUser, setListUser] = useState<UserSuggest[]>([])
+    const { user } = useContext(GlobalContext) || {}
 
-    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { data: listUser, error } = useSWR<UserSuggest>(user && user.id ? `/api/posts/user/${user.id}/suggestion` : null, fetcher)
 
-    useEffect(() => {
-        if (setIsLoading) setIsLoading(true)
-        const fetchUsers = async () => {
-            try {
-                const users = await getSuggestPlayer(user?.id ?? "1")
-                setListUser(users)
-                console.log(users)
-                if (setIsLoading) setIsLoading(false)
-            } catch (error) {
-                console.log(error)
-                if (setIsLoading) setIsLoading(false)
-            }
-        };
+    const isLoading = !listUser && !error
 
-        fetchUsers();
-    }, [user?.id, setIsLoading]);
-
-    if (!listUser) {
-        return <LoadingFullScreen loading={isLoading ?? true} />
-    }
-
-    const sliceUser = listUser.slice(0, 6)
+    const sliceUser = listUser && listUser.data.length > 0 ? listUser.data.slice(0, 6) : []
 
     return (
         <div className="relative w-full grid grid-cols-3 gap-5 max-h-full">
             {isLoading ? (
-                <LoadingFullScreen loading={isLoading} />
+                <div className="col-span-3 flex justify-center items-center h-full">
+                    <LoadingFullScreen loading={isLoading} />
+                </div>
+            ) : listUser && listUser.data.length === 0 ? (
+                <div className="h-96 flex items-center justify-center text-3xl text-primary-blue-cus font-semibold col-span-3">
+                    Không có bất kì gọi ý người chơi nào cho bạn cả
+                </div>
             ) : (
                 <>
                     {sliceUser.map((item) => (
@@ -51,8 +41,9 @@ const SuggestPlayerStep = () => {
                         </div>
                     ))}
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 }
 

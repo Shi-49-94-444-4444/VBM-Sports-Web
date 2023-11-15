@@ -15,7 +15,7 @@ interface User {
     fullName?: string | null
     email?: string | null
     avatar?: string | null
-    playingArea?: string | null
+    playingArea?: string[] | null
     playingLevel?: number | null
     playingWay?: string[] | null
     token?: string | null

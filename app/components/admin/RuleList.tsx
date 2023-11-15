@@ -16,7 +16,7 @@ const RuleList = () => {
   const handleUpdateClick = () => {
     try {
       const updatedJson = JSON.parse(json);
-      console.log("JSON đã chỉnh sửa:", updatedJson);
+      //console.log("JSON đã chỉnh sửa:", updatedJson);
       setIsEditing(false);
     } catch (error) {
       console.error("Lỗi xử lý JSON:", error);

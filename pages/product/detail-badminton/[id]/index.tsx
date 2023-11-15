@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             revalidate: 60
         }
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         return {
             props: {
                 internalError: true
@@ -85,7 +85,7 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
                     totalRate={Product.data.totalRate}
                     userId={Product.data.userId}
                 />
-                {/* <ProductOtherExtra /> */}
+                <ProductOtherExtra />
             </Container>
         </Layout>
     )

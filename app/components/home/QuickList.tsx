@@ -1,19 +1,21 @@
 "use client"
 
-import { FaSadCry } from "react-icons/fa";
-import { Container, LoadingFullScreen, ProductOther } from "../providers";
-import { ListProduct } from "@/types";
-import { useContext } from "react";
-import { GlobalContext } from "@/contexts";
-import { AxiosClient } from "@/services";
-import useSWR from 'swr';
+import { FaSadCry } from "react-icons/fa"
+import { Button, Container, LoadingFullScreen, ProductOther } from "../providers"
+import { ListProduct } from "@/types"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
+import { AxiosClient } from "@/services"
+import useSWR from 'swr'
+import { useRouter } from "next/navigation"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const QuickList = () => {
     const { user } = useContext(GlobalContext) || {}
+    const router = useRouter()
 
-    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(user ? `/api/posts/user/${user.id}/suggestion` : `/api/posts/GetListPost`, fetcher)
+    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(user ? `/api/posts/${user.id}/post_suggestion` : `/api/posts/GetListPost`, fetcher)
 
     if (isLoading) {
         return <LoadingFullScreen loading={isLoading} />
@@ -73,9 +75,17 @@ const QuickList = () => {
                             userImgUrl={items.userImgUrl}
                             price={items.price}
                             highlightUrl={items.highlightUrl}
+                            slotsInfo={items.slotsInfo}
                             flagTooltip
                         />
                     ))}
+                </div>
+                <div className="relative flex justify-center items-center pt-16">
+                    <Button 
+                        title="Xem thêm"
+                        onClick={() => router.push("/product/list-badminton")}
+                        style="py-3 px-12 text-xl"
+                    />
                 </div>
             </Container>
         </div>

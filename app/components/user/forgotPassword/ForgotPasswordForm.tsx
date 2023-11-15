@@ -48,13 +48,8 @@ const ForgotPasswordForm = () => {
         })
 
         localStorage.setItem("email", JSON.stringify(data.email))
-        // Cookies.set("token", res.data.token)
-
-        // const result = await sendOTP(data.email, res.otp)
-
-        // if (result.success) {
+        
         setIsForgot(true)
-        // }
 
         if (setIsLoading) setIsLoading(false)
     }

@@ -11,7 +11,7 @@ export async function middleware(req: NextRequest) {
 
     if (token) {
         const { payload } = await jose.jwtVerify(token, secret)
-        console.log(payload.IsNewUser)
+        //console.log(payload.IsNewUser)
     }
 
     try {
@@ -37,16 +37,6 @@ export async function middleware(req: NextRequest) {
             }
         }
 
-        if (url.pathname.includes("/change-password") ||
-            url.pathname.includes("/verify-otp")) {
-            if (token) {
-                const { payload } = await jose.jwtVerify(token, secret)
-                if (!payload.OTP) {
-                    return NextResponse.redirect(`${url.origin}/`)
-                }
-            }
-        }
-
         if (url.pathname.includes("/register-stepper")) {
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
@@ -56,7 +46,7 @@ export async function middleware(req: NextRequest) {
             }
         }
     } catch (e) {
-        console.log(e)
+        //console.log(e)
         return NextResponse.redirect(`${url.origin}/`)
     }
 

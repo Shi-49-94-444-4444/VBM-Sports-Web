@@ -23,7 +23,7 @@ const StepperHorizontal: React.FC<StepperHorizontalProps> = ({
 
     const updateStep = (stepNumber: number, steps: Step[]): Step[] => {
         const newSteps = [...steps];
-        // console.log(newSteps);
+        // //console.log(newSteps);
         let count = 0;
         while (count < newSteps.length) {
             //current step

@@ -1,7 +1,7 @@
-// import ProductFilter from "./ProductFilter";
-// import ProductItems from "./ProductItems";
+import ProductFilter from "./ProductFilter";
+import ProductItems from "./ProductItems";
 
-// export {
-//     ProductFilter,
-//     ProductItems,
-// }
+export {
+    ProductFilter,
+    ProductItems,
+}
