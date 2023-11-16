@@ -94,7 +94,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         return () => {
             router.events.off('routeChangeStart', handleRoutePayment)
         }
-    }, [router])
+    }, [router, transactionId])
 
     return (
         <GlobalContext.Provider

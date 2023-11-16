@@ -170,6 +170,9 @@ const StepperHorizontalContent = ({ }) => {
             if ((user && user.playingArea == null && currentStep === 1) ||
                 (user && user.playingLevel == 0 && currentStep === 2) ||
                 (user && user.playingWay == null && currentStep === 3)) {
+                toast.error("Bạn cần điền đầy đủ trước khi đến bước tiếp theo", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
                 if (setIsLoading) setIsLoading(false)
                 return
             }

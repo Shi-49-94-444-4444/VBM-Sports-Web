@@ -118,6 +118,7 @@ export const WalletService = async (data: WalletFromData) => {
 
         return response.data
     } catch (error: any) {
+        if (error && error.status)
         //console.log(error)
 
         if (error && error.response) {

@@ -432,14 +432,14 @@ const PostNewForm = () => {
             endDate.setHours(endHours, endMinutes);
 
             return {
-                startTime: format(startDate, "dd/MM/yyyy hh:mm:ss a"),
-                endTime: format(endDate, "dd/MM/yyyy hh:mm:ss a"),
+                startTime: startDate.toISOString(),
+                endTime: endDate.toISOString(),
                 price: slot.price,
                 availableSlot: slot.availableSlot,
             }
         })
 
-        //console.log(formattedSlots)
+        // //console.log(formattedSlots)
 
         if (user && user.id) {
             const res = await postBadmintonService({

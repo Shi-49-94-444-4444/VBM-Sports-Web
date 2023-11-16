@@ -9,11 +9,6 @@ export async function middleware(req: NextRequest) {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET)
     const url = req.nextUrl
 
-    if (token) {
-        const { payload } = await jose.jwtVerify(token, secret)
-        //console.log(payload.IsNewUser)
-    }
-
     try {
         if (url.pathname.includes("/user/setting-profile") ||
             url.pathname.includes("/user/setting-ban") ||

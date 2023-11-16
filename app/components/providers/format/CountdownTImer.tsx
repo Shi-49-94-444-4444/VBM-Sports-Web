@@ -2,7 +2,6 @@
 
 import { GlobalContext } from "@/contexts";
 import { forgotPasswordService } from "@/services/forgotPassword";
-import { sendOTP } from "@/utils/functions/sendOTP";
 import { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 
@@ -13,7 +12,7 @@ interface CountdownTimerProps {
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
   const [timeLeft, setTimeLeft] = useState(initialMinutes * 60);
   const [isReset, setIsReset] = useState(false); // Add isReset state
-  const { setIsLoading } = useContext(GlobalContext) || {}
+  const { setIsLoading, user } = useContext(GlobalContext) || {}
 
 
   useEffect(() => {
@@ -37,25 +36,43 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ initialMinutes }) => {
     if (setIsLoading) setIsLoading(true)
 
     const email = JSON.parse(localStorage.getItem("email")!)
-    const res = await forgotPasswordService({ email: email })
+    if (user && user.isNewUser) {
+      const userEmail = JSON.parse(localStorage.getItem("userEmail")!)
 
-    if (res.data == null) {
-      toast.error(res.message, {
+      const res = await forgotPasswordService({ email: userEmail })
+
+      if (res.data == null) {
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        if (setIsLoading) setIsLoading(false)
+        return
+      }
+
+      toast.success("Gửi lại mã thành công", {
         position: toast.POSITION.TOP_RIGHT,
       })
-      if (setIsLoading) setIsLoading(false)
-      return
-    }
+    } else if (email) {
+      const res = await forgotPasswordService({ email: email })
 
-    toast.success(res.message, {
-      position: toast.POSITION.TOP_RIGHT,
-    })
+      if (res.data == null) {
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+        if (setIsLoading) setIsLoading(false)
+        return
+      }
+
+      toast.success("Gửi lại mã thành công", {
+        position: toast.POSITION.TOP_RIGHT,
+      })
+    }
 
     setTimeLeft(initialMinutes * 60);
     setIsReset(true);
 
     if (setIsLoading) setIsLoading(false)
-  };
+  }
 
   return (
     <div className="text-lg font-normal text-white">

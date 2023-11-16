@@ -171,7 +171,7 @@ const ProductOther: React.FC<ListProductData> = ({
                                         alt="avatar"
                                         width={50}
                                         height={50}
-                                        className="rounded-full w-14 h-14 object-cover"
+                                        className="rounded-full w-14 h-14 object-cover border border-primary-blue-cus"
                                     />
                                 </span>
                                 <span className="text-gray-600 font-semibold text-lg truncate">
@@ -186,7 +186,7 @@ const ProductOther: React.FC<ListProductData> = ({
                                         alt={`avatar ${idUserToNavigation.id}`}
                                         width={50}
                                         height={50}
-                                        className="rounded-full w-14 h-14 object-cover"
+                                        className="rounded-full w-14 h-14 object-cover border border-primary-blue-cus border-solid"
                                     />
                                 </span>
                                 <span className="text-gray-600 font-semibold text-lg truncate">
@@ -234,7 +234,7 @@ const ProductOther: React.FC<ListProductData> = ({
                             </span>
                             <span className="text-black font-semibold">
                                 {days ?
-                                    format(parse(days, "dd/MM/yyyy h:mm:ss a", new Date()), "dd/MM/yyyy") :
+                                    days :
                                     (formattedSlots && formattedSlots.length > 0 ? formattedSlots[0].date : "")
                                 }
                             </span>
@@ -248,7 +248,7 @@ const ProductOther: React.FC<ListProductData> = ({
                                     {item.date}
                                 </span>
                             )) : (
-                                days && format(parse(days, "dd/MM/yyyy h:mm:ss a", new Date()), "dd/MM/yyyy")
+                                days
                             )}
                         </div>
                         <div className="flex flex-row md:flex-none space-x-10 md:justify-normal transition-all duration-500">

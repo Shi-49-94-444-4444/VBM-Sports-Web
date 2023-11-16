@@ -12,11 +12,9 @@ import { useRouter } from "next/navigation"
 const VerifyOTPForm = () => {
     const [isOTP, setIsOTP] = useState("")
     const [isVerify, setIsVerify] = useState(false)
-    const { setIsLoading, isLoading } = useContext(GlobalContext) || {}
-    const {
-        handleSubmit,
-        formState: { errors }
-    } = useForm<OTP>()
+    const [isRegister, setIsRegister] = useState(false)
+    const { setIsLoading, isLoading, user } = useContext(GlobalContext) || {}
+    const { handleSubmit, formState: { errors } } = useForm<OTP>()
 
     const router = useRouter()
 
@@ -28,28 +26,55 @@ const VerifyOTPForm = () => {
         if (setIsLoading) setIsLoading(true)
 
         const email = JSON.parse(localStorage.getItem("email")!)
-        const res = await verifyOTPService({ email: email, otp: isOTP })
-        //console.log("Verify_otp: ", res)
 
-        if (res.data == null) {
-            toast.error(res.message, {
+        if (user && user.isNewUser) {
+            const userEmail = JSON.parse(localStorage.getItem("userEmail")!)
+            //console.log(userEmail);
+
+            const res = await verifyOTPService({ email: userEmail, otp: isOTP })
+
+            if (res.data == null) {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
+            toast.success("Xác thực thành công", {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
-            return
-        }
 
-        toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-        })
-        setIsVerify(true)
+            setIsRegister(true)
+        } else if (email) {
+            const res = await verifyOTPService({ email: email, otp: isOTP })
+            //console.log("Verify_otp: ", res)
+
+            if (res.data == null) {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
+            toast.success("Xác thực thành công", {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+
+            setIsVerify(true)
+        }
 
         if (setIsLoading) setIsLoading(false)
     }
 
     useEffect(() => {
-        if (isVerify) router.push("/change-password")
-    }, [router, isVerify])
+        if (isRegister) {
+            router.push("/register-stepper")
+        } else if (isVerify) {
+            router.push("/change-password")
+        }
+    }, [router, isVerify, isRegister])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

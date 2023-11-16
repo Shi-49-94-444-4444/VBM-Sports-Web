@@ -1,4 +1,4 @@
-import { CreateBadmintonForm, CheckSlotFormData, buySlotFormData } from "@/types"
+import { CreateBadmintonForm } from "@/types"
 import AxiosClient from "../AxiosInstance"
 
 export const getListProductService = async () => {
@@ -46,7 +46,6 @@ export const getProductSuggestService = async (id: string) => {
 export const postBadmintonService = async (data: CreateBadmintonForm) => {
     try {
         //console.log(data)
-
         const response = await AxiosClient.post(`/api/posts/create_by/${data.id}`, {
             title: data.title,
             address: data.address,

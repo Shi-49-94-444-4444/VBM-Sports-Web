@@ -18,7 +18,7 @@ export const FormatDate: React.FC<FormatDateProps> = ({ dateString }) => {
 
     return formattedDate
   } catch (error) {
-    console.error("Error formatting date: ", error)
+    //console.log("Error formatting date: ", error)
     return ""
   }
 }
@@ -36,7 +36,7 @@ export function formatDateFunc(dateString: string): string {
 
     return formattedDate
   } catch (error) {
-    console.error("Error formatting date: ", error)
+    //console.log("Error formatting date: ", error)
     return ""
   }
 }
@@ -69,7 +69,7 @@ export function getDates(dateString: string): string[] {
 
     return dates
   } catch (error) {
-    console.error("Error formatting get dates: ", error)
+    //console.log("Error formatting get dates: ", error)
     return []
   }
 }
@@ -103,7 +103,7 @@ export const GetFirstDate: React.FC<{ dateString: string }> = ({ dateString }) =
 
     return firstDate
   } catch (error) {
-    console.error("Error formatting get first date: ", error)
+    //console.log("Error formatting get first date: ", error)
     return ""
   }
 }
@@ -114,7 +114,7 @@ export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
 
     return formattedTime
   } catch (error) {
-    console.error("Error formatting time: ", error)
+    //console.log("Error formatting time: ", error)
     return ""
   }
 }
@@ -126,7 +126,7 @@ export function formatMoney(data: Decimal): string {
     const formattedNumber = currency(roundedNumber, { symbol: "", separator: ",", decimal: ",", precision: 0 }).format()
     return formattedNumber + " VNĐ"
   } catch (error) {
-    console.error("Error formatting money: ", error)
+    //console.log("Error formatting money: ", error)
     return ""
   }
 }
@@ -137,7 +137,7 @@ export function formatAddress(data: string): string[] {
 
     return address
   } catch (error) {
-    console.error("Error formatting address: ", error)
+    //console.log("Error formatting address: ", error)
     return []
   }
 }
@@ -148,7 +148,7 @@ export function formatURL(data: string): string[] {
 
     return url
   } catch (error) {
-    console.error("Error formatting url: ", error)
+    //console.log("Error formatting url: ", error)
     return []
   }
 }

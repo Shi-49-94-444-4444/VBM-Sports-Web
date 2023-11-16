@@ -38,7 +38,7 @@ const RegisterForm = () => {
             return
         }
 
-        toast.success(res.message, {
+        toast.success("Đăng kí thành công", {
             position: toast.POSITION.TOP_RIGHT,
         })
         setIsRegistered(true)

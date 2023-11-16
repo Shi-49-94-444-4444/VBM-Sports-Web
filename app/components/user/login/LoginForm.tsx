@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { yupResolver } from "@hookform/resolvers/yup"
 import loginService from '@/services/login';
 import { loginInputs, loginSchema } from '@/utils';
+import { forgotPasswordService } from '@/services';
 
 const LoginForm = () => {
     const {
@@ -27,7 +28,6 @@ const LoginForm = () => {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors }
     } = useForm<LoginFormData>({
         resolver: yupResolver(loginSchema),
@@ -48,7 +48,7 @@ const LoginForm = () => {
             return
         }
 
-        toast.success(res.message, {
+        toast.success("Đăng nhập thành công", {
             position: toast.POSITION.TOP_RIGHT,
         })
 
@@ -58,6 +58,11 @@ const LoginForm = () => {
             setUser(user)
         }
 
+        if (res.data.isNewUser) {
+            await forgotPasswordService({ email: data.email })
+            localStorage.setItem("userEmail", JSON.stringify(data.email))
+        }
+
         Cookies.set("token", res.data.token)
         localStorage.setItem("user", JSON.stringify(res.data))
 
@@ -65,12 +70,12 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        if (user?.isNewUser) {
-            router.push("/register-stepper")
+        if (user && user.isNewUser) {
+            router.push("/verify-otp")
         } else if (isAuthUser) {
             router.push("/");
         }
-    }, [router, user?.isNewUser, isAuthUser])
+    }, [router, user, isAuthUser])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
