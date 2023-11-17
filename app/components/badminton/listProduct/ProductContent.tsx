@@ -1,14 +1,13 @@
 "use client"
 
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
-import { Button } from "../../providers"
 import { ListProductData } from "@/types"
-import { FormatTime, formatMoney, validateDes, validateURLProduct } from "@/utils"
+import { FormatTime, formatMoney, validateAddress, validateDes, validateName, validateURLAvatar, validateURLProduct } from "@/utils"
 import { format, parse } from "date-fns"
 import Decimal from "decimal.js"
+import Link from "next/link"
 
 interface FormatSlot {
     date: string,
@@ -24,6 +23,8 @@ const ProductContent: React.FC<ListProductData> = ({
     title,
     contentPost,
     slotsInfo,
+    addressSlot,
+    idUserToNavigation
 }) => {
     const [isLiked, setIsLiked] = useState(false)
 
@@ -65,19 +66,13 @@ const ProductContent: React.FC<ListProductData> = ({
     })
 
     const handleLikeClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-        setIsLiked(!isLiked);
-    }
-
-    const router = useRouter();
-
-    const handleDetailClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        router.push(`/product/detail-badminton/${id}`)
-        event.preventDefault();
+        event.stopPropagation()
+        event.preventDefault()
+        setIsLiked(!isLiked)
     }
 
     return (
-        <div className="
+        <Link className="
                 grid 
                 md:grid-cols-11 
                 grid-col-1
@@ -89,6 +84,7 @@ const ProductContent: React.FC<ListProductData> = ({
                 relative
             "
             key={id}
+            href={`/product/detail-badminton/${id}`}
         >
             <div className="md:col-span-5 col-span-1">
                 <div className="
@@ -166,14 +162,45 @@ const ProductContent: React.FC<ListProductData> = ({
                     "
                 >
                     <div>
-                        <h3 className="text-2xl font-semibold text-[#922049]">
+                        <h3 className="text-3xl font-semibold text-[#922049] truncate">
                             {title}
                         </h3>
                     </div>
-                    <div className="flex-nowrap text-lg font-semibold text-primary-blue-cus">
-                        {formatMoney(new Decimal(formattedSlots && formattedSlots.length > 0 ? formattedSlots[0].priceSlot : 0))} đ/h
+                    <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-2">
+                            <div className="relative">
+                                <Image
+                                    src={validateURLAvatar(idUserToNavigation ? idUserToNavigation.imgUrl : "/images/avatar.jpg")}
+                                    alt={`avatar ${idUserToNavigation ? idUserToNavigation.id : ""}`}
+                                    width={50}
+                                    height={50}
+                                    className="object-cover w-14 h-14 rounded-full border border-primary-blue-cus"
+                                />
+                            </div>
+                            <div className="text-xl text-gray-600 font-medium">
+                                {idUserToNavigation && validateName(idUserToNavigation.fullName)}
+                            </div>
+                        </div>
+                        <div className="flex-nowrap text-2xl font-semibold text-primary-blue-cus">
+                            {formatMoney(new Decimal(formattedSlots && formattedSlots.length > 0 ? formattedSlots[0].priceSlot : 0))} đ/h
+                        </div>
                     </div>
-                    <div className="flex space-x-1 text-base text-gray-500">
+                    <div className="text-lg text-gray-500 line-clamp-2 min-h-[3rem]">
+                        Mô tả ngắn: {validateDes(contentPost)}
+                    </div>
+                    <div className="space-x-1 text-lg text-gray-500">
+                        <span>Địa điểm sân:</span>
+                        <span className="font-semibold text-black">
+                            {validateAddress(addressSlot)}
+                        </span>
+                    </div>
+                    <div className="flex space-x-1 text-lg text-gray-500">
+                        <span>Ngày:</span>
+                        <span className="font-semibold text-black">
+                            {formattedSlots && formattedSlots.length > 0 ? formattedSlots[0].date : ""}
+                        </span>
+                    </div>
+                    <div className="flex space-x-1 text-lg text-gray-500">
                         <span>Thời gian mở cửa:</span>
                         <span className="font-semibold text-black">
                             <FormatTime timeString={formattedSlots && formattedSlots.length > 0 ?
@@ -187,22 +214,15 @@ const ProductContent: React.FC<ListProductData> = ({
                             } />
                         </span>
                     </div>
-                    <div className="text-base text-gray-500 line-clamp-2 min-h-[3rem]">
-                        Mô tả ngắn: {validateDes(contentPost)}
-                    </div>
-                    <div className="flex font-semibold text-xl space-x-1">
-                        Chỗ: {formattedSlots && formattedSlots.length > 0 ? formattedSlots[0].available : 0}/30
-                    </div>
-                    <div>
-                        <Button
-                            title="Đặt ngay"
-                            style="px-10 text-lg font-semibold"
-                            onClick={handleDetailClick}
-                        />
+                    <div className="flex space-x-1 text-lg text-gray-500">
+                        <span>Chỗ:</span>
+                        <span className="font-semibold text-black">
+                            {formattedSlots && formattedSlots.length > 0 ? formattedSlots[0].available : 0}
+                        </span>
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

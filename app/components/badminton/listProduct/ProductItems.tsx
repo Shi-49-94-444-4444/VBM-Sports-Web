@@ -34,6 +34,8 @@ const ProductItems: React.FC<ProductItemProps> = ({
                     contentPost={item.contentPost}
                     imgUrl={item.imgUrl}
                     slotsInfo={item.slotsInfo}
+                    idUserToNavigation={item.idUserToNavigation}
+                    addressSlot={item.addressSlot}
                 />
             ))}
             <div className="flex justify-end mt-10 text-base font-semibold">
