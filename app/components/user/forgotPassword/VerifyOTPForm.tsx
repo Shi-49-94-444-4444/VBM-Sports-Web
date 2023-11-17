@@ -45,6 +45,7 @@ const VerifyOTPForm = () => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
+            localStorage.removeItem("userEmail")
             setIsRegister(true)
         } else if (email) {
             const res = await verifyOTPService({ email: email, otp: isOTP })

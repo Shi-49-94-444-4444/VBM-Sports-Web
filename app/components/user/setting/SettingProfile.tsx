@@ -1,6 +1,5 @@
 "use client"
 
-import Image from 'next/image';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiFillCamera } from 'react-icons/ai';
@@ -12,9 +11,11 @@ import { isValidUrl, settingProfileInputs, settingProfileSchema, validateURLAvat
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 const SettingProfile = () => {
     const maxSize = 1048576
+
     const {
         user,
         isLoading,
@@ -23,6 +24,7 @@ const SettingProfile = () => {
         setIsLoadingPage,
         setUser
     } = useContext(GlobalContext) || {}
+
     const {
         register,
         handleSubmit,
@@ -111,39 +113,41 @@ const SettingProfile = () => {
     const onSubmit = async (data: UserProfileSettingForm) => {
         if (setIsLoading) setIsLoading(true)
 
-        const res = await putProfileUserService({
-            id: user?.id,
-            userName: data.userName,
-            fullName: data.fullName,
-            phoneNumber: data.phoneNumber,
-            playingArea: data.playingArea,
-            sortProfile: data.sortProfile,
-            imgURL: data.imgURL
-        })
+        if (user && user.id) {
+            const res = await putProfileUserService({
+                id: user.id,
+                userName: data.userName,
+                fullName: data.fullName,
+                phoneNumber: data.phoneNumber,
+                playingArea: data.playingArea.toString(),
+                sortProfile: data.sortProfile,
+                imgURL: data.imgURL
+            })
 
-        //console.log(res)
+            //console.log(res)
 
-        if (res.data == null) {
-            toast.error(res.message, {
+            if (res.data == null) {
+                toast.error(res.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                })
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
+            toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT,
             })
-            if (setIsLoading) setIsLoading(false)
-            return
+
+            if (setUser) setUser(prevUser => ({
+                ...prevUser,
+                avatar: data.imgURL,
+                fullName: data.fullName,
+                userName: data.userName,
+                playingArea: [data.playingArea],
+                sortProfile: data.sortProfile
+            }))
+            localStorage.setItem("user", JSON.stringify(user))
         }
-
-        toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-        })
-
-        if (setUser) setUser(prevUser => ({
-            ...prevUser,
-            avatar: data.imgURL,
-            fullName: data.fullName,
-            userName: data.userName,
-            playingArea: [data.playingArea],
-            sortProfile: data.sortProfile
-        }))
-        localStorage.setItem("user", JSON.stringify(user))
 
         if (setIsLoading) setIsLoading(false)
     }
@@ -207,7 +211,7 @@ const SettingProfile = () => {
                         </div>
                     ))}
                     <div className="relative flex justify-center">
-                        <button className="text-white text-xl font-semibold bg-primary-blue-cus px-12 py-3 rounded-xl">
+                        <button className="text-white text-xl font-semibold bg-primary-blue-cus px-12 py-3 rounded-xl" type="submit">
                             {isLoading ? (
                                 <Loading loading={isLoading} color="white" />
                             ) : (
@@ -218,7 +222,7 @@ const SettingProfile = () => {
                 </>
             )}
         </form>
-    );
-};
+    )
+}
 
 export default SettingProfile;

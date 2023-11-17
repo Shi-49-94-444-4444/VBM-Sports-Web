@@ -19,10 +19,12 @@ const StylePlayStep = () => {
 
     useEffect(() => {
         if (user?.playingWay && user.playingWay.length > 0) {
-            const selectedIndices = user.playingWay.map(way => styles.indexOf(way)).filter(index => index !== -1);
+            const playingWayArray = user.playingWay.toString().split(';');
+            const selectedIndices = playingWayArray.map(way => styles.indexOf(way)).filter(index => index !== -1);
             setSelectedItems(styles.map((_, index) => selectedIndices.includes(index)));
         }
     }, [user, styles]);
+    
 
     const handleItemClick = (index: number) => {
         setSelectedItems(prevSelectedItems => prevSelectedItems.map((selected, i) => i === index ? !selected : selected));
