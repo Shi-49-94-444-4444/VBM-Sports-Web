@@ -26,6 +26,7 @@ interface User {
     userAddress?: string | null
     balance?: number | null
     displayName?: string | null
+    role?: "User" | "Staff" | "Admin"
     stsTokenManager?: {
         accessToken?: string | null
     }

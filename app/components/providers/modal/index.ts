@@ -5,6 +5,8 @@ import ModalNotEnoughMoney from "./ModalNotEnoughMoney"
 import ModalFailPayment from "./ModalFailPayment"
 import ModalSuccessPayment from "./ModalSuccessPayment"
 import ModalRoutePayment from "./ModalRoutePayment"
+import ModalAdminBan from "./ModalAdminBan"
+import ModalAdminDeletePost from "./ModalAdminDelelePost"
 
 export {
     ModalReport,
@@ -13,5 +15,7 @@ export {
     ModalNotEnoughMoney,
     ModalFailPayment,
     ModalSuccessPayment,
-    ModalRoutePayment
+    ModalRoutePayment,
+    ModalAdminBan,
+    ModalAdminDeletePost
 }

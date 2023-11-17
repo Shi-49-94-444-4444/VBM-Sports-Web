@@ -44,8 +44,8 @@ const UserManagement = () => {
     ]
 
     const listAction = [
-        { title: "Xem chi tiết tài khoản", src: (userId: String | null) => `/admin/user-detail-management/${userId}` },
-        { title: "Xem trang cá nhân", src: (userId: String | null) => "" },
+        { title: "Xem chi tiết tài khoản", src: (userId: string | null) => `/admin/user-detail-management/${userId}` },
+        { title: "Xem trang cá nhân", src: (userId: string | null) => `/user/profile-user/${userId}` },
     ]
 
     const { data: listManageUser, error, isLoading } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : "", fetcher)
@@ -82,12 +82,12 @@ const UserManagement = () => {
             </div>
             {isLoading ? (
                 <LoadingFullScreen loading={isLoading} />
-            ) : listManageUser && listManageUser.data == null ? (
-                <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold">
+            ) : !listManageUser || !filteredUsers || listManageUser.data == null ? (
+                <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-40">
                     Không có người dùng nào tồn tại
                 </div>
             ) : error ? (
-                <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold">
+                <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-40">
                     Lỗi API
                 </div>
             ) : (
@@ -110,40 +110,35 @@ const UserManagement = () => {
                         </tr>
                     </thead>
                     <tbody className="text-base font-medium">
-                        {!filteredUsers ? (
-                            <tr>
-                                <td>Không có người dùng tồn tại</td>
+                        {filteredUsers.map((user, index) => (
+                            <tr key={index}>
+                                <td className="py-3 border-r border-black border-opacity-10">{user.userId}</td>
+                                <td className="py-3 border-r border-black border-opacity-10">{user.fullName}</td>
+                                <td className="py-3 border-r border-black border-opacity-10">{user.createDate}</td>
+                                <td className="py-3 border-r border-black border-opacity-10">{user.role}</td>
+                                <td className="py-3 border-r border-black border-opacity-10">{user.status}</td>
+                                <td className="py-3 border-r border-black border-opacity-10">{user.lastLogin}</td>
+                                <td className="py-3 relative">
+                                    <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
+                                        ...
+                                    </button>
+                                    {showToggleItemID === index && (
+                                        <div className="absolute right-[15rem] md:right-[17rem] lg:right-[18rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
+                                            <ul className="space-y-2 list-none">
+                                                {listAction.map((action, index) => (
+                                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
+                                                        <button type="button" onClick={() => { router.push(`${action.src(user.userId)}?fullName=${user.fullName}&role=${user.role}`) }}>
+                                                            {action.title}
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </td>
                             </tr>
-                        ) : (
-                            filteredUsers.map((user, index) => (
-                                <tr key={index}>
-                                    <td className="py-3 border-r border-black border-opacity-10">{user.userId}</td>
-                                    <td className="py-3 border-r border-black border-opacity-10">{user.fullName}</td>
-                                    <td className="py-3 border-r border-black border-opacity-10">{user.createDate}</td>
-                                    <td className="py-3 border-r border-black border-opacity-10">{user.role}</td>
-                                    <td className="py-3 border-r border-black border-opacity-10">{user.status}</td>
-                                    <td className="py-3 border-r border-black border-opacity-10">{user.lastLogin}</td>
-                                    <td className="py-3 relative">
-                                        <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
-                                            ...
-                                        </button>
-                                        {showToggleItemID === index && (
-                                            <div className="absolute right-[15rem] md:right-[17rem] lg:right-[18rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
-                                                <ul className="space-y-2 list-none">
-                                                    {listAction.map((action, index) => (
-                                                        <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                            <button type="button" onClick={() => { router.push(`${action.src(user.userId)}?fullName=${user.fullName}&role=${user.role}`) }}>
-                                                                {action.title}
-                                                            </button>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))
-                        )}
+                        ))
+                        }
                     </tbody>
                 </table>
             )}

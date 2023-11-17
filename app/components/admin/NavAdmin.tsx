@@ -4,13 +4,13 @@ import Link from "next/link"
 const NavAdmin = () => {
     return (
         <div className="relative w-full h-20 flex items-center justify-center bg-white shadow-sm">
-            <Link href="/admin">
+            <Link href="/admin/user-management">
                 <section className="flex items-center space-x-2">
                     <Image
                         height="40"
                         src="/images/vector.png"
                         alt="logo"
-                        className="object-contain w-auto h-auto"
+                        className="object-contain w-8 h-8"
                         width="40"
                     />
                     <h1 className="uppercase text-xl font-semibold text-[#343B63]">

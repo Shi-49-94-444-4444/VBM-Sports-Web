@@ -428,8 +428,8 @@ const PostNewForm = () => {
             const [startHours, startMinutes] = slot.startTime.split(':').map(Number);
             const [endHours, endMinutes] = slot.endTime.split(':').map(Number);
 
-            startDate.setHours(startHours, startMinutes);
-            endDate.setHours(endHours, endMinutes);
+            startDate.setHours(startHours + 7, startMinutes);
+            endDate.setHours(endHours + 7, endMinutes);
 
             return {
                 startTime: startDate.toISOString(),
@@ -439,7 +439,7 @@ const PostNewForm = () => {
             }
         })
 
-        // //console.log(formattedSlots)
+        //console.log(formattedSlots)
 
         if (user && user.id) {
             const res = await postBadmintonService({

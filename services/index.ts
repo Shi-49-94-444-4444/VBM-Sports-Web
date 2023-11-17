@@ -7,6 +7,7 @@ export * from "./step"
 export * from "./user"
 export * from "./product"
 export * from "./payment"
+export * from "./admin"
 
 export {
     AxiosClient

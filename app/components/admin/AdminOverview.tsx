@@ -57,14 +57,14 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
             >
                 <div className="flex flex-col gap-1">
                     <div className="text-gray-600 font-semibold text-xl">
-                        {(user && user.fullName) ?? "name"}
+                        {user && user.fullName}
                     </div>
                     <div className="text-gray-500 font-medium text-lg">
-                        {(user && user.id) ?? "id"}
+                        {user && user.id}
                     </div>
                 </div>
                 <div className="text-lg font-semibold italic text-gray-500">
-                    UserRole
+                    {user && user.role}
                 </div>
             </div>
             <div className="border-b border-black border-opacity-10" />

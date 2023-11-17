@@ -5,15 +5,18 @@ import { UserDetailManage } from "@/types"
 import { useRouter } from "next/router"
 import { IoMdArrowRoundBack } from "react-icons/io"
 import useSWR from "swr"
-import { Button, LoadingFullScreen } from "../providers"
+import { Button, LoadingFullScreen, ModalAdminBan, ModalAdminDeletePost } from "../providers"
 import { useRef, useState } from "react"
 import { useOutsideClick } from "@/utils"
+import { useAdminBanModal, useAdminDeletePostModal } from "@/hooks"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const UserDetailManage = () => {
-    const [showToggleItemID, setShowToggleItemID] = useState<number | null>(null);
+    const [showToggleItemID, setShowToggleItemID] = useState<number | null>(null)
     const router = useRouter()
+    const adminBanModal = useAdminBanModal()
+    const adminDeletePostModal = useAdminDeletePostModal()
 
     const handleToggle = (itemID: number) => {
         if (showToggleItemID === itemID) {
@@ -41,16 +44,20 @@ const UserDetailManage = () => {
     ]
 
     const listAction = [
-        { title: "Xem bài viết", src: "" },
-        { title: "Xem báo cáo", src: "" },
-        { title: "Tạm ẩn bài viết", src: "" },
-        { title: "Xoá bài viết", src: "" },
+        { title: "Xem bài viết", src: () => { } },
+        { title: "Xem báo cáo", src: () => { } },
+        { title: "Tạm ẩn bài viết", src: () => { } },
+        { title: "Xoá bài viết", src: (postId: string) => { adminDeletePostModal.onOpen(postId) } },
     ]
 
-    const { data: listPostForUser, error, isLoading } = useSWR<UserDetailManage>(id ? `/api/posts/${id}/managed_all_post` : "", fetcher)
+    const { data: listPostForUser, error } = useSWR<UserDetailManage>(id ? `/api/posts/${id}/managed_all_post` : null, fetcher)
+
+    const isLoadingData = !listPostForUser && !error
 
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
+            <ModalAdminBan user_id={id ? id.toString() : ""} />
+            <ModalAdminDeletePost user_id={id ? id.toString() : ""}/>
             <div className="
                     flex 
                     text-gray-600 
@@ -79,14 +86,14 @@ const UserDetailManage = () => {
                 <div className="text-2xl text-gray-600 font-semibold">
                     Bài viết gần đây
                 </div>
-                {isLoading ? (
-                    <LoadingFullScreen loading={isLoading} />
-                ) : !listPostForUser ? (
-                    <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold">
+                {isLoadingData ? (
+                    <LoadingFullScreen loading={isLoadingData} />
+                ) : !listPostForUser || listPostForUser.data.length === 0 ? (
+                    <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-40">
                         Không có sân nào
                     </div>
                 ) : error ? (
-                    <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold">
+                    <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-40">
                         Lỗi API
                     </div>
                 ) : (
@@ -116,7 +123,7 @@ const UserDetailManage = () => {
                                                 <ul className="space-y-2 list-none">
                                                     {listAction.map((action, index) => (
                                                         <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                            <button type="button" onClick={() => { }}>
+                                                            <button type="button" onClick={() => action.src(item.postId ? item.postId : "")}>
                                                                 {action.title}
                                                             </button>
                                                         </li>
@@ -152,11 +159,6 @@ const UserDetailManage = () => {
                         style="py-1 px-4"
                     />
                     <Button
-                        title="Cấm bài đăng"
-                        color="bg-orange-500 hover:bg-orange-700 border-orange-500 hover:border-orange-700"
-                        style="py-1 px-4"
-                    />
-                    <Button
                         title="Mở khoá"
                         color="bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700"
                         style="py-1 px-4"
@@ -165,6 +167,7 @@ const UserDetailManage = () => {
                         title="Khoá tài khoản"
                         color="bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700"
                         style="py-1 px-4"
+                        onClick={adminBanModal.onOpen}
                     />
                 </div>
             </div>
