@@ -163,10 +163,10 @@ export const settingProfileInputs = [
         maxLength: 15
     },
     {
-        id: "userAddress",
-        label: "Quận/huyện:",
+        id: "playingArea",
+        label: "Quận:",
         type: "text",
-        name: "userAddress",
+        name: "playingArea",
         maxLength: 100
     },
     {
@@ -1146,7 +1146,7 @@ export const listMethodsPayment = [
     {
         id: "1",
         src: "/images/momo.png",
-        title: "Momo",
+        title: "VNPAY",
         number: 789,
     },
     {

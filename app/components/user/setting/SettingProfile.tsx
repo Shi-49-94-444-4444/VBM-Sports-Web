@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone';
 import { AiFillCamera } from 'react-icons/ai';
 import { Input, Loading, LoadingFullScreen } from '../../providers';
 import { GlobalContext } from '@/contexts';
-import { getUserProfileSettingService, putProfileUserService } from '@/services';
+import { putProfileUserService } from '@/services';
 import { UserProfileSettingForm } from '@/types';
 import { isValidUrl, settingProfileInputs, settingProfileSchema, validateURLAvatar } from '@/utils';
 import { useForm } from 'react-hook-form';
@@ -49,35 +49,19 @@ const SettingProfile = () => {
     useEffect(() => {
         if (setIsLoadingPage) setIsLoadingPage(true)
 
-        const fetchUser = async () => {
-            try {
-                if (user && user.id) {
-                    const listUser = await getUserProfileSettingService(user.id)
 
-                    if (listUser.data == null) {
-                        toast.error(listUser.message, {
-                            position: toast.POSITION.TOP_RIGHT
-                        })
-                        if (setIsLoadingPage) setIsLoadingPage(false)
-                        return
-                    }
-
-                    setValue('userName', listUser.data.userName)
-                    setValue('fullName', listUser.data.fullName)
-                    setValue('phoneNumber', listUser.data.phoneNumber)
-                    setValue('playingArea', listUser.data.playingArea)
-                    setValue('sortProfile', listUser.data.sortProfile)
-                    setValue('imgURL', listUser.data.imgUrl)
-                }
-
-                if (setIsLoadingPage) setIsLoadingPage(false)
-            } catch (error) {
-                //console.log(error)
-                if (setIsLoadingPage) setIsLoadingPage(false)
-            }
+        if (user && user.id) {
+            if (user.userName) setValue('userName', user.userName)
+            if (user.fullName) setValue('fullName', user.fullName)
+            if (user.phoneNumber) setValue('phoneNumber', user.phoneNumber)
+            if (user.playingArea) setValue('playingArea', user.playingArea.toString())
+            if (user.sortProfile) setValue('sortProfile', user.sortProfile)
+            if (user.avatar) setValue('imgURL', user.avatar)
         }
 
-        fetchUser()
+        if (setIsLoadingPage) setIsLoadingPage(false)
+
+
     }, [user, setIsLoadingPage, setValue])
 
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -113,13 +97,15 @@ const SettingProfile = () => {
     const onSubmit = async (data: UserProfileSettingForm) => {
         if (setIsLoading) setIsLoading(true)
 
+        console.log("Update profile data:", data)
+
         if (user && user.id) {
             const res = await putProfileUserService({
                 id: user.id,
                 userName: data.userName,
                 fullName: data.fullName,
                 phoneNumber: data.phoneNumber,
-                playingArea: data.playingArea.toString(),
+                playingArea: data.playingArea,
                 sortProfile: data.sortProfile,
                 imgURL: data.imgURL
             })
