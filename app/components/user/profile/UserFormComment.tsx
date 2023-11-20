@@ -9,12 +9,15 @@ import { postCommentService } from "@/services"
 import { toast } from "react-toastify"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { CommentForm } from "@/types"
+import { mutate } from "swr"
+import { useUnauthorizeModal } from "@/hooks"
 
 const UserFormComment = ({ id }: { id: string }) => {
-    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { user, setIsLoading, isLoading, isAuthUser } = useContext(GlobalContext) || {}
     const [formData, setFormData] = useState({
         comment: ""
     })
+    const unauthorizeModal = useUnauthorizeModal()
 
     const { register, handleSubmit, formState: { errors } } = useForm<CommentForm>({
         resolver: yupResolver(commentSchema)
@@ -43,13 +46,15 @@ const UserFormComment = ({ id }: { id: string }) => {
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT
             })
+
+            mutate(`/api/users/${id}/comments`)
         }
 
         if (setIsLoading) setIsLoading(false)
     }
 
     return (
-        <form className="relative flex flex-col gap-5 py-10" onSubmit={handleSubmit(onSubmit)}>
+        <form className={`relative gap-5 py-10 ${user && user.id && user.id.toString() === id.toString() || user && user.role && user.role.toLocaleLowerCase() === "admin" ? "hidden" : "flex flex-col"}`} onSubmit={handleSubmit(onSubmit)}>
             <div className="text-3xl font-semibold text-gray-600">
                 Bình luận
             </div>
@@ -71,19 +76,27 @@ const UserFormComment = ({ id }: { id: string }) => {
                     />
                 </div>
                 <div className="sm:col-span-1 col-span-2">
-                    {isLoading ? (
-                        <Button
-                            title={<Loading loading={isLoading} color="white" />}
-                            style="h-full w-full justify-center rounded-xl text-xl"
-                            type="submit"
-                            isHover={false}
-                        />
+                    {isAuthUser ? (
+                        isLoading ? (
+                            <Button
+                                title={<Loading loading={isLoading} color="white" />}
+                                style="h-full w-full justify-center rounded-xl text-xl"
+                                type="submit"
+                                isHover={false}
+                            />
+                        ) : (
+                            <Button
+                                title="Bình luận"
+                                style="h-full w-full justify-center rounded-xl text-xl"
+                                type="submit"
+                                disabled={user ? user.id?.toString() === id.toString() : false}
+                            />
+                        )
                     ) : (
                         <Button
                             title="Bình luận"
                             style="h-full w-full justify-center rounded-xl text-xl"
-                            type="submit"
-                            disabled={user ? user.id?.toString() === id.toString() : false}
+                            onClick={unauthorizeModal.onOpen}
                         />
                     )}
                 </div>

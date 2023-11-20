@@ -159,3 +159,11 @@ export function parseSlots(value: string[]): DateSlot[] {
     return { date, slot: Number(slot) }
   })
 }
+
+export function processBase64Image(dataString: string) {
+  const matches = dataString.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
+  if (matches === null || matches.length !== 3) {
+    return dataString
+  }
+  return matches[2];
+}

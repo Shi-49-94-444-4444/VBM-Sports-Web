@@ -7,17 +7,12 @@ import { Button } from "../form"
 import { useRouter } from "next/navigation"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { deleteTransactionService } from "@/services"
 
-const ModalFailPayment = ({ tran_id }: { tran_id: string }) => {
+const ModalFailPayment = () => {
     const router = useRouter()
     const failPaymentModal = useFailPaymentModal()
-    const { setTransactionId } = useContext(GlobalContext) || {}
 
-    const handleBackHome = async () => {
-        await deleteTransactionService({ tran_id: Number(tran_id) })
-        if (setTransactionId) setTransactionId(null)
-        localStorage.removeItem("transactionId")
+    const handleBackHome = () => {
         router.push("/")
         failPaymentModal.onClose()
     }
@@ -29,7 +24,7 @@ const ModalFailPayment = ({ tran_id }: { tran_id: string }) => {
             width="w-auto"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-3 justify-center items-center">
+            <form className="flex flex-col px-10 pb-5 gap-5 justify-center items-center">
                 <Image
                     src="/images/error.png"
                     alt="error"
@@ -38,7 +33,7 @@ const ModalFailPayment = ({ tran_id }: { tran_id: string }) => {
                     className="object-cover w-24 h-24"
                 />
                 <label className="text-black font-semibold text-3xl truncate">Thanh toán không thành công</label>
-                <p className="text-gray-500 font-normal text-base px-5">Vui lòng kiểm tra lại tài khoản ngân hàng hoặc quá thời gian thanh toán. Nếu có bất kì thắc mắc nào vui lòng liên hệ bộ phận hỗ trợ khách hàng để giải đáp thắc mắc.</p>
+                <p className="text-gray-500 font-normal text-base px-5">{failPaymentModal.message}</p>
                 <div className="flex flex-row gap-5">
                     <Button
                         title="Quay lại trang chủ"

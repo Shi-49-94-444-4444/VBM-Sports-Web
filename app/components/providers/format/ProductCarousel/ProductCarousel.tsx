@@ -6,7 +6,7 @@ import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
 import ProductOther from './ProductOther';
-import { ListProduct } from '@/types';
+import { ListProduct, ListProductData } from '@/types';
 import { AxiosClient } from '@/services';
 import useSWR from 'swr';
 import { LoadingFullScreen } from '../../loader';
@@ -16,7 +16,7 @@ SwiperCore.use([Pagination]);
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
-const ProductCarousel = () => {
+const ProductCarousel = ({ id }: { id: string }) => {
     const { data: listProduct, error } = useSWR<ListProduct>('/api/posts/GetListPost', fetcher)
 
     const isLoading = !error && !listProduct
@@ -43,7 +43,15 @@ const ProductCarousel = () => {
         )
     }
 
-    const slicedItems = listProduct && listProduct.data && listProduct.data.length > 0 ? listProduct.data.slice(0, 16) : []
+    let filteredListProduct: ListProductData[] = []
+
+    if (id && listProduct && listProduct.data) {
+        filteredListProduct = listProduct.data.filter(products => products.id?.toString() !== id.toString())
+    } else {
+        filteredListProduct = listProduct ? listProduct.data : []
+    }
+
+    const slicedItems = filteredListProduct && filteredListProduct.length > 0 ? filteredListProduct.slice(0, 16) : []
 
     return (
         <Swiper

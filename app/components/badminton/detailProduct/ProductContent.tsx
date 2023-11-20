@@ -9,7 +9,8 @@ const ProductContent: React.FC<ProductDetailContentData> = ({
     categorySlot,
     addressSlot,
     slotInfos,
-    title
+    title,
+    userId
 }) => {
     return (
         <div className="grid lg:grid-cols-12 grid-cols-1 gap-5 py-5 bg-gray-200 rounded-lg px-5 mt-10">
@@ -29,6 +30,7 @@ const ProductContent: React.FC<ProductDetailContentData> = ({
                     addressSlot={addressSlot}
                     slotInfos={slotInfos}
                     title={title}
+                    userId={userId}
                 />
             </div>
         </div>

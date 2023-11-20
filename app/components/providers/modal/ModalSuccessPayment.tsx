@@ -6,7 +6,7 @@ import Image from "next/image"
 import { Button } from "../form"
 import { useRouter } from "next/navigation"
 
-const ModalSuccessPayment = ({ tran_id }: { tran_id: string }) => {
+const ModalSuccessPayment = () => {
     const router = useRouter()
     const successPaymentModal = useSuccessPaymentModal()
 
@@ -22,7 +22,7 @@ const ModalSuccessPayment = ({ tran_id }: { tran_id: string }) => {
             width="w-auto"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-3 justify-center items-center">
+            <form className="flex flex-col px-10 pb-5 gap-5 justify-center items-center">
                 <Image
                     src="/images/success.png"
                     alt="success"

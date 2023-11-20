@@ -7,7 +7,7 @@ import { Input, Loading, LoadingFullScreen } from '../../providers';
 import { GlobalContext } from '@/contexts';
 import { putProfileUserService } from '@/services';
 import { UserProfileSettingForm } from '@/types';
-import { isValidUrl, settingProfileInputs, settingProfileSchema, validateURLAvatar } from '@/utils';
+import { isValidUrl, processBase64Image, settingProfileInputs, settingProfileSchema, validateURLAvatar } from '@/utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
@@ -97,8 +97,6 @@ const SettingProfile = () => {
     const onSubmit = async (data: UserProfileSettingForm) => {
         if (setIsLoading) setIsLoading(true)
 
-        console.log("Update profile data:", data)
-
         if (user && user.id) {
             const res = await putProfileUserService({
                 id: user.id,
@@ -107,7 +105,7 @@ const SettingProfile = () => {
                 phoneNumber: data.phoneNumber,
                 playingArea: data.playingArea,
                 sortProfile: data.sortProfile,
-                imgURL: data.imgURL
+                imgURL: processBase64Image(data.imgURL)
             })
 
             //console.log(res)
@@ -120,7 +118,7 @@ const SettingProfile = () => {
                 return
             }
 
-            toast.success(res.message, {
+            toast.success("Cập nhập hồ sơ thành công", {
                 position: toast.POSITION.TOP_RIGHT,
             })
 

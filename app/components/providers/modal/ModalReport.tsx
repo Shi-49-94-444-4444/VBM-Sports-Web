@@ -13,7 +13,7 @@ import { Loading } from "../loader"
 const ModalReport = ({ id }: { id: string }) => {
     const reportModal = useReportModal()
     const [selectedReport, setSelectedReport] = useState("")
-    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     const listReport = [
@@ -25,13 +25,13 @@ const ModalReport = ({ id }: { id: string }) => {
     ]
 
     const onSubmit = async () => {
-        if (setIsLoading) setIsLoading(true)
+        if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (!selectedReport) {
             toast.error("Chọn tố cáo trước khi tố cáo", {
                 position: toast.POSITION.TOP_RIGHT
             })
-            if (setIsLoading) setIsLoading(false)
+            if (setIsLoadingModal) setIsLoadingModal(false)
             return
         }
 
@@ -48,7 +48,7 @@ const ModalReport = ({ id }: { id: string }) => {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                if (setIsLoading) setIsLoading(false)
+                if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
 
@@ -59,7 +59,7 @@ const ModalReport = ({ id }: { id: string }) => {
             reportModal.onClose()
         }
 
-        if (setIsLoading) setIsLoading(false)
+        if (setIsLoadingModal) setIsLoadingModal(false)
     }
 
     return (
@@ -91,9 +91,9 @@ const ModalReport = ({ id }: { id: string }) => {
                     </div>
                 ))}
                 <div className="relative flex justify-center pt-2">
-                    {isLoading ? (
+                    {isLoadingModal ? (
                         <Button
-                            title={<Loading loading={isLoading} color="white" />}
+                            title={<Loading loading={isLoadingModal} color="white" />}
                             style=""
                             type="submit"
                             isHover={false}

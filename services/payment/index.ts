@@ -1,13 +1,12 @@
-import { CheckSlotFormData, buySlotFormData } from "@/types"
+import { CheckSlotFormData, BuySlotFormData } from "@/types"
 import AxiosClient from "../AxiosInstance"
 
 export const checkSlotService = async (data: CheckSlotFormData) => {
     try {
         const response = await AxiosClient.post(`/api/slots/available`, {
             userId: Number(data.userId),
-            numSlot: data.numberSlot,
             postId: Number(data.postId),
-            dateRegis: data.dateRegis
+            slotsInfo: data.slotsInfo
         })
 
         return response.data
@@ -20,7 +19,9 @@ export const checkSlotService = async (data: CheckSlotFormData) => {
     }
 }
 
-export const buySlotService = async (data: buySlotFormData) => {
+export const buySlotService = async (data: BuySlotFormData) => {
+    //console.log(data)
+    
     try {
         const response = await AxiosClient.post(`/api/transactions/buy_slot`, {
             idUser: Number(data.idUser),

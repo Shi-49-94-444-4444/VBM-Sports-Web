@@ -1,37 +1,51 @@
 import { create } from 'zustand';
 
-interface PaymentModalStore {
+interface SuccessModalStore {
     isOpen: boolean;
-    onOpen: () => void;
+    tran_id: string | null;
+    onOpen: (tran_id: string) => void;
     onClose: () => void;
 }
+interface FailModalStore {
+    isOpen: boolean;
+    message: string;
+    onOpen: (message: string) => void;
+    onClose: () => void;
+}
+interface ContinueModalStore {
+    isOpen: boolean;
+    slotsIdArray: {
+        dateRegis: string,
+        numSlots: number
+    }[];
+    post_id: string | null
+    onOpen: (post_id: string) => void;
+    onClose: () => void;
+    setSlotsIdArray: (slotsIdArray: {
+        dateRegis: string,
+        numSlots: number
+    }[]) => void
+}
 
-export const useNotEnoughMoneyModal = create<PaymentModalStore>((set) => ({
+export const useFailPaymentModal = create<FailModalStore>((set) => ({
     isOpen: false,
-    onOpen: () => set({ isOpen: true }),
+    message: '',
+    onOpen: (message) => set({ isOpen: true, message }),
+    onClose: () => set({ isOpen: false, message: '' })
+}))
+
+export const useSuccessPaymentModal = create<SuccessModalStore>((set) => ({
+    isOpen: false,
+    tran_id: null,
+    onOpen: (tran_id) => set({ isOpen: true, tran_id }),
     onClose: () => set({ isOpen: false })
 }))
 
-export const useFailPaymentModal = create<PaymentModalStore>((set) => ({
+export const useContinuePaymentModal = create<ContinueModalStore>((set) => ({
     isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false })
-}))
-
-export const useSuccessPaymentModal = create<PaymentModalStore>((set) => ({
-    isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false })
-}))
-
-export const useContinuePaymentModal = create<PaymentModalStore>((set) => ({
-    isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false })
-}))
-
-export const useRoutePaymentModal = create<PaymentModalStore>((set) => ({
-    isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false })
+    slotsIdArray: [],
+    post_id: null,
+    onOpen: (post_id) => set({ isOpen: true, post_id }),
+    onClose: () => set({ isOpen: false, slotsIdArray: [], post_id: null }),
+    setSlotsIdArray: (slotsIdArray) => set({ slotsIdArray }),
 }))

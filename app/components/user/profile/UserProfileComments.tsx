@@ -9,6 +9,7 @@ import { AxiosClient } from "@/services";
 import { Comment } from "@/types";
 import useSWR from "swr";
 import { LoadingFullScreen } from "../../providers";
+import { format, parse, parseISO } from "date-fns";
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
@@ -35,9 +36,13 @@ const UserProfileComments = ({ id }: { id: string }) => {
             <div className="border-2 border-gray-300" />
             {isLoading ? (
                 <LoadingFullScreen loading={isLoading} />
+            ) : !displayedComments || displayedComments.length === 0 ? (
+                <div className="flex items-center justify-center text-primary-blue-cus text-3xl font-semibold h-40">
+                    Không có lời bình luận nào cả
+                </div>
             ) : (
                 <React.Fragment>
-                    {displayedComments?.map((item, index) => (
+                    {displayedComments.map((item, index) => (
                         <React.Fragment key={index}>
                             <div className="flex flex-col gap-5">
                                 <div className="flex flex-row gap-5 items-center">
@@ -47,7 +52,7 @@ const UserProfileComments = ({ id }: { id: string }) => {
                                             alt="avatar"
                                             width="100"
                                             height="100"
-                                            className="rounded-full object-cover"
+                                            className="rounded-full object-cover w-24 h-24"
                                         />
                                     </div>
                                     <div className="">
@@ -62,7 +67,7 @@ const UserProfileComments = ({ id }: { id: string }) => {
                                     </div>
                                     <div className="ml-auto">
                                         <div className="text-gray-500 text-right font-medium text-lg">
-                                            {validateDate(item.savedDate)}
+                                            {format(parseISO(validateDate(item.savedDate)), 'dd/MM/yyyy HH:mm:ss')}
                                         </div>
                                     </div>
                                 </div>
@@ -89,8 +94,9 @@ const UserProfileComments = ({ id }: { id: string }) => {
                         </div>
                     )}
                 </React.Fragment>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 }
 

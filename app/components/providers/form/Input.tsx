@@ -20,6 +20,21 @@ const Input: React.FC<InputProps> = ({
     maxLength,
     isMoney,
 }) => {
+    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+        if (isMoney) {
+            const value = event.target.value;
+            event.target.value = Number(value).toLocaleString('vi-VN')
+        }
+    }
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) {
+            onChange(event)
+        }
+    }
+
+    const registerProps = register ? register(name) : {}
+
     return (
         <div className="gap-1 transition duration-300">
             {label && (
@@ -38,70 +53,118 @@ const Input: React.FC<InputProps> = ({
                         <IconType size={25} />
                     </span>
                 )}
-                {flagInput ? (
-                    <textarea
-                        id={id}
-                        typeof={type}
-                        rows={rowArea || 5}
-                        maxLength={maxLength || 100}
-                        name={name}
-                        value={value}
-                        placeholder={placeholder}
-                        {...(register && register(name))}
-                        disabled={disabled}
-                        onKeyDown={(event) => {
-                            if (event.key === 'Enter') {
-                                event.preventDefault();
-                            }
-                        }}
-                        onChange={onChange}
-                        className={`
-                            ${colorInput}
-                            w-full 
-                            rounded-lg 
-                            outline-none
-                            focus:ring-0
-                            text-base
-                            py-3    
-                            px-6
-                            transition
-                            duration-300
-                            ${errors && errors[id] ? "border border-red-500" : ""}
-                        `}
-                        pattern={pattern?.source}
-                    />
+                {onChange ? (
+                    flagInput ? (
+                        <textarea
+                            id={id}
+                            typeof={type}
+                            rows={rowArea || 5}
+                            maxLength={maxLength || 100}
+                            name={name}
+                            value={value}
+                            placeholder={placeholder}
+                            {...registerProps}
+                            disabled={disabled}
+                            onChange={handleChange}
+                            className={`
+                                ${colorInput}
+                                w-full 
+                                rounded-lg 
+                                outline-none
+                                focus:ring-0
+                                text-base
+                                py-3    
+                                px-6
+                                transition
+                                duration-300
+                                ${errors && errors[id] ? "border border-red-500" : ""}
+                            `}
+                            pattern={pattern?.source}
+                        />
+                    ) : (
+                        <input
+                            id={id}
+                            type={type}
+                            name={name}
+                            value={value}
+                            placeholder={placeholder}
+                            {...registerProps}
+                            disabled={disabled}
+                            onChange={handleChange}
+                            maxLength={maxLength || 50}
+                            className={`
+                                ${colorInput}
+                                w-full 
+                                rounded-lg 
+                                outline-none
+                                focus:ring-0
+                                text-base
+                                py-3    
+                                px-6
+                                transition
+                                duration-300
+                                ${errors && errors[id] ? "border border-red-500" : ""}
+                                ${disabled && disabled ? "cursor-not-allowed" : ""}
+                            `}
+                            pattern={pattern?.source}
+                            onBlur={handleBlur}
+                        />
+                    )
                 ) : (
-                    <input
-                        id={id}
-                        type={type}
-                        name={name}
-                        value={value}
-                        placeholder={placeholder}
-                        {...(register && register(name))}
-                        disabled={disabled}
-                        onKeyDown={(event) => {
-                            if (event.key === 'Enter') {
-                                event.preventDefault();
-                            }
-                        }}
-                        onChange={onChange}
-                        maxLength={maxLength || 50}
-                        className={`
-                            ${colorInput}
-                            w-full 
-                            rounded-lg 
-                            outline-none
-                            focus:ring-0
-                            text-base
-                            py-3    
-                            px-6
-                            transition
-                            duration-300
-                            ${errors && errors[id] ? "border border-red-500" : ""}
-                            ${disabled && disabled ? "cursor-not-allowed" : ""}
-                        `}
-                        pattern={pattern?.source}
-                    />
+                    flagInput ? (
+                        <textarea
+                            id={id}
+                            typeof={type}
+                            rows={rowArea || 5}
+                            maxLength={maxLength || 100}
+                            name={name}
+                            value={value}
+                            placeholder={placeholder}
+                            {...registerProps}
+                            disabled={disabled}
+                            className={`
+                                ${colorInput}
+                                w-full 
+                                rounded-lg 
+                                outline-none
+                                focus:ring-0
+                                text-base
+                                py-3    
+                                px-6
+                                transition
+                                duration-300
+                                ${errors && errors[id] ? "border border-red-500" : ""}
+                            `}
+                            pattern={pattern?.source}
+                        />
+                    ) : (
+                        <input
+                            id={id}
+                            type={type}
+                            name={name}
+                            value={value}
+                            placeholder={placeholder}
+                            {...registerProps}
+                            disabled={disabled}
+                            maxLength={maxLength || 50}
+                            className={`
+                                ${colorInput}
+                                w-full 
+                                rounded-lg 
+                                outline-none
+                                focus:ring-0
+                                text-base
+                                py-3    
+                                px-6
+                                transition
+                                duration-300
+                                ${errors && errors[id] ? "border border-red-500" : ""}
+                                ${disabled && disabled ? "cursor-not-allowed" : ""}
+                            `}
+                            pattern={pattern?.source}
+                            onBlur={handleBlur}
+                        />
+                    )
                 )}
                 {isMoney && (
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-600">

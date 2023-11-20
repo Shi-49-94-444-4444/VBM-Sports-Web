@@ -6,7 +6,7 @@ import 'swiper/swiper-bundle.min.css';
 import '@/styles/swiper-product.css'
 
 import UserOther from './UserOther';
-import { ListUser } from '@/types';
+import { ListUser, ListUserData } from '@/types';
 import { AxiosClient } from '@/services';
 import useSWR from 'swr';
 import { useContext } from 'react';
@@ -46,13 +46,15 @@ const UserCarousel = () => {
         )
     }
 
-    if (user) {
-        listUser?.data.filter(users => users.id?.toString() !== user.id?.toString())
+    let filteredListUser: ListUserData[] = []
+
+    if (user && listUser && listUser.data) {
+        filteredListUser = listUser.data.filter(users => users.id?.toString() !== user.id?.toString())
     } else {
-        listUser
+        filteredListUser = listUser ? listUser.data : []
     }
 
-    const sliceItems = listUser && listUser.data !== null ? listUser.data.slice(0, 12) : []
+    const sliceItems = filteredListUser && filteredListUser.length > 0 ? filteredListUser.slice(0, 12) : []
 
     return (
         <Swiper

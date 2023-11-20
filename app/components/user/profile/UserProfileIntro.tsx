@@ -5,18 +5,19 @@ import { BsFillChatDotsFill } from "react-icons/bs"
 import { UserProfileData } from "@/types"
 import { Button } from "../../providers"
 import { isValidUrl, validateDes, validateName, validateURLAvatar } from "@/utils"
-import { useReportModal } from "@/hooks"
+import { useReportModal, useUserBanUserModal } from "@/hooks"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
 
 const UserProfileIntro: React.FC<UserProfileData> = ({
+    id,
     imgUrl,
     fullName,
     sortProfile
 }) => {
+    const { user } = useContext(GlobalContext) || {}
     const reportModal = useReportModal()
-
-    const handleReportModal = () => {
-        reportModal.onOpen()
-    }
+    const banUserModal = useUserBanUserModal()
 
     return (
         <div className="relative flex flex-col gap-5 sm:block">
@@ -47,23 +48,20 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                     )}
                 </div>
                 <div className="relative flex flex-col sm:flex-grow gap-5">
-                    <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0 transition-all duration-500">
+                    <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0 transition-all duration-500 md:space-x-3">
                         <div className="md:text-4xl text-3xl font-semibold whitespace-nowrap">
                             {validateName(fullName)}
                         </div>
                         <div className="md:flex-grow md:block hidden" />
-                        <button className="text-gray-500 text-lg font-medium underline cursor-pointer" type="button" onClick={handleReportModal}>
+                        <button
+                            className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLocaleLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportModal.onOpen}>
                             Báo cáo người dùng
+                        </button>
+                        <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLocaleLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
+                            Chặn người dùng
                         </button>
                     </div>
                     <div className="sm:relative sm:flex md:flex-row sm:flex-col md:items-center sm:gap-5 hidden transition-all duration-500">
-                        <div className="relative">
-                            <Button
-                                title="Trò chuyện"
-                                style="py-3 px-14 text-xl group"
-                                icon={<BsFillChatDotsFill size={20} className="group-hover:text-primary-blue-cus" />}
-                            />
-                        </div>
                         <div className="relative">
                             <Button
                                 title="Đăng ký"

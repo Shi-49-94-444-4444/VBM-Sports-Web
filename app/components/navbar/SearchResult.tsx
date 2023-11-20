@@ -28,7 +28,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
                 <Link href={`/product/detail-badminton/${result.id}`} className="flex gap-3 transition-all duration-300 py-1 pr-2 hover:bg-slate-200" key={result.id}>
                     <div className="flex-shrink-0">
                         <Image
-                            src={validateURLProduct(result.imgUrl)}
+                            src={validateURLProduct(result.highlightUrl)}
                             alt={`product ${result.id}`}
                             className="object-cover h-24 w-24"
                             width={100}
@@ -43,7 +43,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
                             Chỗ còn trống: {(result.quantitySlot ?? 0) - (result.slots?.length ?? 0)}
                         </div>
                         <div className="font-semibold text-primary-blue-cus text-xl lg:text-base lg:text-left text-right">
-                            {formatMoney(new Decimal(result.priceSlot ?? 0))}/Chỗ
+                            {formatMoney(new Decimal(result.price ?? 0))}/Chỗ
                         </div>
                     </div>
                 </Link>

@@ -1,8 +1,9 @@
-import { SettingLayout, SettingSecurity } from "@/app/components"
+import { ModalChangePassword, SettingLayout, SettingSecurity } from "@/app/components"
 
 const SettingSecurityPage = () => {
     return (
         <SettingLayout>
+            <ModalChangePassword />
             <SettingSecurity />
         </SettingLayout>
     )

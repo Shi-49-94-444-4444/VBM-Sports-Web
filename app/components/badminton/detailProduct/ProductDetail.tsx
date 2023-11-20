@@ -1,16 +1,16 @@
 "use client"
 
 import { ProductDetailContentData } from "@/types"
-import { Button, Loading } from "../../providers"
-import { useRouter } from "next/navigation";
-import { FormatTime, formatMoney, validateAddress, validateTitle } from "@/utils";
-import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import { GlobalContext } from "@/contexts";
-import { buySlotService, checkSlotService } from "@/services";
-import { toast } from "react-toastify";
-import { format, parseISO } from "date-fns";
-import Decimal from "decimal.js";
+import { Button } from "../../providers"
+import { FormatTime, formatMoney, validateAddress, validateTitle } from "@/utils"
+import { useContext, useState } from "react"
+import { GlobalContext } from "@/contexts"
+import { toast } from "react-toastify"
+import { addHours, format, parse, parseISO } from "date-fns"
+import Decimal from "decimal.js"
+import { IoTimeOutline } from "react-icons/io5"
+import { MdOutlineAttachMoney, MdOutlineDateRange } from "react-icons/md"
+import { useContinuePaymentModal, useUnauthorizeModal } from "@/hooks"
 
 const ProductDetail: React.FC<ProductDetailContentData> = ({
     id,
@@ -18,29 +18,52 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     levelSlot,
     categorySlot,
     slotInfos,
-    title
+    title,
+    userId
 }) => {
-    const router = useRouter()
-    const { user, setIsLoading, setTransactionId, isLoading } = useContext(GlobalContext) || {}
-    const { handleSubmit } = useForm()
+    const { user, isAuthUser } = useContext(GlobalContext) || {}
+    const unauthorizeModal = useUnauthorizeModal()
+    const continuePaymentModal = useContinuePaymentModal()
 
     const [selectedSlots, setSelectedSlots] = useState<{ [key: string]: number }>({})
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [checkedStatus, setCheckedStatus] = useState<{ [key: string]: boolean }>({})
 
-    const handleCheckboxChange = (date: string, isChecked: boolean) => {
+    const handleCheckboxChange = (date: string, isChecked: boolean, price: number, item: any) => {
+        if (item.availableSlot === 0) {
+            toast.error(`Không có chỗ nào khả dụng`, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+            setCheckedStatus(prevState => ({ ...prevState, [date]: false }))
+            return
+        }
+
         setSelectedSlots(prevState => {
             if (isChecked) {
+                setTotalPrice(prevPrice => prevPrice + price);
                 return {
                     ...prevState,
                     [date]: 1
                 }
             } else {
+                setTotalPrice(prevPrice => prevPrice - price);
                 const { [date]: _, ...rest } = prevState;
                 return rest;
             }
         })
+
+        setCheckedStatus(prevState => ({ ...prevState, [date]: isChecked }))
     }
 
     const handleInputChange = (date: string, value: number, item: any) => {
+        if (value === 0) {
+            setTotalPrice(prevPrice => prevPrice - item.price * selectedSlots[date]);
+            const { [date]: _, ...rest } = selectedSlots;
+            setSelectedSlots(rest);
+            setCheckedStatus(prevState => ({ ...prevState, [date]: false }))
+            return
+        }
+
         if (item && item.availableSlot) {
             if (value > item.availableSlot) {
                 toast.error(`Bạn chỉ có thể nhập tối đa ${item.availableSlot}`, {
@@ -48,6 +71,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                 })
                 return
             }
+            setTotalPrice(prevPrice => prevPrice + item.price * (value - selectedSlots[date]));
             setSelectedSlots(prevState => ({
                 ...prevState,
                 [date]: value
@@ -62,79 +86,40 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
             event.preventDefault();
     }
 
-    const onSubmit = async () => {
-        if (setIsLoading) setIsLoading(true)
+    const handleClick = () => {
+        let slotsInfoArray: { dateRegis: string, numSlots: number }[] = []
 
-        let slotsIdArray = []
+        if (!selectedSlots || Object.keys(selectedSlots).length === 0) {
+            toast.error("Phải chọn ngày bạn muốn đặt", {
+                position: toast.POSITION.TOP_RIGHT
+            })
+            return
+        }
 
         for (const date in selectedSlots) {
             const slot = selectedSlots[date]
-
-            //console.log(slot, date)
 
             if (!date || slot === 0) {
                 toast.error("Phải chọn ngày và chỗ", {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                if (setIsLoading) setIsLoading(false)
                 return
             }
 
-            if (id && user && user.id) {
-                const availableSlot = await checkSlotService({
-                    userId: user.id,
-                    numberSlot: slot,
-                    postId: id,
-                    dateRegis: date
-                })
-
-                //console.log(availableSlot)
-
-
-                if (availableSlot.data == null) {
-                    toast.error(`Chỗ đặt của ${date} không còn đủ`, {
-                        position: toast.POSITION.TOP_RIGHT
-                    })
-                    if (setIsLoading) setIsLoading(false)
-                    return
-                }
-
-                slotsIdArray.push(availableSlot.data.slotsId)
-            }
+            const dateObj = parse(date, 'dd/MM/yyyy', new Date());
+            const newDateObj = addHours(dateObj, 7);
+            const slotInfo = { dateRegis: newDateObj.toISOString(), numSlots: slot }
+            slotsInfoArray.push(slotInfo)
         }
 
-        //console.log(slotsIdArray)
-
-        if (id && user && user.id) {
-            const res = await buySlotService({
-                idUser: user.id,
-                idSlot: slotsIdArray.flat()
-            })
-
-            //console.log(res)
-
-            if (res.data == null) {
-                toast.error("Đặt chỗ thất bại", {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-                if (setIsLoading) setIsLoading(false)
-                return
-            }
-
-            toast.success("Đặt chỗ thành công", {
-                position: toast.POSITION.TOP_RIGHT
-            })
-
-            if (setTransactionId) setTransactionId(res.data.tranSactionId)
-            localStorage.setItem("transactionId", res.data.tranSactionId)
-            router.push(`/product/payment/${res.data.tranSactionId}`)
+        if (id) {
+            continuePaymentModal.setSlotsIdArray(slotsInfoArray)
+            continuePaymentModal.onOpen(id)
         }
-
-        if (setIsLoading) setIsLoading(false)
     }
 
     return (
-        <form className="
+        <div className="
                 relative
                 bg-gray-200
                 flex 
@@ -150,7 +135,6 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                 max-h-auto
             "
             key={id ?? "1"}
-            onSubmit={handleSubmit(onSubmit)}
         >
             <h1 className="text-3xl font-semibold text-gray-600">
                 {validateTitle(title)}
@@ -174,75 +158,126 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
 
                     return (
                         <div className="break-words flex flex-wrap items-center gap-2 border border-black border-opacity-10 rounded-lg p-2" key={index}>
-                            <input
-                                type="checkbox"
-                                onChange={(e) => handleCheckboxChange(date, e.target.checked)}
-                                className="ring-0 outline-none focus:ring-0 focus:outline-none"
-                            />
-                            <span>
-                                {date}
-                            </span>
-                            <span>
-                                <FormatTime timeString={startTime} /> - <FormatTime timeString={endTime} />
-                            </span>
-                            <span className="text-primary-blue-cus">
-                                {formatMoney(new Decimal(item.price))}/Chỗ
-                            </span>
-                            <section className="flex space-x-1 items-center">
-                                <span>-</span>
-                                <label>
-                                    Số chỗ đặt:
-                                </label>
+                            {user && user.id === userId ? (
+                                <></>
+                            ) : (
                                 <input
-                                    type="number"
-                                    pattern="^(0|[1-9][0-9]*)$"
-                                    min={selectedSlots[date] || 0}
-                                    max={item.availableSlot}
-                                    value={selectedSlots[date] || 0}
-                                    disabled={!selectedSlots[date]}
-                                    onChange={(e) => handleInputChange(date, Number(e.target.value), item)}
-                                    onKeyPress={handleKeyPress}
-                                    className={`px-1 py-1 w-8 text-center ${selectedSlots[date] ? '' : 'cursor-not-allowed bg-gray-300'}`}
+                                    type="checkbox"
+                                    checked={checkedStatus[date] || false}
+                                    onChange={(e) => handleCheckboxChange(date, e.target.checked, item.price, item)}
+                                    className="ring-0 outline-none focus:ring-0 focus:outline-none"
                                 />
+                            )}
+                            <div className="flex space-x-1 items-center w-28">
                                 <span>
-                                    /{item.availableSlot}
+                                    <MdOutlineDateRange size={20} color="#204D94" />
                                 </span>
-                            </section>
+                                <span>
+                                    {date}
+                                </span>
+                            </div>
+                            <div className="flex space-x-1 items-center w-36">
+                                <span>
+                                    <IoTimeOutline size={20} color="#204D94" />
+                                </span>
+                                <span>
+                                    <FormatTime timeString={startTime} /> - <FormatTime timeString={endTime} />
+                                </span>
+                            </div>
+                            <div className="flex items-center w-44 max-w-full">
+                                <span>
+                                    <MdOutlineAttachMoney size={20} color="#204D94" />
+                                </span>
+                                <span className="text-primary-blue-cus">
+                                    {formatMoney(new Decimal(item.price))}/Chỗ
+                                </span>
+                            </div>
+                            {user && user.id === userId ? (
+                                <section className="flex space-x-1 items-center">
+                                    <label>
+                                        Số chỗ còn lại:
+                                    </label>
+                                    <span>
+                                        {item.availableSlot}
+                                    </span>
+                                </section>
+                            ) : (
+                                <section className="flex space-x-1 items-center">
+                                    <label>
+                                        Số chỗ đặt:
+                                    </label>
+                                    <input
+                                        type="number"
+                                        pattern="^(0|[1-9][0-9]*)$"
+                                        min={selectedSlots[date] || 0}
+                                        max={item.availableSlot}
+                                        value={selectedSlots[date] || 0}
+                                        disabled={!selectedSlots[date]}
+                                        onChange={(e) => handleInputChange(date, Number(e.target.value), item)}
+                                        onKeyPress={handleKeyPress}
+                                        className={`px-1 py-1 w-8 text-center ${selectedSlots[date] ? '' : 'cursor-not-allowed bg-gray-300'}`}
+                                    />
+                                    <span>
+                                        /{item.availableSlot}
+                                    </span>
+                                </section>
+                            )}
                         </div>
                     )
                 })}
             </section>
-            <section className="relative flex gap-3 font-semibold">
+            <div className="flex gap-5">
+                <section className="relative flex gap-3 font-semibold">
+                    <label className="whitespace-nowrap text-gray-600">
+                        Thể loại:
+                    </label>
+                    <span className="break-words">
+                        {categorySlot ?? "Chưa có"}
+                    </span>
+                </section>
+                <section className="relative flex gap-3 font-semibold">
+                    <label className="whitespace-nowrap text-gray-600">
+                        Kĩ năng:
+                    </label>
+                    <span className="break-words">
+                        {levelSlot ?? "Chưa có"}
+                    </span>
+                </section>
+            </div>
+            <section className="relative flex gap-3 font-semibold items-end">
                 <label className="whitespace-nowrap text-gray-600">
-                    Thể loại:
+                    Tổng tiền:
                 </label>
-                <span className="break-words">
-                    {categorySlot ?? "Chưa có"}
+                <span className="break-words text-primary-blue-cus text-xl">
+                    {formatMoney(new Decimal(totalPrice))}
                 </span>
             </section>
-            <section className="relative flex gap-3 font-semibold">
-                <label className="whitespace-nowrap text-gray-600">
-                    Kĩ năng:
-                </label>
-                <span className="break-words">
-                    {levelSlot ?? "Chưa có"}
-                </span>
-            </section>
-            {isLoading ? (
-                <Button
-                    title={<Loading loading={isLoading} color="white" />}
-                    style="py-4 justify-center"
-                    type="submit"
-                    isHover={false}
-                />
-            ) : (
+            {user && user.id === userId ? (
+                <div className="flex gap-3 w-full relative">
+                    <Button
+                        title="Ẩn bài đăng"
+                        style="py-4 justify-center w-full"
+                    />
+                    <Button
+                        title="Xóa bài đăng"
+                        style="py-4 justify-center w-full"
+                    />
+                </div>
+            ) : !isAuthUser ? (
                 <Button
                     title="Đặt chỗ ngay"
                     style="py-4 justify-center"
-                    type="submit"
+                    onClick={unauthorizeModal.onOpen}
+                />
+            ) : (
+
+                <Button
+                    title="Đặt chỗ ngay"
+                    style="py-4 justify-center"
+                    onClick={handleClick}
                 />
             )}
-        </form>
+        </div>
     )
 }
 

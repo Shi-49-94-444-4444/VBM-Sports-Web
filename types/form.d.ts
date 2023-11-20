@@ -114,11 +114,25 @@ export interface WalletFromData {
 
 export interface CheckSlotFormData {
     userId: string
-    numberSlot: number
     postId: string
-    dateRegis: string
+    slotsInfo: {
+        dateRegis: string
+        numSlots: number
+    }[]
 }
-export interface buySlotFormData {
+export interface BuySlotFormData {
     idUser: string
     idSlot: number[]
+}
+
+export interface SettingPasswordForm {
+    userId: string
+    oldPass: string
+    newPass: string
+    reEnterPass: string
+}
+export interface SettingPasswordFormData {
+    oldPass: string
+    newPass: string
+    reEnterPass: string
 }

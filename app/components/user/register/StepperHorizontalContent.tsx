@@ -33,7 +33,7 @@ const StepperHorizontalContent = ({ }) => {
     const { setIsLoading, user, setUser } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm<StepFormData>()
 
-    // //console.log("global user", user);
+    //console.log("global user", user);
 
     const onSubmitLocation = async () => {
         if (setIsLoading) setIsLoading(true);

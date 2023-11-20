@@ -23,7 +23,7 @@ const SettingNotify = () => {
     ]
 
     return (
-        <div className="relative p-8 flex flex-col gap-5">
+        <div className="relative p-8 flex flex-col gap-5 h-screen">
             <div className="text-gray-600 text-3xl font-semibold">Thông báo</div>
             <div className="border border-black border-opacity-10" />
             <div className="flex flex-col gap-3 pb-10">

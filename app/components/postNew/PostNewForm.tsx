@@ -11,7 +11,7 @@ import { vi } from 'date-fns/locale'
 import { AxiosClient, postBadmintonService } from "@/services"
 import useSWR from "swr"
 import { ListCity, ListDistrict, ListWard, Time } from "@/types"
-import { customStyles, handleChange } from "@/utils"
+import { customStyles, handleChange, processBase64Image } from "@/utils"
 import { useForm } from "react-hook-form"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
@@ -347,19 +347,7 @@ const PostNewForm = () => {
                     })
                     if (setIsLoading) setIsLoading(false)
                     return
-                } else if (isBefore(start, formatTime({ hour: '6', minute: '00' }))) {
-                    toast.error(`Thời gian bắt đầu không thể trước 6:00 AM của ${format(slot.day, 'dd/MM/yyyy')}`, {
-                        position: toast.POSITION.TOP_RIGHT
-                    })
-                    if (setIsLoading) setIsLoading(false)
-                    return
-                } else if (isBefore(formatTime({ hour: '24', minute: '00' }), end)) {
-                    toast.error(`Thời gian kết thúc không thể sau 24:00 của ${format(slot.day, 'dd/MM/yyyy')}`, {
-                        position: toast.POSITION.TOP_RIGHT
-                    })
-                    if (setIsLoading) setIsLoading(false)
-                    return
-                }
+                } 
 
                 if (!slot.availableSlot || slot.availableSlot === 0) {
                     toast.error(`Chỗ không được để trống của ${format(slot.day, 'dd/MM/yyyy')}`, {
@@ -425,11 +413,11 @@ const PostNewForm = () => {
             const startDate = new Date(slot.day);
             const endDate = new Date(slot.day);
 
-            const [startHours, startMinutes] = slot.startTime.split(':').map(Number);
-            const [endHours, endMinutes] = slot.endTime.split(':').map(Number);
+            const [startHours, startMinutes] = slot.startTime.split(':').map(Number)
+            const [endHours, endMinutes] = slot.endTime.split(':').map(Number)
 
-            startDate.setHours(startHours + 7, startMinutes);
-            endDate.setHours(endHours + 7, endMinutes);
+            startDate.setHours(startHours + 7, startMinutes)
+            endDate.setHours(endHours + 7, endMinutes)
 
             return {
                 startTime: startDate.toISOString(),
@@ -438,6 +426,8 @@ const PostNewForm = () => {
                 availableSlot: slot.availableSlot,
             }
         })
+
+        const processedImages = uploadImages.map(image => processBase64Image(image));
 
         //console.log(formattedSlots)
 
@@ -450,8 +440,8 @@ const PostNewForm = () => {
                 levelSlot: selectLevel.value,
                 categorySlot: selectCategory.value,
                 description: formGlobal.description,
-                highlightUrl: uploadImages[0],
-                imgUrls: uploadImages
+                highlightUrl: processedImages[0],
+                imgUrls: processedImages
             })
 
             //console.log(res)
@@ -464,9 +454,10 @@ const PostNewForm = () => {
                 return
             }
 
-            toast.success(res.message, {
+            toast.success("Đăng bài thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
+
             router.push("/")
         }
 

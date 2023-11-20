@@ -112,3 +112,18 @@ export interface ListUserData {
     totalRate?: number | null
     flagRegister?: boolean | false
 }
+
+export interface listBlock {
+    message: string
+    data: {
+        userId: string
+        userName: string
+        imgUrl: string
+    }[]
+}
+
+export interface listBlockData {
+    userId: string
+    userName: string
+    imgUrl: string
+}

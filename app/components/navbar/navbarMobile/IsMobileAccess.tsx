@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { useContext, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { VscAccount } from 'react-icons/vsc';
@@ -9,10 +9,11 @@ import { BiMenu } from 'react-icons/bi'
 import { GlobalContext } from '@/contexts';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import { beforeNavUser, useOutsideClick } from '@/utils';
+import { beforeNavUser, validateURLAvatar } from '@/utils';
 import { LiaWindowClose } from 'react-icons/lia';
 import { auth } from '@/firebase';
 import { signOut } from 'firebase/auth';
+import Image from 'next/image';
 
 interface IsMobileAccessPros {
     onclick: () => void;
@@ -30,10 +31,6 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
         setShowToggle(!showToggle);
     }
 
-    const handleOutsideClick = () => {
-        setShowToggle(false);
-    }
-
     const handleLogout = async () => {
         if (setIsAuthUser && setUser) {
             setIsAuthUser(false)
@@ -45,9 +42,6 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
         router.push("/")
     }
 
-    const ref = useRef<HTMLLIElement | null>(null)
-    useOutsideClick(ref, handleOutsideClick)
-
     return (
         <ul className="
                 flex 
@@ -55,7 +49,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                 list-none
             "
         >
-            <li className="relative inline-flex" ref={ref}>
+            <li className="relative inline-flex">
                 <div
                     className="
                         border-box 
@@ -85,7 +79,17 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                     align-middle
                                 "
                             >
-                                <VscAccount size={24} />
+                                {isAuthUser ? (
+                                    <Image
+                                        src={validateURLAvatar(user && user.avatar)}
+                                        alt="avatar"
+                                        width={50}
+                                        height={50}
+                                        className="object-cover rounded-full w-8 h-8 border border-pri"
+                                    />
+                                ) : (
+                                    <VscAccount size={24} />
+                                )}
                             </div>
                         </div>
                     </div>

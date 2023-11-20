@@ -54,7 +54,7 @@ export function LoadingActionWallet({ color, loading, size }: LoadingProps) {
 export function LoadingActionPayment({ color, loading, size }: LoadingProps) {
     return (
         <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${loading ? 'bg-black bg-opacity-50 z-[99999]' : ''}`}>
-            <div className="flex flex-col items-center justify-center bg-white rounded-lg p-10">
+            <div className="flex flex-col gap-5 items-center justify-center bg-white rounded-lg p-10">
                 <FadeLoader
                     color={color || "#204D94"}
                     loading={loading}

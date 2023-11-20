@@ -7,10 +7,11 @@ import { IoSettingsOutline } from "react-icons/io5"
 import { GlobalContext } from "@/contexts"
 import { useRouter } from 'next/navigation'
 import Cookies from "js-cookie";
-import { beforeNavUser, useOutsideClick } from "@/utils"
+import { beforeNavUser, useOutsideClick, validateURLAvatar } from "@/utils"
 import SearchBar from "../SearchBar"
 import { signOut } from "firebase/auth"
 import { auth } from "@/firebase"
+import Image from "next/image"
 
 const Access = () => {
     const [showToggle, setShowToggle] = useState(false);
@@ -93,7 +94,17 @@ const Access = () => {
                                     align-middle
                                 "
                             >
-                                <VscAccount size={30} />
+                                {isAuthUser ? (
+                                    <Image
+                                        src={validateURLAvatar(user && user.avatar)}
+                                        alt="avatar"
+                                        width={50}
+                                        height={50}
+                                        className="object-cover rounded-full w-10 h-10 border border-pri"
+                                    />
+                                ) : (
+                                    <VscAccount size={30} />
+                                )}
                             </div>
                         </div>
                     </div>

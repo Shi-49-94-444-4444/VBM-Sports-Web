@@ -10,24 +10,24 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { walletSchema } from "@/utils"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { WalletService } from "@/services"
+import { walletService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
 
 const ModalRecharge = () => {
     const rechargeModal = useRechargeModal()
 
-    const { user, setIsLoading, isLoading, setUser } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal, setUser } = useContext(GlobalContext) || {}
 
-    const { register, handleSubmit, formState: { errors } } = useForm<WalletFrom>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<WalletFrom>({
         resolver: yupResolver(walletSchema)
     })
 
     const onSubmit = async (data: WalletFrom) => {
-        if (setIsLoading) setIsLoading(true)
+        if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id) {
-            const res = await WalletService({
+            const res = await walletService({
                 id: user.id,
                 money: data.money
             })
@@ -38,11 +38,11 @@ const ModalRecharge = () => {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                if (setIsLoading) setIsLoading(false)
+                if (setIsLoadingModal) setIsLoadingModal(false)
                 return
-            } 
+            }
 
-            toast.success(res.message, {
+            toast.success("Nạp tiền thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
 
@@ -55,13 +55,14 @@ const ModalRecharge = () => {
             }
 
             rechargeModal.onClose()
-            
-            if (setIsLoading) setIsLoading(false)
+            reset()
         }
+
+        if (setIsLoadingModal) setIsLoadingModal(false)
     }
 
-    if (isLoading) {
-        return <LoadingActionWallet loading={isLoading} />
+    if (isLoadingModal) {
+        return <LoadingActionWallet loading={isLoadingModal} />
     }
 
     return (
@@ -80,11 +81,11 @@ const ModalRecharge = () => {
                             alt="momoIcon"
                             height={100}
                             width={100}
-                            className="object-cover w-14 h-14"
+                            className="object-cover w-16 h-12"
                         />
                     </div>
                     <div className="text-2xl font-semibold text-gray-600">
-                        Thanh toán momo
+                        Thanh toán Vnpay
                     </div>
                 </div>
                 <form className="relative flex flex-col gap-3 w-full px-2 md:px-10" onSubmit={handleSubmit(onSubmit)}>

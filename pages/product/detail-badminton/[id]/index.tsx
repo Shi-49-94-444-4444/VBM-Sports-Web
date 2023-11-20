@@ -4,12 +4,15 @@ import {
     ProductContent,
     ProductUserPost,
     ProductOtherExtra,
+    ModalFailPayment,
+    ModalSuccessPayment,
 } from "@/app/components";
 import { getListProductService, getProductService } from "@/services/product";
 import { ProductDetailContent, ProductDetailContentData } from "@/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Custom500 from '@/pages/500';
 import Custom404 from '@/pages/404';
+import ModalContinuePayment from '@/app/components/providers/modal/ModalContinuePayment';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const products = await getListProductService()
@@ -65,6 +68,9 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
 
     return (
         <Layout>
+            <ModalContinuePayment />
+            <ModalFailPayment />
+            <ModalSuccessPayment />
             <Container>
                 <ProductContent
                     id={postId}
@@ -74,6 +80,7 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
                     levelSlot={Product.data.levelSlot}
                     slotInfos={Product.data.slotInfos}
                     title={Product.data.title}
+                    userId={Product.data.userId}
                 />
                 <ProductUserPost
                     id={postId}
@@ -85,7 +92,7 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
                     totalRate={Product.data.totalRate}
                     userId={Product.data.userId}
                 />
-                <ProductOtherExtra />
+                <ProductOtherExtra id={postId}/>
             </Container>
         </Layout>
     )

@@ -3,6 +3,7 @@ import UserProfileIntro from "./UserProfileIntro"
 import UserProfileRating from "./UserProfileRating"
 
 const UserProfileContent: React.FC<UserProfileData> = ({
+    id,
     friendly,
     fullName,
     helpful,
@@ -15,6 +16,7 @@ const UserProfileContent: React.FC<UserProfileData> = ({
     return (
         <div className="flex flex-col gap-5 py-10">
             <UserProfileIntro
+                id={id}
                 imgUrl={imgUrl}
                 fullName={fullName}
                 sortProfile={sortProfile}

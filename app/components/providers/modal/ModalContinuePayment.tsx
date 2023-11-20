@@ -2,88 +2,51 @@
 
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
-import { WalletService, transactionStatusService } from "@/services"
-import Decimal from "decimal.js"
-import { useContinuePaymentModal, useFailPaymentModal, useNotEnoughMoneyModal, useSuccessPaymentModal } from "@/hooks"
+import { checkSlotService } from "@/services"
+import { useContinuePaymentModal, useFailPaymentModal, useSuccessPaymentModal } from "@/hooks"
 import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button } from "../form"
 import { useContext } from "react"
 import { LoadingActionPayment } from "../loader"
 
-const ModalContinuePayment = ({ total, tran_id }: { total: string, tran_id: string }) => {
-    const { user, setUser, setTransactionId, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+const ModalContinuePayment = () => {
+    const { user, setUser, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
-    const notEnoughMoneyModal = useNotEnoughMoneyModal()
     const continuePaymentModal = useContinuePaymentModal()
     const failPaymentModal = useFailPaymentModal()
     const successPaymentModal = useSuccessPaymentModal()
 
+    //console.log(continuePaymentModal.slotsIdArray, continuePaymentModal.post_id)
+
     const onSubmit = async () => {
-        if (setIsLoading) setIsLoading(true)
+        if (setIsLoadingModal) setIsLoadingModal(true)
 
-        if (user && user.id) {
-            const res = await WalletService({
-                id: user.id,
-                money: -Number(new Decimal(total))
+        if (user && user.id && continuePaymentModal.post_id) {
+            const res = await checkSlotService({
+                userId: user.id,
+                postId: continuePaymentModal.post_id,
+                slotsInfo: continuePaymentModal.slotsIdArray
             })
 
+            //console.log(res)
+            
             if (res.data == null) {
+                if (setIsLoadingModal) setIsLoadingModal(false)
                 continuePaymentModal.onClose()
-                notEnoughMoneyModal.onOpen()
-                if (setIsLoading) setIsLoading(false)
-                return
-            }
-
-            if (setUser) {
-                setUser(prevUser => {
-                    const updatedUser = { ...prevUser, balance: res.data.newBalance }
-                    localStorage.setItem("user", JSON.stringify(updatedUser))
-                    return updatedUser
-                })
-            }
-
-            const status = await transactionStatusService({
-                tran_id: Number(tran_id),
-                status_info: 1
-            })
-
-            if (status.data == null) {
-                continuePaymentModal.onClose()
-                failPaymentModal.onOpen()
-                if (setIsLoading) setIsLoading(false)
-                return
-            }
-
-            if (setTransactionId) setTransactionId(null)
-            localStorage.removeItem("transactionId")
-
-            continuePaymentModal.onClose()
-            successPaymentModal.onOpen()
-        } else {
-            const status = await transactionStatusService({
-                tran_id: Number(tran_id),
-                status_info: 2
-            })
-
-            if (status.data == null) {
-                continuePaymentModal.onClose()
-                failPaymentModal.onOpen()
-                if (setIsLoading) setIsLoading(false)
+                failPaymentModal.onOpen(res.message)
                 return
             }
 
             continuePaymentModal.onClose()
-            failPaymentModal.onOpen()
-            if (setIsLoading) setIsLoading(false)
-            return
+            successPaymentModal.onOpen(res.data.transactionId)
         }
 
-        if (setIsLoading) setIsLoading(false)
+        if (setIsLoadingModal) setIsLoadingModal(false)
     }
 
-    if (isLoading) {
-        return <LoadingActionPayment loading={isLoading} />
+    if (isLoadingModal) {
+        return <LoadingActionPayment loading={isLoadingModal} />
     }
 
     return (
@@ -93,7 +56,7 @@ const ModalContinuePayment = ({ total, tran_id }: { total: string, tran_id: stri
             width="w-auto"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-3 justify-center items-center" onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex flex-col px-10 pb-5 gap-5 justify-center items-center" onSubmit={handleSubmit(onSubmit)}>
                 <Image
                     src="/images/pay.png"
                     alt="error"

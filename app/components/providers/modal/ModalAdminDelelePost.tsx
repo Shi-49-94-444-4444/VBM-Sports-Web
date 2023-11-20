@@ -12,11 +12,11 @@ import { mutate } from "swr"
 
 const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
     const adminDeletePostModal = useAdminDeletePostModal()
-    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const post_id = adminDeletePostModal.postId
 
     const handleDeletePost = async () => {
-        if (setIsLoading) setIsLoading(true)
+        if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id && post_id) {
             const res = await adminDeletePostService({
@@ -29,7 +29,7 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 adminDeletePostModal.onClose()
-                if (setIsLoading) setIsLoading(false)
+                if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
 
@@ -40,11 +40,11 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
             mutate(`/api/posts/${user_id}/managed_all_post`)
         }
 
-        if (setIsLoading) setIsLoading(false)
+        if (setIsLoadingModal) setIsLoadingModal(false)
     }
 
-    if (isLoading) {
-        return <LoadingActionWallet loading={isLoading} />
+    if (isLoadingModal) {
+        return <LoadingActionWallet loading={isLoadingModal} />
     }
 
     return (

@@ -11,17 +11,15 @@ const SettingOverview: React.FC<OptionsOverviewProps> = ({
                 lg:flex-col 
                 lg:justify-normal 
                 lg:p-4
-                sm:px-6 
-                px-4
-                sm:justify-between
-                justify-normal
+                px-6 
+                justify-between
                 flex-row 
                 py-4 
                 gap-5
             "
         >
-            <div className="text-gray-500 text-xl sm:block hidden">
-                Setting
+            <div className="text-gray-500 text-xl md:block hidden">
+                Cài đặt
             </div>
             {options.map((option) => (
                 <button
@@ -30,7 +28,7 @@ const SettingOverview: React.FC<OptionsOverviewProps> = ({
                     onClick={() => onOptionSelect(option.id)}
                 >
                     <option.icon size={25} />
-                    <span className="text-xl">{option.label}</span>
+                    <span className="text-xl text-left sm:block hidden">{option.label}</span>
                 </button>
             ))}
         </div>

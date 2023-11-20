@@ -101,3 +101,17 @@ export const walletSchema = yup.object().shape({
         min(10000, "Tối thiểu là 10,000 VNĐ").
         max(100000000, "Tối đa là 100,000,000 VNĐ"),
 })
+
+export const settingPasswordSchema = yup.object().shape({
+    oldPass: yup.string().
+        required("Mật khẩu cũ không được để trống").
+        min(6, "Mật khẩu phải có ít nhất 6 ký tự").
+        max(50, "Mật khẩu nhiều nhất chỉ được 50 ký tự"),
+    newPass: yup.string().
+        required("Mật khẩu mới không được để trống").
+        min(6, "Mật khẩu phải có ít nhất 6 ký tự").
+        max(50, "Mật khẩu nhiều nhất chỉ được 50 ký tự"),
+    reEnterPass: yup.string().
+        required("Mật khẩu xác nhận không được để trống").
+        oneOf([yup.ref("newPass"), ""], "Mật khẩu xác nhận phải khớp"),
+})

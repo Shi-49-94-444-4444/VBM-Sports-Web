@@ -70,7 +70,9 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        if (user && user.isNewUser) {
+        if (user && user.role && user.role.toLocaleLowerCase() === "admin") {
+            router.push("/admin/user-management")
+        } else if (user && user.isNewUser) {
             router.push("/verify-otp")
         } else if (isAuthUser) {
             router.push("/");

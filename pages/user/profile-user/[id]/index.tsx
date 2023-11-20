@@ -1,6 +1,7 @@
 import {
     Container,
     ModalReport,
+    ModalUserBanUser,
     UserOtherExtra,
     UserProfileContent
 } from "@/app/components"
@@ -67,8 +68,10 @@ const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, inter
     return (
         <Layout>
             <ModalReport id={id} />
+            <ModalUserBanUser id={id} />
             <Container>
                 <UserProfileContent
+                    id={id}
                     friendly={User.data.friendly}
                     fullName={User.data.fullName}
                     helpful={User.data.helpful}

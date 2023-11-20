@@ -1,13 +1,24 @@
 "use client"
 
-import { navlinks } from '@/utils'
-import { useState } from 'react'
+import { navlinks, useOutsideClick } from '@/utils'
+import { useContext, useRef, useState } from 'react'
 import { AiOutlineDown } from 'react-icons/ai'
 import IsMobileItem from './IsMobileItem'
 import { useRouter } from 'next/navigation'
+import { GlobalContext } from '@/contexts'
 
 const IsMobileNavLink = () => {
-    const [openItemId, setOpenItemId] = useState<string[]>([]);
+    const [openItemId, setOpenItemId] = useState<string[]>([])
+    const { setShowMenu} = useContext(GlobalContext) || {}
+
+    const handleOutsideClick = () => {
+        if (setShowMenu) setShowMenu(false)
+    }
+
+    const ref = useRef<HTMLDivElement | null>(null)
+    useOutsideClick(ref, handleOutsideClick)
+
+
     const router = useRouter()
 
     const handleMenuToggle = (itemId: string) => {
@@ -37,7 +48,10 @@ const IsMobileNavLink = () => {
                 text-lg
                 text-gray-600
                 z-[2000]
+                transition-all
+                duration-500
             "
+            ref={ref}
         >
             <ul className="
                     list-none 

@@ -1,4 +1,4 @@
-import { Footer } from './components'
+import { Footer, ModalUnauthorize } from './components'
 import Navbar from './components/navbar/Navbar'
 import './globals.css'
 
@@ -9,6 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <>
+      <ModalUnauthorize />
       <Navbar />
       {children}
       <Footer />

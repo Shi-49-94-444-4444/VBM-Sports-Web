@@ -11,10 +11,10 @@ import { LoadingActionWallet } from "../loader"
 
 const ModalAdminBan = ({ user_id }: { user_id: string }) => {
     const adminBanModal = useAdminBanModal()
-    const { user, setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
 
     const handleBanUser = async () => {
-        if (setIsLoading) setIsLoading(true)
+        if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id) {
             const res = await adminBanUserService({
@@ -27,7 +27,7 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 adminBanModal.onClose()
-                if (setIsLoading) setIsLoading(false)
+                if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
 
@@ -37,11 +37,11 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
             adminBanModal.onClose()
         }
 
-        if (setIsLoading) setIsLoading(false)
+        if (setIsLoadingModal) setIsLoadingModal(false)
     }
 
-    if (isLoading) {
-        return <LoadingActionWallet loading={isLoading} />
+    if (isLoadingModal) {
+        return <LoadingActionWallet loading={isLoadingModal} />
     }
 
     return (

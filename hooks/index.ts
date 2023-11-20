@@ -1,23 +1,25 @@
 import { useWithdrawModal, useRechargeModal } from "./useWallet"
 import {
-    useNotEnoughMoneyModal,
-    useRoutePaymentModal,
     useContinuePaymentModal,
     useFailPaymentModal,
     useSuccessPaymentModal
 } from "./usePayment"
 import { useReportModal } from "./useReport"
 import { useAdminBanModal, useAdminDeletePostModal } from "./useAdmin"
+import { useUnauthorizeModal } from "./useUnauthorize"
+import { useUserBanUserModal } from "./useUserBanUser"
+import { useChangePasswordModal } from "./useChangePassword"
 
 export {
     useRechargeModal,
     useWithdrawModal,
     useFailPaymentModal,
-    useNotEnoughMoneyModal,
     useSuccessPaymentModal,
     useReportModal,
     useContinuePaymentModal,
-    useRoutePaymentModal,
     useAdminBanModal,
-    useAdminDeletePostModal
+    useAdminDeletePostModal,
+    useUnauthorizeModal,
+    useUserBanUserModal,
+    useChangePasswordModal
 }
