@@ -25,11 +25,11 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
             "
         >
             {results.map(((result) => (
-                <Link href={`/product/detail-product/${result.id}`} className="flex gap-3 transition-all duration-300 py-1 pr-2 hover:bg-slate-200" key={result.id}>
+                <Link href={`/product/detail-product/${result.idPost}`} className="flex gap-3 transition-all duration-300 py-1 pr-2 hover:bg-slate-200" key={result.idPost}>
                     <div className="flex-shrink-0">
                         <Image
                             src={validateURLProduct(result.highlightUrl)}
-                            alt={`product ${result.id}`}
+                            alt={`product ${result.idPost}`}
                             className="object-cover h-24 w-24"
                             width={100}
                             height={100}
@@ -40,7 +40,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
                             {validateTitle(result.title)}
                         </div>
                         <div className="text-gray-500 font-medium">
-                            Chỗ còn trống: {(result.quantitySlot ?? 0) - (result.slots?.length ?? 0)}
+                            Chỗ còn trống: {result.quantitySlot ?? 0}
                         </div>
                         <div className="font-semibold text-primary-blue-cus text-xl lg:text-base lg:text-left text-right">
                             {formatMoney(new Decimal(result.price ?? 0))}/Chỗ
