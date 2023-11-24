@@ -1,6 +1,6 @@
 "use client"
 
-import { Input, Loading } from '../../providers';
+import { Button, Input, Loading } from '../../providers';
 import { useForm } from 'react-hook-form';
 import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '@/contexts';
@@ -19,7 +19,6 @@ const RegisterForm = () => {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors }
     } = useForm<RegisterFormData>({
         resolver: yupResolver(registerSchema),
@@ -68,27 +67,21 @@ const RegisterForm = () => {
                     />
                 </React.Fragment>
             ))}
-            <button className="
-                    w-full 
-                    bg-primary-blue-cus 
-                    text-white 
-                    font-semibold 
-                    text-lg 
-                    rounded-xl 
-                    py-3
-                        
-                "
-                type="submit"
-            >
-                {isLoading ? (
-                    <Loading
-                        loading={isLoading}
-                        color="white"
-                    />
-                ) : (
-                    "Đăng ký"
-                )}
-            </button>
+            {isLoading ? (
+                <Button
+                    title={<Loading loading={isLoading} color="white"/>}
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            ) : (
+                <Button
+                    title="Đăng ký"
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            )}
         </form>
     );
 };

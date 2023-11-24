@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useEffect, useState } from "react"
-import { CountdownTimer, InputOTP, Loading } from "../../providers"
+import { Button, CountdownTimer, InputOTP, Loading } from "../../providers"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { verifyOTPService } from "@/services/forgotPassword"
@@ -85,27 +85,21 @@ const VerifyOTPForm = () => {
                 errors={errors.digit}
             />
             <CountdownTimer initialMinutes={5} />
-            <button className="
-                    w-full 
-                    bg-primary-blue-cus 
-                    text-white 
-                    font-semibold 
-                    text-lg 
-                    rounded-xl 
-                    py-3
-                        
-                "
-                type="submit"
-            >
-                {isLoading ? (
-                    <Loading
-                        loading={isLoading}
-                        color="white"
-                    />
-                ) : (
-                    "Xác nhận"
-                )}
-            </button>
+            {isLoading ? (
+                <Button
+                    title={<Loading loading={isLoading} color="white"/>}
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            ) : (
+                <Button
+                    title="Xác nhận"
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            )}
         </form>
     )
 }

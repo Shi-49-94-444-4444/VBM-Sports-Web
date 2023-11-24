@@ -17,7 +17,7 @@ import ModalContinuePayment from '@/app/components/providers/modal/ModalContinue
 export const getStaticPaths: GetStaticPaths = async () => {
     const products = await getListProductService()
     const paths = products.data.map((product: ProductDetailContentData) => ({
-        params: { id: product?.id?.toString() },
+        params: { id: product?.idPost?.toString() },
     }));
 
     return { paths, fallback: true }

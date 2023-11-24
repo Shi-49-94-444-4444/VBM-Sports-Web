@@ -8,6 +8,7 @@ import ModalAdminDeletePost from "./ModalAdminDelelePost"
 import ModalUnauthorize from "./ModalUnauthorize"
 import ModalUserBanUser from "./ModalUserBanUser"
 import ModalChangePassword from "./ModalChangePassword"
+import ModalFeaturing from "./ModalFeaturing"
 
 export {
     ModalReport,
@@ -19,5 +20,6 @@ export {
     ModalAdminDeletePost,
     ModalUnauthorize,
     ModalUserBanUser,
-    ModalChangePassword
+    ModalChangePassword,
+    ModalFeaturing
 }

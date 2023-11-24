@@ -1,6 +1,5 @@
 "use client"
 
-import { FaSadCry } from "react-icons/fa"
 import { Button, Container, LoadingFullScreen, ProductOther } from "../providers"
 import { ListProduct } from "@/types"
 import { useContext } from "react"
@@ -8,6 +7,7 @@ import { GlobalContext } from "@/contexts"
 import { AxiosClient } from "@/services"
 import useSWR from 'swr'
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
@@ -23,18 +23,34 @@ const QuickList = () => {
 
     if (listProduct && listProduct.data.length < 0) {
         return (
-            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
-                <FaSadCry size={100} />
+                <div className="relative">
+                    <Image
+                        src="/images/sad.gif"
+                        alt="Gif"
+                        width={100}
+                        height={100}
+                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                    />
+                </div>
             </div>
         )
     }
 
     if (error) {
         return (
-            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
-                <FaSadCry size={100} />
+                <div className="relative">
+                    <Image
+                        src="/images/sad.gif"
+                        alt="Gif"
+                        width={100}
+                        height={100}
+                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                    />
+                </div>
             </div>
         )
     }
@@ -57,33 +73,27 @@ const QuickList = () => {
                 >
                     {sliceItems.map((items, index) => (
                         <ProductOther
-                            key={items.id || items.idPost || index}
-                            id={items.id}
+                            key={items.idPost || index}
                             idPost={items.idPost}
                             title={items.title}
-                            idUserToNavigation={items.idUserToNavigation}
                             addressSlot={items.addressSlot}
                             contentPost={items.contentPost}
                             days={items.days}
                             endTime={items.endTime}
-                            imgUrl={items.imgUrl}
                             quantitySlot={items.quantitySlot}
                             startTime={items.startTime}
-                            priceSlot={items.priceSlot}
-                            slots={items.slots}
                             fullName={items.fullName}
                             userImgUrl={items.userImgUrl}
                             price={items.price}
                             highlightUrl={items.highlightUrl}
-                            slotsInfo={items.slotsInfo}
-                            flagTooltip
+                            userId={items.userId}
                         />
                     ))}
                 </div>
                 <div className="relative flex justify-center items-center pt-16">
-                    <Button 
+                    <Button
                         title="Xem thêm"
-                        onClick={() => router.push("/product/list-badminton")}
+                        onClick={() => router.push("/product/list-product")}
                         style="py-3 px-12 text-xl"
                     />
                 </div>

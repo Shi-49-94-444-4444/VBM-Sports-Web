@@ -1,18 +1,18 @@
 "use client"
 
-import SwiperCore, { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
+import SwiperCore, { Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper-bundle.min.css'
 import '@/styles/swiper-product.css'
 
-import UserOther from './UserOther';
-import { ListUser, ListUserData } from '@/types';
-import { AxiosClient } from '@/services';
-import useSWR from 'swr';
-import { useContext } from 'react';
-import { GlobalContext } from '@/contexts';
-import { LoadingFullScreen } from '../../loader';
-import { FaSadCry } from 'react-icons/fa';
+import UserOther from './UserOther'
+import { ListUser, ListUserData } from '@/types'
+import { AxiosClient } from '@/services'
+import useSWR from 'swr'
+import { useContext } from 'react'
+import { GlobalContext } from '@/contexts'
+import { LoadingFullScreen } from '../../loader'
+import Image from 'next/image'
 
 SwiperCore.use([Pagination]);
 
@@ -30,18 +30,30 @@ const UserCarousel = () => {
 
     if (error) {
         return (
-            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách người dùng - error 500</p>
-                <FaSadCry size={100} />
+                <Image
+                    src="/images/sad.gif"
+                    alt="Gif"
+                    width={100}
+                    height={100}
+                    className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                />
             </div>
         )
     }
 
     if (listUser && listUser.data == null) {
         return (
-            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách người dùng</p>
-                <FaSadCry size={100} />
+                <Image
+                    src="/images/sad.gif"
+                    alt="Gif"
+                    width={100}
+                    height={100}
+                    className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                />
             </div>
         )
     }

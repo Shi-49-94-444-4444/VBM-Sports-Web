@@ -115,3 +115,7 @@ export const settingPasswordSchema = yup.object().shape({
         required("Mật khẩu xác nhận không được để trống").
         oneOf([yup.ref("newPass"), ""], "Mật khẩu xác nhận phải khớp"),
 })
+
+export const sendMessageSchema = yup.object().shape({
+    message: yup.string().required()
+})

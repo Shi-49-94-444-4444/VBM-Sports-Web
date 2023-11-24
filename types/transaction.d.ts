@@ -45,3 +45,26 @@ export interface TransactionPaymentDetailData {
         endTime: string
     }
 }
+
+export interface ListTransaction {
+    message: string
+    data: {
+        id: string
+        moneyPaied: string
+        playingArea: string
+        slots: {
+            id: string
+            playDate: string
+        }[]
+    }[]
+}
+
+export interface ListTransactionData {
+    id: string
+    moneyPaied: string
+    playingArea: string
+    slots: {
+        id: string
+        playDate: string
+    }[]
+}

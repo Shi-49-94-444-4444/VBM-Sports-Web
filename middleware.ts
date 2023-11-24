@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
             url.pathname.includes("/user/setting-ban") ||
             url.pathname.includes("/user/setting-security") ||
             url.pathname.includes("/user/setting-notify") ||
-            url.pathname.includes("/product/post-badminton")) {
+            url.pathname.includes("/product/post-product")) {
             if (!token) {
                 return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
@@ -53,7 +53,7 @@ export const config = {
         "/user/setting-profile",
         "/user/setting-notify",
         "/user/setting-security",
-        "/product/post-badminton",
+        "/product/post-product",
         "/login",
         "/register",
         "/forgot-password",

@@ -67,7 +67,7 @@ const ModalReport = ({ id }: { id: string }) => {
             isOpen={reportModal.isOpen}
             onClose={reportModal.onClose}
             title="Báo cáo bài đăng"
-            width="w-96"
+            width="md:w-auto w-full"
             height="h-auto"
         >
             <form className="flex flex-col gap-3 justify-center p-2" onSubmit={handleSubmit(onSubmit)}>

@@ -1,6 +1,6 @@
 "use client"
 
-import { Input, Loading } from "../../providers"
+import { Button, Input, Loading } from "../../providers"
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/contexts";
 import { useRouter } from "next/navigation";
@@ -79,27 +79,21 @@ const ChangePasswordForm = () => {
                     />
                 </React.Fragment>
             ))}
-            <button className="
-                    w-full 
-                    bg-primary-blue-cus 
-                    text-white 
-                    font-semibold 
-                    text-lg 
-                    rounded-xl 
-                    py-3
-                        
-                "
-                type="submit"
-            >
-                {isLoading ? (
-                    <Loading
-                        loading={isLoading}
-                        color="white"
-                    />
-                ) : (
-                    "Tiếp theo"
-                )}
-            </button>
+            {isLoading ? (
+                <Button
+                    title={<Loading loading={isLoading} color="white"/>}
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            ) : (
+                <Button
+                    title="Đăng ký"
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            )}
         </form>
     )
 }

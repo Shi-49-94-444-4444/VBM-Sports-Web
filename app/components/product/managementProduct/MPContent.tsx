@@ -11,7 +11,7 @@ const MPContent = () => {
                             src="/images/item_1.jpg"
                             alt="product"
                             sizes="(max-width: 600px) 100vw, 600px"
-                            className="object-fill md:rounded-l-xl md:rounded-r-none rounded-t-xl w-auto h-auto"
+                            className="object-cover md:rounded-l-xl md:rounded-r-none rounded-t-xl w-auto h-auto"
                             fill
                         />
                     </div>

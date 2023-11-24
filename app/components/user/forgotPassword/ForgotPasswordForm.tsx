@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import { AiFillMail } from "react-icons/ai";
-import { Input, Loading } from "../../providers";
+import { Button, Input, Loading } from "../../providers";
 import { GlobalContext } from "@/contexts";
 import { yupResolver } from "@hookform/resolvers/yup"
 import { toast } from "react-toastify";
@@ -48,7 +48,7 @@ const ForgotPasswordForm = () => {
         })
 
         localStorage.setItem("email", JSON.stringify(data.email))
-        
+
         setIsForgot(true)
 
         if (setIsLoading) setIsLoading(false)
@@ -71,27 +71,21 @@ const ForgotPasswordForm = () => {
                 register={register}
                 errors={errors}
             />
-            <button className="
-                    w-full 
-                    bg-primary-blue-cus 
-                    text-white 
-                    font-semibold 
-                    text-lg 
-                    rounded-xl 
-                    py-3
-                        
-                "
-                type="submit"
-            >
-                {isLoading ? (
-                    <Loading
-                        loading={isLoading}
-                        color="white"
-                    />
-                ) : (
-                    "Tiếp theo"
-                )}
-            </button>
+            {isLoading ? (
+                <Button
+                    title={<Loading loading={isLoading} color="white"/>}
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            ) : (
+                <Button
+                    title="Tiếp túc"
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            )}
         </form>
     )
 }

@@ -22,7 +22,8 @@ const Input: React.FC<InputProps> = ({
 }) => {
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         if (isMoney) {
-            const value = event.target.value;
+            const value = event.target.value
+            event.target.type = 'text'
             event.target.value = Number(value).toLocaleString('vi-VN')
         }
     }

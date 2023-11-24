@@ -123,7 +123,7 @@ export function formatMoney(data: Decimal): string {
   try {
     const numberValue = data.toNumber()
     const roundedNumber = Math.round(numberValue)
-    const formattedNumber = currency(roundedNumber, { symbol: "", separator: ",", decimal: ",", precision: 0 }).format()
+    const formattedNumber = currency(roundedNumber, { symbol: "", separator: ".", decimal: ",", precision: 0 }).format()
     return formattedNumber + " VNĐ"
   } catch (error) {
     //console.log("Error formatting money: ", error)

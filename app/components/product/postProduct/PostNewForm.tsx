@@ -2,8 +2,8 @@
 
 import ThumbGallery from "./ThumbsGallery"
 import Select from "react-select"
-import { Button, Loading, TimeRangePicker } from "../providers"
-import Input from "../providers/form/Input"
+import { Button, Loading, TimeRangePicker } from "../../providers"
+import Input from "../../providers/form/Input"
 import Datepicker from "react-tailwindcss-datepicker"
 import { useContext, useState } from "react"
 import { addDays, addYears, differenceInDays, differenceInHours, eachDayOfInterval, format, isBefore, isSameDay, setHours, setMinutes, startOfDay } from 'date-fns'

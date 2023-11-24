@@ -16,7 +16,7 @@ const ModalUnauthorize = () => {
             width="w-auto"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-3 justify-center items-center">
+            <div className="flex flex-col px-10 pb-5 gap-3 justify-center items-center">
                 <label className="text-black font-semibold text-3xl truncate">Bạn cần đăng nhập để tiếp tục</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button
@@ -33,7 +33,7 @@ const ModalUnauthorize = () => {
                         onClick={() => router.push("/login")}
                     />
                 </div>
-            </form>
+            </div>
         </CustomModal>
     )
 }

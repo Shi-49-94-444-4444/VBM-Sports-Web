@@ -11,6 +11,7 @@ import Decimal from "decimal.js"
 import { IoTimeOutline } from "react-icons/io5"
 import { MdOutlineAttachMoney, MdOutlineDateRange } from "react-icons/md"
 import { useContinuePaymentModal, useUnauthorizeModal } from "@/hooks"
+import ProductMethod from "./ProductMethod"
 
 const ProductDetail: React.FC<ProductDetailContentData> = ({
     id,
@@ -28,6 +29,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     const [selectedSlots, setSelectedSlots] = useState<{ [key: string]: number }>({})
     const [totalPrice, setTotalPrice] = useState(0)
     const [checkedStatus, setCheckedStatus] = useState<{ [key: string]: boolean }>({})
+    const [methodChecked, setMethodChecked] = useState<boolean>(false)
 
     const handleCheckboxChange = (date: string, isChecked: boolean, price: number, item: any) => {
         if (item.availableSlot === 0) {
@@ -86,6 +88,10 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
             event.preventDefault();
     }
 
+    const handleCheckedMethod = (isChecked: boolean) => {
+        setMethodChecked(isChecked);
+    }
+
     const handleClick = () => {
         let slotsInfoArray: { dateRegis: string, numSlots: number }[] = []
 
@@ -114,6 +120,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
 
         if (id) {
             continuePaymentModal.setSlotsIdArray(slotsInfoArray)
+            continuePaymentModal.setCheckMethod(methodChecked)
             continuePaymentModal.onOpen(id)
         }
     }
@@ -244,6 +251,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     </span>
                 </section>
             </div>
+            <ProductMethod onCheckedChange={handleCheckedMethod}/>
             <section className="relative flex gap-3 font-semibold items-end">
                 <label className="whitespace-nowrap text-gray-600">
                     Tổng tiền:

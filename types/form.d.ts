@@ -119,6 +119,7 @@ export interface CheckSlotFormData {
         dateRegis: string
         numSlots: number
     }[]
+    isVnpay: boolean
 }
 export interface BuySlotFormData {
     idUser: string

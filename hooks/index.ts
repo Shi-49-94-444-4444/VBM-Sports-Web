@@ -9,6 +9,7 @@ import { useAdminBanModal, useAdminDeletePostModal } from "./useAdmin"
 import { useUnauthorizeModal } from "./useUnauthorize"
 import { useUserBanUserModal } from "./useUserBanUser"
 import { useChangePasswordModal } from "./useChangePassword"
+import { useFeaturingModal } from "./useFeaturing"
 
 export {
     useRechargeModal,
@@ -21,5 +22,6 @@ export {
     useAdminDeletePostModal,
     useUnauthorizeModal,
     useUserBanUserModal,
-    useChangePasswordModal
+    useChangePasswordModal,
+    useFeaturingModal
 }

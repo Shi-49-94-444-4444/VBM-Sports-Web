@@ -25,7 +25,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
             "
         >
             {results.map(((result) => (
-                <Link href={`/product/detail-badminton/${result.id}`} className="flex gap-3 transition-all duration-300 py-1 pr-2 hover:bg-slate-200" key={result.id}>
+                <Link href={`/product/detail-product/${result.id}`} className="flex gap-3 transition-all duration-300 py-1 pr-2 hover:bg-slate-200" key={result.id}>
                     <div className="flex-shrink-0">
                         <Image
                             src={validateURLProduct(result.highlightUrl)}

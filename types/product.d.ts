@@ -20,7 +20,7 @@ export interface ProductFullField {
 export interface ProductDetailContent {
     message: string
     data: {
-        id?: string | null
+        idPost?: string | null
         imageUrls?: string[] | string | null
         hightLightImage?: string
         title?: string | null
@@ -34,16 +34,17 @@ export interface ProductDetailContent {
         totalRate?: number | null
         userId?: string | null
         slotInfos?: {
-            startTime: string,
-            endTime: string,
-            price: number,
-            availableSlot: number,
-            saveData?: string,
+            startTime: string 
+            endTime: string 
+            price: number 
+            availableSlot: number 
+            saveData?: string 
         }[]
     }
 }
 export interface ProductDetailContentData {
     id?: string | null
+    idPost?: string | null
     imageUrls?: string[] | string | null
     hightLightImage?: string
     title?: string | null
@@ -57,81 +58,53 @@ export interface ProductDetailContentData {
     totalRate?: number | null
     userId?: string | null
     slotInfos?: {
-        startTime: string,
-        endTime: string,
-        price: number,
-        availableSlot: number,
-        saveData?: string,
+        startTime: string 
+        endTime: string 
+        price: number 
+        availableSlot: number 
+        saveData?: string 
     }[]
 }
 
 export interface ListProduct {
     message: string
     data: {
-        idPost?: string | null
         id?: string | null
+        idPost?: string | null
         imgUrl?: string | null
         title?: string | null
         addressSlot?: string | null
-        levelSlot?: string | null
         days?: string | null
-        priceSlot?: number | null
         startTime?: string | null
         endTime?: string | null
         status?: boolean | null
         contentPost?: string | null
         quantitySlot?: number | null
-        idUserToNavigation?: {
-            id?: string | null
-            fullName?: string | null
-            imgUrl?: string | null
-        } | null
-        flagTooltip?: boolean | false
-        slots?: [
-            {
-                id?: string | null
-            }
-        ] | null
-        fullName?: string | null,
-        userImgUrl?: string | null,
-        price?: number | null,
-        highlightUrl?: string | null,
-        imgUrlPost?: string[] | string | null
-        slotsInfo?: string | null
+        fullName?: string | null 
+        userImgUrl?: string | null 
+        price?: number | null 
+        highlightUrl?: string | null 
+        imgUrlPost?: string[] | string | null 
+        userId?: string | null
     }[]
 }
 
 export interface ListProductData {
     idPost?: string | null
-    id?: string | null
-    imgUrl?: string | null
     title?: string | null
     addressSlot?: string | null
-    levelSlot?: string | null
     days?: string | null
-    priceSlot?: number | null
     startTime?: string | null
     endTime?: string | null
     status?: boolean | null
     contentPost?: string | null
     quantitySlot?: number | null
-    idUserToNavigation?: {
-        id?: string | null
-        fullName?: string | null
-        imgUrl?: string | null
-    } | null
-    flagTooltip?: boolean | false
-    slots?: [
-        {
-            id?: string | null
-        }
-    ] | null
-    fullName?: string | null,
-    userImgUrl?: string | null,
-    price?: number | null,
-    highlightUrl?: string | null,
+    fullName?: string | null 
+    userImgUrl?: string | null 
+    price?: number | null
+    highlightUrl?: string | null
     imgUrlPost?: string[] | string | null
-    slotsInfo?: string | null
+    userId?: string | null
 }
 
 export interface ListCity {

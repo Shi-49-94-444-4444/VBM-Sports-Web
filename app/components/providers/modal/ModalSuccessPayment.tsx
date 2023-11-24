@@ -15,14 +15,19 @@ const ModalSuccessPayment = () => {
         successPaymentModal.onClose()
     }
 
+    const handleGoToTransaction = () => {
+        router.push(`/transaction/detail-transaction/${successPaymentModal.tran_id}`)
+        successPaymentModal.onClose()
+    }
+
     return (
         <CustomModal
             isOpen={successPaymentModal.isOpen}
             onClose={successPaymentModal.onClose}
-            width="w-auto"
+            width="md:w-auto w-full"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-5 justify-center items-center">
+            <form className="flex flex-col md:px-10 pb-5 gap-5 justify-center items-center">
                 <Image
                     src="/images/success.png"
                     alt="success"
@@ -38,7 +43,7 @@ const ModalSuccessPayment = () => {
                         color="border-primary-blue-cus bg-white"
                         text="text-primary-blue-cus"
                         style="py-3 px-8"
-                        onClick={handleBackHome}
+                        onClick={handleGoToTransaction}
                     />
                     <Button
                         title="Trở lại trang chủ"

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { Input, Loading } from '../../providers';
+import { Button, Input, Loading } from '../../providers';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { LoginFormData } from '@/types';
@@ -107,27 +107,21 @@ const LoginForm = () => {
                     Quên mật khẩu ?
                 </Link>
             </div>
-            <button className="
-                    w-full 
-                    bg-primary-blue-cus 
-                    text-white 
-                    font-semibold 
-                    text-lg 
-                    rounded-xl 
-                    py-3
-                        
-                "
-                type="submit"
-            >
-                {isLoading ? (
-                    <Loading
-                        loading={isLoading}
-                        color="white"
-                    />
-                ) : (
-                    "Vào trang"
-                )}
-            </button>
+            {isLoading ? (
+                <Button
+                    title={<Loading loading={isLoading} color="white"/>}
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            ) : (
+                <Button
+                    title="Đăng nhập"
+                    type="submit"
+                    style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
+                    isHover={false}
+                />
+            )}
         </form>
     );
 };

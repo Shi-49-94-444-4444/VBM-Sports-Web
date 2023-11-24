@@ -49,6 +49,8 @@ interface GlobalContextProps {
     setSearchValue: React.Dispatch<React.SetStateAction<string | null>>
     searchResults: ListProductData[] | null
     setSearchResults: React.Dispatch<React.SetStateAction<ListProductData[] | null>>
+    roomId: string | null
+    setRoomId: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -63,6 +65,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
     const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
+    const [roomId, setRoomId] = useState<string | null>(null)
 
     useEffect(() => {
         if (Cookies.get('token') !== undefined) {
@@ -94,7 +97,9 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 setSearchResults,
                 setSearchValue,
                 isLoadingModal,
-                setIsLoadingModal
+                setIsLoadingModal,
+                roomId,
+                setRoomId
             }}
         >
             {children}

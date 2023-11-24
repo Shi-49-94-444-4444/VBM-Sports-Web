@@ -89,7 +89,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
                         {title && (
                             <div className="flex flex-row justify-between">
                                 <section className="
-                                        text-primary-blue-cus
+                                        text-white
                                         text-3xl 
                                         font-semibold 
                                         py-2

@@ -51,10 +51,10 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
         <CustomModal
             isOpen={adminDeletePostModal.isOpen}
             onClose={adminDeletePostModal.onClose}
-            width="w-auto"
+            width="md:w-auto w-full"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-3 justify-center items-center">
+            <form className="flex flex-col md:px-10 pb-5 gap-3 justify-center items-center">
                 <label className="text-black font-semibold text-3xl truncate">Bạn có muốn xóa bài đăng này không?</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button

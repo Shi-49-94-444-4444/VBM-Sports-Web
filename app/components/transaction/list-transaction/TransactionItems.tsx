@@ -1,18 +1,18 @@
 "use client"
 
-import ReactPaginate from 'react-paginate'
-import { useState } from 'react'
-import { ListProductData } from '@/types'
-import ProductContent from './ProductContent'
+import { ListTransactionData } from "@/types"
+import { useState } from "react";
+import TransactionContent from "./TransactionContent";
+import ReactPaginate from "react-paginate";
 
-interface ProductItemProps {
-    listItem: ListProductData[]
+interface TransactionItemsProps {
+    listItem: ListTransactionData[]
 }
 
-const ProductItems: React.FC<ProductItemProps> = ({
+const TransactionItems: React.FC<TransactionItemsProps> = ({
     listItem
 }) => {
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0)
     const itemsPerPage = 10
     const pageCount = Math.ceil(listItem.length / itemsPerPage)
 
@@ -26,19 +26,18 @@ const ProductItems: React.FC<ProductItemProps> = ({
 
     return (
         <>
-            {visibleItems.map((item) => (
-                <ProductContent
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    contentPost={item.contentPost}
-                    imgUrl={item.imgUrl}
-                    slotsInfo={item.slotsInfo}
-                    idUserToNavigation={item.idUserToNavigation}
-                    addressSlot={item.addressSlot}
-                />
-            ))}
-            <div className="flex justify-end mt-10 text-base font-semibold">
+            <div className="flex flex-col gap-5">
+                {visibleItems.map((item) => (
+                    <TransactionContent
+                        key={item.id}
+                        id={item.id}
+                        slots={item.slots}
+                        moneyPaied={item.moneyPaied}
+                        playingArea={item.playingArea}
+                    />
+                ))}
+            </div>
+            <div className="flex justify-center mt-10 text-base font-semibold">
                 <ReactPaginate
                     pageCount={pageCount}
                     pageRangeDisplayed={4}
@@ -57,7 +56,7 @@ const ProductItems: React.FC<ProductItemProps> = ({
                 />
             </div>
         </>
-    );
-};
+    )
+}
 
-export default ProductItems;
+export default TransactionItems

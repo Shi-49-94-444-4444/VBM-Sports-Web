@@ -53,13 +53,13 @@ const ModalChangePassword = () => {
         <CustomModal
             isOpen={changePasswordModal.isOpen}
             onClose={changePasswordModal.onClose}
-            width="lg:w-2/4 w-full"
+            width="lg:w-2/4 md:3/4 w-full"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-5 justify-center items-center text-gray-600 w-full" onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex flex-col md:px-10 pb-5 gap-5 justify-center items-center text-gray-600 w-full" onSubmit={handleSubmit(onSubmit)}>
                 <label className="font-semibold text-3xl truncate relative pb-5">Thay đổi mật khẩu</label>
                 {settingPasswordInputs.map((input, index) => (
-                    <div className="flex space-x-3 text-xl w-full items-center relative" key={index}>
+                    <div className="flex sm:flex-row flex-col gap-3 sm:gap-0 sm:space-x-3 text-xl w-full sm:items-center relative" key={index}>
                         <label className="font-semibold flex-shrink-0 w-60 text-left">
                             {input.label}
                         </label>

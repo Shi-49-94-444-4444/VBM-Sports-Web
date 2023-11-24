@@ -19,12 +19,14 @@ interface ContinueModalStore {
         numSlots: number
     }[];
     post_id: string | null
+    checkedMethod: boolean | false
     onOpen: (post_id: string) => void;
     onClose: () => void;
     setSlotsIdArray: (slotsIdArray: {
         dateRegis: string,
         numSlots: number
     }[]) => void
+    setCheckMethod: (checkMethod: boolean) => void
 }
 
 export const useFailPaymentModal = create<FailModalStore>((set) => ({
@@ -44,8 +46,10 @@ export const useSuccessPaymentModal = create<SuccessModalStore>((set) => ({
 export const useContinuePaymentModal = create<ContinueModalStore>((set) => ({
     isOpen: false,
     slotsIdArray: [],
+    checkedMethod: false,
     post_id: null,
     onOpen: (post_id) => set({ isOpen: true, post_id }),
-    onClose: () => set({ isOpen: false, slotsIdArray: [], post_id: null }),
+    onClose: () => set({ isOpen: false, slotsIdArray: [], post_id: null, checkedMethod: false }),
     setSlotsIdArray: (slotsIdArray) => set({ slotsIdArray }),
+    setCheckMethod: (checkedMethod) => set({ checkedMethod })
 }))

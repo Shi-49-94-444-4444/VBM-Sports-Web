@@ -21,10 +21,10 @@ const ModalFailPayment = () => {
         <CustomModal
             isOpen={failPaymentModal.isOpen}
             onClose={failPaymentModal.onClose}
-            width="w-auto"
+            width="md:w-auto w-full"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-5 justify-center items-center">
+            <form className="flex flex-col md:px-10 pb-5 gap-5 justify-center items-center">
                 <Image
                     src="/images/error.png"
                     alt="error"

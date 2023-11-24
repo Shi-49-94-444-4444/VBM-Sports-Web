@@ -28,7 +28,7 @@ export const navlinks = [
             {
                 id: "4",
                 label: "Xem tất cả",
-                href: "/product/list-badminton"
+                href: "/product/list-product"
             }
         ]
     },
@@ -44,12 +44,12 @@ export const navlinks = [
             {
                 id: "1",
                 label: "Danh sách sân",
-                href: "/product/list-badminton"
+                href: "/product/list-product"
             },
             {
                 id: "2",
                 label: "Đăng bài",
-                href: "/product/post-badminton"
+                href: "/product/post-product"
             },
             {
                 id: "3",
@@ -446,7 +446,7 @@ export const listVoucher = [
 export const listMethodsPayment = [
     {
         id: "1",
-        src: "/images/momo.png",
+        src: "/images/VNPAY.png",
         title: "VNPAY",
         number: 789,
     },

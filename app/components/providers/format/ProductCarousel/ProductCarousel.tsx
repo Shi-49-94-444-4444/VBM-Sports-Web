@@ -1,16 +1,16 @@
 "use client"
 
-import SwiperCore, { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
+import SwiperCore, { Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper-bundle.min.css'
 import '@/styles/swiper-product.css'
 
-import ProductOther from './ProductOther';
-import { ListProduct, ListProductData } from '@/types';
-import { AxiosClient } from '@/services';
-import useSWR from 'swr';
-import { LoadingFullScreen } from '../../loader';
-import { FaSadCry } from 'react-icons/fa';
+import ProductOther from './ProductOther'
+import { ListProduct, ListProductData } from '@/types'
+import { AxiosClient } from '@/services'
+import useSWR from 'swr'
+import { LoadingFullScreen } from '../../loader'
+import Image from 'next/image'
 
 SwiperCore.use([Pagination]);
 
@@ -27,18 +27,34 @@ const ProductCarousel = ({ id }: { id: string }) => {
 
     if (error) {
         return (
-            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
-                <FaSadCry size={100} />
+                <div className="relative">
+                    <Image
+                        src="/images/sad.gif"
+                        alt="Gif"
+                        width={100}
+                        height={100}
+                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                    />
+                </div>
             </div>
         )
     }
 
     if (listProduct && listProduct.data && listProduct.data.length === 0) {
         return (
-            <div className="relative flex flex-col gap-5 items-center justify-center h-96 text-primary-blue-cus">
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
                 <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
-                <FaSadCry size={100} />
+                <div className="relative">
+                    <Image
+                        src="/images/sad.gif"
+                        alt="Gif"
+                        width={100}
+                        height={100}
+                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                    />
+                </div>
             </div>
         )
     }
@@ -46,7 +62,7 @@ const ProductCarousel = ({ id }: { id: string }) => {
     let filteredListProduct: ListProductData[] = []
 
     if (id && listProduct && listProduct.data) {
-        filteredListProduct = listProduct.data.filter(products => products.id?.toString() !== id.toString())
+        filteredListProduct = listProduct.data.filter(products => products.idPost?.toString() !== id.toString())
     } else {
         filteredListProduct = listProduct ? listProduct.data : []
     }
@@ -78,19 +94,20 @@ const ProductCarousel = ({ id }: { id: string }) => {
             }}
         >
             {slicedItems.map((item) => (
-                <SwiperSlide key={item.id}>
+                <SwiperSlide key={item.idPost}>
                     <ProductOther
-                        id={item.id}
-                        idUserToNavigation={item.idUserToNavigation}
+                        idPost={item.idPost}
+                        title={item.title}
                         addressSlot={item.addressSlot}
                         contentPost={item.contentPost}
                         days={item.days}
-                        endTime={item.endTime}
-                        imgUrl={item.imgUrl}
-                        quantitySlot={item.quantitySlot}
                         startTime={item.startTime}
-                        title={item.title}
-                        slotsInfo={item.slotsInfo}
+                        endTime={item.endTime}
+                        quantitySlot={item.quantitySlot}
+                        price={item.price}
+                        highlightUrl={item.highlightUrl}
+                        fullName={item.fullName}
+                        userImgUrl={item.userImgUrl}
                     />
                 </SwiperSlide>
             ))}

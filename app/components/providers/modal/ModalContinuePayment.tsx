@@ -2,8 +2,8 @@
 
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
-import { checkSlotService } from "@/services"
-import { useContinuePaymentModal, useFailPaymentModal, useSuccessPaymentModal } from "@/hooks"
+import { bookingService, joinChatRoomService } from "@/services"
+import { useContinuePaymentModal, useFailPaymentModal, useFeaturingModal, useSuccessPaymentModal } from "@/hooks"
 import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button } from "../form"
@@ -11,26 +11,35 @@ import { useContext } from "react"
 import { LoadingActionPayment } from "../loader"
 
 const ModalContinuePayment = () => {
-    const { user, setUser, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
     const continuePaymentModal = useContinuePaymentModal()
     const failPaymentModal = useFailPaymentModal()
     const successPaymentModal = useSuccessPaymentModal()
+    const featuringModal = useFeaturingModal()
 
-    //console.log(continuePaymentModal.slotsIdArray, continuePaymentModal.post_id)
+    //console.log(continuePaymentModal.slotsIdArray, continuePaymentModal.post_id, continuePaymentModal.checkedMethod)
 
     const onSubmit = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
+        if (continuePaymentModal.checkedMethod) {
+            continuePaymentModal.onClose()
+            featuringModal.onOpen()
+            if (setIsLoadingModal) setIsLoadingModal(false)
+            return
+        }
+
         if (user && user.id && continuePaymentModal.post_id) {
-            const res = await checkSlotService({
+            const res = await bookingService({
                 userId: user.id,
                 postId: continuePaymentModal.post_id,
-                slotsInfo: continuePaymentModal.slotsIdArray
+                slotsInfo: continuePaymentModal.slotsIdArray,
+                isVnpay: continuePaymentModal.checkedMethod
             })
 
-            //console.log(res)
-            
+            // //console.log(res)
+
             if (res.data == null) {
                 if (setIsLoadingModal) setIsLoadingModal(false)
                 continuePaymentModal.onClose()
@@ -38,6 +47,9 @@ const ModalContinuePayment = () => {
                 return
             }
 
+            for (let i = 0; i < res.data.chatInfos.length; i++) {
+                await joinChatRoomService({ user_id: user.id, room_id: res.data.chatInfos[i].roomId })
+            }
             continuePaymentModal.onClose()
             successPaymentModal.onOpen(res.data.transactionId)
         }
@@ -53,10 +65,10 @@ const ModalContinuePayment = () => {
         <CustomModal
             isOpen={continuePaymentModal.isOpen}
             onClose={continuePaymentModal.onClose}
-            width="w-auto"
+            width="md:w-auto w-full"
             height="h-auto"
         >
-            <form className="flex flex-col px-10 pb-5 gap-5 justify-center items-center" onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex flex-col md:px-10 pb-5 gap-5 justify-center items-center" onSubmit={handleSubmit(onSubmit)}>
                 <Image
                     src="/images/pay.png"
                     alt="error"
