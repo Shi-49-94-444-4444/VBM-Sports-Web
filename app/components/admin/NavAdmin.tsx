@@ -8,7 +8,7 @@ const NavAdmin = () => {
                 <section className="flex items-center space-x-2">
                     <Image
                         height="40"
-                        src="/images/vector.png"
+                        src="/images/Vector.png"
                         alt="logo"
                         className="object-contain w-8 h-8"
                         width="40"

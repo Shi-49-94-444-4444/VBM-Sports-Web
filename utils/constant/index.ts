@@ -58,7 +58,7 @@ export const navlinks = [
             },
             {
                 id: "4",
-                label: "Message",
+                label: "Nhắn tin",
                 href: "/chat-room"
             },
         ]
