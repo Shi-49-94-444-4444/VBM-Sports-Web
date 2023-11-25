@@ -129,6 +129,26 @@ export const walletService = async (data: WalletFromData) => {
     }
 }
 
+export const VNPAYService = async (data: WalletFromData) => {
+    //console.log(data);
+    
+    try {
+        const response = await AxiosClient.post(`/api/wallet/create-vnpay`, {
+            changes: Number(data.money),
+            userId: Number(data.id)
+        })
+
+        return response.data
+    } catch (error: any) {
+        if (error && error.status)
+            //console.log(error)
+
+            if (error && error.response) {
+                return error.response.data
+            }
+    }
+}
+
 export const userBanUserService = async ({ user_id, user_effect }: { user_id: number, user_effect: number }) => {
     try {
         const response = await AxiosClient.put(`/api/users/${user_id}/ban_unban/${user_effect}`)
@@ -151,6 +171,21 @@ export const settingPasswordService = async (data: SettingPasswordForm) => {
             newPass: data.newPass,
             reEnterPass: data.reEnterPass
         })
+
+        return response.data
+    } catch (error: any) {
+        if (error && error.status)
+            //console.log(error)
+
+            if (error && error.response) {
+                return error.response.data
+            }
+    }
+}
+
+export const subscribeService = async ({ user_id, target_id }: { user_id: string, target_id: string }) => {
+    try {
+        const response = await AxiosClient.put(`/api/users/${user_id}/sub_unsub/${target_id}`)
 
         return response.data
     } catch (error: any) {

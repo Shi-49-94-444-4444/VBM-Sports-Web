@@ -49,22 +49,38 @@ export interface TransactionPaymentDetailData {
 export interface ListTransaction {
     message: string
     data: {
-        id: string
-        moneyPaied: string
-        playingArea: string
-        slots: {
-            id: string
-            playDate: string
+        postId: string
+        postTitle: string
+        startTime: string
+        endTime: string
+        availableSlot: number
+        status: string
+        areaName: string
+        moneyPaid: number
+        transacionId: string
+        coverImage: string
+        bookedInfos: {
+            createSlot: string
+            bookedSlot: string
+            imageUrls: string[]
         }[]
     }[]
 }
 
 export interface ListTransactionData {
-    id: string
-    moneyPaied: string
-    playingArea: string
-    slots: {
-        id: string
-        playDate: string
+    postId: string
+    postTitle: string
+    startTime: string
+    endTime: string
+    availableSlot: number
+    status: string
+    areaName: string
+    moneyPaid: number
+    transacionId: string
+    coverImage: string
+    bookedInfos: {
+        createSlot: string
+        bookedSlot: string
+        imageUrls: string[]
     }[]
 }

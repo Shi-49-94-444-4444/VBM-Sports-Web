@@ -29,11 +29,18 @@ const TransactionItems: React.FC<TransactionItemsProps> = ({
             <div className="flex flex-col gap-5">
                 {visibleItems.map((item) => (
                     <TransactionContent
-                        key={item.id}
-                        id={item.id}
-                        slots={item.slots}
-                        moneyPaied={item.moneyPaied}
-                        playingArea={item.playingArea}
+                        key={item.transacionId}
+                        transacionId={item.transacionId}
+                        postId={item.postId}
+                        areaName={item.areaName}
+                        availableSlot={item.availableSlot}
+                        bookedInfos={item.bookedInfos}
+                        coverImage={item.coverImage}
+                        startTime={item.startTime}
+                        endTime={item.endTime}
+                        postTitle={item.postTitle}
+                        moneyPaid={item.moneyPaid}
+                        status={item.status}
                     />
                 ))}
             </div>

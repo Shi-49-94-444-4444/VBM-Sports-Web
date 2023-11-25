@@ -9,6 +9,10 @@ import {
     validateURLAvatar
 } from "@/utils"
 import { ListUserData } from "@/types"
+import Button from "../../form/Button"
+import { useContext, useState } from "react"
+import { subscribeService } from "@/services"
+import { GlobalContext } from "@/contexts"
 
 const UserOther: React.FC<ListUserData> = ({
     id,
@@ -18,6 +22,17 @@ const UserOther: React.FC<ListUserData> = ({
     totalRate,
     flagRegister
 }) => {
+    const { user } = useContext(GlobalContext) || {}
+    const [subscribe, setSubscribe] = useState<boolean>(false)
+
+    const handleSubscribe = async () => {
+        if (user && user.id && id) {
+            await subscribeService({ user_id: user.id, target_id: id })
+
+            setSubscribe(true)
+        }
+    }
+
     return (
         <div className="
                 rounded-lg
@@ -53,7 +68,7 @@ const UserOther: React.FC<ListUserData> = ({
                                 className="
                                     rounded-t-lg 
                                     hover:rounded-t-lg
-                                    object-cover
+                                    object-center
                                 "
                                 fill
                                 sizes="(max-width: 600px) 100vw, 600px"
@@ -98,6 +113,23 @@ const UserOther: React.FC<ListUserData> = ({
                             <Rating rating={totalRate ?? 0} maxStars={5} sizeCus={25} />
                         </div>
                     </div>
+                    {subscribe ? (
+                        <Button
+                            title="Đã đăng ký"
+                            color="bg-gray-400"
+                            text="text-gray-600"
+                            style="w-full py-3 text-xl justify-center"
+                            isHover={false}
+                        />
+                    ) : (
+                        <Button
+                            title="Đăng ký"
+                            color="hover:text-white hover:border-white hover:bg-primary-blue-cus hover:border bg-white"
+                            text="text-primary-blue-cus"
+                            style="w-full py-3 text-xl justify-center"
+                            onClick={handleSubscribe}
+                        />
+                    )}
                 </>
             ) : (
                 <Link href={`/user/profile-user/${id ?? "1"}`}>

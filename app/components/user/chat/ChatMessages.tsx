@@ -87,7 +87,7 @@ const ChatMessages = () => {
 
     if (!listMessage && firstLoad) {
         return (
-            <div className="col-span-9 flex justify-center items-center text-3xl font-semibold text-primary-blue-cus">
+            <div className="md:col-span-9 col-span-10 flex justify-center items-center md:text-3xl text-2xl font-semibold text-primary-blue-cus">
                 Vui lòng chọn nhóm chat
             </div>
         )
@@ -148,7 +148,7 @@ const ChatMessages = () => {
                                         Bạn
                                     </div>
                                     <div className="flex flex-row-reverse items-center">
-                                        {isValidUrl(mess.message) ? (
+                                        {mess.message.startsWith("https://res.cloudinary.com") ? (
                                             <div className="bg-[#2768cf] text-left text-gray-600 rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[24rem] md:max-w-[30rem] transition-all duration-500">
                                                 <Image
                                                     src={mess.message}
@@ -160,6 +160,10 @@ const ChatMessages = () => {
                                                     className="object-contain rounded-lg"
                                                 />
                                             </div>
+                                        ) : mess.message.startsWith("https") ? (
+                                            <a href={mess.message} className="px-4 py-2 bg-[#2768cf] text-left text-white rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[14rem] md:max-w-[30rem] transition-all duration-500 text-sm font-medium hover:underline">
+                                                {mess.message}
+                                            </a>
                                         ) : (
                                             <div className="px-4 py-2 bg-[#2768cf] text-left text-white rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[14rem] md:max-w-[30rem] transition-all duration-500 text-sm font-medium">
                                                 {mess.message}
@@ -176,7 +180,7 @@ const ChatMessages = () => {
                                         {mess.sendUserName}
                                     </div>
                                     <div className="flex flex-row space-x-2 items-center">
-                                        {isValidUrl(mess.message) ? (
+                                        {mess.message.startsWith("https://res.cloudinary.com") ? (
                                             <div className="bg-gray-100 text-gray-600 rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[24rem] md:max-w-[30rem] transition-all duration-500">
                                                 <Image
                                                     src={mess.message}
@@ -188,6 +192,10 @@ const ChatMessages = () => {
                                                     className="object-contain rounded-lg"
                                                 />
                                             </div>
+                                        ) : mess.message.startsWith("https") ? (
+                                            <a href={mess.message} className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[14rem] md:max-w-[30rem] transition-all duration-500 text-sm font-medium hover:underline">
+                                                {mess.message}
+                                            </a>
                                         ) : (
                                             <div className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[14rem] md:max-w-[30rem] transition-all duration-500 text-sm font-medium">
                                                 {mess.message}

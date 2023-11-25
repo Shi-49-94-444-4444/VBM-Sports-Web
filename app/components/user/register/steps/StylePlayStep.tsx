@@ -18,13 +18,12 @@ const StylePlayStep = () => {
     const [selectedItems, setSelectedItems] = useState<boolean[]>(styles.map(() => false));
 
     useEffect(() => {
-        if (user?.playingWay && user.playingWay.length > 0) {
-            const playingWayArray = user.playingWay.toString().split(';');
+        if (user?.playingWay) {
+            const playingWayArray = user.playingWay
             const selectedIndices = playingWayArray.map(way => styles.indexOf(way)).filter(index => index !== -1);
             setSelectedItems(styles.map((_, index) => selectedIndices.includes(index)));
         }
-    }, [user, styles]);
-    
+    }, [user, styles])
 
     const handleItemClick = (index: number) => {
         setSelectedItems(prevSelectedItems => prevSelectedItems.map((selected, i) => i === index ? !selected : selected));
@@ -37,9 +36,9 @@ const StylePlayStep = () => {
                     : [...prevUser?.playingWay || [], styles[index]]
             }));
         }
-    };
+    }
 
-    //console.log(user);
+    // //console.log(user?.playingWay)
 
     return (
         <div className="

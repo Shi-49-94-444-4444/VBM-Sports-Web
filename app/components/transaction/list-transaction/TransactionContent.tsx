@@ -4,22 +4,37 @@ import Image from "next/image"
 import { Button } from "../../providers"
 import { ListTransactionData } from "@/types"
 import { useRouter } from "next/navigation"
+import { formatDateFunc, formatTimeFunc, validateAddress, validateTitle, validateURLProduct } from "@/utils"
+import { format, parse } from "date-fns"
 
 const TransactionContent: React.FC<ListTransactionData> = ({
-    id,
-    slots,
-    moneyPaied,
-    playingArea
+    postId,
+    transacionId,
+    postTitle,
+    coverImage,
+    status,
+    areaName,
+    startTime,
+    endTime,
+    bookedInfos,
+    availableSlot,
+    moneyPaid
 }) => {
     const router = useRouter()
 
+    const date = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "dd/MM/yyyy")
+    const formatStartTime = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
+    const formatEndTime = format(parse(endTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
+
     return (
-        <div className="lg:grid lg:grid-cols-12 flex flex-col rounded-lg border border-black border-opacity-10 transition-all duration-500" key={id}>
+        <div className="lg:grid lg:grid-cols-12 flex flex-col rounded-lg border border-black border-opacity-10 transition-all duration-500" key={transacionId}>
             <div className="lg:col-span-4 relative lg:h-full md:h-96 sm:h-80 h-72 transition duration-300">
                 <Image
-                    src="/images/item_1.jpg"
+                    src={validateURLProduct(coverImage)}
                     alt="image"
                     sizes="(max-width: 600px) 100vw, 600px"
+                    placeholder="blur"
+                    blurDataURL={validateURLProduct(coverImage)}
                     fill
                     className="object-cover lg:rounded-l-lg rounded-t-lg lg:rounded-r-none transition-all duration-500"
                 />
@@ -27,10 +42,10 @@ const TransactionContent: React.FC<ListTransactionData> = ({
             <div className="lg:col-span-8 p-6 flex flex-col gap-3">
                 <div className="flex md:flex-row flex-col md:justify-between md:items-center md:gap-0 gap-2 transition-all duration-500">
                     <div className="text-3xl font-semibold text-gray-600">
-                        Sân Minh họa
+                        {validateTitle(postTitle)}
                     </div>
-                    <div className="text-xl font-semibold">
-                        Chưa có
+                    <div className="text-xl font-semibold text-green-500">
+                        {status}
                     </div>
                 </div>
                 <section className="space-x-3 text-xl">
@@ -38,43 +53,34 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                         Địa chỉ:
                     </span>
                     <span>
-                        Chưa có
+                        {validateAddress(areaName)}
                     </span>
                 </section>
-                <div className="flex flex-col gap-2 text-xl">
-                    <label>
+                <div className="space-x-3 text-xl">
+                    <span>
                         Ngày chơi:
-                    </label>
-                    {slots.map((slot) => (
-                        <div key={slot.id} className="pl-2">
-                            - {slot.playDate}
-                        </div>
-                    ))}
-                </div>
-                <div className="flex space-x-5">
-                    <section className="space-x-3 text-xl">
-                        <span>
-                            Thể loại:
-                        </span>
-                        <span>
-                            Chưa có
-                        </span>
-                    </section>
-                    <section className="space-x-3 text-xl">
-                        <span>
-                            Chế độ:
-                        </span>
-                        <span>
-                            Chưa có
-                        </span>
-                    </section>
+                    </span>
+                    <span>
+                        {formatDateFunc(date.toString())}
+                    </span>
+                    <span>
+                        {formatTimeFunc(formatStartTime.toString())} - {formatTimeFunc(formatEndTime.toString())}
+                    </span>
                 </div>
                 <section className="space-x-3 text-xl">
                     <span>
                         Người chơi đã tham gia:
                     </span>
                     <span>
-                        Chưa có
+                        {bookedInfos.length}
+                    </span>
+                </section>
+                <section className="space-x-3 text-xl">
+                    <span>
+                        Số chỗ còn trống:
+                    </span>
+                    <span>
+                        {availableSlot ?? 0}
                     </span>
                 </section>
                 <div className="flex w-full xl:gap-5 gap-2 flex-wrap lg:flex-nowrap transition-all duration-500">
@@ -83,13 +89,14 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                         style="text-xl px-4 white whitespace-nowrap"
                     />
                     <Button
-                        title="Mở trò chuyện"
+                        title="Đặt sân tiếp"
                         style="text-xl px-4 whitespace-nowrap"
+                        onClick={() => router.push(`/product/detail-product/${postId}`)}
                     />
                     <Button
                         title="Xem chi tiết thanh toán"
                         style="text-xl px-4 whitespace-nowrap"
-                        onClick={() => router.push(`/transaction/detail-transaction/${id}`)}
+                        onClick={() => router.push(`/transaction/detail-transaction/${transacionId}`)}
                     />
                 </div>
             </div>

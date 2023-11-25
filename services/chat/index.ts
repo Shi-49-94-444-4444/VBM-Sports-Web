@@ -14,9 +14,9 @@ export const joinChatRoomService = async ({ user_id, room_id }: { user_id: strin
     }
 }
 
-export const getAllRoomService = async ({ user_id }: { user_id: string }) => {
+export const getAllRoomService = async (id: string) => {
     try {
-        const response = await AxiosClient.get(`/api/chat/user/${user_id}/rooms`)
+        const response = await AxiosClient.get(`/api/chat/user/${id}/rooms`)
 
         return response.data
     } catch (error: any) {

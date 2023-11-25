@@ -12,14 +12,14 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const SuggestPlayerStep = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listUser, error } = useSWR<UserSuggest>(user && user.id ? `/api/posts/user/${user.id}/suggestion` : null, fetcher)
+    const { data: listUser, error } = useSWR<UserSuggest>(user && user.id ? `/api/users/${user.id}/player_suggestion` : null, fetcher)
 
     const isLoading = !listUser && !error
 
-    const sliceUser = listUser && listUser.data.length > 0 ? listUser.data.slice(0, 6) : []
+    const sliceUser = listUser && listUser.data.length > 0 ? listUser.data.slice(0, 8) : []
 
     return (
-        <div className="relative w-full grid grid-cols-3 gap-5 max-h-full">
+        <div className="relative w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-h-full">
             {isLoading ? (
                 <div className="col-span-3 flex justify-center items-center h-full">
                     <LoadingFullScreen loading={isLoading} />
@@ -31,12 +31,14 @@ const SuggestPlayerStep = () => {
             ) : (
                 <>
                     {sliceUser.map((item) => (
-                        <div className="col-span-1 gap-3" key={item.userId}>
+                        <div className="col-span-1 gap-3" key={item.id}>
                             <UserOther
-                                id={item.userId}
-                                imgUrl={item.userImgUrl}
-                                userName={item.userName}
-                                sortProfile={item.sortDescript}
+                                id={item.id}
+                                userName={item.name}
+                                sortProfile={item.shortProfile}
+                                totalRate={item.rating}
+                                imgUrl={item.imgUrl}
+                                flagRegister
                             />
                         </div>
                     ))}

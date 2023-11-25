@@ -85,7 +85,7 @@ export const getTransactionDetail = async (id: string) => {
 
 export const getListTransaction = async (id: string) => {
     try {
-        const response = await AxiosClient.get(`/api/transactions/user/${id}`)
+        const response = await AxiosClient.get(`/api/posts/user/${id}/joined`)
 
         return response.data
     } catch (error: any) {

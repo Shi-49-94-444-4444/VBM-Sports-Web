@@ -53,9 +53,14 @@ export const navlinks = [
             },
             {
                 id: "3",
-                label: "Huế",
-                href: "/"
-            }
+                label: "Đơn đặt hàng",
+                href: "/transaction/list-transaction"
+            },
+            {
+                id: "4",
+                label: "Message",
+                href: "/chat-room"
+            },
         ]
     }
 ]

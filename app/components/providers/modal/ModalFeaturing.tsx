@@ -20,7 +20,7 @@ const ModalFeaturing = () => {
                     <h1 className="md:text-5xl text-3xl transition-all duration-500">Tính năng đang được phát triển!</h1>
                     <div className="relative">
                         <Image
-                            src="/images/sad.gif"
+                            src="/images/featuring.gif"
                             alt="Gif"
                             width={100}
                             height={100}

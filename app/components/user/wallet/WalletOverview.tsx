@@ -1,7 +1,7 @@
 "use client"
 
 import { GlobalContext } from "@/contexts"
-import { useRechargeModal, useWithdrawModal } from "@/hooks"
+import { useFeaturingModal, useRechargeModal, useWithdrawModal } from "@/hooks"
 import { formatMoney } from "@/utils"
 import Decimal from "decimal.js"
 import Image from "next/image"
@@ -11,9 +11,11 @@ const WalletOverview = () => {
     const { user } = useContext(GlobalContext) || {}
     const withdrawModal = useWithdrawModal()
     const rechargeModal = useRechargeModal()
+    const featuringModal = useFeaturingModal()
 
     const handleWithdrawModal = () => {
-        withdrawModal.onOpen()
+        // withdrawModal.onOpen()
+        featuringModal.onOpen()
     }
 
     const handleRechargeModal = () => {

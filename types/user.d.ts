@@ -57,15 +57,11 @@ export interface User {
 export interface UserSuggest {
     message: string
     data: {
-        postId?: string | null
-        userId?: string | null
-        userName?: string | null
-        sortDescript?: string | null
-        time?: string | null
-        availableSlot?: number | null
-        postImgUrl?: sting | null
-        userImgUrl?: string | null
-        address?: string | null
+        id?: string | null
+        name?: string | null
+        shortProfile?: string | null
+        rating?: number | null
+        imgUrl?: string | null
     }[]
 }
 export interface UserProfile {

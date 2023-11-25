@@ -41,7 +41,6 @@ export function formatDateFunc(dateString: string): string {
   }
 }
 
-
 export function getDates(dateString: string): string[] {
   try {
     const [days, months, years] = dateString.split("/").map(part => part.split(";"))
@@ -109,6 +108,17 @@ export const GetFirstDate: React.FC<{ dateString: string }> = ({ dateString }) =
 }
 
 export const FormatTime: React.FC<FormatTimeProps> = ({ timeString }) => {
+  try {
+    const formattedTime = timeString.replace(":", "h")
+
+    return formattedTime
+  } catch (error) {
+    //console.log("Error formatting time: ", error)
+    return ""
+  }
+}
+
+export function formatTimeFunc(timeString: string): string {
   try {
     const formattedTime = timeString.replace(":", "h")
 

@@ -1,4 +1,4 @@
-import { FormatUI, LoginFooter, LoginForm, LoginSubBody } from "@/app/components";
+import { FormatUI, LoginFooter, LoginForm } from "@/app/components";
 
 const LoginPage = () => {
     return (
@@ -6,7 +6,6 @@ const LoginPage = () => {
             src="/images/background_2.png"
             title="Đăng nhập"
             body={<LoginForm />}
-            subBody={<LoginSubBody />}
             footer={<LoginFooter />}
         />
     );

@@ -1,6 +1,5 @@
 import { Container, TransactionDetail, TransactionExtra } from '@/app/components'
 import Layout from '@/app/layout'
-import Custom404 from '@/pages/404'
 import Custom500 from '@/pages/500'
 import { getTransactionDetail } from '@/services'
 import { TransactionPaymentDetail } from '@/types'

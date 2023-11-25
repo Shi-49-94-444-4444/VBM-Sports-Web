@@ -9,7 +9,7 @@ import { useContext, useState } from "react"
 import { addDays, addYears, differenceInDays, differenceInHours, eachDayOfInterval, format, isBefore, isSameDay, setHours, setMinutes, startOfDay } from 'date-fns'
 import { vi } from 'date-fns/locale'
 import { AxiosClient, postBadmintonService } from "@/services"
-import useSWR from "swr"
+import useSWR, { mutate } from "swr"
 import { ListCity, ListDistrict, ListWard, Time } from "@/types"
 import { customStyles, handleChange, processBase64Image } from "@/utils"
 import { useForm } from "react-hook-form"
@@ -115,7 +115,7 @@ const PostNewForm = () => {
         }));
     }
 
-    //console.log(slots)
+    // //console.log(slots)
 
     // Form for Date
     const showForm = (day: Date) => {
@@ -236,14 +236,6 @@ const PostNewForm = () => {
         date = setHours(date, parseInt(hour))
         date = setMinutes(date, parseInt(minute))
         return date
-    }
-
-    // Format Date Time
-    const formatTime = (time: Time): Date => {
-        let dateTime = new Date();
-        dateTime = setHours(dateTime, parseInt(time.hour));
-        dateTime = setMinutes(dateTime, parseInt(time.minute));
-        return dateTime
     }
 
     const onSubmit = async () => {
@@ -429,7 +421,7 @@ const PostNewForm = () => {
 
         const processedImages = uploadImages.map(image => processBase64Image(image));
 
-        //console.log(formattedSlots)
+        // //console.log(formattedSlots)
 
         if (user && user.id) {
             const res = await postBadmintonService({
@@ -458,6 +450,7 @@ const PostNewForm = () => {
                 position: toast.POSITION.TOP_RIGHT
             })
 
+            mutate(`/api/posts/${user.id}/post_suggestion`)
             router.push("/")
         }
 

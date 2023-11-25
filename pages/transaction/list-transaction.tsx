@@ -3,7 +3,6 @@ import Layout from '@/app/layout'
 import { getListTransaction } from '@/services'
 import { ListTransaction } from '@/types'
 import Custom500 from '../500'
-import Custom404 from '../404'
 import * as jose from 'jose'
 import cookie from 'cookie'
 import Image from 'next/image'
@@ -50,7 +49,7 @@ const TransactionDetailPage = ({ listTransaction, internalError }: { listTransac
                 <div className="relative py-10">
                     <div className="flex flex-col">
                         <div className="flex items-center justify-center text-4xl text-gray-600 font-semibold pb-10">
-                            Chi tiết thanh toán
+                            Các đơn hàng của bạn
                         </div>
                         {listTransaction.data.length === 0 ? (
                             <div className="relative h-screen flex flex-col items-center justify-center gap-5 text-primary-blue-cus font-semibold">

@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { walletSchema } from "@/utils"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { walletService } from "@/services"
+import { VNPAYService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
 
@@ -27,7 +27,7 @@ const ModalRecharge = () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id) {
-            const res = await walletService({
+            const res = await VNPAYService({
                 id: user.id,
                 money: data.money
             })
@@ -42,16 +42,10 @@ const ModalRecharge = () => {
                 return
             }
 
-            toast.success("Nạp tiền thành công", {
-                position: toast.POSITION.TOP_RIGHT
-            })
-
-            if (setUser) {
-                setUser(prevUser => {
-                    const updatedUser = { ...prevUser, balance: res.data.newBalance }
-                    localStorage.setItem("user", JSON.stringify(updatedUser))
-                    return updatedUser
-                })
+            const url = window.open(res.data.uri, "NewWindow", "width=600,height=800")
+            if (url) {
+                const resUrl = url.location.href
+                //console.log(resUrl)
             }
 
             rechargeModal.onClose()
@@ -77,11 +71,11 @@ const ModalRecharge = () => {
                 <div className="flex items-center space-x-5">
                     <div className="relative flex-shrink-0">
                         <Image
-                            src="/images/momo.png"
-                            alt="momoIcon"
+                            src="/images/VNPAY.png"
+                            alt="VNPAY"
                             height={100}
                             width={100}
-                            className="object-cover w-16 h-12"
+                            className="object-contain w-16 h-12"
                         />
                     </div>
                     <div className="text-2xl font-semibold text-gray-600">

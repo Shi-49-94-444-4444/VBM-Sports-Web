@@ -58,6 +58,10 @@ const StepperHorizontalContent = ({ }) => {
                 return
             }
 
+            toast.success(res.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            })
+
             if (setUser) {
                 setUser(prevUser => {
                     const updatedUser = { ...prevUser, playingArea: user.playingArea }
@@ -120,7 +124,7 @@ const StepperHorizontalContent = ({ }) => {
 
             //console.log("Playing Way: ", res)
 
-            if (res.message) {
+            if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT,
                 })
