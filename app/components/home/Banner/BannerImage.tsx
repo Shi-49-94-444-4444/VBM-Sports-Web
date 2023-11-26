@@ -31,6 +31,7 @@ const BannerImage = () => {
                     className="object-contain object-bottom"
                     fill
                     draggable="false"
+                    priority
                 />
             </div>
         </div>

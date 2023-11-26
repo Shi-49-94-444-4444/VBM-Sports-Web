@@ -98,8 +98,8 @@ const Access = () => {
                                     <Image
                                         src={validateURLAvatar(user && user.avatar)}
                                         alt="avatar"
-                                        width={50}
-                                        height={50}
+                                        width={200}
+                                        height={200}
                                         className="object-cover rounded-full w-10 h-10 border border-pri"
                                     />
                                 ) : (

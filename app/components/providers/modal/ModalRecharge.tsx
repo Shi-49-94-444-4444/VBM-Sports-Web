@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 import { WalletFrom } from "@/types"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { walletSchema } from "@/utils"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { GlobalContext } from "@/contexts"
 import { VNPAYService } from "@/services"
 import { toast } from "react-toastify"
@@ -42,11 +42,7 @@ const ModalRecharge = () => {
                 return
             }
 
-            const url = window.open(res.data.uri, "NewWindow", "width=600,height=800")
-            if (url) {
-                const resUrl = url.location.href
-                //console.log(resUrl)
-            }
+            window.location.href = res.data.uri
 
             rechargeModal.onClose()
             reset()
@@ -54,6 +50,14 @@ const ModalRecharge = () => {
 
         if (setIsLoadingModal) setIsLoadingModal(false)
     }
+
+    useEffect(() => {
+        const currentUrl = new URL(window.location.href)
+        const newUrl = currentUrl.origin + currentUrl.pathname
+        window.history.pushState({}, '', newUrl)
+
+        //console.log(currentUrl.pathname)
+    }, [])
 
     if (isLoadingModal) {
         return <LoadingActionWallet loading={isLoadingModal} />

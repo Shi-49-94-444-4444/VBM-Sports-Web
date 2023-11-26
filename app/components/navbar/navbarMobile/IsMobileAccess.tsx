@@ -83,8 +83,8 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                     <Image
                                         src={validateURLAvatar(user && user.avatar)}
                                         alt="avatar"
-                                        width={50}
-                                        height={50}
+                                        width={150}
+                                        height={150}
                                         className="object-cover rounded-full w-8 h-8 border border-pri"
                                     />
                                 ) : (

@@ -19,7 +19,7 @@ const RuleList = () => {
       //console.log("JSON đã chỉnh sửa:", updatedJson);
       setIsEditing(false);
     } catch (error) {
-      console.error("Lỗi xử lý JSON:", error);
+      //console.error("Lỗi xử lý JSON:", error);
     }
   };
 

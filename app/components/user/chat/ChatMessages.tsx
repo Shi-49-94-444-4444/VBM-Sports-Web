@@ -3,17 +3,17 @@
 import { AiOutlineSend } from "react-icons/ai"
 import { FcAddImage } from "react-icons/fc"
 import { Input, Loading, LoadingFullScreen } from "../../providers"
-import { CiMenuKebab } from "react-icons/ci"
 import Image from "next/image"
 import { useContext, useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { GlobalContext } from "@/contexts"
 import { AxiosClient, base64ToLinkProcess, sendMessService } from "@/services"
 import { ChatDetail, ChatRoom, SendMessForm } from "@/types"
-import useSWR, { mutate } from "swr"
-import { isValidUrl, processBase64Image, sendMessageSchema, validateURLAvatar } from "@/utils"
+import useSWR from "swr"
+import { processBase64Image, sendMessageSchema, validateURLAvatar } from "@/utils"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useDropzone } from "react-dropzone"
+import * as signalR from "@microsoft/signalr"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
@@ -24,6 +24,8 @@ const ChatMessages = () => {
     })
     const { user, roomId, setIsLoading, isLoading } = useContext(GlobalContext) || {}
     const [firstLoad, setFirstLoad] = useState(true)
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(null)
+
     const { getRootProps, getInputProps, open } = useDropzone({
         accept: {
             'image/png': ['.png'],
@@ -46,15 +48,9 @@ const ChatMessages = () => {
 
                         const res = await base64ToLinkProcess({ imgUrl: base64Rest })
 
-                        if (user && user.id && roomId) {
-                            await sendMessService({
-                                user_id: user.id,
-                                message: res.imgUrl,
-                                roomId: roomId
-                            })
-                            reset()
-                            mutate(`/api/chat/${roomId}/detail?pageSize=100&pageNum=1`)
-                            mutate(`/api/chat/user/${user.id}/rooms`)
+                        if (user && user.id && roomId && connection) {
+                            await connection.invoke('SendMessage', res.imgUrl, user.id)
+                                // .catch(err => console.error("Send mess", err))
                         }
                     }
 
@@ -65,12 +61,72 @@ const ChatMessages = () => {
         },
     })
 
-    const { data: listMessage, error: errorMessage } = useSWR<ChatDetail>(roomId ? `/api/chat/${roomId}/detail?pageSize=100&pageNum=1` : null, fetcher)
-    //console.log(listMessage);
+    const sendMessage = async (data: SendMessForm) => {
+        if (setIsLoading) setIsLoading(true)
 
-    const { data: listRoom } = useSWR<ChatRoom>(user && user.id ? `/api/chat/user/${user.id}/rooms` : null, fetcher)
+        if (user && user.id && roomId && connection) {
+            await connection.invoke('SendMessage', data.message, user.id)
+                // .catch(err => console.error("Send mess", err))
+            reset()
+        }
+
+        if (setIsLoading) setIsLoading(false)
+    }
+
+    const { data: listMessage, error: errorMessage, mutate: mutateMessage } = useSWR<ChatDetail>(roomId ? `/api/chat/${roomId}/detail?pageSize=100&pageNum=1` : null, fetcher)
+    const { data: listRoom, mutate: mutateRoom } = useSWR<ChatRoom>(user && user.id ? `/api/chat/user/${user.id}/rooms` : null, fetcher)
 
     const isLoadingMessage = !listMessage && !errorMessage
+
+    useEffect(() => {
+        const newConnection = new signalR.HubConnectionBuilder()
+            .withUrl(`${process.env.API_BASE_URL}/chatHub`, {
+                logger: signalR.LogLevel.Information,
+                withCredentials: false,
+            })
+            .build()
+
+        setConnection(newConnection)
+    }, [])
+
+    //console.log(connection?.state)
+
+    useEffect(() => {
+        const manageConnection = async () => {
+            if (connection) {
+                try {
+                    await connection.stop();
+                    //console.log('Kết nối đã dừng');
+                } catch (err) {
+                    //console.error('Không thể dừng kết nối: ', err);
+                }
+
+                if (roomId) {
+                    try {
+                        await connection.start();
+                        //console.log("Kết nối thành công");
+                        if (user && user.id) {
+                            await connection.invoke('JoinRoom', roomId, user.id);
+                        }
+                    } catch (err) {
+                        //console.error("Không thể kết nối: ", err);
+                    }
+                }
+            }
+        };
+
+        manageConnection();
+    }, [connection, roomId])
+
+    useEffect(() => {
+        if (connection) {
+            connection.on("ReceiveMessage", (user, message) => {
+                //console.log("Nhận được tin nhắn từ " + user + ": " + message)
+                mutateMessage()
+                mutateRoom()
+            })
+        }
+    }, [connection, mutateMessage, mutateRoom])
 
     const scrollToBottom = () => {
         if (messagesRef.current)
@@ -81,7 +137,7 @@ const ChatMessages = () => {
 
     useEffect(() => {
         if (listMessage) {
-            setFirstLoad(false);
+            setFirstLoad(false)
         }
     }, [listMessage])
 
@@ -91,23 +147,6 @@ const ChatMessages = () => {
                 Vui lòng chọn nhóm chat
             </div>
         )
-    }
-
-    const sendMessage = async (data: SendMessForm) => {
-        if (setIsLoading) setIsLoading(true)
-
-        if (user && user.id && roomId) {
-            await sendMessService({
-                user_id: user.id,
-                message: data.message,
-                roomId: roomId
-            })
-            reset()
-            mutate(`/api/chat/${roomId}/detail?pageSize=100&pageNum=1`)
-            mutate(`/api/chat/user/${user.id}/rooms`)
-        }
-
-        if (setIsLoading) setIsLoading(false)
     }
 
     return (
@@ -149,7 +188,7 @@ const ChatMessages = () => {
                                     </div>
                                     <div className="flex flex-row-reverse items-center">
                                         {mess.message.startsWith("https://res.cloudinary.com") ? (
-                                            <div className="bg-[#2768cf] text-left text-gray-600 rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[24rem] md:max-w-[30rem] transition-all duration-500">
+                                            <div className="bg-transparent text-left rounded-lg flex-wrap break-words w-auto max-w-[24rem] md:max-w-[30rem] transition-all duration-500">
                                                 <Image
                                                     src={mess.message}
                                                     alt={`Chat image ${mess.messageId}`}
@@ -181,7 +220,7 @@ const ChatMessages = () => {
                                     </div>
                                     <div className="flex flex-row space-x-2 items-center">
                                         {mess.message.startsWith("https://res.cloudinary.com") ? (
-                                            <div className="bg-gray-100 text-gray-600 rounded-lg border border-solid border-black border-opacity-10 flex-wrap break-words w-auto max-w-[24rem] md:max-w-[30rem] transition-all duration-500">
+                                            <div className="bg-transparent flex-wrap break-words w-auto max-w-[24rem] md:max-w-[30rem] transition-all duration-500">
                                                 <Image
                                                     src={mess.message}
                                                     alt={`Chat image ${mess.messageId}`}

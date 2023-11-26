@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { BackgroundProps } from "@/types"
 
 const Background: React.FC<BackgroundProps> = ({
@@ -5,24 +6,29 @@ const Background: React.FC<BackgroundProps> = ({
     children
 }) => {
     return (
-        <div className="
-                relative
-                inset-0
-                lg:inset-auto
-                bg-center 
-                bg-cover
-                bg-no-repeat
-                w-auto 
-                h-auto
-                transition
-                duration-500
-                overflow-x-hidden
-            "
-            style={{
-                backgroundImage: `url(${src})`,
-            }}>
-            {children}
-        </div>
+        <>
+            <Head>
+                <link rel="preload" as="image" href={src} />
+            </Head>
+            <div className="
+                    relative
+                    inset-0
+                    lg:inset-auto
+                    bg-center 
+                    bg-cover
+                    bg-no-repeat
+                    w-auto 
+                    h-auto
+                    transition
+                    duration-500
+                    overflow-x-hidden
+                "
+                style={{
+                    backgroundImage: `url(${src})`,
+                }}>
+                {children}
+            </div>
+        </>
     )
 }
 

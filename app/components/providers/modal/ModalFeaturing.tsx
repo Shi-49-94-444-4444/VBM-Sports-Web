@@ -25,6 +25,7 @@ const ModalFeaturing = () => {
                             width={100}
                             height={100}
                             className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                            priority
                         />
                     </div>
                 </div>

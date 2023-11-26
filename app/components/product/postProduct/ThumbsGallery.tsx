@@ -232,7 +232,7 @@ const ThumbGallery = ({ setImages }: { setImages: React.Dispatch<React.SetStateA
                                 <Image
                                     src="/images/more.png"
                                     alt="Add"
-                                    className="rounded-lg object-cover w-full h-full border border-black border-opacity-10"
+                                    className="rounded-lg object-contain w-full h-full"
                                     sizes="(max-width: 600px) 100vw, 600px"
                                     fill
                                 />

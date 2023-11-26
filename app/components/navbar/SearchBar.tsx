@@ -127,9 +127,13 @@ const SearchBar = () => {
                                         value={searchValue ?? ""}
                                         onChange={handleInputChange}
                                     />
-                                    <button className="inline-flex text-2xl font-medium" type="button" onClick={handleClearInput}>
-                                        &times;
-                                    </button>
+                                    {searchValue ? (
+                                        <></>
+                                    ) : (
+                                        <button className="inline-flex text-2xl font-medium" type="button" onClick={handleClearInput}>
+                                            &times;
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>

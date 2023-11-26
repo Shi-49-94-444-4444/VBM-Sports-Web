@@ -21,7 +21,7 @@ export const sendOTP = async (email: string, otp: string) => {
             return { success: false, error: 'Gửi thất bại' };
         }
     } catch (error) {
-        console.error('Error sending email:', error);
+        //console.error('Error sending email:', error);
         return { success: false, error: 'Gửi thất bại' };
     }
 };

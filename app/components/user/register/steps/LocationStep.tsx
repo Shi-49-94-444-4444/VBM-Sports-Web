@@ -97,7 +97,7 @@ const LocationStep = () => {
                     const location = data.results[0].geometry.location;
                     setLocation({ lat: location.lat, lng: location.lng });
                 })
-                .catch(error => console.error(error));
+                // .catch(error => console.error(error));
         }
     }, [selectDistrict])
 

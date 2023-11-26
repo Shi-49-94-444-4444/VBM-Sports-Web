@@ -9,7 +9,7 @@ import { AxiosClient } from "@/services";
 import { Comment } from "@/types";
 import useSWR from "swr";
 import { LoadingFullScreen } from "../../providers";
-import { format, parse, parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
