@@ -1,4 +1,4 @@
-import { useWithdrawModal, useRechargeModal } from "./useWallet"
+import { useWithdrawModal, useRechargeModal, useContinueWalletModal } from "./useWallet"
 import {
     useContinuePaymentModal,
     useFailPaymentModal,
@@ -23,5 +23,6 @@ export {
     useUnauthorizeModal,
     useUserBanUserModal,
     useChangePasswordModal,
-    useFeaturingModal
+    useFeaturingModal,
+    useContinueWalletModal
 }

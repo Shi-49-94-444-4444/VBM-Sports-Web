@@ -5,8 +5,6 @@ import CustomModal from "./Modal"
 import Image from "next/image"
 import { Button } from "../form"
 import { useRouter } from "next/navigation"
-import { useContext } from "react"
-import { GlobalContext } from "@/contexts"
 
 const ModalFailPayment = () => {
     const router = useRouter()

@@ -116,7 +116,7 @@ const ChatMessages = () => {
         };
 
         manageConnection();
-    }, [connection, roomId])
+    }, [connection, roomId, user])
 
     useEffect(() => {
         if (connection) {

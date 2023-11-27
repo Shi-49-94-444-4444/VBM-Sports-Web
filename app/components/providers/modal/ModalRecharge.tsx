@@ -17,6 +17,7 @@ import { LoadingActionWallet } from "../loader"
 const ModalRecharge = () => {
     const rechargeModal = useRechargeModal()
 
+
     const { user, setIsLoadingModal, isLoadingModal, setUser } = useContext(GlobalContext) || {}
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<WalletFrom>({
@@ -42,7 +43,8 @@ const ModalRecharge = () => {
                 return
             }
 
-            window.location.href = res.data.uri
+            // window.location.href = res.data.uri
+            window.open(res.data.uri, "NewWindow", "height=800, width=600")
 
             rechargeModal.onClose()
             reset()

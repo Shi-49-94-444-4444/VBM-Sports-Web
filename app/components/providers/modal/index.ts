@@ -9,6 +9,7 @@ import ModalUnauthorize from "./ModalUnauthorize"
 import ModalUserBanUser from "./ModalUserBanUser"
 import ModalChangePassword from "./ModalChangePassword"
 import ModalFeaturing from "./ModalFeaturing"
+import ModalContinueWallet from "./ModalContinueWallet"
 
 export {
     ModalReport,
@@ -21,5 +22,6 @@ export {
     ModalUnauthorize,
     ModalUserBanUser,
     ModalChangePassword,
-    ModalFeaturing
+    ModalFeaturing,
+    ModalContinueWallet
 }
