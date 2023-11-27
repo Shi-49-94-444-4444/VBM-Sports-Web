@@ -9,8 +9,6 @@ import { useRouter } from 'next/navigation'
 import Cookies from "js-cookie";
 import { beforeNavUser, useOutsideClick, validateURLAvatar } from "@/utils"
 import SearchBar from "../SearchBar"
-import { signOut } from "firebase/auth"
-import { auth } from "@/firebase"
 import Image from "next/image"
 
 const Access = () => {
@@ -31,10 +29,10 @@ const Access = () => {
             setIsAuthUser(false)
             setUser(null)
         }
-        await signOut(auth)
         Cookies.remove("token")
         localStorage.clear()
-        router.push("/")
+        router.refresh()
+        router.replace("/")
     }
 
     const ref = useRef<HTMLLIElement | null>(null)
@@ -133,7 +131,7 @@ const Access = () => {
                                             whitespace-nowrap
                                         "
                                         type="button"
-                                        onClick={() => router.push(`/user/profile-user/${user?.id ?? "1"}`)}
+                                        onClick={() => router.replace(`/user/profile-user/${user?.id ?? "1"}`)}
                                     >
                                         Hồ sơ
                                     </button>
@@ -165,7 +163,7 @@ const Access = () => {
                                             whitespace-nowrap
                                         "
                                             type="button"
-                                            onClick={() => router.push(item.href)}
+                                            onClick={() => router.replace(item.href)}
                                         >
                                             {item.label}
                                         </button>
@@ -241,7 +239,7 @@ const Access = () => {
                                     align-middle
                                 "
                                 type="button"
-                                onClick={() => router.push("/user/setting-profile")}
+                                onClick={() => router.replace("/user/setting-profile")}
                             >
                                 <IoSettingsOutline size={30} />
                             </button>

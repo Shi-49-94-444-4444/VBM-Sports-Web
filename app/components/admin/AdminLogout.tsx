@@ -13,10 +13,11 @@ const AdminLogout = () => {
         if (setUser && setIsAuthUser) {
             setUser(null)
             setIsAuthUser(false)
+            router.refresh()
         }
         Cookies.remove("token")
         localStorage.clear()
-        router.push("/")
+        router.replace("/")
     }
 
     return (

@@ -11,12 +11,12 @@ const ModalSuccessPayment = () => {
     const successPaymentModal = useSuccessPaymentModal()
 
     const handleBackHome = () => {
-        router.push("/")
+        router.replace("/")
         successPaymentModal.onClose()
     }
 
     const handleGoToTransaction = () => {
-        router.push(`/transaction/detail-transaction/${successPaymentModal.tran_id}`)
+        router.replace(`/transaction/detail-transaction/${successPaymentModal.tran_id}`)
         successPaymentModal.onClose()
     }
 

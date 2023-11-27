@@ -1,18 +1,18 @@
 "use client"
 
-import Link from 'next/link';
-import { Button, Input, Loading } from '../../providers';
-import { useForm } from "react-hook-form";
-import { toast } from 'react-toastify';
-import { LoginFormData } from '@/types';
-import React, { useContext, useEffect } from 'react';
-import { GlobalContext } from '@/contexts';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link'
+import { Button, Input, Loading } from '../../providers'
+import { useForm } from "react-hook-form"
+import { toast } from 'react-toastify'
+import { LoginFormData } from '@/types'
+import React, { useContext, useEffect } from 'react'
+import { GlobalContext } from '@/contexts'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 import { yupResolver } from "@hookform/resolvers/yup"
-import loginService from '@/services/login';
-import { loginInputs, loginSchema } from '@/utils';
-import { forgotPasswordService } from '@/services';
+import loginService from '@/services/login'
+import { loginInputs, loginSchema } from '@/utils'
+import { forgotPasswordService } from '@/services'
 
 const LoginForm = () => {
     const {
@@ -31,7 +31,7 @@ const LoginForm = () => {
         formState: { errors }
     } = useForm<LoginFormData>({
         resolver: yupResolver(loginSchema),
-    });
+    })
 
     const onSubmit = async (data: LoginFormData) => {
         if (setIsLoading) setIsLoading(true)
@@ -56,6 +56,7 @@ const LoginForm = () => {
             setIsAuthUser(true)
             const user = res.data
             setUser(user)
+            router.refresh()
         }
 
         if (res.data.isNewUser) {
@@ -71,11 +72,11 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (user && user.role && user.role.toLocaleLowerCase() === "admin") {
-            router.push("/admin/user-management")
+            router.replace("/admin/user-management")
         } else if (user && user.isNewUser) {
-            router.push("/verify-otp")
+            router.replace("/verify-otp")
         } else if (isAuthUser) {
-            router.push("/");
+            router.replace("/")
         }
     }, [router, user, isAuthUser])
 

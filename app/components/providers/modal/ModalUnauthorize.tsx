@@ -30,7 +30,7 @@ const ModalUnauthorize = () => {
                         title="Đi tới trang đăng nhập"
                         isHover={false}
                         style="py-3 px-8"
-                        onClick={() => router.push("/login")}
+                        onClick={() => router.replace("/login")}
                     />
                 </div>
             </div>

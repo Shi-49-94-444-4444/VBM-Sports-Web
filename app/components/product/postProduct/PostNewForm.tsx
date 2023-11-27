@@ -451,7 +451,7 @@ const PostNewForm = () => {
             })
 
             mutate(`/api/posts/${user.id}/post_suggestion`)
-            router.push("/")
+            router.replace("/")
         }
 
         if (setIsLoading) setIsLoading(false)

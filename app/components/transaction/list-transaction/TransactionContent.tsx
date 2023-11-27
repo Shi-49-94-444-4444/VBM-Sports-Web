@@ -91,12 +91,12 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                     <Button
                         title="Đặt sân tiếp"
                         style="text-xl px-4 whitespace-nowrap"
-                        onClick={() => router.push(`/product/detail-product/${postId}`)}
+                        onClick={() => router.replace(`/product/detail-product/${postId}`)}
                     />
                     <Button
                         title="Xem chi tiết thanh toán"
                         style="text-xl px-4 whitespace-nowrap"
-                        onClick={() => router.push(`/transaction/detail-transaction/${transacionId}`)}
+                        onClick={() => router.replace(`/transaction/detail-transaction/${transacionId}`)}
                     />
                 </div>
             </div>

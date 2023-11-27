@@ -11,7 +11,7 @@ const ModalFailPayment = () => {
     const failPaymentModal = useFailPaymentModal()
 
     const handleBackHome = () => {
-        router.push("/")
+        router.replace("/")
         failPaymentModal.onClose()
     }
 

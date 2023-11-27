@@ -93,7 +93,7 @@ const QuickList = () => {
                 <div className="relative flex justify-center items-center pt-16">
                     <Button
                         title="Xem thêm"
-                        onClick={() => router.push("/product/list-product")}
+                        onClick={() => router.replace("/product/list-product")}
                         style="py-3 px-12 text-xl"
                     />
                 </div>

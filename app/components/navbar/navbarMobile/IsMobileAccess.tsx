@@ -11,8 +11,6 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { beforeNavUser, validateURLAvatar } from '@/utils';
 import { LiaWindowClose } from 'react-icons/lia';
-import { auth } from '@/firebase';
-import { signOut } from 'firebase/auth';
 import Image from 'next/image';
 
 interface IsMobileAccessPros {
@@ -36,10 +34,10 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
             setIsAuthUser(false)
             setUser(null)
         }
-        await signOut(auth)
         Cookies.remove("token")
         localStorage.clear()
-        router.push("/")
+        router.refresh()
+        router.replace("/")
     }
 
     return (
@@ -118,7 +116,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                        py-2
                                    "
                                         type="button"
-                                        onClick={() => router.push(`/user/profile-user/${user?.id ?? "1"}`)}
+                                        onClick={() => router.replace(`/user/profile-user/${user?.id ?? "1"}`)}
                                     >
                                         Hồ sơ
                                     </button>
@@ -148,7 +146,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                             py-2
                                         "
                                             type="button"
-                                            onClick={() => router.push(item.href)}
+                                            onClick={() => router.replace(item.href)}
                                         >
                                             {item.label}
                                         </button>

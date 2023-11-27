@@ -26,7 +26,7 @@ const WalletOverview = () => {
 
     useEffect(() => {
         if (!isAuthUser) {
-            router.push("/unauthorized")
+            router.replace("/unauthorized")
         }
     }, [isAuthUser, router])
 

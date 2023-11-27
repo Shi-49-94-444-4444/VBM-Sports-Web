@@ -7,8 +7,6 @@ import { GlobalContext } from "@/contexts"
 import { useRouter } from "next/navigation"
 import { Background } from "../providers"
 import Cookies from "js-cookie"
-import { signOut } from "firebase/auth"
-import { auth } from "@/firebase"
 
 const FormatUI: React.FC<FormatUIProps> = ({
     src,
@@ -26,10 +24,10 @@ const FormatUI: React.FC<FormatUIProps> = ({
             setUser(null)
             setIsAuthUser(false)
         }
-        await signOut(auth)
         Cookies.remove("token")
         localStorage.clear()
-        router.push("/")
+        router.refresh()
+        router.replace("/")
     }
 
     return (

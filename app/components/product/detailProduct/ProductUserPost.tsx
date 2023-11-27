@@ -19,7 +19,7 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
     const router = useRouter()
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        router.push(`/user/profile-user/${userId}`)
+        router.replace(`/user/profile-user/${userId}`)
         event.preventDefault()
     }
 

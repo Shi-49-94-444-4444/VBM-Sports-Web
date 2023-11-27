@@ -59,7 +59,7 @@ const ChangePasswordForm = () => {
     }
 
     useEffect(() => {
-        if (isChange) router.push("/change-password-success")
+        if (isChange) router.replace("/change-password-success")
     }, [router, isChange])
 
     return (
