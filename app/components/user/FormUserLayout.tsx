@@ -16,7 +16,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
     body,
     footer,
 }) => {
-    const { setUser, setIsAuthUser } = useContext(GlobalContext) || {}
+    const { setUser, setIsAuthUser, setIsRefresh } = useContext(GlobalContext) || {}
     const router = useRouter()
 
     const handleBack = async () => {
@@ -26,7 +26,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
         }
         Cookies.remove("token")
         localStorage.clear()
-        router.refresh()
+        if (setIsRefresh) setIsRefresh(true)
         router.replace("/")
     }
 

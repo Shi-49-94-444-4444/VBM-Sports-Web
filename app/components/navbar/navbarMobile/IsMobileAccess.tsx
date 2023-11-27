@@ -23,7 +23,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
     const { showMenu } = useContext(GlobalContext) || {}
     const [showToggle, setShowToggle] = useState(false);
     const router = useRouter()
-    const { isAuthUser, setIsAuthUser, setUser, user } = useContext(GlobalContext) || {}
+    const { isAuthUser, setIsAuthUser, setUser, user, setIsRefresh } = useContext(GlobalContext) || {}
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
@@ -36,7 +36,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
         }
         Cookies.remove("token")
         localStorage.clear()
-        router.refresh()
+        if (setIsRefresh) setIsRefresh(true)
         router.replace("/")
     }
 

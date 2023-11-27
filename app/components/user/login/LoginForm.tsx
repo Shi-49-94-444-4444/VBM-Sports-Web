@@ -21,7 +21,8 @@ const LoginForm = () => {
         setUser,
         user,
         setIsLoading,
-        isLoading
+        isLoading,
+        setIsRefresh
     } = useContext(GlobalContext) || {}
     const router = useRouter()
 
@@ -56,7 +57,6 @@ const LoginForm = () => {
             setIsAuthUser(true)
             const user = res.data
             setUser(user)
-            router.refresh()
         }
 
         if (res.data.isNewUser) {
@@ -66,6 +66,8 @@ const LoginForm = () => {
 
         Cookies.set("token", res.data.token)
         localStorage.setItem("user", JSON.stringify(res.data))
+
+        if (setIsRefresh) setIsRefresh(true)
 
         if (setIsLoading) setIsLoading(false)
     }

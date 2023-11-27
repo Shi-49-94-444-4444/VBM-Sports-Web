@@ -7,16 +7,16 @@ import { ImExit } from "react-icons/im"
 const AdminLogout = () => {
     const router = useRouter()
 
-    const { setUser, setIsAuthUser } = useContext(GlobalContext) || {}
+    const { setUser, setIsAuthUser, setIsRefresh } = useContext(GlobalContext) || {}
 
-    const handleBack = () => {
+    const handleBack = async () => {
         if (setUser && setIsAuthUser) {
             setUser(null)
             setIsAuthUser(false)
-            router.refresh()
         }
         Cookies.remove("token")
         localStorage.clear()
+        if (setIsRefresh) setIsRefresh(true)
         router.replace("/")
     }
 

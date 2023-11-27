@@ -14,7 +14,7 @@ import Image from "next/image"
 const Access = () => {
     const [showToggle, setShowToggle] = useState(false);
     const router = useRouter()
-    const { isAuthUser, setIsAuthUser, setUser, user } = useContext(GlobalContext) || {}
+    const { isAuthUser, setIsAuthUser, setUser, user, setIsRefresh } = useContext(GlobalContext) || {}
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
@@ -31,7 +31,7 @@ const Access = () => {
         }
         Cookies.remove("token")
         localStorage.clear()
-        router.refresh()
+        if (setIsRefresh) setIsRefresh(true)
         router.replace("/")
     }
 

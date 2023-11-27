@@ -3,7 +3,7 @@
 import React, { FC, createContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { ListProductData } from '@/types'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -45,6 +45,8 @@ interface GlobalContextProps {
     setIsLoadingPage: React.Dispatch<React.SetStateAction<boolean | null>>
     showMenu: boolean | null
     setShowMenu: React.Dispatch<React.SetStateAction<boolean | null>>
+    isRefresh: boolean | null
+    setIsRefresh: React.Dispatch<React.SetStateAction<boolean | null>>
     searchValue: string | null
     setSearchValue: React.Dispatch<React.SetStateAction<string | null>>
     searchResults: ListProductData[] | null
@@ -63,6 +65,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isLoadingModal, setIsLoadingModal] = useState<boolean | null>(false)
     const [isLoadingPage, setIsLoadingPage] = useState<boolean | null>(false)
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
+    const [isRefresh, setIsRefresh] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
     const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
     const [roomId, setRoomId] = useState<string | null>(null)
@@ -78,6 +81,13 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
             setUser(null)
         }
     }, [])
+
+    useEffect(() => {
+        if (isRefresh) {
+            router.refresh()
+            setIsRefresh(true)
+        }
+    }, [setIsRefresh, isRefresh, router])
 
     return (
         <GlobalContext.Provider
@@ -98,6 +108,8 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 setSearchValue,
                 isLoadingModal,
                 setIsLoadingModal,
+                isRefresh,
+                setIsRefresh,
                 roomId,
                 setRoomId
             }}
