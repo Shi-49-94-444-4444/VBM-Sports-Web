@@ -13,12 +13,12 @@ import { GlobalContext } from "@/contexts"
 import { VNPAYService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
+import { useRouter } from "next/router"
 
 const ModalRecharge = () => {
     const rechargeModal = useRechargeModal()
-
-
-    const { user, setIsLoadingModal, isLoadingModal, setUser } = useContext(GlobalContext) || {}
+    const router = useRouter()
+    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<WalletFrom>({
         resolver: yupResolver(walletSchema)
@@ -49,17 +49,21 @@ const ModalRecharge = () => {
             rechargeModal.onClose()
             reset()
         }
-
-        if (setIsLoadingModal) setIsLoadingModal(false)
     }
 
     useEffect(() => {
-        const currentUrl = new URL(window.location.href)
-        const newUrl = currentUrl.origin + currentUrl.pathname
-        window.history.pushState({}, '', newUrl)
-
-        //console.log(currentUrl.pathname)
-    }, [])
+        const handleMessage = (event: any) => {
+          if (event.data === 'payment completed') {
+            if(setIsLoadingModal) setIsLoadingModal(false);
+          }
+        };
+      
+        window.addEventListener('message', handleMessage);
+      
+        return () => {
+          window.removeEventListener('message', handleMessage);
+        };
+      }, [setIsLoadingModal])
 
     if (isLoadingModal) {
         return <LoadingActionWallet loading={isLoadingModal} />

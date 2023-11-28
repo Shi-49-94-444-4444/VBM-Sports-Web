@@ -5,15 +5,13 @@ import { useFeaturingModal, useRechargeModal, useWithdrawModal } from "@/hooks"
 import { formatMoney } from "@/utils"
 import Decimal from "decimal.js"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 
 const WalletOverview = () => {
-    const { user, isAuthUser } = useContext(GlobalContext) || {}
+    const { user } = useContext(GlobalContext) || {}
     const withdrawModal = useWithdrawModal()
     const rechargeModal = useRechargeModal()
     const featuringModal = useFeaturingModal()
-    const router = useRouter()
 
     const handleWithdrawModal = () => {
         // withdrawModal.onOpen()
@@ -23,12 +21,6 @@ const WalletOverview = () => {
     const handleRechargeModal = () => {
         rechargeModal.onOpen()
     }
-
-    useEffect(() => {
-        if (!isAuthUser) {
-            router.replace("/unauthorized")
-        }
-    }, [isAuthUser, router])
 
     return (
         <div className="flex flex-col gap-3 md:gap-0 md:flex-row justify-between items-center py-10 px-5 w-full md:bg-[#F5F5F5] md:border md:border-black md:border-opacity-10 md:rounded-lg">

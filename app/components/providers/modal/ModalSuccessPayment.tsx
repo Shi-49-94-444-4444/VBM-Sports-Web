@@ -27,7 +27,7 @@ const ModalSuccessPayment = () => {
             width="md:w-auto w-full"
             height="h-auto"
         >
-            <form className="flex flex-col md:px-10 pb-5 gap-5 justify-center items-center">
+            <div className="flex flex-col md:px-10 pb-5 gap-5 justify-center items-center">
                 <Image
                     src="/images/success.png"
                     alt="success"
@@ -52,7 +52,7 @@ const ModalSuccessPayment = () => {
                         onClick={handleBackHome}
                     />
                 </div>
-            </form>
+            </div>
         </CustomModal>
     )
 }

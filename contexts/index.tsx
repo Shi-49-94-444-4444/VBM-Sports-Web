@@ -85,9 +85,9 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     useEffect(() => {
         if (isRefresh) {
             router.refresh()
-            setIsRefresh(true)
+            setIsRefresh(false)
         }
-    }, [setIsRefresh, isRefresh, router])
+    }, [isRefresh, router])
 
     return (
         <GlobalContext.Provider
