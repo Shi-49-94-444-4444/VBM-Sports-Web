@@ -4,8 +4,8 @@ import Image from "next/image"
 import { BsFillChatDotsFill } from "react-icons/bs"
 import { UserProfileData } from "@/types"
 import { Button } from "../../providers"
-import { isValidUrl, validateDes, validateName, validateURLAvatar } from "@/utils"
-import { useReportUserModal, useUserBanUserModal } from "@/hooks"
+import { validateDes, validateName, validateURLAvatar } from "@/utils"
+import { useReportUserModal, useUnauthorizeModal, useUserBanUserModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 
@@ -18,6 +18,7 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
     const { user } = useContext(GlobalContext) || {}
     const reportUserModal = useReportUserModal()
     const banUserModal = useUserBanUserModal()
+    const unauthorizeModal = useUnauthorizeModal()
 
     return (
         <div className="relative flex flex-col gap-5 sm:block">
@@ -40,20 +41,39 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                             {validateName(fullName)}
                         </div>
                         <div className="md:flex-grow md:block hidden" />
-                        <button
-                            className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportUserModal.onOpen}>
-                            Báo cáo người dùng
-                        </button>
-                        <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
-                            Chặn người dùng
-                        </button>
+                        {!user ? (
+                            <button className="text-gray-500 text-lg font-medium underline cursor-pointer text-left" type="button" onClick={unauthorizeModal.onOpen}>
+                                Báo cáo người dùng
+                            </button>
+                        ) : (
+                            <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportUserModal.onOpen}>
+                                Báo cáo người dùng
+                            </button>
+                        )}
+                        {!user ? (
+                            <button className="text-gray-500 text-lg font-medium underline cursor-pointer text-left" type="button" onClick={unauthorizeModal.onOpen}>
+                                Chặn người dùng
+                            </button>
+                        ) : (
+                            <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
+                                Chặn người dùng
+                            </button>
+                        )}
                     </div>
-                    <div className={`sm:relative sm:flex md:flex-row sm:flex-col md:items-center sm:gap-5 hidden transition-all duration-500 ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`}>
+                    <div className={`sm:relative md:items-center sm:gap-5 hidden transition-all duration-500 ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : "sm:flex md:flex-row sm:flex-col"}`}>
                         <div className="relative">
-                            <Button
-                                title="Đăng ký"
-                                style="py-3 px-12 text-xl"
-                            />
+                            {!user ? (
+                                <Button
+                                    title="Đăng ký"
+                                    style="py-3 px-12 text-xl"
+                                    onClick={unauthorizeModal.onOpen}
+                                />
+                            ) : (
+                                <Button
+                                    title="Đăng ký"
+                                    style="py-3 px-12 text-xl"
+                                />
+                            )}
                         </div>
                     </div>
                     <div className="sm:relative sm:block sm:space-x-1 hidden">
@@ -89,7 +109,7 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                     {validateDes(sortProfile)}
                 </span>
             </div>
-        </div>
+        </div >
     )
 }
 

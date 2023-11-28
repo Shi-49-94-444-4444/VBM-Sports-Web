@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import { registerInputs, registerSchema } from '@/utils';
 
 const RegisterForm = () => {
-    const { setIsLoading, isLoading } = useContext(GlobalContext) || {}
+    const { setIsLoading, isLoading, isAuthUser } = useContext(GlobalContext) || {}
     const [isRegistered, setIsRegistered] = useState(false);
     const router = useRouter()
 
@@ -46,8 +46,12 @@ const RegisterForm = () => {
     }
 
     useEffect(() => {
-        if (isRegistered) router.replace("/login")
-    }, [router, isRegistered])
+        if (isRegistered) {
+            router.replace("/login")
+        } else if (isAuthUser) {
+            router.replace("/")
+        }
+    }, [router, isRegistered, isAuthUser])
 
     return (
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
@@ -69,7 +73,7 @@ const RegisterForm = () => {
             ))}
             {isLoading ? (
                 <Button
-                    title={<Loading loading={isLoading} color="white"/>}
+                    title={<Loading loading={isLoading} color="white" />}
                     type="submit"
                     style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
                     isHover={false}

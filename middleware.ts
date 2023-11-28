@@ -10,13 +10,6 @@ export async function middleware(req: NextRequest) {
     const url = req.nextUrl
 
     try {
-        if (url.pathname.startsWith("/login") ||
-            url.pathname.startsWith("/register")) {
-            if (token) {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
-            } 
-        }
-
         if (url.pathname.startsWith("/user/setting-profile") ||
             url.pathname.startsWith("/user/setting-ban") ||
             url.pathname.startsWith("/user/setting-security") ||
@@ -26,62 +19,72 @@ export async function middleware(req: NextRequest) {
             url.pathname.startsWith("/transaction") ||
             url.pathname.startsWith("/user/wallet") ||
             url.pathname.startsWith("/chat-room")) {
+            if (!token) {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            }
+
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
                 if (payload.Role !== "2") {
                     return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
-            } else {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 
         if (url.pathname.startsWith("/admin")) {
+            if (!token) {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            }
+
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
                 if (payload.Role !== "1") {
                     return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
-            } else {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 
         if (url.pathname.startsWith("/forgot-password") ||
             url.pathname.startsWith("/change-password")) {
+            if (!token) {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            }
+
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
                 if (!payload.OTP) {
                     return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
-            } else {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 
         if (url.pathname.startsWith("/register-stepper")) {
+            if (!token) {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            }
+
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
                 if (!payload.IsNewUser || payload.IsNewUser === "False") {
                     return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
-            } else {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 
         if (url.pathname.startsWith("/verify-otp")) {
+            if (!token) {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            }
+
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
                 if (!payload.OTP || payload.IsNewUser === "False") {
                     return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
-            } else {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
     } catch (e) {
-        //console.log(e)
+        // console.log(e)
         return NextResponse.redirect(`${url.origin}/unauthorized`)
     }
 

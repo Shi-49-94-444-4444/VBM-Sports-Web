@@ -32,6 +32,7 @@ const Access = () => {
         Cookies.remove("token")
         localStorage.clear()
         if (setIsRefresh) setIsRefresh(true)
+        router.replace("/")
     }
 
     const ref = useRef<HTMLLIElement | null>(null)

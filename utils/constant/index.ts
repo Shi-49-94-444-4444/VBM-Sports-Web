@@ -52,11 +52,6 @@ export const navLinksAdmin = [
     },
     {
         id: "2",
-        label: "Quản lý bài viết",
-        href: "/admin/post-management"
-    },
-    {
-        id: "3",
         label: "Xem thêm",
         linkItems: [
             {
@@ -66,11 +61,16 @@ export const navLinksAdmin = [
             },
             {
                 id: "2",
+                label: "Quản lý bài viết",
+                href: "/admin/post-management"
+            },
+            {
+                id: "3",
                 label: "Quản lý báo cáo",
                 href: "/admin/user-report-management"
             },
             {
-                id: "3",
+                id: "4",
                 label: "Quản lý doanh thu",
                 href: "/product/report-management"
             },

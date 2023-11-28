@@ -14,7 +14,7 @@ const NavAdmin = () => {
                         width="40"
                     />
                     <h1 className="uppercase text-xl font-semibold text-[#343B63]">
-                        VNB SPORTS
+                        VMB SPORTS
                     </h1>
                 </section>
             </Link>

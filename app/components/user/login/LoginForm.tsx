@@ -73,14 +73,14 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        if (user && user.role && user.role.toLocaleLowerCase() === "admin") {
+        if (user && user.role && user.role.toLowerCase() === "admin") {
             router.replace("/admin/user-management")
         } else if (user && user.isNewUser) {
             router.replace("/verify-otp")
-        } else if (user && user.role && user.role.toLocaleLowerCase() === "user") {
+        } else if (user && user.role && user.role.toLowerCase() === "user") {
             router.replace("/")
         }
-    }, [router, user, isAuthUser])
+    }, [router, user])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>
@@ -129,4 +129,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default LoginForm

@@ -73,7 +73,7 @@ const LocationStep = () => {
         // Thiết lập giá trị ban đầu cho selectCity dựa trên user.playingArea
         if (!isUserDataFetched && user && user.playingArea && !selectCity) {
             const [city, district] = user.playingArea.toString().split(", ")
-            setSelectedCity(optionCity.find(option => option.value.toLocaleLowerCase() === city.toLocaleLowerCase()) || null)
+            setSelectedCity(optionCity.find(option => option.value.toLowerCase() === city.toLowerCase()) || null)
             if (!city && !district) {
                 setIsUserDataFetched(true)
             }
@@ -84,7 +84,7 @@ const LocationStep = () => {
         // Thiết lập giá trị ban đầu cho selectDistrict khi selectCity đã được thiết lập
         if (selectCity && user && user.playingArea) {
             const [city, district] = user.playingArea.toString().split(", ")
-            setSelectedDistrict(optionDistrict.find(option => option.value.toLocaleLowerCase() === district.toLocaleLowerCase()) || null)
+            setSelectedDistrict(optionDistrict.find(option => option.value.toLowerCase() === district.toLowerCase()) || null)
         }
     }, [user, optionDistrict, selectCity])
 
