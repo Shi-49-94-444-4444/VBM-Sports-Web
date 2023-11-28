@@ -44,20 +44,6 @@ export async function middleware(req: NextRequest) {
             }
         }
 
-        if (url.pathname.startsWith("/forgot-password") ||
-            url.pathname.startsWith("/change-password")) {
-            if (!token) {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
-            }
-
-            if (token) {
-                const { payload } = await jose.jwtVerify(token, secret)
-                if (!payload.OTP) {
-                    return NextResponse.redirect(`${url.origin}/unauthorized`)
-                }
-            }
-        }
-
         if (url.pathname.startsWith("/register-stepper")) {
             if (!token) {
                 return NextResponse.redirect(`${url.origin}/unauthorized`)
@@ -66,19 +52,6 @@ export async function middleware(req: NextRequest) {
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
                 if (!payload.IsNewUser || payload.IsNewUser === "False") {
-                    return NextResponse.redirect(`${url.origin}/unauthorized`)
-                }
-            }
-        }
-
-        if (url.pathname.startsWith("/verify-otp")) {
-            if (!token) {
-                return NextResponse.redirect(`${url.origin}/unauthorized`)
-            }
-
-            if (token) {
-                const { payload } = await jose.jwtVerify(token, secret)
-                if (!payload.OTP || payload.IsNewUser === "False") {
                     return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
             }
@@ -99,15 +72,10 @@ export const config = {
         "/user/setting-security",
         "/product/post-product",
         "/product/management-product",
-        "/login",
-        "/register",
-        "/forgot-password",
-        "/change-password",
         "/register-stepper",
         "/user/wallet/:path*",
         "/chat-room",
         "/admin/:path*",
         "/transaction/:path*",
-        "/verify-otp",
     ],
 }

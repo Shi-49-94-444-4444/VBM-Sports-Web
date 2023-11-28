@@ -87,7 +87,7 @@ const VerifyOTPForm = () => {
             <CountdownTimer initialMinutes={5} />
             {isLoading ? (
                 <Button
-                    title={<Loading loading={isLoading} color="white"/>}
+                    title={<Loading loading={isLoading} color="white" />}
                     type="submit"
                     style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
                     isHover={false}

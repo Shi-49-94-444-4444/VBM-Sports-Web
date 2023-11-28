@@ -10,15 +10,14 @@ import { getOtp } from "@/types";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { forgotPasswordService } from "@/services/forgotPassword";
-import { sendOTP } from "@/utils/functions/sendOTP";
 import { forgotPasswordSchema } from "@/utils";
-import Cookies from "js-cookie";
 
 const ForgotPasswordForm = () => {
     const [isForgot, setIsForgot] = useState(false)
     const {
         setIsLoading,
         isLoading,
+        isAuthUser
     } = useContext(GlobalContext) || {}
     const router = useRouter()
 
@@ -55,8 +54,12 @@ const ForgotPasswordForm = () => {
     }
 
     useEffect(() => {
-        if (isForgot) router.replace("/verify-otp")
-    }, [router, isForgot])
+        if (isForgot) {
+            router.replace("/verify-otp")
+        } else if (isAuthUser) {
+            router.push("/")
+        }
+    }, [router, isForgot, isAuthUser])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

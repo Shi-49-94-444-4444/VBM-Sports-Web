@@ -17,11 +17,11 @@ const Access = () => {
     const { isAuthUser, setIsAuthUser, setUser, user, setIsRefresh } = useContext(GlobalContext) || {}
 
     const handleToggle = () => {
-        setShowToggle(!showToggle);
+        setShowToggle(!showToggle)
     }
 
     const handleOutsideClick = () => {
-        setShowToggle(false);
+        setShowToggle(false)
     }
 
     const handleLogout = async () => {
