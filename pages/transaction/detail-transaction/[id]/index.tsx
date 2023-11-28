@@ -1,7 +1,7 @@
 import { Container, TransactionDetail, TransactionExtra } from '@/app/components'
 import Layout from '@/app/layout'
 import Custom500 from '@/pages/500'
-import { getTransactionDetail } from '@/services'
+import { getTransactionDetailService } from '@/services'
 import { TransactionPaymentDetail } from '@/types'
 import Image from 'next/image'
 
@@ -15,7 +15,7 @@ export async function getServerSideProps(context: any) {
     }
 
     try {
-        const transaction = await getTransactionDetail(id)
+        const transaction = await getTransactionDetailService(id)
 
         return {
             props: {

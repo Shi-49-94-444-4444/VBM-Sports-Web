@@ -1,6 +1,6 @@
 "use client"
 
-import { navlinks, useOutsideClick } from '@/utils'
+import { navLinks, navLinksAdmin, useOutsideClick } from '@/utils'
 import { useContext, useRef, useState } from 'react'
 import { AiOutlineDown } from 'react-icons/ai'
 import IsMobileItem from './IsMobileItem'
@@ -9,7 +9,7 @@ import { GlobalContext } from '@/contexts'
 
 const IsMobileNavLink = () => {
     const [openItemId, setOpenItemId] = useState<string[]>([])
-    const { setShowMenu} = useContext(GlobalContext) || {}
+    const { user ,setShowMenu} = useContext(GlobalContext) || {}
 
     const handleOutsideClick = () => {
         if (setShowMenu) setShowMenu(false)
@@ -28,6 +28,8 @@ const IsMobileNavLink = () => {
             setOpenItemId([...openItemId, itemId]);
         }
     }
+
+    const links = user && user.role && user.role.toLowerCase() === "admin" ? navLinksAdmin : navLinks
 
     return (
         <div
@@ -58,7 +60,7 @@ const IsMobileNavLink = () => {
                     space-y-2
                 "
             >
-                {navlinks.map((item) =>
+                {links.map((item) =>
                     <li
                         key={item.id}
                         className="

@@ -25,7 +25,7 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
                 rounded-md
                 pb-2
                 min-w-[100px]
-                max-w-[150px]
+                max-w-[200px]
             "
         >
             <div className="p-4">

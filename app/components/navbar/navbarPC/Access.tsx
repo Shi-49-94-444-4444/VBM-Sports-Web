@@ -32,7 +32,6 @@ const Access = () => {
         Cookies.remove("token")
         localStorage.clear()
         if (setIsRefresh) setIsRefresh(true)
-        router.replace("/")
     }
 
     const ref = useRef<HTMLLIElement | null>(null)
@@ -122,20 +121,24 @@ const Access = () => {
                     >
                         {isAuthUser ? (
                             <ul className="space-y-2 list-none">
-                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
-                                    <button className="
-                                            block 
-                                            cursor-pointer 
-                                            px-4 
-                                            py-2
-                                            whitespace-nowrap
-                                        "
-                                        type="button"
-                                        onClick={() => router.replace(`/user/profile-user/${user?.id ?? "1"}`)}
-                                    >
-                                        Hồ sơ
-                                    </button>
-                                </li>
+                                {user && user.role && user.role.toLowerCase() === "admin" ? (
+                                    <></>
+                                ) : (
+                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
+                                        <button className="
+                                                block 
+                                                cursor-pointer 
+                                                px-4 
+                                                py-2
+                                                whitespace-nowrap
+                                            "
+                                            type="button"
+                                            onClick={() => router.replace(`/user/profile-user/${user?.id ?? "1"}`)}
+                                        >
+                                            Hồ sơ
+                                        </button>
+                                    </li>
+                                )}
                                 <li className="hover:bg-slate-200 hover:text-primary-blue-cus">
                                     <button className="
                                             block 

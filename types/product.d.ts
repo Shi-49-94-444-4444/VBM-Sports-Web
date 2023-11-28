@@ -34,11 +34,11 @@ export interface ProductDetailContent {
         totalRate?: number | null
         userId?: string | null
         slotInfos?: {
-            startTime: string 
-            endTime: string 
-            price: number 
-            availableSlot: number 
-            saveData?: string 
+            startTime: string
+            endTime: string
+            price: number
+            availableSlot: number
+            saveData?: string
         }[]
     }
 }
@@ -58,11 +58,11 @@ export interface ProductDetailContentData {
     totalRate?: number | null
     userId?: string | null
     slotInfos?: {
-        startTime: string 
-        endTime: string 
-        price: number 
-        availableSlot: number 
-        saveData?: string 
+        startTime: string
+        endTime: string
+        price: number
+        availableSlot: number
+        saveData?: string
     }[]
 }
 
@@ -80,11 +80,11 @@ export interface ListProduct {
         status?: boolean | null
         contentPost?: string | null
         quantitySlot?: number | null
-        fullName?: string | null 
-        userImgUrl?: string | null 
-        price?: number | null 
-        highlightUrl?: string | null 
-        imgUrlPost?: string[] | string | null 
+        fullName?: string | null
+        userImgUrl?: string | null
+        price?: number | null
+        highlightUrl?: string | null
+        imgUrlPost?: string[] | string | null
         userId?: string | null
     }[]
 }
@@ -99,8 +99,8 @@ export interface ListProductData {
     status?: boolean | null
     contentPost?: string | null
     quantitySlot?: number | null
-    fullName?: string | null 
-    userImgUrl?: string | null 
+    fullName?: string | null
+    userImgUrl?: string | null
     price?: number | null
     highlightUrl?: string | null
     imgUrlPost?: string[] | string | null
@@ -127,4 +127,33 @@ export interface ListWard {
         id: string
         name: string
     }[]
+}
+
+export interface ManagePost {
+    message: string
+    data: {
+        title?: string | null
+        postId?: string | null
+        userId?: string | null
+        userName?: string | null
+        sortDescript?: string | null
+        time?: string | null
+        availableSlot?: number | null
+        postImgUrl?: string | null
+        userImgUrl?: string | null
+        address?: string | null
+    }[]
+}
+
+export interface ManagePostData {
+    title?: string | null
+    postId?: string | null
+    userId?: string | null
+    userName?: string | null
+    sortDescript?: string | null
+    time?: string | null
+    availableSlot?: number | null
+    postImgUrl?: string | null
+    userImgUrl?: string | null
+    address?: string | null
 }

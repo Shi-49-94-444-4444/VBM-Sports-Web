@@ -4,6 +4,7 @@ import React, { FC, createContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { ListProductData } from '@/types'
 import { useRouter } from 'next/navigation'
+import { getUserService } from '@/services'
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -47,6 +48,8 @@ interface GlobalContextProps {
     setShowMenu: React.Dispatch<React.SetStateAction<boolean | null>>
     isRefresh: boolean | null
     setIsRefresh: React.Dispatch<React.SetStateAction<boolean | null>>
+    fetchUser: boolean | null
+    setFetchUser: React.Dispatch<React.SetStateAction<boolean | null>>
     searchValue: string | null
     setSearchValue: React.Dispatch<React.SetStateAction<string | null>>
     searchResults: ListProductData[] | null
@@ -66,6 +69,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isLoadingPage, setIsLoadingPage] = useState<boolean | null>(false)
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
     const [isRefresh, setIsRefresh] = useState<boolean | null>(false)
+    const [fetchUser, setFetchUser] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
     const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
     const [roomId, setRoomId] = useState<string | null>(null)
@@ -74,13 +78,31 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         if (Cookies.get('token') !== undefined) {
             setIsAuthUser(true)
             const userData = JSON.parse(localStorage.getItem('user')!) || {}
-            const transactionData = JSON.parse(localStorage.getItem('transactionId')!) || {}
             setUser(userData)
         } else {
             setIsAuthUser(false)
             setUser(null)
         }
     }, [])
+
+    useEffect(() => {
+        const fetch = async() => {
+            if (user && user.id) {
+                const res = await getUserService({ user_id: user.id})
+                localStorage.setItem('user', JSON.stringify(res.data))
+                setUser(res.data)
+            }
+        }
+    
+        if (fetchUser) {
+            fetch()
+            setFetchUser(false)
+        }
+    
+        const intervalId = setInterval(fetch, 5 * 60 * 1000)
+    
+        return () => clearInterval(intervalId)
+    }, [fetchUser, user])
 
     useEffect(() => {
         if (isRefresh) {
@@ -111,7 +133,9 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 isRefresh,
                 setIsRefresh,
                 roomId,
-                setRoomId
+                setRoomId,
+                fetchUser,
+                setFetchUser
             }}
         >
             {children}

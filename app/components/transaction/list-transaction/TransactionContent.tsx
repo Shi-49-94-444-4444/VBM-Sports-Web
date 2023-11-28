@@ -6,6 +6,7 @@ import { ListTransactionData } from "@/types"
 import { useRouter } from "next/navigation"
 import { formatDateFunc, formatTimeFunc, validateAddress, validateTitle, validateURLProduct } from "@/utils"
 import { format, parse } from "date-fns"
+import { useReportTransactionModal } from "@/hooks"
 
 const TransactionContent: React.FC<ListTransactionData> = ({
     postId,
@@ -21,10 +22,15 @@ const TransactionContent: React.FC<ListTransactionData> = ({
     moneyPaid
 }) => {
     const router = useRouter()
+    const reportTransactionModal = useReportTransactionModal()
 
     const date = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "dd/MM/yyyy")
     const formatStartTime = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
     const formatEndTime = format(parse(endTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
+
+    const handleReport = () => {
+        
+    }
 
     return (
         <div className="lg:grid lg:grid-cols-12 flex flex-col rounded-lg border border-black border-opacity-10 transition-all duration-500" key={transacionId}>
@@ -87,6 +93,7 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                     <Button
                         title="Báo cáo"
                         style="text-xl px-4 white whitespace-nowrap"
+                        onClick={() => reportTransactionModal.onOpen(transacionId)}
                     />
                     <Button
                         title="Đặt sân tiếp"

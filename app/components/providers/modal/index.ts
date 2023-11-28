@@ -1,4 +1,4 @@
-import ModalReport from "./ModalReport"
+import ModalReportUser from "./ModalReportUser"
 import ModalWithdraw from "./ModalWithdraw"
 import ModalRecharge from "./ModalRecharge"
 import ModalFailPayment from "./ModalFailPayment"
@@ -11,7 +11,7 @@ import ModalChangePassword from "./ModalChangePassword"
 import ModalFeaturing from "./ModalFeaturing"
 
 export {
-    ModalReport,
+    ModalReportUser,
     ModalWithdraw,
     ModalRecharge,
     ModalFailPayment,

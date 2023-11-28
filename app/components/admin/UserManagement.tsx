@@ -127,7 +127,7 @@ const UserManagement = () => {
                                             <ul className="space-y-2 list-none">
                                                 {listAction.map((action, index) => (
                                                     <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                        <button type="button" onClick={() => { router.replace(`${action.src(user.userId)}?fullName=${user.fullName}&role=${user.role}`) }}>
+                                                        <button type="button" onClick={() => { router.push(`${action.src(user.userId)}?fullName=${user.fullName}&role=${user.role}`) }}>
                                                             {action.title}
                                                         </button>
                                                     </li>

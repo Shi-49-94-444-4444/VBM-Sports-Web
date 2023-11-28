@@ -5,32 +5,11 @@ import { BsFileEarmarkPost, BsFillFileEarmarkPostFill, BsFillFileEarmarkRuledFil
 import { FaPollH, FaUserEdit, FaUserFriends, FaUserSlash } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
 
-export const navlinks = [
+export const navLinks = [
     {
         id: "1",
-        label: "Vị trí sân",
-        linkItems: [
-            {
-                id: "1",
-                label: "Huế",
-                href: "/"
-            },
-            {
-                id: "2",
-                label: "Huế",
-                href: "/"
-            },
-            {
-                id: "3",
-                label: "Huế",
-                href: "/"
-            },
-            {
-                id: "4",
-                label: "Xem tất cả",
-                href: "/product/list-product"
-            }
-        ]
+        label: "Tin nhắn",
+        href: "/chat-room"
     },
     {
         id: "2",
@@ -53,13 +32,47 @@ export const navlinks = [
             },
             {
                 id: "3",
-                label: "Đơn đặt hàng",
-                href: "/transaction/list-transaction"
+                label: "Quản lý bài đăng",
+                href: "/product/management-product"
             },
             {
                 id: "4",
-                label: "Nhắn tin",
-                href: "/chat-room"
+                label: "Quản lý đơn đặt",
+                href: "/transaction/list-transaction"
+            },
+        ]
+    }
+]
+
+export const navLinksAdmin = [
+    {
+        id: "1",
+        label: "Quản lý người dùng",
+        href: "/admin/user-management"
+    },
+    {
+        id: "2",
+        label: "Quản lý bài viết",
+        href: "/admin/post-management"
+    },
+    {
+        id: "3",
+        label: "Xem thêm",
+        linkItems: [
+            {
+                id: "1",
+                label: "Danh sách sân",
+                href: "/product/list-product"
+            },
+            {
+                id: "2",
+                label: "Quản lý báo cáo",
+                href: "/admin/user-report-management"
+            },
+            {
+                id: "3",
+                label: "Quản lý doanh thu",
+                href: "/product/report-management"
             },
         ]
     }

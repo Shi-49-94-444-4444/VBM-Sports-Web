@@ -11,7 +11,7 @@ import { useContext } from "react"
 import { LoadingActionPayment } from "../loader"
 
 const ModalContinuePayment = () => {
-    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal, setFetchUser } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
     const continuePaymentModal = useContinuePaymentModal()
     const failPaymentModal = useFailPaymentModal()
@@ -35,10 +35,10 @@ const ModalContinuePayment = () => {
                 userId: user.id,
                 postId: continuePaymentModal.post_id,
                 slotsInfo: continuePaymentModal.slotsIdArray,
-                isVnpay: continuePaymentModal.checkedMethod
+                isVnpay: true
             })
 
-            // //console.log(res)
+            //console.log(res)
 
             if (res.data == null) {
                 if (setIsLoadingModal) setIsLoadingModal(false)
@@ -51,6 +51,7 @@ const ModalContinuePayment = () => {
                 await joinChatRoomService({ user_id: user.id, room_id: res.data.chatInfos[i].roomId })
             }
             continuePaymentModal.onClose()
+            if (setFetchUser) setFetchUser(true)
             successPaymentModal.onOpen(res.data.transactionId)
         }
 

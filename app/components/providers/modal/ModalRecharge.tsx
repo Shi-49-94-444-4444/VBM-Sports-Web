@@ -8,17 +8,17 @@ import { useForm } from "react-hook-form"
 import { WalletFrom } from "@/types"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { walletSchema } from "@/utils"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { VNPAYService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
-import { useRouter } from "next/router"
 
 const ModalRecharge = () => {
     const rechargeModal = useRechargeModal()
-    const router = useRouter()
-    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal, setFetchUser } = useContext(GlobalContext) || {}
+    const newWindowRef = useRef<any>(null)
+    const [windowOpened, setWindowOpened] = useState(false)
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<WalletFrom>({
         resolver: yupResolver(walletSchema)
@@ -43,8 +43,13 @@ const ModalRecharge = () => {
                 return
             }
 
-            // window.location.href = res.data.uri
-            window.open(res.data.uri, "NewWindow", "height=800, width=600")
+            let windowWidth = 600;
+            let windowHeight = 800;
+            let yPosition = window.outerHeight / 2 - windowHeight / 2 + window.screenY;
+            let xPosition = window.outerWidth / 2 - windowWidth / 2 + window.screenX;
+
+            newWindowRef.current = window.open(res.data.uri, "NewWindow", `height=${windowHeight}, width=${windowWidth}, top=${yPosition}, left=${xPosition}`)
+            setWindowOpened(true)
 
             rechargeModal.onClose()
             reset()
@@ -52,18 +57,39 @@ const ModalRecharge = () => {
     }
 
     useEffect(() => {
-        const handleMessage = (event: any) => {
-          if (event.data === 'payment completed') {
-            if(setIsLoadingModal) setIsLoadingModal(false);
-          }
-        };
-      
-        window.addEventListener('message', handleMessage);
-      
+        const handleMessage = (event: MessageEvent) => {
+            if (event.data === 'payment completed') {
+                if (setFetchUser) setFetchUser(true)
+                if (setIsLoadingModal) setIsLoadingModal(false)
+            }
+        }
+
+        window.addEventListener('message', handleMessage)
+
         return () => {
-          window.removeEventListener('message', handleMessage);
-        };
-      }, [setIsLoadingModal])
+            window.removeEventListener('message', handleMessage)
+        }
+    }, [setIsLoadingModal, setFetchUser])
+
+    useEffect(() => {
+        let checkWindowClosed: NodeJS.Timeout;
+
+        if (windowOpened) {
+            checkWindowClosed = setInterval(function () {
+                if (newWindowRef.current && newWindowRef.current.closed) {
+                    clearInterval(checkWindowClosed)
+                    if (setIsLoadingModal) setIsLoadingModal(false)
+                    setWindowOpened(false)
+                }
+            }, 1000)
+        }
+
+        return () => {
+            if (checkWindowClosed) {
+                clearInterval(checkWindowClosed);
+            }
+        }
+    }, [setIsLoadingModal, windowOpened])
 
     if (isLoadingModal) {
         return <LoadingActionWallet loading={isLoadingModal} />

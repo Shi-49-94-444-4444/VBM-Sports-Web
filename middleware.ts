@@ -10,38 +10,79 @@ export async function middleware(req: NextRequest) {
     const url = req.nextUrl
 
     try {
-        if (url.pathname.includes("/user/setting-profile") ||
-            url.pathname.includes("/user/setting-ban") ||
-            url.pathname.includes("/user/setting-security") ||
-            url.pathname.includes("/user/setting-notify") ||
-            url.pathname.includes("/product/post-product")) {
-            if (!token) {
+        if (url.pathname.startsWith("/login") ||
+            url.pathname.startsWith("/register")) {
+            if (token) {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            } 
+        }
+
+        if (url.pathname.startsWith("/user/setting-profile") ||
+            url.pathname.startsWith("/user/setting-ban") ||
+            url.pathname.startsWith("/user/setting-security") ||
+            url.pathname.startsWith("/user/setting-notify") ||
+            url.pathname.startsWith("/product/post-product") ||
+            url.pathname.startsWith("/product/management-product") ||
+            url.pathname.startsWith("/transaction") ||
+            url.pathname.startsWith("/user/wallet") ||
+            url.pathname.startsWith("/chat-room")) {
+            if (token) {
+                const { payload } = await jose.jwtVerify(token, secret)
+                if (payload.Role !== "2") {
+                    return NextResponse.redirect(`${url.origin}/unauthorized`)
+                }
+            } else {
                 return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 
-        if (url.pathname.includes("/login") ||
-            url.pathname.includes("/register") ||
-            url.pathname.includes("/forgot-password")) {
+        if (url.pathname.startsWith("/admin")) {
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
-                if (payload.OTP) {
-                    return NextResponse.next()
+                if (payload.Role !== "1") {
+                    return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
+            } else {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
 
-        if (url.pathname.includes("/register-stepper")) {
+        if (url.pathname.startsWith("/forgot-password") ||
+            url.pathname.startsWith("/change-password")) {
+            if (token) {
+                const { payload } = await jose.jwtVerify(token, secret)
+                if (!payload.OTP) {
+                    return NextResponse.redirect(`${url.origin}/unauthorized`)
+                }
+            } else {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            }
+        }
+
+        if (url.pathname.startsWith("/register-stepper")) {
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
                 if (!payload.IsNewUser || payload.IsNewUser === "False") {
-                    return NextResponse.redirect(`${url.origin}/`)
+                    return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
+            } else {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
+            }
+        }
+
+        if (url.pathname.startsWith("/verify-otp")) {
+            if (token) {
+                const { payload } = await jose.jwtVerify(token, secret)
+                if (!payload.OTP || payload.IsNewUser === "False") {
+                    return NextResponse.redirect(`${url.origin}/unauthorized`)
+                }
+            } else {
+                return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
         }
     } catch (e) {
         //console.log(e)
-        return NextResponse.redirect(`${url.origin}/`)
+        return NextResponse.redirect(`${url.origin}/unauthorized`)
     }
 
     return NextResponse.next()
@@ -54,11 +95,16 @@ export const config = {
         "/user/setting-notify",
         "/user/setting-security",
         "/product/post-product",
+        "/product/management-product",
         "/login",
         "/register",
         "/forgot-password",
         "/change-password",
+        "/register-stepper",
+        "/user/wallet/:path*",
+        "/chat-room",
+        "/admin/:path*",
+        "/transaction/:path*",
         "/verify-otp",
-        "/register-stepper"
     ],
 }

@@ -251,7 +251,11 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     </span>
                 </section>
             </div>
-            <ProductMethod onCheckedChange={handleCheckedMethod}/>
+            {user && user.id === userId ? (
+                <></>
+            ) : (
+                <ProductMethod onCheckedChange={handleCheckedMethod} />
+            )}
             <section className="relative flex gap-3 font-semibold items-end">
                 <label className="whitespace-nowrap text-gray-600">
                     Tổng tiền:

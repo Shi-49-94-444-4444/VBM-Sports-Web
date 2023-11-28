@@ -4,7 +4,7 @@ import {
     useFailPaymentModal,
     useSuccessPaymentModal
 } from "./usePayment"
-import { useReportModal } from "./useReport"
+import { useReportUserModal, useReportPostModal, useReportTransactionModal } from "./useReport"
 import { useAdminBanModal, useAdminDeletePostModal } from "./useAdmin"
 import { useUnauthorizeModal } from "./useUnauthorize"
 import { useUserBanUserModal } from "./useUserBanUser"
@@ -16,7 +16,7 @@ export {
     useWithdrawModal,
     useFailPaymentModal,
     useSuccessPaymentModal,
-    useReportModal,
+    useReportUserModal,
     useContinuePaymentModal,
     useAdminBanModal,
     useAdminDeletePostModal,
@@ -24,4 +24,6 @@ export {
     useUserBanUserModal,
     useChangePasswordModal,
     useFeaturingModal,
+    useReportPostModal,
+    useReportTransactionModal
 }

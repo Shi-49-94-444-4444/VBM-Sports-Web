@@ -5,7 +5,7 @@ import { BsFillChatDotsFill } from "react-icons/bs"
 import { UserProfileData } from "@/types"
 import { Button } from "../../providers"
 import { isValidUrl, validateDes, validateName, validateURLAvatar } from "@/utils"
-import { useReportModal, useUserBanUserModal } from "@/hooks"
+import { useReportUserModal, useUserBanUserModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 
@@ -16,36 +16,23 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
     sortProfile
 }) => {
     const { user } = useContext(GlobalContext) || {}
-    const reportModal = useReportModal()
+    const reportUserModal = useReportUserModal()
     const banUserModal = useUserBanUserModal()
 
     return (
         <div className="relative flex flex-col gap-5 sm:block">
             <div className="relative flex flex-row gap-8 items-center justify-center sm:justify-normal">
                 <div className="relative flex-shrink-0">
-                    {isValidUrl(imgUrl) ? (
-                        <Image
-                            src={validateURLAvatar(imgUrl)}
-                            alt="avatar"
-                            width="0"
-                            height="0"
-                            className="w-36 h-36 sm:w-64 sm:h-64 rounded-full object-cover border border-primary-blue-cus transition-all duration-500"
-                            sizes="100vw"
-                            placeholder="blur"
-                            blurDataURL={validateURLAvatar(imgUrl)}
-                        />
-                    ) : (
-                        <Image
-                            src="/images/avatar.jpg"
-                            alt="avatar"
-                            width="0"
-                            height="0"
-                            className="w-36 h-36 sm:w-64 sm:h-64 rounded-full object-cover border border-primary-blue-cus transition-all duration-500"
-                            sizes="100vw"
-                            placeholder="blur"
-                            blurDataURL="/images/avatar.jpg"
-                        />
-                    )}
+                    <Image
+                        src={validateURLAvatar(imgUrl)}
+                        alt="avatar"
+                        width="0"
+                        height="0"
+                        className="w-36 h-36 sm:w-64 sm:h-64 rounded-full object-cover border border-primary-blue-cus transition-all duration-500"
+                        sizes="100vw"
+                        placeholder="blur"
+                        blurDataURL={validateURLAvatar(imgUrl)}
+                    />
                 </div>
                 <div className="relative flex flex-col sm:flex-grow gap-5">
                     <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0 transition-all duration-500 md:space-x-3">
@@ -54,14 +41,14 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                         </div>
                         <div className="md:flex-grow md:block hidden" />
                         <button
-                            className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLocaleLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportModal.onOpen}>
+                            className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportUserModal.onOpen}>
                             Báo cáo người dùng
                         </button>
-                        <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLocaleLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
+                        <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
                             Chặn người dùng
                         </button>
                     </div>
-                    <div className="sm:relative sm:flex md:flex-row sm:flex-col md:items-center sm:gap-5 hidden transition-all duration-500">
+                    <div className={`sm:relative sm:flex md:flex-row sm:flex-col md:items-center sm:gap-5 hidden transition-all duration-500 ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`}>
                         <div className="relative">
                             <Button
                                 title="Đăng ký"

@@ -1,6 +1,6 @@
 import {
     Container,
-    ModalReport,
+    ModalReportUser,
     ModalUserBanUser,
     UserOtherExtra,
     UserProfileContent
@@ -67,7 +67,7 @@ const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, inter
 
     return (
         <Layout>
-            <ModalReport id={id} />
+            <ModalReportUser id={id} />
             <ModalUserBanUser id={id} />
             <Container>
                 <UserProfileContent

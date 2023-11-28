@@ -22,7 +22,7 @@ const SettingProfile = () => {
         setIsLoading,
         isLoadingPage,
         setIsLoadingPage,
-        setUser
+        setFetchUser
     } = useContext(GlobalContext) || {}
 
     const {
@@ -48,7 +48,6 @@ const SettingProfile = () => {
 
     useEffect(() => {
         if (setIsLoadingPage) setIsLoadingPage(true)
-
 
         if (user && user.id) {
             if (user.userName) setValue('userName', user.userName)
@@ -122,15 +121,7 @@ const SettingProfile = () => {
                 position: toast.POSITION.TOP_RIGHT,
             })
 
-            if (setUser) setUser(prevUser => ({
-                ...prevUser,
-                avatar: data.imgURL,
-                fullName: data.fullName,
-                userName: data.userName,
-                playingArea: [data.playingArea],
-                sortProfile: data.sortProfile
-            }))
-            localStorage.setItem("user", JSON.stringify(user))
+            if (setFetchUser) setFetchUser(true)
         }
 
         if (setIsLoading) setIsLoading(false)

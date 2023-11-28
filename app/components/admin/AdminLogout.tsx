@@ -17,7 +17,6 @@ const AdminLogout = () => {
         Cookies.remove("token")
         localStorage.clear()
         if (setIsRefresh) setIsRefresh(true)
-        router.replace("/")
     }
 
     return (

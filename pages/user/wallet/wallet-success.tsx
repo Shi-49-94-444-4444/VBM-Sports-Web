@@ -1,6 +1,17 @@
+"use client"
+
+import { useEffect } from 'react'
 import Image from 'next/image'
 
 const WalletSuccessPage = () => {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            window.close()
+        }, 2000)
+
+        return () => clearTimeout(timer)
+    }, [])
+
     return (
         <div className="h-screen flex flex-col items-center justify-center gap-10">
             <div className="relative">

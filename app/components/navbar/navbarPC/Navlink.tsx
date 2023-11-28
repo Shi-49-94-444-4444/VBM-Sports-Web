@@ -1,14 +1,16 @@
 "use client"
 
 import { AiOutlineDown } from "react-icons/ai"
-import { navlinks } from "@/utils"
-import { useState } from "react";
+import { navLinks, navLinksAdmin } from "@/utils"
+import { useContext, useState } from "react";
 import NavlinkItem from "./NavlinkItem";
 import Link from "next/link";
+import { GlobalContext } from "@/contexts";
 
 const NavLink = () => {
-    const [openItemId, setOpenItemId] = useState<string | null>(null);
-    const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false);
+    const [openItemId, setOpenItemId] = useState<string | null>(null)
+    const [isDropdownHovered, setIsDropdownHovered] = useState<boolean>(false)
+    const { user } = useContext(GlobalContext) || {}
 
     const handleMenuToggle = (itemId: string) => {
         if (openItemId === itemId) {
@@ -16,15 +18,17 @@ const NavLink = () => {
         } else {
             setOpenItemId(itemId);
         }
-    };
+    }
 
     const handleDropdownMouseLeave = () => {
         setIsDropdownHovered(false);
-    };
+    }
 
     const handleWrapperMouseLeave = () => {
         setOpenItemId(null);
-    };
+    }
+
+    const links = user && user.role && user.role.toLowerCase() === "admin" ? navLinksAdmin : navLinks
 
     return (
         <ul
@@ -41,7 +45,7 @@ const NavLink = () => {
             "
             onMouseLeave={handleWrapperMouseLeave}
         >
-            {navlinks.map((item) => (
+            {links.map((item) => (
                 <li
                     className="relative inline-flex"
                     key={item.id}

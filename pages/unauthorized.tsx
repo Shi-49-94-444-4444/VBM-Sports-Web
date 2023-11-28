@@ -20,7 +20,6 @@ export default function Unauthorized() {
                         </div>
                     </div>
                     <p className="md:text-3xl text-xl text-center transition-all duration-500">Xin lỗi, bạn không có quyền truy cập vào trang này.</p>
-                    <p className="md:text-3xl text-xl text-center transition-all duration-500">Bạn cần phải đăng nhập để sử dụng trang này</p>
                 </div>
             </Container>
         </Layout>

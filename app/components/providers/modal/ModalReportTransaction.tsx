@@ -1,19 +1,19 @@
 "use client"
 
-import { useReportModal } from "@/hooks"
+import { useReportTransactionModal } from "@/hooks"
 import CustomModal from "./Modal"
 import { Button } from "../form"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { postReportUserService } from "@/services"
+import { reportTransactionService } from "@/services"
 import { Loading } from "../loader"
 
-const ModalReport = ({ id }: { id: string }) => {
-    const reportModal = useReportModal()
+const ModalReportTransaction = () => {
+    const reportTransactionModal = useReportTransactionModal()
     const [selectedReport, setSelectedReport] = useState("")
-    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+    const { setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     const listReport = [
@@ -35,15 +35,15 @@ const ModalReport = ({ id }: { id: string }) => {
             return
         }
 
-        if (user && user.id) {
-            const res = await postReportUserService({
-                fromUserID: user.id,
-                content: selectedReport,
-                toUserID: id
+        if (reportTransactionModal.tran_id) {
+            const res = await reportTransactionService({
+                tran_id: reportTransactionModal.tran_id,
+                reportContent: selectedReport,
+                reportTitle: selectedReport
             })
 
             //console.log(res)
-            
+
             if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
@@ -56,7 +56,7 @@ const ModalReport = ({ id }: { id: string }) => {
                 position: toast.POSITION.TOP_RIGHT
             })
 
-            reportModal.onClose()
+            reportTransactionModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -64,9 +64,9 @@ const ModalReport = ({ id }: { id: string }) => {
 
     return (
         <CustomModal
-            isOpen={reportModal.isOpen}
-            onClose={reportModal.onClose}
-            title="Báo cáo bài đăng"
+            isOpen={reportTransactionModal.isOpen}
+            onClose={reportTransactionModal.onClose}
+            title="Báo cáo hóa đơn"
             width="md:w-auto w-full"
             height="h-auto"
         >
@@ -103,7 +103,6 @@ const ModalReport = ({ id }: { id: string }) => {
                             title="Xác nhận"
                             style=""
                             type="submit"
-                            disabled={user ? user.id?.toString() === id.toString() : false}
                         />
                     )}
                 </div>
@@ -112,4 +111,4 @@ const ModalReport = ({ id }: { id: string }) => {
     )
 }
 
-export default ModalReport
+export default ModalReportTransaction

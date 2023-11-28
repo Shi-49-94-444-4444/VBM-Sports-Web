@@ -80,7 +80,7 @@ const ForgotPasswordForm = () => {
                 />
             ) : (
                 <Button
-                    title="Tiếp túc"
+                    title="Tiếp tục"
                     type="submit"
                     style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
                     isHover={false}

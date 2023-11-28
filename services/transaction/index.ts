@@ -2,7 +2,8 @@ import { CheckSlotFormData, BuySlotFormData } from "@/types"
 import AxiosClient from "../AxiosInstance"
 
 export const bookingService = async (data: CheckSlotFormData) => {
-    //console.log(data)
+    // //console.log(data)
+
     try {
 
         const response = await AxiosClient.post(`/api/slots/booking`, {
@@ -69,7 +70,7 @@ export const transactionStatusService = async ({ tran_id, status_info }: { tran_
     }
 }
 
-export const getTransactionDetail = async (id: string) => {
+export const getTransactionDetailService = async (id: string) => {
     try {
         const response = await AxiosClient.get(`/api/transactions/${id}/detail`)
 
@@ -83,9 +84,26 @@ export const getTransactionDetail = async (id: string) => {
     }
 }
 
-export const getListTransaction = async (id: string) => {
+export const getListTransactionService = async (id: string) => {
     try {
         const response = await AxiosClient.get(`/api/posts/user/${id}/joined`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
+export const reportTransactionService = async ({ tran_id, reportContent, reportTitle }: { tran_id: string, reportContent: string, reportTitle: string }) => {
+    try {
+        const response = await AxiosClient.post(`/api/reports/from_tran/${tran_id}`, {
+            reportContent: reportContent,
+            reportTitle: reportTitle
+        })
 
         return response.data
     } catch (error: any) {

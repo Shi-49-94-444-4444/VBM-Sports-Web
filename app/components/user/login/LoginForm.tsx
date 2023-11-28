@@ -77,7 +77,7 @@ const LoginForm = () => {
             router.replace("/admin/user-management")
         } else if (user && user.isNewUser) {
             router.replace("/verify-otp")
-        } else if (isAuthUser) {
+        } else if (user && user.role && user.role.toLocaleLowerCase() === "user") {
             router.replace("/")
         }
     }, [router, user, isAuthUser])
@@ -112,7 +112,7 @@ const LoginForm = () => {
             </div>
             {isLoading ? (
                 <Button
-                    title={<Loading loading={isLoading} color="white"/>}
+                    title={<Loading loading={isLoading} color="white" />}
                     type="submit"
                     style="py-3 w-full font-semibold text-lg rounded-xl py-3 justify-center"
                     isHover={false}

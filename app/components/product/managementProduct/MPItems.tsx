@@ -1,21 +1,21 @@
 "use client"
 
-import { useContext, useState } from "react";
-import TransactionContent from "./TransactionContent";
-import ReactPaginate from "react-paginate";
-import { AxiosClient } from "@/services";
-import { GlobalContext } from "@/contexts";
-import { ListTransaction } from "@/types";
-import useSWR from "swr";
-import Image from "next/image";
-import { LoadingFullScreen } from "../../providers";
+import ReactPaginate from 'react-paginate'
+import { useContext, useState } from 'react'
+import { AxiosClient } from '@/services'
+import useSWR from 'swr'
+import { ManagePost } from '@/types'
+import { LoadingFullScreen } from '../../providers'
+import Image from 'next/image'
+import { GlobalContext } from '@/contexts'
+import MPContent from './MPContent'
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
-const TransactionItems = () => {
+const MPItems = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listItem, error } = useSWR<ListTransaction>(user && user.id ? `/api/posts/user/${user.id}/joined` : null, fetcher)
+    const { data: listItem, error } = useSWR<ManagePost>(user && user.id ? `/api/posts/${user.id}/managed_all_post` : null, fetcher)
 
     const isLoading = !listItem && !error
 
@@ -40,7 +40,7 @@ const TransactionItems = () => {
             ) : listItem && listItem.data.length === 0 ? (
                 <div className="relative h-screen flex flex-col items-center justify-center gap-5 text-primary-blue-cus font-semibold">
                     <div className="flex space-x-3 items-center flex-wrap justify-center transition-all duration-500">
-                        <h1 className="md:text-5xl text-3xl transition-all duration-500">Bạn chưa có hóa đơn nào cả!</h1>
+                        <h1 className="md:text-5xl text-3xl transition-all duration-500">Không có sân nào cả!</h1>
                         <div className="relative">
                             <Image
                                 src="/images/sad.gif"
@@ -51,29 +51,23 @@ const TransactionItems = () => {
                             />
                         </div>
                     </div>
-                    <p className="md:text-3xl text-xl text-center transition-all duration-500">Vui lòng thực hiện giao dịch để có hóa đơn</p>
+                    <p className="md:text-3xl text-xl text-center transition-all duration-500">Vui lòng thử lại sau...</p>
                 </div>
             ) : (
                 <>
-                    <div className="flex flex-col gap-5">
-                        {visibleItems.map((item) => (
-                            <TransactionContent
-                                key={item.transacionId}
-                                transacionId={item.transacionId}
-                                postId={item.postId}
-                                areaName={item.areaName}
-                                availableSlot={item.availableSlot}
-                                bookedInfos={item.bookedInfos}
-                                coverImage={item.coverImage}
-                                startTime={item.startTime}
-                                endTime={item.endTime}
-                                postTitle={item.postTitle}
-                                moneyPaid={item.moneyPaid}
-                                status={item.status}
-                            />
-                        ))}
-                    </div>
-                    <div className="flex justify-center mt-10 text-base font-semibold">
+                    {visibleItems.map((item) => (
+                        <MPContent
+                            key={item.postId}
+                            postId={item.postId}
+                            title={item.title}
+                            sortDescript={item.sortDescript}
+                            address={item.address}
+                            time={item.time}
+                            availableSlot={item.availableSlot}
+                            postImgUrl={item.postImgUrl}
+                        />
+                    ))}
+                    <div className="flex justify-end mt-10 text-base font-semibold">
                         <ReactPaginate
                             pageCount={pageCount}
                             pageRangeDisplayed={4}
@@ -97,4 +91,4 @@ const TransactionItems = () => {
     )
 }
 
-export default TransactionItems
+export default MPItems

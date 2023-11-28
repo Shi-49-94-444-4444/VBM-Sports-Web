@@ -13,7 +13,8 @@ export interface ManageUser {
 export interface UserDetailManage {
     message: string
     data: {
-        postId: string | null
+        postId?: string | null
+        title?: string | null
     }[]
 }
 
