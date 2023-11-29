@@ -57,7 +57,7 @@ const ForgotPasswordForm = () => {
         if (isForgot) {
             router.replace("/verify-otp")
         } else if (isAuthUser) {
-            router.push("/")
+            router.replace("/")
         }
     }, [router, isForgot, isAuthUser])
 

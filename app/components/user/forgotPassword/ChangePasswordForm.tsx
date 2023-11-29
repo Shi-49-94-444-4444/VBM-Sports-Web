@@ -16,7 +16,8 @@ const ChangePasswordForm = () => {
     const [isChange, setIsChange] = useState(false)
     const {
         setIsLoading,
-        isLoading
+        isLoading,
+        isAuthUser
     } = useContext(GlobalContext) || {}
     const router = useRouter()
 
@@ -61,8 +62,10 @@ const ChangePasswordForm = () => {
     useEffect(() => {
         if (isChange) {
             router.replace("/change-password-success")
+        } else if (isAuthUser) {
+            router.replace("/")
         }
-    }, [router, isChange])
+    }, [router, isChange, isAuthUser])
 
     return (
         <form className="flex flex-col gap-3 pb-2" onSubmit={handleSubmit(onSubmit)}>

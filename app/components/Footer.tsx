@@ -45,7 +45,7 @@ const Footer = () => {
             </h1>
             <div className="space-x-1">
               <span className="font-bold">
-                VNB Sports
+                VBM Sports
               </span>
               <span>
                 Là hệ thống cửa hàng cầu lông với hơn 50 chi nhánh trên toàn quốc,
@@ -57,7 +57,7 @@ const Footer = () => {
                 Với sứ mệnh:
               </span>
               <span>
-                Với sứ mệnh: VNB cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
+                Với sứ mệnh: VBM cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
                 người chơi thể thao để nâng cao sức khỏe của chính mình
               </span>
             </div>
@@ -100,7 +100,7 @@ const Footer = () => {
               </span>
             </div>
             <h2 className="font-bold">
-              Xem tất cả các cửa hàng VNB
+              Xem tất cả các cửa hàng VBM
             </h2>
             <div className="whitespace-nowrap space-x-1">
               <span className="font-bold">
@@ -115,7 +115,7 @@ const Footer = () => {
                 Email:
               </span>
               <span className="">
-                info@shopvnb.com
+                info@shopVBM.com
               </span>
             </div>
             <div className="whitespace-nowrap space-x-1">

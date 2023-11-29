@@ -26,7 +26,7 @@ const FormatUI: React.FC<FormatUIProps> = ({
         }
         Cookies.remove("token")
         localStorage.clear()
-        router.push("/")
+        router.replace("/")
     }
 
     return (
