@@ -26,7 +26,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
         >
             {results.map(((result) => (
                 <Link href={`/product/detail-product/${result.idPost}`} className="flex gap-3 transition-all duration-300 py-1 pr-2 hover:bg-slate-200" key={result.idPost}>
-                    <div className="flex-shrink-0">
+                    <div className="relative flex-shrink-0">
                         <Image
                             src={validateURLProduct(result.highlightUrl)}
                             alt={`product ${result.idPost}`}
@@ -35,7 +35,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ results }) => {
                             height={100}
                         />
                     </div>
-                    <div className="flex flex-col gap-1 w-full">
+                    <div className="flex flex-col gap-1 lg:w-44 w-full">
                         <div className="font-semibold text-xl text-gray-600 truncate">
                             {validateTitle(result.title)}
                         </div>

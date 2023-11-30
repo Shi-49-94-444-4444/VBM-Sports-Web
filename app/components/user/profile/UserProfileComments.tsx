@@ -16,7 +16,7 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const UserProfileComments = ({ id }: { id: string }) => {
     const [showMoreComments, setShowMoreComments] = useState(false);
     const initialCommentCount = 3;
-    const { data: listComment, error } = useSWR<Comment>(`/api/users/${id}/comments`, fetcher)
+    const { data: listComment, error } = useSWR<Comment>(`/api/users/${id}/comments`, fetcher, { refreshInterval: 10000 })
 
     const isLoading = !listComment && !error
 

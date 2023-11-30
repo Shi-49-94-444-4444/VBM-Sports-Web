@@ -2,6 +2,7 @@ import { TransactionPaymentDetailData } from "@/types"
 import { formatDateFunc } from "@/utils"
 
 const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
+    id,
     slotCount,
     slots,
     buyerName,
@@ -16,7 +17,7 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
                 </h1>
                 <section className="space-x-3 text-lg">
                     <span className="font-semibold">Mã đơn hàng:</span>
-                    <span className="font-medium">Chưa có</span>
+                    <span className="font-medium">{id}</span>
                 </section>
                 <section className="space-x-3 text-lg">
                     <span className="font-semibold">Số lượng đặt hàng:</span>
@@ -44,7 +45,7 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
                 </h1>
                 <section className="flex space-x-3 text-lg">
                     <label className="font-semibold">Thể loại:</label>
-                    <p className="font-medium">Chưa có</p>
+                    <p className="font-medium">{post && post.categorySlot}</p>
                 </section>
                 <section className="space-x-3 text-lg">
                     <span className="font-semibold">Địa chỉ:</span>
@@ -52,7 +53,7 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
                 </section>
                 <section className="space-x-3 text-lg">
                     <span className="font-semibold">Được tạo bởi:</span>
-                    <span className="font-medium">Chưa có</span>
+                    <span className="font-medium">{post && post.createUser}</span>
                 </section>
                 <section className="flex flex-col gap-3 text-lg">
                     <label className="font-semibold">Ngày chơi:</label>

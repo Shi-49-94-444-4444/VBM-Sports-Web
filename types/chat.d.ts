@@ -39,3 +39,11 @@ export interface ChatDetailData {
 export interface SendMessForm {
     message: string
 }
+
+export interface ListRoom {
+    message:string
+    data: {
+        playDate: string
+        id: string
+    }[]
+}

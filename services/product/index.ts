@@ -43,6 +43,20 @@ export const getProductSuggestService = async (id: string) => {
     }
 }
 
+export const getAllDistrictService = async () => {
+    try {
+        const response = await AxiosClient.get(`/api/districts`)
+
+        return response.data;
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
 export const postBadmintonService = async (data: CreateBadmintonForm) => {
     try {
         // //console.log(data)

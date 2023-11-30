@@ -1,7 +1,17 @@
+"use client"
+
 import Image from "next/image"
 import { Button } from "../../providers"
-import { ManagePostData } from "@/types"
+import { ListRoom, ManagePostData } from "@/types"
 import { FormatTime, formatDateFunc, validateAddress, validateDes, validateTitle, validateURLProduct } from "@/utils"
+import { AxiosClient } from "@/services"
+import useSWR from "swr"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
+import { RiMessage3Line } from "react-icons/ri"
+import { useRouter } from "next/navigation"
+
+const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const MPContent: React.FC<ManagePostData> = ({
     postId,
@@ -12,6 +22,10 @@ const MPContent: React.FC<ManagePostData> = ({
     availableSlot,
     postImgUrl
 }) => {
+    const { setRoomId } = useContext(GlobalContext) || {}
+    const { data: listRoom } = useSWR<ListRoom>(postId ? `/api/posts/${postId}/chat_rooms` : null, fetcher)
+    const router = useRouter()
+
     let date: string | undefined;
     let rangeTime: string | undefined;
     let startTime: string | undefined;
@@ -25,15 +39,15 @@ const MPContent: React.FC<ManagePostData> = ({
     }
 
     return (
-        <div className="lg:grid lg:grid-cols-4 flex flex-col gap-3" key={postId}>
-            <div className="relative lg:col-span-3 border border-black border-opacity-10 rounded-xl transition duration-500">
-                <div className="md:grid md:grid-cols-9 flex flex-col gap-3">
-                    <div className="col-span-4 relative md:h-full h-96">
+        <div className="lg:grid lg:grid-cols-4 flex flex-col gap-3 transition-all duration-500" key={postId}>
+            <div className="relative lg:col-span-3 border border-black border-opacity-10 rounded-xl transition-all duration-500">
+                <div className="md:grid md:grid-cols-9 flex flex-col gap-3 transition-all duration-500">
+                    <div className="col-span-4 relative md:h-full h-96 transition-all duration-500">
                         <Image
                             src={validateURLProduct(postImgUrl)}
                             alt="product"
                             sizes="(max-width: 600px) 100vw, 600px"
-                            className="object-cover md:rounded-l-xl md:rounded-r-none rounded-t-xl w-auto h-auto"
+                            className="object-cover md:rounded-l-xl md:rounded-r-none rounded-t-xl w-auto h-auto transition-all duration-500"
                             fill
                             placeholder="blur"
                             blurDataURL={validateURLProduct(postImgUrl)}
@@ -43,7 +57,7 @@ const MPContent: React.FC<ManagePostData> = ({
                         <h1 className="text-2xl font-semibold truncate">
                             {validateTitle(title)}
                         </h1>
-                        <p className="line-clamp-3">
+                        <p className="line-clamp-3 h-[5rem]">
                             Mô tả ngắn: {validateDes(sortDescript)}
                         </p>
                         <section className="space-x-1 transition duration-500">
@@ -62,13 +76,13 @@ const MPContent: React.FC<ManagePostData> = ({
                                 <FormatTime timeString={startTime ?? "00:00"} /> - <FormatTime timeString={endTime ?? "00:00"} />
                             </p>
                         </section>
-                        <section className="flex space-x-1 gap-1">
+                        <section className="space-x-1 gap-1">
                             <label>
                                 Ngày bắt đầu:
                             </label>
-                            <p>
+                            <span>
                                 {date ? formatDateFunc(date) : "Chưa có"}
-                            </p>
+                            </span>
                         </section>
                         <section className="flex space-x-1">
                             <span>
@@ -97,22 +111,30 @@ const MPContent: React.FC<ManagePostData> = ({
                         </div>
                     </div>
                     <div className="relative w-full grid grid-cols-2 gap-3 md:gap-0 md:flex md:space-x-3 lg:flex-col lg:gap-3 lg:space-x-0 ">
+                        {listRoom && listRoom.data.map((room) => (
+                            <div className="relative w-full col-span-1" key={room.id}>
+                                <Button
+                                    title={room.playDate}
+                                    style="w-full justify-center items-center px-2"
+                                    icon={<RiMessage3Line size={20} />}
+                                    onClick={() => {
+                                        if (setRoomId) setRoomId(room.id)
+                                        router.push("/user/chat-room")
+                                    }}
+                                />
+                            </div>
+                        ))}
                         <div className="relative w-full col-span-1">
                             <Button
-                                title="Trò chuyện nhóm"
+                                title="Xoá bài đăng"
                                 style="w-full justify-center items-center px-2"
                             />
                         </div>
                         <div className="relative w-full col-span-1">
                             <Button
-                                title="Xoá bài viết"
+                                title="Xem bài đăng"
                                 style="w-full justify-center items-center px-2"
-                            />
-                        </div>
-                        <div className="relative w-full col-span-1">
-                            <Button
-                                title="Ẩn bài viết"
-                                style="w-full justify-center items-center px-2"
+                                onClick={() => router.push(`/product/detail-product/${postId}`)}
                             />
                         </div>
                     </div>

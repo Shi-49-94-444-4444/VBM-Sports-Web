@@ -5,8 +5,8 @@ import { VscAccount } from "react-icons/vsc"
 import { IoIosNotificationsOutline } from "react-icons/io"
 import { IoSettingsOutline } from "react-icons/io5"
 import { GlobalContext } from "@/contexts"
-import { useRouter } from 'next/navigation'
-import Cookies from "js-cookie";
+import { useRouter } from 'next/router'
+import Cookies from "js-cookie"
 import { beforeNavUser, useOutsideClick, validateURLAvatar } from "@/utils"
 import SearchBar from "../SearchBar"
 import Image from "next/image"
@@ -31,8 +31,11 @@ const Access = () => {
         }
         Cookies.remove("token")
         localStorage.clear()
-        if (setIsRefresh) setIsRefresh(true)
-        router.replace("/")
+        router.push("/").then(() => {
+            if (setIsRefresh) {
+                setIsRefresh(true)
+            }
+        })
     }
 
     const ref = useRef<HTMLLIElement | null>(null)
@@ -118,6 +121,7 @@ const Access = () => {
                             py-2
                             font-bold
                             text-gray-600
+                            z-[99999]
                         "
                     >
                         {isAuthUser ? (
@@ -134,7 +138,7 @@ const Access = () => {
                                                 whitespace-nowrap
                                             "
                                             type="button"
-                                            onClick={() => router.replace(`/user/profile-user/${user?.id ?? "1"}`)}
+                                            onClick={() => router.push(`/user/profile-user/${user?.id ?? "1"}`)}
                                         >
                                             Hồ sơ
                                         </button>
@@ -167,7 +171,7 @@ const Access = () => {
                                             whitespace-nowrap
                                         "
                                             type="button"
-                                            onClick={() => router.replace(item.href)}
+                                            onClick={() => router.push(item.href)}
                                         >
                                             {item.label}
                                         </button>
@@ -243,7 +247,7 @@ const Access = () => {
                                     align-middle
                                 "
                                 type="button"
-                                onClick={() => router.replace("/user/setting-profile")}
+                                onClick={() => router.push("/user/setting-profile")}
                             >
                                 <IoSettingsOutline size={30} />
                             </button>

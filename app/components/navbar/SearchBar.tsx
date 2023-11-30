@@ -2,26 +2,27 @@
 
 import { AxiosClient } from "@/services"
 import { ListProduct } from "@/types"
-import { useContext } from "react"
+import { useContext, useRef, useState } from "react"
 import { BiSearch } from "react-icons/bi"
 import useSWR from "swr"
 import SearchResult from "./SearchResult"
 import { GlobalContext } from "@/contexts"
+import { useOutsideClick } from "@/utils"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const SearchBar = () => {
     const { setSearchValue, searchValue, setSearchResults, searchResults } = useContext(GlobalContext) || {}
+    const [showResult, setShowResult] = useState(false)
 
-    // const { data: listProduct } = useSWR<ListProduct>('/api/posts/GetListPost', fetcher)
-    const { data: listProduct } = useSWR<ListProduct>('/api/posts/60/post_suggestion', fetcher)
+    const { data: listProduct } = useSWR<ListProduct>('/api/posts/GetListPost', fetcher, { refreshInterval: 600000 })
 
     const fetchValue = async (value: string) => {
         if (value.trim() === "") {
             if (setSearchResults) setSearchResults([]);
         } else {
             const filterResult = listProduct?.data.filter((result) => {
-                return result.title?.toLowerCase().includes(value.toLowerCase())
+                return result.title?.trim().toLowerCase().includes(value.trim().toLowerCase())
             })
 
             if (setSearchResults) setSearchResults(filterResult ?? [])
@@ -31,12 +32,21 @@ const SearchBar = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (setSearchValue) setSearchValue(e.target.value)
         fetchValue(e.target.value)
+        setShowResult(true)
     }
 
     const handleClearInput = () => {
-        if (setSearchValue) setSearchValue("");
+        if (setSearchValue) setSearchValue("")
         fetchValue("")
+        setShowResult(false)
     }
+
+    const handleOutsideClick = () => {
+        setShowResult(false)
+    }
+
+    const ref = useRef<HTMLDivElement | null>(null)
+    useOutsideClick(ref, handleOutsideClick)
 
     return (
         <div className="
@@ -48,6 +58,7 @@ const SearchBar = () => {
                 lg:flex
                 md:mb-0
             "
+            ref={ref}
         >
             <div className="
                     box-border 
@@ -127,19 +138,21 @@ const SearchBar = () => {
                                         value={searchValue ?? ""}
                                         onChange={handleInputChange}
                                     />
-                                    {!searchValue ? (
-                                        <></>
-                                    ) : (
-                                        <button className="inline-flex text-2xl font-medium" type="button" onClick={handleClearInput}>
+                                    {searchValue ? (
+                                        <button className="inline-flex text-2xl font-medium flex-shrink-0" type="button" onClick={handleClearInput}>
                                             &times;
                                         </button>
+                                    ) : (
+                                        <div className="inline-flex w-4 font-medium flex-shrink-0 opacity-0" />
                                     )}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
-                <SearchResult results={searchResults ?? []} />
+                {showResult && (
+                    <SearchResult results={searchResults ?? []} />
+                )}
             </div>
         </div>
     )

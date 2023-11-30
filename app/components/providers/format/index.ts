@@ -1,11 +1,12 @@
-import OtherAccess from "./OtherAccess";
-import Rating from "./Rating";
-import Background from "../format/Background";
-import Container from "./Container";
-import Share from "./Share";
-import CountdownTimer from "./CountdownTImer";
-import ToggleSwitch from "./ToggleSwitch";
-import TimeRangePicker from "./TimeRangePicker";
+import OtherAccess from "./OtherAccess"
+import Rating from "./Rating"
+import Background from "../format/Background"
+import Container from "./Container"
+import Share from "./Share"
+import CountdownTimer from "./CountdownTImer"
+import ToggleSwitch from "./ToggleSwitch"
+import TimeRangePicker from "./TimeRangePicker"
+import DownMetalBtn from "./DownMetailBtn"
 
 export * from "./ImageCarousel"
 export * from "./ProductCarousel"
@@ -20,5 +21,6 @@ export {
     Share,
     CountdownTimer,
     ToggleSwitch,
-    TimeRangePicker
+    TimeRangePicker,
+    DownMetalBtn
 }

@@ -36,11 +36,11 @@ const ProductContent: React.FC<ListProductData> = ({
         <Link className="
                 grid 
                 md:grid-cols-11 
-                grid-col-1
+                grid-cols-1
                 border-2 
                 rounded-xl
                 h-auto
-                w-full
+                w-auto
                 mb-4
                 relative
             "
@@ -129,7 +129,7 @@ const ProductContent: React.FC<ListProductData> = ({
                     </div>
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
-                            <div className="relative">
+                            <div className="flex-shrink-0 relative">
                                 <Image
                                     src={validateURLAvatar(userImgUrl)}
                                     alt={`avatar ${userId}`}
@@ -142,8 +142,8 @@ const ProductContent: React.FC<ListProductData> = ({
                                 {validateName(fullName)}
                             </div>
                         </div>
-                        <div className="flex-nowrap text-2xl font-semibold text-primary-blue-cus">
-                            {formatMoney(new Decimal(price ?? 0))} đ/Chỗ
+                        <div className="flex-nowrap flex-shrink-0 text-2xl font-semibold text-primary-blue-cus">
+                            {formatMoney(new Decimal(price ?? 0))}/Chỗ
                         </div>
                     </div>
                     <div className="text-lg text-gray-500 line-clamp-2 min-h-[3rem]">

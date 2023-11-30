@@ -50,7 +50,7 @@ const ChatMessages = () => {
 
                         if (user && user.id && roomId && connection) {
                             await connection.invoke('SendMessage', res.imgUrl, user.id)
-                                // .catch(err => console.error("Send mess", err))
+                            // .catch(err => console.error("Send mess", err))
                         }
                     }
 
@@ -66,7 +66,7 @@ const ChatMessages = () => {
 
         if (user && user.id && roomId && connection) {
             await connection.invoke('SendMessage', data.message, user.id)
-                // .catch(err => console.error("Send mess", err))
+            // .catch(err => console.error("Send mess", err))
             reset()
         }
 
@@ -166,7 +166,7 @@ const ChatMessages = () => {
                                         alt={`roomId ${room.roomId}`}
                                         height={100}
                                         width={100}
-                                        className="object-cover nd:w-16 md:h-16 w-14 h-14 rounded-full"
+                                        className="object-cover md:w-16 md:h-16 w-14 h-14 rounded-full"
                                     />
                                 </div>
                                 <section className="flex flex-col gap-1">

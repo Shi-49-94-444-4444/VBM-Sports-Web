@@ -15,7 +15,7 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const TransactionItems = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listItem, error } = useSWR<ListTransaction>(user && user.id ? `/api/posts/user/${user.id}/joined` : null, fetcher)
+    const { data: listItem, error } = useSWR<ListTransaction>(user && user.id ? `/api/posts/user/${user.id}/joined` : null, fetcher, { refreshInterval: 10000 })
 
     const isLoading = !listItem && !error
 

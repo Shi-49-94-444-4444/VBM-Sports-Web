@@ -9,6 +9,11 @@ const ModalUnauthorize = () => {
     const unauthorizeModal = useUnauthorizeModal()
     const router = useRouter()
 
+    const handleGoToLogin = () => {
+        router.push("/login")
+        unauthorizeModal.onClose()
+    }
+
     return (
         <CustomModal
             isOpen={unauthorizeModal.isOpen}
@@ -30,7 +35,7 @@ const ModalUnauthorize = () => {
                         title="Đi tới trang đăng nhập"
                         isHover={false}
                         style="py-3 px-8"
-                        onClick={() => router.replace("/login")}
+                        onClick={handleGoToLogin}
                     />
                 </div>
             </div>

@@ -13,13 +13,13 @@ interface ChatGroupProps {
 const ChatGroup: React.FC<ChatGroupProps> = ({
     listRoom
 }) => {
-    const { setRoomId } = useContext(GlobalContext) || {}
+    const { setRoomId, roomId } = useContext(GlobalContext) || {}
 
     return (
-        <div className="md:col-span-3 col-span-2 overflow-y-auto overflow-x-hidden gap-2 md:gap-5 flex flex-col md:py-6 py-2 border-r border-black border-opacity-10 w-24 md:w-auto h-[52rem]">
+        <div className="md:col-span-3 col-span-2 overflow-y-auto overflow-x-hidden flex flex-col border-r border-black border-opacity-10 w-24 md:w-auto h-[52rem]">
             {listRoom.map((room) => (
                 <div
-                    className="flex flex-row space-x-2 items-center cursor-pointer px-4"
+                    className={`flex flex-row space-x-2 items-center cursor-pointer px-4 py-1 ${room.roomId === roomId ? 'bg-gray-300' : ''}`}
                     key={room.roomId}
                     onClick={() => {
                         if (setRoomId)

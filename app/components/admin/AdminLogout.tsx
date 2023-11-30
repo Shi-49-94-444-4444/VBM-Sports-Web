@@ -1,6 +1,6 @@
 import { GlobalContext } from "@/contexts"
 import Cookies from "js-cookie"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 import { useContext } from "react"
 import { ImExit } from "react-icons/im"
 
@@ -16,8 +16,11 @@ const AdminLogout = () => {
         }
         Cookies.remove("token")
         localStorage.clear()
-        if (setIsRefresh) setIsRefresh(true)
-        router.replace("/")
+        router.push("/").then(() => {
+            if (setIsRefresh) {
+                setIsRefresh(true)
+            }
+        })
     }
 
     return (

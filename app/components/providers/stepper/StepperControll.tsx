@@ -14,7 +14,7 @@ export default function StepperControl({
     const { setUser, isLoading } = useContext(GlobalContext) || {}
 
     const handleComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
-        router.replace("/");
+        router.push("/");
         event.preventDefault()
     };
 

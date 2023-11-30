@@ -42,19 +42,19 @@ const AdminLayout: React.FC<LayoutProps> = ({
         setSelectedOption(id)
         switch (id) {
             case 1:
-                router.replace('/admin/user-management');
+                router.push('/admin/user-management');
                 break;
             case 2:
-                router.replace('/admin/post-management');
+                router.push('/admin/post-management');
                 break;
             case 3:
-                router.replace('/admin/report-management');
+                router.push('/admin/report-management');
                 break;
             case 4:
-                router.replace('/admin/rule-list');
+                router.push('/admin/rule-list');
                 break;
             case 5:
-                router.replace('/admin/user-report-management');
+                router.push('/admin/user-report-management');
                 break;
         }
     };

@@ -6,11 +6,11 @@ import { Button, Loading, TimeRangePicker } from "../../providers"
 import Input from "../../providers/form/Input"
 import Datepicker from "react-tailwindcss-datepicker"
 import { useContext, useState } from "react"
-import { addDays, addYears, differenceInDays, differenceInHours, eachDayOfInterval, format, isBefore, isSameDay, setHours, setMinutes, startOfDay } from 'date-fns'
+import { addDays, addMonths, differenceInDays, differenceInHours, eachDayOfInterval, format, isBefore, isSameDay, setHours, setMinutes, startOfDay } from 'date-fns'
 import { vi } from 'date-fns/locale'
 import { AxiosClient, postBadmintonService } from "@/services"
 import useSWR, { mutate } from "swr"
-import { ListCity, ListDistrict, ListWard, Time } from "@/types"
+import { ListCity, ListDistrict, ListWard } from "@/types"
 import { customStyles, handleChange, processBase64Image } from "@/utils"
 import { useForm } from "react-hook-form"
 import { GlobalContext } from "@/contexts"
@@ -114,7 +114,6 @@ const PostNewForm = () => {
             }
         }));
     }
-
     // //console.log(slots)
 
     // Form for Date
@@ -339,7 +338,7 @@ const PostNewForm = () => {
                     })
                     if (setIsLoading) setIsLoading(false)
                     return
-                } 
+                }
 
                 if (!slot.availableSlot || slot.availableSlot === 0) {
                     toast.error(`Chỗ không được để trống của ${format(slot.day, 'dd/MM/yyyy')}`, {
@@ -451,7 +450,7 @@ const PostNewForm = () => {
             })
 
             mutate(`/api/posts/${user.id}/post_suggestion`)
-            router.replace("/")
+            router.push("/")
         }
 
         if (setIsLoading) setIsLoading(false)
@@ -559,31 +558,37 @@ const PostNewForm = () => {
                                     primaryColor={"blue"}
                                     displayFormat={"DD/MM/YYYY"}
                                     inputClassName="light w-full bg-[#F5F5F5] border-none py-3 px-6 focus:ring-0 rounded-lg"
-                                    minDate={startOfDay(new Date())}
-                                    maxDate={addYears(new Date(), 2)}
+                                    minDate={startOfDay(addDays(new Date(), 1))}
+                                    maxDate={addMonths(new Date(), 1)}
                                     showShortcuts={true}
                                     configs={{
                                         shortcuts: {
-                                            today: "Hôm nay",
+                                            Today: {
+                                                text: "Ngày tiếp theo",
+                                                period: {
+                                                    start: addDays(new Date(), 1),
+                                                    end: addDays(new Date(), 1),
+                                                }
+                                            }, 
                                             next3Days: {
                                                 text: "Chọn 3 ngày",
                                                 period: {
-                                                    start: new Date(),
-                                                    end: addDays(new Date(), 2)
+                                                    start: addDays(new Date(), 1) ,
+                                                    end: addDays(new Date(), 3)
                                                 },
                                             },
                                             next5Days: {
                                                 text: "Chọn 5 ngày",
                                                 period: {
-                                                    start: new Date(),
-                                                    end: addDays(new Date(), 4)
+                                                    start: addDays(new Date(), 1),
+                                                    end: addDays(new Date(), 5)
                                                 },
                                             },
                                             next7Days: {
                                                 text: "Chọn 7 ngày",
                                                 period: {
-                                                    start: new Date(),
-                                                    end: addDays(new Date(), 6)
+                                                    start: addDays(new Date(), 1),
+                                                    end: addDays(new Date(), 7)
                                                 },
                                             }
                                         },

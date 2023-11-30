@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
             url.pathname.startsWith("/product/management-product") ||
             url.pathname.startsWith("/transaction") ||
             url.pathname.startsWith("/user/wallet") ||
-            url.pathname.startsWith("/chat-room")) {
+            url.pathname.startsWith("/user/chat-room")) {
             if (!token) {
                 return NextResponse.redirect(`${url.origin}/unauthorized`)
             }
@@ -58,7 +58,7 @@ export async function middleware(req: NextRequest) {
         }
     } catch (e) {
         // console.log(e)
-        return NextResponse.redirect(`${url.origin}/unauthorized`)
+        return NextResponse.redirect(`${url.origin}/`)
     }
 
     return NextResponse.next()
@@ -74,7 +74,7 @@ export const config = {
         "/product/management-product",
         "/register-stepper",
         "/user/wallet/:path*",
-        "/chat-room",
+        "/user/chat-room",
         "/admin/:path*",
         "/transaction/:path*",
     ],

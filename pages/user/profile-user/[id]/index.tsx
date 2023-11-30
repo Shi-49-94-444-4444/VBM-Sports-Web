@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
                 User,
                 id
             },
-            revalidate: 60
+            revalidate: 5
         }
     } catch (error) {
         return {

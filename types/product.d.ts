@@ -121,6 +121,10 @@ export interface ListDistrict {
         name: string
     }[]
 }
+export interface ListDistrictData {
+    id: string
+    name: string
+}
 export interface ListWard {
     message: string
     data: {

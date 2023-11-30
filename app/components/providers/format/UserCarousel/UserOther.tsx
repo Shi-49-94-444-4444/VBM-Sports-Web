@@ -25,10 +25,9 @@ const UserOther: React.FC<ListUserData> = ({
     const { user } = useContext(GlobalContext) || {}
     const [subscribe, setSubscribe] = useState<boolean>(false)
 
-    const handleSubscribe = async () => {
+    const handleSubscribe = () => {
         if (user && user.id && id) {
-            await subscribeService({ user_id: user.id, target_id: id })
-
+            subscribeService({ user_id: user.id, target_id: id })
             setSubscribe(true)
         }
     }

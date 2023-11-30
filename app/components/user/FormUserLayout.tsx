@@ -4,7 +4,7 @@ import { IoIosArrowRoundBack } from "react-icons/io"
 import { FormatUIProps } from "@/types"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 import { Background } from "../providers"
 import Cookies from "js-cookie"
 
@@ -26,7 +26,11 @@ const FormatUI: React.FC<FormatUIProps> = ({
         }
         Cookies.remove("token")
         localStorage.clear()
-        router.replace("/")
+        router.push("/").then(() => {
+            if (setIsRefresh) {
+                setIsRefresh(true)
+            }
+        })
     }
 
     return (

@@ -52,7 +52,7 @@ const UserDetailManage = () => {
         { title: "Xoá bài viết", src: (postId: string) => { adminDeletePostModal.onOpen(postId) } },
     ]
 
-    const { data: listPostForUser, error } = useSWR<UserDetailManage>(id ? `/api/posts/${id}/managed_all_post` : null, fetcher)
+    const { data: listPostForUser, error } = useSWR<UserDetailManage>(id ? `/api/posts/${id}/managed_all_post` : null, fetcher, { refreshInterval: 10000 })
 
     const isLoadingData = !listPostForUser && !error
 

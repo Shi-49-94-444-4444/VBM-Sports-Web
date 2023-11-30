@@ -9,7 +9,7 @@ export const navLinks = [
     {
         id: "1",
         label: "Tin nhắn",
-        href: "/chat-room"
+        href: "/user/chat-room"
     },
     {
         id: "2",
@@ -195,15 +195,14 @@ export const settingProfileInputs = [
         flagInput: true,
         maxLength: 500
     },
-
-];
+]
 
 export const settingOptions: Option[] = [
     { id: 1, label: "Hồ sơ", icon: FaUserEdit },
     { id: 2, label: "Bảo mật", icon: IoShieldCheckmark },
     { id: 3, label: "Chặn người dùng", icon: FaUserSlash },
     { id: 4, label: "Thông báo", icon: BiSolidBellRing },
-];
+]
 
 export const adminOptions: Option[] = [
     { id: 1, label: "Danh sách người dùng", icon: FaUserFriends },
@@ -211,12 +210,13 @@ export const adminOptions: Option[] = [
     { id: 3, label: "Báo cáo thường niên", icon: BsFillFileEarmarkRuledFill },
     { id: 4, label: "Chính sách", icon: FaPollH },
     { id: 5, label: "Danh sách người dùng đã báo cáo", icon: BsFileEarmarkPost },
-];
+]
 
 export const beforeNavUser = [
     { label: "Đăng nhập", href: "/login" },
     { label: "Đăng ký", href: "/register" },
 ]
+
 export const settingPasswordInputs = [
     {
         id: "oldPass",
@@ -238,223 +238,6 @@ export const settingPasswordInputs = [
     },
 ]
 
-export const filterTitle = [
-    {
-        id: "1",
-        title: "Chọn Tỉnh/Thành phố",
-        list: [
-            {
-                id: "1",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "2",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "3",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "4",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "5",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "6",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "7",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "8",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "9",
-                title: "Thanh hóa",
-                src: "#",
-            },
-            {
-                id: "10",
-                title: "Thanh hóa",
-                src: "#",
-            }
-        ]
-    },
-    {
-        id: "2",
-        title: "Số chỗ còn trống",
-        list: [
-            {
-                id: "1",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "2",
-                title: "20h",
-                src: "#",
-            },
-            {
-                id: "3",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "4",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "5",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "6",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "7",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "8",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "9",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "10",
-                title: "10h",
-                src: "#",
-            }
-        ]
-    },
-    {
-        id: "3",
-        title: "Thể loại chơi",
-        list: [
-            {
-                id: "1",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "2",
-                title: "20h",
-                src: "#",
-            },
-            {
-                id: "3",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "4",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "5",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "6",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "7",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "8",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "9",
-                title: "10h",
-                src: "#",
-            },
-            {
-                id: "10",
-                title: "10h",
-                src: "#",
-            }
-        ]
-    },
-    {
-        id: "4",
-        title: "Kỹ năng",
-        list: [
-            {
-                id: "1",
-                title: "Còn",
-                src: "#",
-            },
-            {
-                id: "2",
-                title: "Hết",
-                src: "#",
-            },
-        ]
-    },
-    {
-        id: "5",
-        title: "Thời gian",
-        list: [
-            {
-                id: "1",
-                title: "10000",
-                src: "#",
-            },
-            {
-                id: "2",
-                title: "10000",
-                src: "#",
-            },
-            {
-                id: "3",
-                title: "10000",
-                src: "#",
-            },
-            {
-                id: "4",
-                title: "10000",
-                src: "#",
-            },
-            {
-                id: "5",
-                title: "10000",
-                src: "#",
-            },
-        ]
-    }
-]
 export const listVoucher = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },

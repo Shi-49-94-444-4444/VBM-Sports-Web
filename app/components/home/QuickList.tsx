@@ -15,7 +15,7 @@ const QuickList = () => {
     const { user } = useContext(GlobalContext) || {}
     const router = useRouter()
 
-    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(user ? `/api/posts/${user.id}/post_suggestion` : `/api/posts/GetListPost`, fetcher)
+    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(user ? `/api/posts/${user.id}/post_suggestion` : `/api/posts/GetListPost`, fetcher, { refreshInterval: 5000 })
 
     if (isLoading) {
         return <LoadingFullScreen loading={isLoading} />
@@ -93,8 +93,8 @@ const QuickList = () => {
                 <div className="relative flex justify-center items-center pt-16">
                     <Button
                         title="Xem thêm"
-                        onClick={() => router.replace("/product/list-product")}
                         style="py-3 px-12 text-xl"
+                        onClick={() => router.push("/product/list-product")}
                     />
                 </div>
             </Container>

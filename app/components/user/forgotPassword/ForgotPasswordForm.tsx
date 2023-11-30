@@ -55,9 +55,9 @@ const ForgotPasswordForm = () => {
 
     useEffect(() => {
         if (isForgot) {
-            router.replace("/verify-otp")
+            router.push("/verify-otp")
         } else if (isAuthUser) {
-            router.replace("/")
+            router.push("/")
         }
     }, [router, isForgot, isAuthUser])
 

@@ -15,7 +15,7 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 const MPItems = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listItem, error } = useSWR<ManagePost>(user && user.id ? `/api/posts/${user.id}/managed_all_post` : null, fetcher)
+    const { data: listItem, error } = useSWR<ManagePost>(user && user.id ? `/api/posts/${user.id}/managed_all_post` : null, fetcher, { refreshInterval: 10000 })
 
     const isLoading = !listItem && !error
 
@@ -67,7 +67,7 @@ const MPItems = () => {
                             postImgUrl={item.postImgUrl}
                         />
                     ))}
-                    <div className="flex justify-end mt-10 text-base font-semibold">
+                    <div className="flex justify-center mt-10 text-base font-semibold">
                         <ReactPaginate
                             pageCount={pageCount}
                             pageRangeDisplayed={4}

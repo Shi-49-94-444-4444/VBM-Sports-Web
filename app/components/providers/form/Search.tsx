@@ -9,7 +9,7 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({ value, onChange, style }) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.value);
-    };
+    }
 
     return (
         <div className={`relative flex items-center w-2/5 h-full ${style}`}>

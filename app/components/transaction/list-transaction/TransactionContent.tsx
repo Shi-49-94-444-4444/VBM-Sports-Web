@@ -28,10 +28,6 @@ const TransactionContent: React.FC<ListTransactionData> = ({
     const formatStartTime = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
     const formatEndTime = format(parse(endTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
 
-    const handleReport = () => {
-        
-    }
-
     return (
         <div className="lg:grid lg:grid-cols-12 flex flex-col rounded-lg border border-black border-opacity-10 transition-all duration-500" key={transacionId}>
             <div className="lg:col-span-4 relative lg:h-full md:h-96 sm:h-80 h-72 transition duration-300">
@@ -98,12 +94,12 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                     <Button
                         title="Đặt sân tiếp"
                         style="text-xl px-4 whitespace-nowrap"
-                        onClick={() => router.replace(`/product/detail-product/${postId}`)}
+                        onClick={() => router.push(`/product/detail-product/${postId}`)}
                     />
                     <Button
                         title="Xem chi tiết thanh toán"
                         style="text-xl px-4 whitespace-nowrap"
-                        onClick={() => router.replace(`/transaction/detail-transaction/${transacionId}`)}
+                        onClick={() => router.push(`/transaction/detail-transaction/${transacionId}`)}
                     />
                 </div>
             </div>

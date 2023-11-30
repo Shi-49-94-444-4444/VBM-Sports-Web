@@ -15,11 +15,13 @@ export interface TransactionPaymentDetail {
             id: string,
             title: string,
             titleImage: string
-            imageUrls: string[],
-            pricePerSlot: string,
-            address: string,
-            startTime: string,
+            imageUrls: string[]
+            pricePerSlot: string
+            address: string
+            startTime: string
             endTime: string
+            createUser: string
+            categorySlot: string
         }
     }
 }
@@ -38,11 +40,13 @@ export interface TransactionPaymentDetailData {
         id: string,
         title: string,
         titleImage: string
-        imageUrls: string[],
-        pricePerSlot: string,
-        address: string,
-        startTime: string,
+        imageUrls: string[]
+        pricePerSlot: string
+        address: string
+        startTime: string
         endTime: string
+        createUser: string
+        categorySlot: string
     }
 }
 
@@ -83,4 +87,24 @@ export interface ListTransactionData {
         bookedSlot: string
         imageUrls: string[]
     }[]
+}
+
+export interface HistoryTransaction {
+    message: string
+    data: {
+        id: string
+        idWallet: string
+        idUser: string
+        amount: number
+        status: string
+        time: string
+    }[]
+}
+export interface HistoryTransactionData {
+    id: string
+    idWallet: string
+    idUser: string
+    amount: number
+    status: string
+    time: string
 }

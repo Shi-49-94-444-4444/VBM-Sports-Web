@@ -67,18 +67,18 @@ const LoginForm = () => {
         Cookies.set("token", res.data.token)
         localStorage.setItem("user", JSON.stringify(res.data))
 
-        if (setIsRefresh) setIsRefresh(true)
-
+        
         if (setIsLoading) setIsLoading(false)
+        if (setIsRefresh) setIsRefresh(true)
     }
 
     useEffect(() => {
         if (user && user.role && user.role.toLowerCase() === "admin") {
-            router.replace("/admin/user-management")
+            router.push("/admin/user-management")
         } else if (user && user.isNewUser) {
-            router.replace("/verify-otp")
+            router.push("/verify-otp")
         } else if (user && user.role && user.role.toLowerCase() === "user") {
-            router.replace("/")
+            router.push("/")
         }
     }, [router, user])
 

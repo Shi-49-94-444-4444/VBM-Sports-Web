@@ -8,7 +8,7 @@ import { useContext, useEffect, useMemo, useState } from 'react'
 import Select from 'react-select'
 import { toast } from 'react-toastify'
 import useSWR from 'swr'
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
+import ReactMapGL, { Marker } from '@goongmaps/goong-map-react'
 
 interface Option {
     id: string;
@@ -19,11 +19,15 @@ interface Option {
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const LocationStep = () => {
-    const { setUser, user, setIsLoadingPage, isLoadingPage } = useContext(GlobalContext) || {}
+    const { setUser, user } = useContext(GlobalContext) || {}
     const [selectCity, setSelectedCity] = useState<Option | null>(null)
     const [selectDistrict, setSelectedDistrict] = useState<Option | null>(null)
     const [isUserDataFetched, setIsUserDataFetched] = useState(false)
-    const [location, setLocation] = useState({ lat: 10.762622, lng: 106.660172 })
+    const [viewport, setViewport] = useState({
+        latitude: 10.762622,
+        longitude: 106.660172,
+        zoom: 12
+    })
 
     //Fetch city
     const { data: listCity, error: errorCity } = useSWR<ListCity>(`/api/cities`, fetcher)
@@ -90,16 +94,19 @@ const LocationStep = () => {
 
     useEffect(() => {
         if (selectDistrict) {
-            // Gọi Google Maps Geocoding API để lấy tọa độ của quận
-            fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${selectDistrict.value}&key=AIzaSyCk4QXGyAdOoaQT3vw9bkWzmWsbFXy15rc`)
+            fetch(`https://rsapi.goong.io/Geocode?address=${selectDistrict.value}&api_key=${process.env.CHECK_MAP}`)
                 .then(response => response.json())
                 .then(data => {
                     const location = data.results[0].geometry.location;
-                    setLocation({ lat: location.lat, lng: location.lng });
+                    setViewport(prevState => ({
+                        ...prevState,
+                        latitude: location.lat,
+                        longitude: location.lng,
+                    }))
                 })
-                // .catch(error => console.error(error));
         }
     }, [selectDistrict])
+
 
     return (
         <div className="
@@ -108,10 +115,11 @@ const LocationStep = () => {
                 flex
                 flex-col
                 gap-3 
-                h-96
+                h-full
                 overflow-y-auto
             "
         >
+            <link href='https://cdn.jsdelivr.net/npm/@goongmaps/goong-js/dist/goong-js.css' rel='stylesheet' />
             <Select
                 name="city"
                 options={optionCity}
@@ -131,15 +139,18 @@ const LocationStep = () => {
                 isDisabled={!selectCity}
                 value={selectDistrict}
             />
-            <LoadScript googleMapsApiKey="AIzaSyCk4QXGyAdOoaQT3vw9bkWzmWsbFXy15rc">
-                <GoogleMap
-                    mapContainerStyle={{ width: '100%', height: '400px' }}
-                    center={location}
-                    zoom={10}
-                >
-                    <Marker position={location} />
-                </GoogleMap>
-            </LoadScript>
+            <ReactMapGL
+                {...viewport}
+                width="86vw"
+                height="400px"
+                onViewportChange={(nextViewport: {latitude: number, longitude: number, zoom: number}) => setViewport(nextViewport)}
+                mapStyle="https://tiles.goong.io/assets/goong_map_web.json"
+                goongApiAccessToken={process.env.VIEW_MAP}
+            >
+                <Marker latitude={viewport.latitude} longitude={viewport.latitude} offsetLeft={-20} offsetTop={-10}>
+                    <div>You are here</div>
+                </Marker>
+            </ReactMapGL>
         </div>
     )
 }

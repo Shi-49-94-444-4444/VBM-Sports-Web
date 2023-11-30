@@ -2,9 +2,9 @@
 
 import React, { FC, createContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
-import { ListProductData } from '@/types'
-import { useRouter } from 'next/navigation'
-import { getUserService } from '@/services'
+import { ListDistrictData, ListProductData } from '@/types'
+import { useRouter } from 'next/router'
+import { getAllDistrictService, getUserService } from '@/services'
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -56,6 +56,10 @@ interface GlobalContextProps {
     setSearchResults: React.Dispatch<React.SetStateAction<ListProductData[] | null>>
     roomId: string | null
     setRoomId: React.Dispatch<React.SetStateAction<string | null>>
+    saveDistrict: ListDistrictData | null
+    setSaveDistrict: React.Dispatch<React.SetStateAction<ListDistrictData | null>>
+    listDistrict: ListDistrictData[] | null
+    setListDistrict: React.Dispatch<React.SetStateAction<ListDistrictData[] | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -71,8 +75,19 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isRefresh, setIsRefresh] = useState<boolean | null>(false)
     const [fetchUser, setFetchUser] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
+    const [saveDistrict, setSaveDistrict] = useState<ListDistrictData | null>(null)
     const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
+    const [listDistrict, setListDistrict] = useState<ListDistrictData[] | null>([])
     const [roomId, setRoomId] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchDistricts = async () => {
+            const res = await getAllDistrictService()
+            setListDistrict(res.data);
+        }
+
+        fetchDistricts()
+    }, [])
 
     useEffect(() => {
         if (Cookies.get('token') !== undefined) {
@@ -86,27 +101,41 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        const fetch = async() => {
+        const fetch = async () => {
             if (user && user.id) {
-                const res = await getUserService({ user_id: user.id})
+                const res = await getUserService({ user_id: user.id })
                 localStorage.setItem('user', JSON.stringify(res.data))
                 setUser(res.data)
             }
         }
-    
+
         if (fetchUser) {
             fetch()
             setFetchUser(false)
         }
-    
+
         const intervalId = setInterval(fetch, 5 * 60 * 1000)
-    
+
         return () => clearInterval(intervalId)
     }, [fetchUser, user])
 
     useEffect(() => {
+        const handleRouteChange = () => {
+            if (router.pathname === '/product/list-product') {
+                setSaveDistrict(null)
+            }
+        }
+
+        router.events.on('routeChangeStart', handleRouteChange);
+
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange);
+        };
+    }, [router.pathname, router.events])
+
+    useEffect(() => {
         if (isRefresh) {
-            router.refresh()
+            router.reload()
             setIsRefresh(false)
         }
     }, [isRefresh, router])
@@ -135,7 +164,11 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 roomId,
                 setRoomId,
                 fetchUser,
-                setFetchUser
+                setFetchUser,
+                saveDistrict,
+                setSaveDistrict,
+                listDistrict,
+                setListDistrict
             }}
         >
             {children}

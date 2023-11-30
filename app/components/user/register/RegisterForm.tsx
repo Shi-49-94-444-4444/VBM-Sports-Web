@@ -47,9 +47,9 @@ const RegisterForm = () => {
 
     useEffect(() => {
         if (isRegistered) {
-            router.replace("/login")
+            router.push("/login")
         } else if (isAuthUser) {
-            router.replace("/")
+            router.push("/")
         }
     }, [router, isRegistered, isAuthUser])
 

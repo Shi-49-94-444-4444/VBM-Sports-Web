@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
                 Product,
                 postId: id.toString()
             },
-            revalidate: 60
+            revalidate: 5
         }
     } catch (error) {
         //console.log(error)

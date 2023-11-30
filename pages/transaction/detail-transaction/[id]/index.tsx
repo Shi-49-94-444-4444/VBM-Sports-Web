@@ -65,6 +65,7 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
                             </div>
                             <div className="md:grid md:grid-cols-12 flex flex-col gap-3 text-gray-600">
                                 <TransactionDetail
+                                    id={tran_id}
                                     slotCount={transaction.data.slotCount}
                                     slots={transaction.data.slots}
                                     buyerName={transaction.data.buyerName}

@@ -35,12 +35,10 @@ export interface InputProps {
 
 export interface FilterItem {
     id: string
-    title: string
-    src: string
+    name: string
 }
 
 export interface FilterCusProps {
-    id: string
     title: string
     listItem: FilterItem[]
 }

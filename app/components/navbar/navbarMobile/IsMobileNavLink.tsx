@@ -110,7 +110,7 @@ const IsMobileNavLink = () => {
                                     py-6
                                 "
                                 type="button"
-                                onClick={() => router.replace(`${item.href}`)}
+                                onClick={() => router.push(`${item.href}`)}
                             >
                                 <span>{item.label}</span>
                             </button>

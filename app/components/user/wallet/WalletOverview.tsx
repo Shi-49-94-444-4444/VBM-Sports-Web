@@ -38,7 +38,7 @@ const WalletOverview = () => {
                     <label className="font-semibold text-2xl">
                         Số dư ví
                     </label>
-                    <p className="font-semibold text-3xl">
+                    <p className="font-semibold text-3xl ease-in-out transition-all duration-500">
                         {formatMoney(new Decimal(user?.balance ?? 0))}
                     </p>
                 </section>

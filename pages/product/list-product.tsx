@@ -1,7 +1,7 @@
 import Layout from '@/app/layout';
 import {
     Container,
-    ProductFilter,
+    FilterCus,
     ProductItems
 } from "@/app/components"
 
@@ -11,13 +11,8 @@ const ListBadmintonPage = () => {
             <Container>
                 <div className="py-10">
                     <div className="grid lg:grid-cols-4 col-span-1 gap-5">
-                        <div className="lg:col-span-1 flex flex-col gap-3">
-                            <ProductFilter />
-                        </div>
-                        <div className="lg:col-span-3 col-span-1 h-auto w-full relative">
-                            <h1 className="text-4xl font-semibold pb-5 text-gray-600">Bài đăng đặt sân</h1>
-                            <ProductItems />
-                        </div>
+                        <FilterCus />
+                        <ProductItems />
                     </div>
                 </div>
             </Container>

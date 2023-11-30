@@ -48,7 +48,7 @@ const UserManagement = () => {
         { title: "Xem trang cá nhân", src: (userId: string | null) => `/user/profile-user/${userId}` },
     ]
 
-    const { data: listManageUser, error, isLoading } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : "", fetcher)
+    const { data: listManageUser, error, isLoading } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : "", fetcher, { refreshInterval: 10000 })
 
     const filteredUsers = listManageUser && listManageUser.data && listManageUser.data.filter(user => user.fullName && user.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
 

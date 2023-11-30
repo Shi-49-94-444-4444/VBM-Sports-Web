@@ -39,16 +39,16 @@ const SettingLayout: React.FC<LayoutProps> = ({
         setSelectedOption(id)
         switch (id) {
             case 1:
-                router.replace('/user/setting-profile');
+                router.push('/user/setting-profile');
                 break;
             case 2:
-                router.replace('/user/setting-security');
+                router.push('/user/setting-security');
                 break;
             case 3:
-                router.replace('/user/setting-ban');
+                router.push('/user/setting-ban');
                 break;
             case 4:
-                router.replace('/user/setting-notify');
+                router.push('/user/setting-notify');
                 break;
         }
     };
