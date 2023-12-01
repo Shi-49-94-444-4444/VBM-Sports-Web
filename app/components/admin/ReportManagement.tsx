@@ -1,8 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react";
-import { Button, Search } from "../providers"
-import { IoMdAdd } from "react-icons/io";
+import { DownMetalBtn, Search } from "../providers"
 import { useOutsideClick } from "@/utils";
 
 const ReportManagement = () => {
@@ -59,11 +58,7 @@ const ReportManagement = () => {
     ]
 
     const listAction = [
-        { title: "Duyệt bài viết" },
-        { title: "Xem bài viết" },
-        { title: "Chỉnh sửa bài viết" },
-        { title: "Tạm ẩn bài viết" },
-        { title: "Xoá bài viết" },
+        { title: "Xem chi tiết" },
     ]
 
     return (
@@ -78,43 +73,29 @@ const ReportManagement = () => {
                     md:justify-between 
                     md:items-center 
                     md:gap-0
+                    transition-all
+                    duration-500
                 "
             >
-                <h1 className="font-semibold text-3xl whitespace-nowrap">
-                    Báo cáo thường niên
+                <h1 className="font-semibold md:text-4xl text-3xl flex-shrink-0">
+                    Quản lý doanh thu
                 </h1>
-                <div className="
-                        flex 
-                        flex-col
-                        gap-5
-                        md:flex-row 
-                        md:w-full 
-                        md:justify-end 
-                        md:items-center 
-                        md:space-x-3
-                        md:gap-0
-                    "
-                >
-                    <Search value="" onChange={() => { }} style="md:w-2/5 w-full" />
-                    <div className="relative">
-                        <Button
-                            title="Tạo báo cáo mới"
-                            iconLeft={<IoMdAdd size={30} />}
-                            style=""
-                            onClick={() => { }}
-                        />
+                <div className="flex gap-3 flex-col md:flex-row transition-all duration-500 flex-wrap justify-end">
+                    <DownMetalBtn onClick={() => {}}/>
+                    <div className="flex flex-col space-y-1 md:w-auto w-full transition-all duration-500">
+                        <Search value={""} onChange={() => { }} style="w-full" />
                     </div>
                 </div>
             </div>
-            <table className="table-auto border-collapse text-gray-600 text-center z-[1000]">
+            <table className="table-auto border-collapse text-gray-600 text-center z-[1000] text-sm sm:text-base md:text-lg">
                 <thead>
                     <tr>
                         {listTitleUserManagement.map((items, index) => (
-                            <th className="text-lg font-semibold border border-black border-opacity-10 py-2" key={index}>{items.title}</th>
+                            <th className="font-semibold border border-black border-opacity-10 py-2" key={index}>{items.title}</th>
                         ))}
                     </tr>
                 </thead>
-                <tbody className="border-b border-black border-opacity-10 text-base font-medium">
+                <tbody className="border-b border-black border-opacity-10 font-medium">
                     {listUserManagement.map((items) => (
                         <tr key={items.id}>
                             <td className="py-3 border-l border-r border-black border-opacity-10">{items.id}</td>

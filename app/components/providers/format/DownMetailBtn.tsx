@@ -1,13 +1,17 @@
 import { HiDownload } from "react-icons/hi"
 
-const DownMetalBtn = () => {
+interface DownMetalBtnProps {
+    onClick: () => void
+}
+
+const DownMetalBtn: React.FC<DownMetalBtnProps> = ({onClick}) => {
     return (
-        <div className="flex flex-shrink-0 space-x-1 items-center text-primary-blue-cus font-medium text-xl">
-            <HiDownload size={30} />
+        <button className="flex flex-shrink-0 space-x-1 items-center text-primary-blue-cus font-medium md:text-xl text-lg" onClick={onClick}>
+            <HiDownload />
             <span>
                 Tải dữ liệu xuống
             </span>
-        </div>
+        </button>
     )
 }
 

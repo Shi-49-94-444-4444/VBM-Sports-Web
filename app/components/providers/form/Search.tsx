@@ -18,7 +18,7 @@ const Search: React.FC<SearchProps> = ({ value, onChange, style }) => {
                 className="
                     w-full 
                     px-4 py-2 
-                    text-xl 
+                    md:text-xl 
                     border 
                     border-black 
                     border-opacity-10 

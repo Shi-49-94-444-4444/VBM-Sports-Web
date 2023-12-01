@@ -8,7 +8,7 @@ import { IoShieldCheckmark } from "react-icons/io5";
 export const navLinks = [
     {
         id: "1",
-        label: "Tin nhắn",
+        label: "Nhắn tin",
         href: "/user/chat-room"
     },
     {
@@ -205,11 +205,11 @@ export const settingOptions: Option[] = [
 ]
 
 export const adminOptions: Option[] = [
-    { id: 1, label: "Danh sách người dùng", icon: FaUserFriends },
-    { id: 2, label: "Danh sách bài viết", icon: BsFillFileEarmarkPostFill },
-    { id: 3, label: "Báo cáo thường niên", icon: BsFillFileEarmarkRuledFill },
+    { id: 1, label: "Quản lý người dùng", icon: FaUserFriends },
+    { id: 2, label: "Quản lý tin tức", icon: BsFillFileEarmarkPostFill },
+    { id: 3, label: "Quản lý doanh thu", icon: BsFillFileEarmarkRuledFill },
     { id: 4, label: "Chính sách", icon: FaPollH },
-    { id: 5, label: "Danh sách người dùng đã báo cáo", icon: BsFileEarmarkPost },
+    { id: 5, label: "Quản lý báo cáo", icon: BsFileEarmarkPost },
 ]
 
 export const beforeNavUser = [

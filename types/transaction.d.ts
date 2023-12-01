@@ -68,6 +68,7 @@ export interface ListTransaction {
             bookedSlot: string
             imageUrls: string[]
         }[]
+        chatRoomId: string
     }[]
 }
 
@@ -87,6 +88,7 @@ export interface ListTransactionData {
         bookedSlot: string
         imageUrls: string[]
     }[]
+    chatRoomId: string
 }
 
 export interface HistoryTransaction {

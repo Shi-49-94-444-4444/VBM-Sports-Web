@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation"
 import { formatDateFunc, formatTimeFunc, validateAddress, validateTitle, validateURLProduct } from "@/utils"
 import { format, parse } from "date-fns"
 import { useReportTransactionModal } from "@/hooks"
+import { useContext } from "react"
+import { GlobalContext } from "@/contexts"
 
 const TransactionContent: React.FC<ListTransactionData> = ({
     postId,
@@ -19,10 +21,12 @@ const TransactionContent: React.FC<ListTransactionData> = ({
     endTime,
     bookedInfos,
     availableSlot,
-    moneyPaid
+    moneyPaid,
+    chatRoomId
 }) => {
     const router = useRouter()
     const reportTransactionModal = useReportTransactionModal()
+    const { setRoomId } = useContext(GlobalContext) || {}
 
     const date = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "dd/MM/yyyy")
     const formatStartTime = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
@@ -85,20 +89,28 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                         {availableSlot ?? 0}
                     </span>
                 </section>
-                <div className="flex w-full xl:gap-5 gap-2 flex-wrap lg:flex-nowrap transition-all duration-500">
+                <div className="flex w-full xl:gap-3 gap-2 flex-wrap lg:flex-nowrap transition-all duration-500">
                     <Button
                         title="Báo cáo"
-                        style="text-xl px-4 white whitespace-nowrap"
+                        style="text-lg px-4 white whitespace-nowrap"
                         onClick={() => reportTransactionModal.onOpen(transacionId)}
                     />
                     <Button
                         title="Đặt sân tiếp"
-                        style="text-xl px-4 whitespace-nowrap"
+                        style="text-lg px-4 whitespace-nowrap"
                         onClick={() => router.push(`/product/detail-product/${postId}`)}
                     />
                     <Button
+                        title="Nhắn tin"
+                        style="text-lg px-4 whitespace-nowrap"
+                        onClick={() => {
+                            if (setRoomId) setRoomId(chatRoomId)
+                            router.push("/user/chat-room")
+                        }}
+                    />
+                    <Button
                         title="Xem chi tiết thanh toán"
-                        style="text-xl px-4 whitespace-nowrap"
+                        style="text-lg px-4 whitespace-nowrap"
                         onClick={() => router.push(`/transaction/detail-transaction/${transacionId}`)}
                     />
                 </div>

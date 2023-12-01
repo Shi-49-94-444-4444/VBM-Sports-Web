@@ -49,21 +49,12 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
                     lg:flex-col 
                     lg:justify-normal
                     lg:items-baseline
-                    xl:flex-row 
-                    xl:justify-between 
-                    xl:items-center 
-                    xl:gap-0
                 "
             >
-                <div className="flex flex-col gap-1">
-                    <div className="text-gray-600 font-semibold text-xl">
-                        {user && user.fullName}
-                    </div>
-                    <div className="text-gray-500 font-medium text-lg">
-                        {user && user.id}
-                    </div>
+                <div className="text-gray-600 font-semibold text-2xl">
+                    {user && user.fullName}
                 </div>
-                <div className="text-lg font-semibold italic text-gray-500">
+                <div className="text-xl font-semibold italic text-gray-500">
                     {user && user.role}
                 </div>
             </div>
@@ -77,16 +68,16 @@ const AdminOverview: React.FC<OptionsOverviewProps> = ({
             >
                 {options.map((option) => (
                     <button className={`
-                        relative 
-                        flex 
-                        flex-row 
-                        items-center 
-                        space-x-2 
-                        cursor-pointer 
-                        hover:text-primary-blue-cus 
-                        text-gray-600
-                        ${selectedOption === option.id ? 'text-primary-blue-cus font-semibold' : ''}
-                    `}
+                            relative 
+                            flex 
+                            flex-row 
+                            items-center 
+                            space-x-2 
+                            cursor-pointer 
+                            hover:text-primary-blue-cus 
+                            text-gray-600
+                            ${selectedOption === option.id ? 'text-primary-blue-cus font-semibold' : ''}
+                        `}
                         key={option.id}
                         onClick={() => onOptionSelect(option.id)}
                     >

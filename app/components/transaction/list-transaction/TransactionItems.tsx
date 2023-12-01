@@ -70,6 +70,7 @@ const TransactionItems = () => {
                                 postTitle={item.postTitle}
                                 moneyPaid={item.moneyPaid}
                                 status={item.status}
+                                chatRoomId={item.chatRoomId}
                             />
                         ))}
                     </div>

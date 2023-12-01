@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react";
-import { Search } from "../providers";
+import { DownMetalBtn, Search } from "../providers";
 import { useOutsideClick } from "@/utils";
 
 const UserReportManagement = () => {
@@ -79,22 +79,29 @@ const UserReportManagement = () => {
                     md:justify-between 
                     md:items-center 
                     md:gap-0
+                    transition-all
+                    duration-500
                 "
             >
-                <h1 className="font-semibold text-3xl">
-                    Danh sách báo cáo
+                <h1 className="font-semibold md:text-4xl text-3xl flex-shrink-0">
+                    Quản lý báo cáo
                 </h1>
-                <Search value="" onChange={() => { }} style="md:w-2/5 w-full" />
+                <div className="flex gap-3 flex-col md:flex-row transition-all duration-500 flex-wrap justify-end">
+                    <DownMetalBtn onClick={() => {}}/>
+                    <div className="flex flex-col space-y-1 md:w-auto w-full transition-all duration-500">
+                        <Search value={""} onChange={() => { }} style="w-full" />
+                    </div>
+                </div>
             </div>
-            <table className="table-auto border-collapse text-gray-600 text-center z-[1000]">
+            <table className="table-auto border-collapse text-gray-600 text-center z-[1000] text-sm sm:text-base md:text-lg">
                 <thead>
                     <tr>
                         {listTitleReportManagement.map((items, index) => (
-                            <th className="text-lg font-semibold border border-black border-opacity-10 py-2" key={index}>{items.title}</th>
+                            <th className="font-semibold border border-black border-opacity-10 py-2" key={index}>{items.title}</th>
                         ))}
                     </tr>
                 </thead>
-                <tbody className="border-b border-black border-opacity-10 text-base font-medium">
+                <tbody className="border-b border-black border-opacity-10 font-medium">
                     {listReportManagement.map((items) => (
                         <tr key={items.id}>
                             <td className="py-3 border-l border-r border-black border-opacity-10">{items.id}</td>
