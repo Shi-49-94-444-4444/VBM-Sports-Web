@@ -1,17 +1,17 @@
 "use client"
 
-import { useReportUserModal } from "@/hooks"
+import { useReportPostModal } from "@/hooks"
 import CustomModal from "./Modal"
 import { Button } from "../form"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { reportUserService } from "@/services"
+import { reportPostService } from "@/services"
 import { Loading } from "../loader"
 
-const ModalReportUser = ({ id }: { id: string }) => {
-    const reportUserModal = useReportUserModal()
+const ModalReportPost = ({ id }: { id: string }) => {
+    const reportPostModal = useReportPostModal()
     const [selectedReport, setSelectedReport] = useState("")
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
@@ -35,11 +35,12 @@ const ModalReportUser = ({ id }: { id: string }) => {
             return
         }
 
-        if (user && user.id) {
-            const res = await reportUserService({
-                fromUserID: user.id,
-                content: selectedReport,
-                toUserID: id
+        if (user && user.id && id) {
+            const res = await reportPostService({
+                user_id: user.id,
+                post_id: id,
+                reportContent: selectedReport,
+                reportTitle: selectedReport
             })
 
             //console.log(res)
@@ -56,7 +57,7 @@ const ModalReportUser = ({ id }: { id: string }) => {
                 position: toast.POSITION.TOP_RIGHT
             })
 
-            reportUserModal.onClose()
+            reportPostModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -64,8 +65,8 @@ const ModalReportUser = ({ id }: { id: string }) => {
 
     return (
         <CustomModal
-            isOpen={reportUserModal.isOpen}
-            onClose={reportUserModal.onClose}
+            isOpen={reportPostModal.isOpen}
+            onClose={reportPostModal.onClose}
             title="Báo cáo bài đăng"
             width="md:w-auto w-full"
             height="h-auto"
@@ -112,4 +113,4 @@ const ModalReportUser = ({ id }: { id: string }) => {
     )
 }
 
-export default ModalReportUser
+export default ModalReportPost

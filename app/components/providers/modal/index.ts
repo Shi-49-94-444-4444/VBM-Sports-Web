@@ -9,6 +9,7 @@ import ModalUnauthorize from "./ModalUnauthorize"
 import ModalUserBanUser from "./ModalUserBanUser"
 import ModalChangePassword from "./ModalChangePassword"
 import ModalFeaturing from "./ModalFeaturing"
+import ModalReportPost from "./ModalReportPost"
 
 export {
     ModalReportUser,
@@ -22,4 +23,5 @@ export {
     ModalUserBanUser,
     ModalChangePassword,
     ModalFeaturing,
+    ModalReportPost
 }

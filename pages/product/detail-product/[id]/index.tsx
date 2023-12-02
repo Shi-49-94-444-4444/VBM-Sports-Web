@@ -6,6 +6,7 @@ import {
     ProductOtherExtra,
     ModalFailPayment,
     ModalSuccessPayment,
+    ModalReportPost
 } from "@/app/components";
 import { getListProductService, getProductService } from "@/services/product";
 import { ProductDetailContent, ProductDetailContentData } from "@/types";
@@ -71,6 +72,7 @@ const DetailBadmintonPage = ({ Product, internalError, postId }: { Product: Prod
             <ModalContinuePayment />
             <ModalFailPayment />
             <ModalSuccessPayment />
+            <ModalReportPost id={postId} />
             <Container>
                 <ProductContent
                     id={postId}

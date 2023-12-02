@@ -1,10 +1,15 @@
 "use client"
 
 import { ProductDetailContentData } from "@/types";
-import { Button, Rating, Share } from "../../providers";
+import { Button, Rating } from "../../providers";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { validateDes, validateName, validateTitle, validateURLAvatar } from "@/utils";
+import { validateDes, validateName, validateURLAvatar } from "@/utils";
+import { BsFacebook } from "react-icons/bs";
+import { VscLinkExternal } from "react-icons/vsc";
+import { useReportPostModal } from "@/hooks";
+import { useContext } from "react";
+import { GlobalContext } from "@/contexts";
 
 const ProductUserPost: React.FC<ProductDetailContentData> = ({
     id,
@@ -17,11 +22,14 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
     userId
 }) => {
     const router = useRouter()
+    const { user } = useContext(GlobalContext) || {}
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         router.push(`/user/profile-user/${userId}`)
         event.preventDefault()
     }
+
+    const reportPostModal = useReportPostModal()
 
     return (
         <div className="relative py-10" key={id}>
@@ -70,7 +78,32 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                         </div>
                     </div>
                 </div>
-                <Share />
+                <div className="flex flex-col gap-5">
+                    <div className="text-2xl text-gray-600 font-semibold">
+                        Chia sẻ về bài viết này:
+                    </div>
+                    <div className="flex flex-row items-center space-x-5">
+                        <BsFacebook size={40} className="text-blue-600 cursor-pointer" />
+                        <VscLinkExternal size={40} className="cursor-pointer" />
+                        <div className="flex-grow"></div>
+                        {user && user.id && user.id.toString() === userId || user && user.role && user.role.toLowerCase() === "admin" ? (
+                            <></>
+                        ) : (
+                            <button
+                                className="
+                                    text-base 
+                                    text-gray-500 
+                                    hover:underline 
+                                    cursor-pointer 
+                                    text-right
+                                "
+                                onClick={reportPostModal.onOpen}
+                            >
+                                Báo cáo bài đăng
+                            </button>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     )
