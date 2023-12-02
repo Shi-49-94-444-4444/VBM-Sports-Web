@@ -6,8 +6,9 @@ import { UserProfileData } from "@/types"
 import { Button } from "../../providers"
 import { validateDes, validateName, validateURLAvatar } from "@/utils"
 import { useReportUserModal, useUnauthorizeModal, useUserBanUserModal } from "@/hooks"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
+import { subscribeService } from "@/services"
 
 const UserProfileIntro: React.FC<UserProfileData> = ({
     id,
@@ -19,6 +20,14 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
     const reportUserModal = useReportUserModal()
     const banUserModal = useUserBanUserModal()
     const unauthorizeModal = useUnauthorizeModal()
+    const [subscribe, setSubscribe] = useState(false)
+
+    const handleSubscribe = () => {
+        if (user && user.id && id) {
+            subscribeService({ user_id: user.id, target_id: id })
+            setSubscribe(true)
+        }
+    }
 
     return (
         <div className="relative flex flex-col gap-5 sm:block">
@@ -69,10 +78,21 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                                     onClick={unauthorizeModal.onOpen}
                                 />
                             ) : (
-                                <Button
-                                    title="Đăng ký"
-                                    style="py-3 px-12 text-xl"
-                                />
+                                subscribe ? (
+                                    <Button
+                                        title="Đã đăng ký"
+                                        style="py-3 px-12 text-xl"
+                                        color="bg-gray-400"
+                                        text="text-gray-600"
+                                        isHover={false}
+                                    />
+                                ) : (
+                                    <Button
+                                        title="Đăng ký"
+                                        style="py-3 px-12 text-xl"
+                                        onClick={handleSubscribe}
+                                    />
+                                )
                             )}
                         </div>
                     </div>

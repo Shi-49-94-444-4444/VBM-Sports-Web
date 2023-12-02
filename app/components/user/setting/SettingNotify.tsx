@@ -24,7 +24,7 @@ const SettingNotify = () => {
 
     return (
         <div className="relative p-8 flex flex-col gap-5 h-screen">
-            <div className="text-gray-600 text-3xl font-semibold">Thông báo</div>
+            <div className="text-gray-600 text-2xl md:text-3xl font-semibold">Thông báo</div>
             <div className="border border-black border-opacity-10" />
             <div className="flex flex-col gap-3 pb-10">
                 {listNotify.map((items) => (
@@ -48,11 +48,10 @@ const SettingNotify = () => {
                     />
                 </div>
             ))}
-
             <div className="relative ml-auto py-5">
                 <Button
                     title="Áp dụng"
-                    style="text-xl py-2 px-10"
+                    style="md:text-xl md:py-2 px-10"
                     onClick={() => { }}
                 />
             </div>

@@ -1,8 +1,8 @@
 import AxiosClient from "./AxiosInstance"
+import loginService from "./login"
+import registerService from "./register"
 
 export * from "./forgotPassword"
-export * from "./login"
-export * from "./register"
 export * from "./step"
 export * from "./user"
 export * from "./product"
@@ -11,5 +11,7 @@ export * from "./admin"
 export * from "./chat"
 
 export {
-    AxiosClient
+    AxiosClient,
+    loginService,
+    registerService
 }

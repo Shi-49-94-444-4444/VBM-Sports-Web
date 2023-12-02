@@ -47,7 +47,7 @@ const TransactionContent: React.FC<ListTransactionData> = ({
             </div>
             <div className="lg:col-span-8 p-6 flex flex-col gap-3">
                 <div className="flex md:flex-row flex-col md:justify-between md:items-center md:gap-0 gap-2 transition-all duration-500">
-                    <div className="text-3xl font-semibold text-gray-600">
+                    <div className="md:text-3xl text-2xl font-semibold text-gray-600">
                         {validateTitle(postTitle)}
                     </div>
                     <div className="text-xl font-semibold text-green-500">

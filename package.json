@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:test": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "@goongmaps/goong-map-react": "^1.1.2",
@@ -24,8 +26,6 @@
     "dayjs": "^1.11.10",
     "decimal.js": "^10.4.3",
     "dotenv": "^16.3.1",
-    "eslint": "8.43.0",
-    "eslint-config-next": "13.4.7",
     "firebase": "^10.5.2",
     "jose": "^5.1.0",
     "js-cookie": "^3.0.5",
@@ -59,6 +59,12 @@
     "@types/jsonwebtoken": "^9.0.3",
     "@types/react-modal": "^3.16.0",
     "@types/react-transition-group": "^4.4.6",
-    "encoding": "^0.1.13"
+    "@typescript-eslint/parser": "^6.13.1",
+    "encoding": "^0.1.13",
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.7",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.1.0"
   }
 }

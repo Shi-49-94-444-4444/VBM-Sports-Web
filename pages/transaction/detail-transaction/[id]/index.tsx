@@ -45,7 +45,7 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
                     {transaction.data.slots == null ? (
                         <div className="relative h-screen flex flex-col items-center justify-center gap-5 text-primary-blue-cus font-semibold">
                             <div className="flex space-x-3 items-center flex-wrap justify-center transition-all duration-500">
-                                <h1 className="md:text-5xl text-3xl transition-all duration-500">Hóa đơn này không tồn tại!</h1>
+                                <h1 className="md:text-4xl text-3xl transition-all duration-500 text-center">Hóa đơn này không tồn tại!</h1>
                                 <div className="relative">
                                     <Image
                                         src="/images/sad.gif"
@@ -60,7 +60,7 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
                         </div>
                     ) : (
                         <div className="flex flex-col">
-                            <div className="flex items-center justify-center text-4xl text-gray-600 font-semibold pb-10">
+                            <div className="flex items-center justify-center md:text-4xl text-3xl text-gray-600 font-semibold pb-10">
                                 Chi tiết thanh toán
                             </div>
                             <div className="md:grid md:grid-cols-12 flex flex-col gap-3 text-gray-600">

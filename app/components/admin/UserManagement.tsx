@@ -181,15 +181,15 @@ const UserManagement = () => {
                     <LoadingFullScreen loading={isLoading} />
                 </div>
             ) : !listManageUser || !filteredUsers || listManageUser.data == null ? (
-                <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-screen">
+                <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
                     Không có người dùng nào tồn tại
                 </div>
             ) : error ? (
-                <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-screen">
+                <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
                     Lỗi API
                 </div>
             ) : filteredUsers && filteredUsers.length === 0 ? (
-                <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-screen">
+                <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
                     Người này dùng không tồn tại
                 </div>
             ) : (

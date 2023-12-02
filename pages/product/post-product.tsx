@@ -9,7 +9,7 @@ const PostBadmintonPage = () => {
                 <div className="relative mb-10">
                     <div className="relative py-10">
                         <div className="flex justify-center">
-                            <h1 className="text-gray-600 font-semibold text-4xl">
+                            <h1 className="text-gray-600 font-semibold md:text-4xl text-3xl">
                                 Tạo Bài Đăng mới
                             </h1>
                         </div>

@@ -350,4 +350,117 @@ export const customStyles = {
             outline: 'none !important',
         },
     }),
-};
+}
+
+export const locationCity = [
+    {
+        "id": 1,
+        "name": "Thành Phố Hồ Chí Minh"
+    },
+    {
+        "id": 2,
+        "name": "Thành Phố Thủ Đức"
+    }
+]
+
+export const locationDistrict_HCM = [
+    {
+        "id": "1",
+        "name": "Quận 1",
+    },
+    {
+        "id": "2",
+        "name": "Quận 3",
+    },
+    {
+        "id": "3",
+        "name": "Quận 4",
+    },
+    {
+        "id": "4",
+        "name": "Quận 5",
+    },
+    {
+        "id": "5",
+        "name": "Quận 6",
+    },
+    {
+        "id": "6",
+        "name": "Quận 7",
+    },
+    {
+        "id": "7",
+        "name": "Quận 8",
+    },
+    {
+        "id": "8",
+        "name": "Quận 10",
+    },
+    {
+        "id": "9",
+        "name": "Quận 11",
+    },
+    {
+        "id": "10",
+        "name": "Quận 12",
+    },
+    {
+        "id": "11",
+        "name": "Quận Bình Thạnh",
+    },
+    {
+        "id": "12",
+        "name": "Quận Bình Tân",
+    },
+    {
+        "id": "13",
+        "name": "Quận Tân Bình",
+    },
+    {
+        "id": "14",
+        "name": "Quận Tân Phú",
+    },
+    {
+        "id": "15",
+        "name": "Quận Gò Vấp",
+    },
+    {
+        "id": "16",
+        "name": "Quận Phú Nhuận",
+    },
+    {
+        "id": "17",
+        "name": "Hóc Môn",
+    },
+    {
+        "id": "18",
+        "name": "Củ Chi",
+    },
+    {
+        "id": "19",
+        "name": "Nhà Bè",
+    },
+    {
+        "id": "20",
+        "name": "Bình Chánh",
+    },
+    {
+        "id": "21",
+        "name": "Cần Giờ",
+    }
+]
+
+export const locationDistrict_TD = [
+    {
+        "id": "22",
+        "name": "Quận Thủ Đức",
+    },
+    {
+        "id": "23",
+        "name": "Quận 9",
+    },
+    {
+        "id": "24",
+        "name": "Quận 2",
+    }
+]

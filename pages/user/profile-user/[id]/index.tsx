@@ -83,7 +83,7 @@ const ProfileUserPage = ({ User, internalError, id }: { User: UserProfile, inter
                 />
                 <UserFormComment id={id} />
                 <UserProfileComments id={id} />
-                <UserOtherExtra />
+                <UserOtherExtra id={id} />
             </Container>
         </Layout>
     )

@@ -30,14 +30,14 @@ const UserProfileComments = ({ id }: { id: string }) => {
 
     return (
         <div className="relative flex flex-col gap-5" key={id}>
-            <div className="text-3xl font-semibold text-gray-600">
+            <div className="md:text-4xl text-3xl font-semibold text-gray-600">
                 Lời bình luận
             </div>
             <div className="border-2 border-gray-300" />
             {isLoading ? (
                 <LoadingFullScreen loading={isLoading} />
             ) : !displayedComments || displayedComments.length === 0 ? (
-                <div className="flex items-center justify-center text-primary-blue-cus text-3xl font-semibold h-40">
+                <div className="flex items-center justify-center text-primary-blue-cus md:text-4xl text-3xl font-semibold h-96">
                     Không có lời bình luận nào cả
                 </div>
             ) : (

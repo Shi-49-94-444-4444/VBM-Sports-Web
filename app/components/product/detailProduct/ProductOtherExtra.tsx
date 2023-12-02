@@ -24,6 +24,7 @@ const ProductOtherExtra = ({ id }: { id: string }) => {
                     <div className="
                             text-gray-600 
                             font-semibold
+                            md:text-4xl
                             text-3xl
                             text-center
                             transition-all

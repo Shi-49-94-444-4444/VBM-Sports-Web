@@ -3,7 +3,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiFillCamera } from 'react-icons/ai';
-import { Input, Loading, LoadingFullScreen } from '../../providers';
+import { Button, Input, Loading, LoadingFullScreen } from '../../providers';
 import { GlobalContext } from '@/contexts';
 import { putProfileUserService } from '@/services';
 import { UserProfileSettingForm } from '@/types';
@@ -135,7 +135,7 @@ const SettingProfile = () => {
                 </div>
             ) : (
                 <>
-                    <div className="text-gray-600 text-3xl font-semibold">Hồ sơ</div>
+                    <div className="text-gray-600 text-2xl md:text-3xl font-semibold">Hồ sơ</div>
                     <div className="relative flex flex-col w-2/5 gap-3 items-center">
                         <div {...getRootProps()} className="relative w-full pb-[100%] border-2 border-gray-400 p-4 rounded-xl cursor-pointer">
                             <input {...getInputProps()} {...register('imgURL')} />
@@ -159,7 +159,7 @@ const SettingProfile = () => {
                         </div>
                         <div className="flex flex-row text-primary-blue-cus items-center gap-2 whitespace-nowrap">
                             <AiFillCamera size={30} />
-                            <span className="text-xl font-semibold">Đăng tải hình ảnh</span>
+                            <span className="text-lg md:text-xl font-semibold">Đăng tải hình ảnh</span>
                         </div>
                         {errors.imgURL && <p className="text-red-500 font-medium h-4">{errors.imgURL.message}</p>}
                     </div>
@@ -167,13 +167,13 @@ const SettingProfile = () => {
                     {settingProfileInputs.map((input) => (
                         <div className="grid grid-cols-7 items-center" key={input.id}>
                             <div className="col-span-2">
-                                <label className="text-gray-600 font-semibold text-xl">
+                                <label className="text-gray-600 font-semibold text-lg md:text-xl">
                                     {input.label}
                                 </label>
                             </div>
                             <div className="col-span-5">
                                 <Input
-                                    colorInput="bg-[#F5F5F5] border-none"
+                                    colorInput="bg-[#F5F5F5] border-none md:text-base text-sm"
                                     name={input.name}
                                     type={input.type}
                                     id={input.id}
@@ -186,13 +186,11 @@ const SettingProfile = () => {
                         </div>
                     ))}
                     <div className="relative flex justify-center">
-                        <button className="text-white text-xl font-semibold bg-primary-blue-cus px-12 py-3 rounded-xl" type="submit">
-                            {isLoading ? (
-                                <Loading loading={isLoading} color="white" />
-                            ) : (
-                                "Lưu"
-                            )}
-                        </button>
+                        <Button 
+                            title="Lưu"
+                            type="submit"
+                            style="md:py-2 md:text-xl px-8"
+                        />
                     </div>
                 </>
             )}

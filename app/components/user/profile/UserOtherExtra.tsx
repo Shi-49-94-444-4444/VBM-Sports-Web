@@ -1,6 +1,6 @@
 import { UserCarousel } from "../../providers"
 
-const UserOtherExtra = () => {
+const UserOtherExtra = ({ id }: { id: string }) => {
     return (
         <div className="relative py-10">
             <div className="flex flex-col mb-10">
@@ -24,6 +24,7 @@ const UserOtherExtra = () => {
                     <div className="
                             text-gray-600 
                             font-semibold
+                            md:text-4xl
                             text-3xl 
                             text-center
                             transition-all
@@ -42,7 +43,7 @@ const UserOtherExtra = () => {
                     />
                 </div>
             </div>
-            <UserCarousel />
+            <UserCarousel id={id} />
         </div>
     )
 }

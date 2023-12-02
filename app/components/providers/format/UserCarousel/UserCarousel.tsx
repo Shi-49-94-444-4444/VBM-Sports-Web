@@ -18,7 +18,7 @@ SwiperCore.use([Pagination]);
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
-const UserCarousel = () => {
+const UserCarousel = ({ id }: { id: string }) => {
     const { user } = useContext(GlobalContext) || {}
     const { data: listUser, error } = useSWR<ListUser>('/api/users/GetListUser', fetcher)
 
@@ -31,7 +31,7 @@ const UserCarousel = () => {
     if (error) {
         return (
             <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách người dùng - error 500</p>
+                <p className="md:text-4xl text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách người dùng - error 500</p>
                 <Image
                     src="/images/sad.gif"
                     alt="Gif"
@@ -46,7 +46,7 @@ const UserCarousel = () => {
     if (listUser && listUser.data == null) {
         return (
             <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="text-3xl font-semibold">Không tìm thấy danh sách người dùng</p>
+                <p className="md:text-4xl text-3xl font-semibold">Không tìm thấy danh sách người dùng</p>
                 <Image
                     src="/images/sad.gif"
                     alt="Gif"
@@ -57,16 +57,33 @@ const UserCarousel = () => {
             </div>
         )
     }
-
     let filteredListUser: ListUserData[] = []
 
-    if (user && listUser && listUser.data) {
-        filteredListUser = listUser.data.filter(users => users.id?.toString() !== user.id?.toString())
-    } else {
-        filteredListUser = listUser ? listUser.data : []
+    if (listUser && listUser.data) {
+        const userId = user ? user.id?.toString() : null
+        const viewId = id ? id.toString() : null
+        filteredListUser = listUser.data.filter(users => {
+            const usersId = users.id?.toString()
+            return usersId !== userId && usersId !== viewId
+        })
     }
 
-    const sliceItems = filteredListUser && filteredListUser.length > 0 ? filteredListUser.slice(0, 12) : []
+    const sliceItems = filteredListUser.slice(0, 12)
+
+    if (sliceItems.length === 0) {
+        return (
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="md:text-4xl text-3xl font-semibold">Không tìm thấy danh sách người dùng</p>
+                <Image
+                    src="/images/sad.gif"
+                    alt="Gif"
+                    width={100}
+                    height={100}
+                    className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                />
+            </div>
+        )
+    }
 
     return (
         <Swiper

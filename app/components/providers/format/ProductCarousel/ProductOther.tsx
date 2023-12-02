@@ -3,14 +3,14 @@
 import { ListProductData } from "@/types";
 import Image from "next/image"
 import Link from "next/link";
-import { FormatTime } from "@/utils"
 import {
     validateAddress,
     validateDes,
     validateName,
     validateTitle,
     validateURLAvatar,
-    validateURLProduct
+    validateURLProduct,
+    FormatTime
 } from "@/utils";
 
 interface FormatSlot {

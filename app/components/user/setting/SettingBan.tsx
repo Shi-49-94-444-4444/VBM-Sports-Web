@@ -59,14 +59,14 @@ const SettingBan = () => {
     }
 
     return (
-        <div className="relative p-8 flex flex-col gap-5 h-screen">
-            <div className="text-gray-600 text-3xl font-semibold">Danh sách người dùng đã chặn</div>
+        <div className="relative p-8 flex flex-col gap-5 h-full min-h-screen">
+            <div className="text-gray-600 text-2xl md:text-3xl font-semibold">Danh sách người dùng đã chặn</div>
             <div className="border border-black border-opacity-10" />
             <div className="relative bg-[#F5F5F5] border border-black border-opacity-10 rounded-xl">
                 {isLoadingPage ? (
                     <LoadingFullScreen loading={isLoadingPage} />
                 ) : !initialListBlock || initialListBlock.data.length === 0 ? (
-                    <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-[40rem]">
+                    <div className="flex text-center items-center justify-center text-3xl md:text-4xl text-primary-blue-cus font-semibold h-[40rem]">
                         Không có ai trong danh sách chặn
                     </div>
                 ) : (
@@ -86,13 +86,13 @@ const SettingBan = () => {
                 {isLoading ? (
                     <Button
                         title={<Loading loading={isLoading} color="white"/>}
-                        style="text-xl py-3 px-12"
+                        style="md:text-xl md:py-3 px-12"
                         isHover={false}
                     />
                 ) : (
                     <Button
                         title="Lưu"
-                        style="text-xl py-3 px-12"
+                        style="md:text-xl md:py-3 px-12"
                         onClick={handleSave}
                     />
                 )}

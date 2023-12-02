@@ -28,7 +28,7 @@ const ProductCarousel = ({ id }: { id: string }) => {
     if (error) {
         return (
             <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
+                <p className="md:text-4xl text-3xl font-semibold text-center">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
                 <div className="relative">
                     <Image
                         src="/images/sad.gif"
@@ -45,7 +45,7 @@ const ProductCarousel = ({ id }: { id: string }) => {
     if (listProduct && listProduct.data && listProduct.data.length === 0) {
         return (
             <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="text-3xl font-semibold">Không tìm thấy danh sách sản phẩm</p>
+                <p className="md:text-4xl text-3xl font-semibold text-center">Không có sân nào cả</p>
                 <div className="relative">
                     <Image
                         src="/images/sad.gif"
@@ -68,6 +68,23 @@ const ProductCarousel = ({ id }: { id: string }) => {
     }
 
     const slicedItems = filteredListProduct && filteredListProduct.length > 0 ? filteredListProduct.slice(0, 16) : []
+
+    if (slicedItems.length === 0) {
+        return (
+            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
+                <p className="md:text-4xl text-3xl font-semibold text-center">Không có sân nào cả</p>
+                <div className="relative">
+                    <Image
+                        src="/images/sad.gif"
+                        alt="Gif"
+                        width={100}
+                        height={100}
+                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+                    />
+                </div>
+            </div>
+        )
+    }
 
     return (
         <Swiper

@@ -1,9 +1,8 @@
-import { FormatDateProps, FormatTimeProps } from '@/types'
+import { FormatDateProps, FormatTimeProps, DateSlot } from '@/types'
 import { format, isValid, parse } from 'date-fns'
 import { vi } from 'date-fns/locale'
 import Decimal from 'decimal.js'
 import currency from 'currency.js'
-import { DateSlot } from '@/types'
 
 export const FormatDate: React.FC<FormatDateProps> = ({ dateString }) => {
   try {

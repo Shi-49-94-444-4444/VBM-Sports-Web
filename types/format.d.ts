@@ -34,7 +34,7 @@ export interface DateSlot {
     slot: number
 }
 
-interface Time {
+export interface Time {
     hour: string
     minute: string
 }

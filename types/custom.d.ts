@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/named
 import { IconType } from "react-icons/lib"
+
 export interface ButtonProps {
     title: string | React.ReactNode
     style?: string

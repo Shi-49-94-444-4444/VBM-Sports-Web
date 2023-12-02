@@ -107,7 +107,7 @@ const WalletHistory = () => {
     return (
         <div className="flex flex-col gap-5 text-gray-600">
             <div className="flex lg:flex-row flex-col lg:items-center lg:justify-between gap-3 transition-all duration-500">
-                <div className="font-semibold text-3xl flex-shrink-0">
+                <div className="font-semibold md:text-4xl text-3xl flex-shrink-0">
                     Lịch sử giao dịch
                 </div>
                 <div className="flex gap-3 flex-col md:flex-row justify-between transition-all duration-500">
@@ -123,11 +123,11 @@ const WalletHistory = () => {
             {isLoading ? (
                 <LoadingFullScreen loading={isLoading} />
             ) : !listHistoryWallet || !filterHistoryWallet || listHistoryWallet.data.length === 0 ? (
-                <div className="flex items-center justify-center text-primary-blue-cus h-screen">
+                <div className="flex items-center justify-center text-primary-blue-cus h-96 md:text-4xl text-3xl font-semibold text-center">
                     Bạn chưa thực hiện giao dịch nào cả!
                 </div>
             ) : filterHistoryWallet && filterHistoryWallet.length === 0 ? (
-                <div className="flex items-center justify-center h-screen text-primary-blue-cus">
+                <div className="flex items-center justify-center h-96 text-primary-blue-cus md:text-4xl text-3xl font-semibold text-center">
                     Bạn chưa thực hiện giao dịch nào cả!
                 </div>
             ) : (

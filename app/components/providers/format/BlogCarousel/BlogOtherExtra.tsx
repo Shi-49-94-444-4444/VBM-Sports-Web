@@ -26,7 +26,7 @@ const BlogOtherExtra = () => {
                         <div className="
                                 text-gray-600 
                                 font-semibold
-                                lg:text-3xl
+                                lg:text-4xl
                                 text-3xl
                                 uppercase
                                 text-center
