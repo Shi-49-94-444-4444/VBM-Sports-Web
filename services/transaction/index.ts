@@ -55,7 +55,7 @@ export const deleteTransactionService = async ({ tran_id }: { tran_id: string })
     }
 }
 
-export const transactionStatusService = async ({ tran_id, status_info }: { tran_id: string, status_info: string }) => {
+export const transactionStatusService = async ({ tran_id, status_info }: { tran_id: string, status_info: number }) => {
     try {
         const response = await AxiosClient.put(`/api/transactions/${tran_id}/status_info/${status_info}`)
 

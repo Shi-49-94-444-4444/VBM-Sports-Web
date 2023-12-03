@@ -62,14 +62,12 @@ const BannerIntro = () => {
                         duration-500
                     "
                 >
-                    Nhưng bạn không biết nên chọn sân chơi nào phù hợp với giá tiền trả lời một cuộc phỏng vấn,
-                    Tổng thống Nga bày tỏ tự tin, khẳng định có thể hoàn thành mọi kế hoạch đề ra với chiến dịch
-                    quân sự tại Ukraine.
+                    VBM là trang mạng xã hội về cầu lông dành cho những người đam mê thể thao nói chung và cầu lông nói riêng. Tại đây các bạn sẽ được gặp gỡ những người chơi thân thiện và hòa đồng. Hãy cùng chúng tôi phát triển một cộng đồng cầu lông và phát triển sức khỏe nhé.
                 </p>
                 <div className="
                         relative
                         md:flex 
-                        mt-10
+                        mt-5
                         hidden
                     "
                     onMouseLeave={() => {
@@ -167,7 +165,7 @@ const BannerIntro = () => {
                 <div className="
                         relative
                         flex 
-                        mt-10
+                        mt-5
                         md:hidden
                     "
                 >

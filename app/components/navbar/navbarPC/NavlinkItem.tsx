@@ -12,7 +12,7 @@ const NavlinkItem: React.FC<NavlinkItemProps> = ({
             className="
                 absolute
                 top-0
-                left-0
+                -left-2
                 bottom-auto
                 right-auto
                 shadow-md

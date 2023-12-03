@@ -11,6 +11,7 @@ export interface TransactionPaymentDetail {
         buyerName: string
         payTime: string
         total: string
+        isCancel: boolean
         post: {
             id: string,
             title: string,
@@ -36,6 +37,7 @@ export interface TransactionPaymentDetailData {
     buyerName?: string
     payTime?: string
     total?: string
+    isCancel?: boolean
     post?: {
         id: string,
         title: string,

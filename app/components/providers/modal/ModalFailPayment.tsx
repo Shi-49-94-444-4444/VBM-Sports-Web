@@ -30,7 +30,7 @@ const ModalFailPayment = () => {
                     width={200}
                     className="object-cover w-24 h-24"
                 />
-                <label className="text-black font-semibold text-3xl truncate">Thanh toán không thành công</label>
+                <label className="text-gray-600 font-semibold text-3xl truncate">Thanh toán không thành công</label>
                 <p className="text-gray-500 font-normal text-base px-5">{failPaymentModal.message}</p>
                 <div className="flex flex-row gap-5">
                     <Button

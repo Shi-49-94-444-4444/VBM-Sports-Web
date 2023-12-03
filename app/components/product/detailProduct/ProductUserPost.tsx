@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { validateDes, validateName, validateURLAvatar } from "@/utils";
 import { BsFacebook } from "react-icons/bs";
 import { VscLinkExternal } from "react-icons/vsc";
-import { useReportPostModal } from "@/hooks";
+import { useReportPostModal, useUnauthorizeModal } from "@/hooks";
 import { useContext } from "react";
 import { GlobalContext } from "@/contexts";
 
@@ -30,6 +30,7 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
     }
 
     const reportPostModal = useReportPostModal()
+    const unauthorizeModal = useUnauthorizeModal()
 
     return (
         <div className="relative py-10" key={id}>
@@ -86,9 +87,7 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                         <BsFacebook size={40} className="text-blue-600 cursor-pointer" />
                         <VscLinkExternal size={40} className="cursor-pointer" />
                         <div className="flex-grow"></div>
-                        {user && user.id && user.id.toString() === userId || user && user.role && user.role.toLowerCase() === "admin" ? (
-                            <></>
-                        ) : (
+                        {!user ? (
                             <button
                                 className="
                                     text-base 
@@ -97,10 +96,27 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                                     cursor-pointer 
                                     text-right
                                 "
-                                onClick={reportPostModal.onOpen}
+                                onClick={unauthorizeModal.onOpen}
                             >
                                 Báo cáo bài đăng
                             </button>
+                        ) : (
+                            user && user.id && user.id.toString() === userId || user && user.role && user.role.toLowerCase() === "admin" ? (
+                                <></>
+                            ) : (
+                                <button
+                                    className="
+                                        text-base 
+                                        text-gray-500 
+                                        hover:underline 
+                                        cursor-pointer 
+                                        text-right
+                                    "
+                                    onClick={reportPostModal.onOpen}
+                                >
+                                    Báo cáo bài đăng
+                                </button>
+                            )
                         )}
                     </div>
                 </div>

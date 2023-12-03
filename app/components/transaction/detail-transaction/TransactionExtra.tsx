@@ -3,10 +3,21 @@ import Decimal from "decimal.js"
 import Image from "next/image"
 import { Button } from "../../providers"
 import { TransactionPaymentDetailData } from "@/types"
+import { add, isBefore, parse } from "date-fns"
+import { useTransactionModal } from "@/hooks"
 
 const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
-    total
+    total,
+    isCancel,
+    post
 }) => {
+    const endTime = post && parse(post.endTime, "dd/MM/yyyy HH:mm", new Date());
+    const currentTime = new Date();
+
+    const isBefore24Hours = endTime && isBefore(currentTime, add(endTime, { hours: -24 }))
+
+    const transactionModal = useTransactionModal()
+
     return (
         <div className="col-span-4 gap-5 flex flex-col">
             {/* <div className="flex flex-col gap-5 rounded-lg bg-[#F5F5F5] p-6 text-gray-600">
@@ -50,10 +61,20 @@ const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
                 </div>
             </div>
             <div className="relative flex justify-center">
-                <Button
-                    title="Hủy chỗ đặt"
-                    style="py-3 text-lg"
-                />
+                {isCancel ? (
+                    <Button
+                        title="Thanh toán ngay"
+                        style="py-3 text-lg"
+                        onClick={transactionModal.onOpen}
+                    />
+                ) : (
+                    isBefore24Hours && (
+                        <Button
+                            title="Hủy chỗ đặt"
+                            style="py-3 text-lg"
+                        />
+                    )
+                )}
             </div>
         </div>
     )

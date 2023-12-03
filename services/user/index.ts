@@ -196,3 +196,20 @@ export const getUserService = async ({ user_id }: { user_id: string }) => {
             }
     }
 }
+
+export const putNotifyService = async ({ notiIds }: { notiIds: string[] }) => {
+    try {
+        const response = await AxiosClient.put(`/api/notifications/readed`, {
+            notiIds: notiIds
+        })
+
+        return response.data
+    } catch (error: any) {
+        if (error && error.status)
+            //console.log(error)
+
+            if (error && error.response) {
+                return error.response.data
+            }
+    }
+}

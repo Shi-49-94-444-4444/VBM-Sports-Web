@@ -10,6 +10,8 @@ import { useUnauthorizeModal } from "./useUnauthorize"
 import { useUserBanUserModal } from "./useUserBanUser"
 import { useChangePasswordModal } from "./useChangePassword"
 import { useFeaturingModal } from "./useFeaturing"
+import { useRatingModal } from "./useRating"
+import { useTransactionModal } from "./useTransaction"
 
 export {
     useRechargeModal,
@@ -25,5 +27,7 @@ export {
     useChangePasswordModal,
     useFeaturingModal,
     useReportPostModal,
-    useReportTransactionModal
+    useReportTransactionModal,
+    useRatingModal,
+    useTransactionModal
 }

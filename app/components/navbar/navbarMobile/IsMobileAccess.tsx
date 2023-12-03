@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useContext, useRef, useState } from 'react'
-import { IoIosNotificationsOutline } from 'react-icons/io';
+import { IoIosNotifications, IoIosNotificationsOutline } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { VscAccount } from 'react-icons/vsc';
 import { BiMenu } from 'react-icons/bi'
@@ -12,6 +12,10 @@ import { useRouter } from 'next/router';
 import { beforeNavUser, useOutsideClick, validateURLAvatar } from '@/utils';
 import { LiaWindowClose } from 'react-icons/lia';
 import Image from 'next/image';
+import { useUnauthorizeModal } from '@/hooks';
+import { putNotifyService } from '@/services';
+import { mutate } from 'swr';
+import { Loading } from '../../providers';
 
 interface IsMobileAccessPros {
     onclick: () => void;
@@ -20,10 +24,10 @@ interface IsMobileAccessPros {
 const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
     onclick
 }) => {
-    const { showMenu } = useContext(GlobalContext) || {}
     const [showToggle, setShowToggle] = useState(false);
     const router = useRouter()
-    const { isAuthUser, setIsAuthUser, setUser, user, setIsRefresh } = useContext(GlobalContext) || {}
+    const { isAuthUser, setIsAuthUser, setUser, user, setIsRefresh, listNotify, showNotify, setShowNotify, showMenu, isLoadingNotify } = useContext(GlobalContext) || {}
+    const unauthorizeModal = useUnauthorizeModal()
 
     const handleToggle = () => {
         setShowToggle(!showToggle);
@@ -31,6 +35,19 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
 
     const handleOutsideClick = () => {
         setShowToggle(false)
+    }
+
+    const handleToggleNotify = () => {
+        if (setShowNotify) setShowNotify(!showNotify)
+        if (filterRead && filterRead.length !== 0) {
+            const arrayNotify = filterRead.map(item => item.id)
+            putNotifyService({ notiIds: arrayNotify })
+            if (user) mutate(`/api/users/${user.id}/notification`)
+        }
+    }
+
+    const handleOutsideClickNotify = () => {
+        if (setShowNotify) setShowNotify(false)
     }
 
     const handleLogout = async () => {
@@ -47,8 +64,13 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
         })
     }
 
+    const filterRead = listNotify && listNotify.filter((item) => item.isRead !== true)
+
     const ref = useRef<HTMLLIElement | null>(null)
     useOutsideClick(ref, handleOutsideClick)
+
+    const refNotify = useRef<HTMLLIElement | null>(null)
+    useOutsideClick(refNotify, handleOutsideClickNotify)
 
     return (
         <ul className="
@@ -171,7 +193,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                     </div>
                 )}
             </li>
-            <li className="relative inline-flex">
+            <li className="relative inline-flex" ref={refNotify}>
                 <div
                     className="
                         border-box 
@@ -200,11 +222,126 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                     align-middle
                                 "
                             >
-                                <IoIosNotificationsOutline size={30} />
+                                {isAuthUser ? (
+                                    <button className="
+                                            self-center
+                                            items-center
+                                            inline-flex
+                                            cursor-pointer
+                                            align-middle
+                                        "
+                                        onClick={handleToggleNotify}
+                                    >
+                                        {showNotify ? (
+                                            <IoIosNotifications size={30} color="#204D94" />
+                                        ) : (
+                                            <IoIosNotificationsOutline size={30} />
+                                        )}
+                                    </button>
+                                ) : (
+                                    <button className="
+                                        self-center
+                                        items-center
+                                        inline-flex
+                                        cursor-pointer
+                                        align-middle
+                                    "
+                                        onClick={unauthorizeModal.onOpen}
+                                    >
+                                        <IoIosNotificationsOutline size={30} />
+                                    </button>
+                                )}
+                                {filterRead && filterRead.length === 0 ? (
+                                    <></>
+                                ) : (
+                                    <div className="absolute text-sm font-semibold text-white right-0 -bottom-2 top-auto left-auto bg-primary-blue-cus rounded-full w-5 h-5 flex items-center justify-center">
+                                        {filterRead && filterRead.length}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
+                {showNotify && (
+                    <div className="
+                            absolute 
+                            top-10
+                            sm:-left-20
+                            -left-24
+                            bg-white 
+                            rounded-lg 
+                            shadow-md 
+                            py-2
+                            font-bold
+                            text-gray-600
+                            z-[99999]
+                            min-h-[50px]
+                            max-h-[600px]
+                            overflow-auto
+                            flex 
+                            justify-center 
+                            items-center
+                        "
+                    >
+                        {isLoadingNotify ? (
+                            <div className="w-[240px] relative flex items-center justify-center">
+                                <Loading loading={isLoadingNotify} />
+                            </div>
+                        ) : !listNotify || listNotify.length === 0 ? (
+                            <></>
+                        ) : (
+                            <ul className="space-y-2 list-none w-[240px]">
+                                {listNotify.map((item) => (
+                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus text-gray-600" key={item.id}>
+                                        <button className="
+                                                px-4 
+                                                py-2
+                                                flex 
+                                                flex-col
+                                                text-left
+                                                justify-around
+                                            "
+                                            onClick={() => {
+                                                if (item.about === "Post") {
+                                                    return router.push(`/product/detail-product/${item.referenceId}`)
+                                                }
+
+                                                if (item.about === "User") {
+                                                    return router.push(`/user/profile-user/${item.referenceId}`)
+                                                }
+
+                                                if (item.about === "Tran") {
+                                                    return router.push(`/transaction/detail-transaction/${item.referenceId}`)
+                                                }
+                                            }}
+                                        >
+                                            <div className="text-base font-medium truncate">
+                                                {item.title}
+                                            </div>
+                                            <div className="text-sm font-normal line-clamp-2 break-words">
+                                                {item.content}
+                                            </div>
+                                            <div className="flex justify-between w-full">
+                                                {item.isRead ? (
+                                                    <div className="text-sm font-medium text-primary-blue-cus">
+                                                        Đã xem
+                                                    </div>
+                                                ) : (
+                                                    <div className="text-sm font-medium">
+                                                        Chưa xem
+                                                    </div>
+                                                )}
+                                                <div className="text-sm font-medium">
+                                                    {item.notiDate}
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                )}
             </li>
             <li className="relative inline-flex">
                 <div

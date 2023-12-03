@@ -7,6 +7,7 @@ import CountdownTimer from "./CountdownTImer"
 import ToggleSwitch from "./ToggleSwitch"
 import TimeRangePicker from "./TimeRangePicker"
 import DownMetalBtn from "./DownMetailBtn"
+import RatingFilter from "./FilterRating"
 
 export * from "./ImageCarousel"
 export * from "./ProductCarousel"
@@ -22,5 +23,6 @@ export {
     CountdownTimer,
     ToggleSwitch,
     TimeRangePicker,
-    DownMetalBtn
+    DownMetalBtn,
+    RatingFilter
 }

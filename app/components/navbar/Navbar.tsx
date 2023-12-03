@@ -5,9 +5,14 @@ import { Access, Logo, NavLink } from "./navbarPC";
 import { IsMobileAccess, IsMobileLogo, IsMobileNavLink } from "./navbarMobile"
 import { GlobalContext } from "@/contexts";
 import SearchBar from "./SearchBar";
+import { AxiosClient } from "@/services";
+import useSWR from "swr";
+import { Notify } from "@/types";
+
+const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const Navbar = () => {
-  const { setShowMenu, showMenu } = useContext(GlobalContext) || {}
+  const { setShowMenu, showMenu, user, setIsLoadingNotify, setListNotify } = useContext(GlobalContext) || {}
 
   const handleShowMenu = () => {
     if (setShowMenu)
@@ -16,11 +21,21 @@ const Navbar = () => {
 
   useEffect(() => {
     if (showMenu) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'auto'
     }
   }, [showMenu])
+
+  const { data: listPostForUser, isLoading, mutate } = useSWR<Notify>(user && user.id ? `/api/users/${user.id}/notification` : null, fetcher, { refreshInterval: 1000 })
+
+  useEffect(() => {
+    if (setIsLoadingNotify) setIsLoadingNotify(isLoading)
+
+    if (listPostForUser) {
+      if (setListNotify) setListNotify(listPostForUser.data)
+    }
+  })
 
   return (
     <div className="

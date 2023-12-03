@@ -35,7 +35,7 @@ const ModalSuccessPayment = () => {
                     width={200}
                     className="object-cover w-24 h-24"
                 />
-                <label className="text-black font-semibold text-3xl truncate">Thanh toán thành công</label>
+                <label className="text-gray-600 font-semibold text-3xl truncate">Thanh toán thành công</label>
                 <p className="text-gray-500 font-normal text-base px-5">Vui lòng xem lại các thanh toán của bạn hoặc có bất kì thắc mắc, vui lòng liên hệ bộ phận hỗ trợ của chúng tôi để được giải đáp sớm nhất.</p>
                 <div className="flex flex-row gap-5">
                     <Button

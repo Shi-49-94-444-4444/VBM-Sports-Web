@@ -77,7 +77,7 @@ const ModalContinuePayment = () => {
                     width={200}
                     className="object-contain w-20 h-16"
                 />
-                <label className="text-black font-semibold text-3xl truncate">Bạn có muốn thanh toán không</label>
+                <label className="text-gray-600 font-semibold text-3xl truncate">Bạn có muốn thanh toán không?</label>
                 <div className="flex flex-row gap-5">
                     <Button
                         title="Không"

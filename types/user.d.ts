@@ -123,3 +123,26 @@ export interface listBlockData {
     userName: string
     imgUrl: string
 }
+
+export interface Notify {
+    message: string
+    data: {
+        id: string
+        title: string
+        content: string
+        about: string
+        notiDate: string
+        isRead: boolean
+        referenceId: string
+    }[]
+}
+
+export interface NotifyData {
+    id: string
+    title: string
+    content: string
+    about: string
+    notiDate: string
+    isRead: boolean
+    referenceId: string
+}

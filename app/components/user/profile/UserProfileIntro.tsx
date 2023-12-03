@@ -45,29 +45,30 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                     />
                 </div>
                 <div className="relative flex flex-col sm:flex-grow gap-5">
-                    <div className="flex md:flex-row flex-col md:items-center gap-3 md:gap-0 transition-all duration-500 md:space-x-3">
+                    <div className="flex md:flex-row flex-col md:items-center gap-3 transition-all duration-500 md:justify-between flex-wrap">
                         <div className="md:text-4xl text-3xl font-semibold whitespace-nowrap">
                             {validateName(fullName)}
                         </div>
-                        <div className="md:flex-grow md:block hidden" />
-                        {!user ? (
-                            <button className="text-gray-500 text-lg font-medium underline cursor-pointer text-left" type="button" onClick={unauthorizeModal.onOpen}>
-                                Báo cáo người dùng
-                            </button>
-                        ) : (
-                            <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportUserModal.onOpen}>
-                                Báo cáo người dùng
-                            </button>
-                        )}
-                        {!user ? (
-                            <button className="text-gray-500 text-lg font-medium underline cursor-pointer text-left" type="button" onClick={unauthorizeModal.onOpen}>
-                                Chặn người dùng
-                            </button>
-                        ) : (
-                            <button className={`text-gray-500 text-lg font-medium underline cursor-pointer text-left ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
-                                Chặn người dùng
-                            </button>
-                        )}
+                        <div className="flex gap-3 flex-wrap">
+                            {!user ? (
+                                <button className="text-gray-500 text-lg font-medium underline cursor-pointer" type="button" onClick={unauthorizeModal.onOpen}>
+                                    Báo cáo người dùng
+                                </button>
+                            ) : (
+                                <button className={`text-gray-500 text-lg font-medium underline cursor-pointer ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportUserModal.onOpen}>
+                                    Báo cáo người dùng
+                                </button>
+                            )}
+                            {!user ? (
+                                <button className="text-gray-500 text-lg font-medium underline cursor-pointer" type="button" onClick={unauthorizeModal.onOpen}>
+                                    Chặn người dùng
+                                </button>
+                            ) : (
+                                <button className={`text-gray-500 text-lg font-medium underline cursor-pointer ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
+                                    Chặn người dùng
+                                </button>
+                            )}
+                        </div>
                     </div>
                     <div className={`sm:relative md:items-center sm:gap-5 hidden transition-all duration-500 ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : "sm:flex md:flex-row sm:flex-col"}`}>
                         <div className="relative">
@@ -106,19 +107,31 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                     </div>
                 </div>
             </div>
-            <div className="relative flex flex-row justify-center gap-5 sm:hidden">
+            <div className="relative flex flex-row gap-5 sm:hidden">
                 <div className="relative">
-                    <Button
-                        title="Trò chuyện"
-                        style="py-3 px-14 text-xl group"
-                        icon={<BsFillChatDotsFill size={20} className="group-hover:text-primary-blue-cus" />}
-                    />
-                </div>
-                <div className="relative">
-                    <Button
-                        title="Đăng ký"
-                        style="py-3 px-12 text-xl"
-                    />
+                    {!user ? (
+                        <Button
+                            title="Đăng ký"
+                            style="py-3 px-12 text-xl"
+                            onClick={unauthorizeModal.onOpen}
+                        />
+                    ) : (
+                        subscribe ? (
+                            <Button
+                                title="Đã đăng ký"
+                                style="py-3 px-12 text-xl"
+                                color="bg-gray-400"
+                                text="text-gray-600"
+                                isHover={false}
+                            />
+                        ) : (
+                            <Button
+                                title="Đăng ký"
+                                style="py-3 px-12 text-xl"
+                                onClick={handleSubscribe}
+                            />
+                        )
+                    )}
                 </div>
             </div>
             <div className="relative space-x-1 sm:hidden">

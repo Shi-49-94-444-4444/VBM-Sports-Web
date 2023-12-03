@@ -40,7 +40,7 @@ export const useSuccessPaymentModal = create<SuccessModalStore>((set) => ({
     isOpen: false,
     tran_id: null,
     onOpen: (tran_id) => set({ isOpen: true, tran_id }),
-    onClose: () => set({ isOpen: false })
+    onClose: () => set({ isOpen: false, tran_id: null })
 }))
 
 export const useContinuePaymentModal = create<ContinueModalStore>((set) => ({

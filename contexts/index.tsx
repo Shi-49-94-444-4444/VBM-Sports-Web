@@ -2,7 +2,7 @@
 
 import React, { FC, createContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
-import { ListDistrictData, ListProductData } from '@/types'
+import { ListDistrictData, ListProductData, NotifyData } from '@/types'
 import { useRouter } from 'next/router'
 import { getAllDistrictService, getUserService } from '@/services'
 
@@ -40,12 +40,16 @@ interface GlobalContextProps {
     setUser: React.Dispatch<React.SetStateAction<User | null>>
     isLoading: boolean | null
     setIsLoading: React.Dispatch<React.SetStateAction<boolean | null>>
+    isLoadingNotify: boolean | null
+    setIsLoadingNotify: React.Dispatch<React.SetStateAction<boolean | null>>
     isLoadingModal: boolean | null
     setIsLoadingModal: React.Dispatch<React.SetStateAction<boolean | null>>
     isLoadingPage: boolean | null
     setIsLoadingPage: React.Dispatch<React.SetStateAction<boolean | null>>
     showMenu: boolean | null
     setShowMenu: React.Dispatch<React.SetStateAction<boolean | null>>
+    showNotify: boolean | null
+    setShowNotify: React.Dispatch<React.SetStateAction<boolean | null>>
     isRefresh: boolean | null
     setIsRefresh: React.Dispatch<React.SetStateAction<boolean | null>>
     fetchUser: boolean | null
@@ -60,6 +64,8 @@ interface GlobalContextProps {
     setSaveDistrict: React.Dispatch<React.SetStateAction<ListDistrictData | null>>
     listDistrict: ListDistrictData[] | null
     setListDistrict: React.Dispatch<React.SetStateAction<ListDistrictData[] | null>>
+    listNotify: NotifyData[] | null
+    setListNotify: React.Dispatch<React.SetStateAction<NotifyData[] | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -69,15 +75,18 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isAuthUser, setIsAuthUser] = useState<boolean | null>(null)
     const [user, setUser] = useState<User | null>(null)
     const [isLoading, setIsLoading] = useState<boolean | null>(false)
+    const [isLoadingNotify, setIsLoadingNotify] = useState<boolean | null>(false)
     const [isLoadingModal, setIsLoadingModal] = useState<boolean | null>(false)
     const [isLoadingPage, setIsLoadingPage] = useState<boolean | null>(false)
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
+    const [showNotify, setShowNotify] = useState<boolean | null>(false)
     const [isRefresh, setIsRefresh] = useState<boolean | null>(false)
     const [fetchUser, setFetchUser] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
     const [saveDistrict, setSaveDistrict] = useState<ListDistrictData | null>(null)
     const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
     const [listDistrict, setListDistrict] = useState<ListDistrictData[] | null>([])
+    const [listNotify, setListNotify] = useState<NotifyData[] | null>([])
     const [roomId, setRoomId] = useState<string | null>(null)
 
     useEffect(() => {
@@ -168,7 +177,13 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 saveDistrict,
                 setSaveDistrict,
                 listDistrict,
-                setListDistrict
+                setListDistrict,
+                showNotify,
+                setShowNotify,
+                listNotify,
+                setListNotify,
+                isLoadingNotify,
+                setIsLoadingNotify
             }}
         >
             {children}

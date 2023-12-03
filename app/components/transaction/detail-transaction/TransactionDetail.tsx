@@ -1,5 +1,7 @@
 import { TransactionPaymentDetailData } from "@/types"
 import { formatDateFunc } from "@/utils"
+import { format, parse } from "date-fns"
+import { enUS, vi } from "date-fns/locale"
 
 const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
     id,
@@ -9,6 +11,9 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
     payTime,
     post
 }) => {
+    const date = payTime && parse(payTime, 'EEEE, dd MMMM yyyy HH:mm', new Date(), { locale: enUS })
+    const formattedDate = date && format(date, 'EEEE, dd MMMM yyyy HH:mm', { locale: vi })
+
     return (
         <div className="col-span-8">
             <div className="rounded-lg bg-[#F5F5F5] p-6 flex flex-col gap-10">
@@ -36,7 +41,7 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
                     </section>
                     <section className="space-x-3 text-lg">
                         <span className="font-semibold">Thời gian thanh toán:</span>
-                        <span className="font-medium">{payTime}</span>
+                        <span className="font-medium">{formattedDate}</span>
                     </section>
                 </div>
                 <div className="border-b-4 border-solid border-gray-300" />
