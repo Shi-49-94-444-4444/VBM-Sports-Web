@@ -10,3 +10,7 @@ export interface Blog {
 export interface ListBlog {
     listItem: PostNewItem[]
 }
+
+export interface CreateBlogForm {
+    title: string
+}

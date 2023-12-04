@@ -12,6 +12,9 @@ import ModalFeaturing from "./ModalFeaturing"
 import ModalReportPost from "./ModalReportPost"
 import ModalRating from './ModalRating'
 import ModalTransaction from "./ModalTransaction"
+import ModalAdminUnBan from "./ModalAdminUnBan"
+import ModalAdminUpRole from "./ModalAdminUpRole"
+import ModalAdminDownRole from "./ModalAdminDownRole"
 
 export {
     ModalReportUser,
@@ -27,5 +30,8 @@ export {
     ModalFeaturing,
     ModalReportPost,
     ModalRating,
-    ModalTransaction
+    ModalTransaction,
+    ModalAdminUnBan,
+    ModalAdminDownRole,
+    ModalAdminUpRole
 }

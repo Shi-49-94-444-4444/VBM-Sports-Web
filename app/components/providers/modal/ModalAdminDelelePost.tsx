@@ -55,7 +55,7 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
             height="h-auto"
         >
             <form className="flex flex-col md:px-10 pb-5 gap-3 justify-center items-center">
-                <label className="text-gray-600 font-semibold text-3xl truncate">Bạn có muốn xóa bài đăng này không?</label>
+                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn xóa bài đăng này không?</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button
                         title="Không"

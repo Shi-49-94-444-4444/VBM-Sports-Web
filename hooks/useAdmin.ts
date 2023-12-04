@@ -19,6 +19,24 @@ export const useAdminBanModal = create<AdminModalStore>((set) => ({
     onClose: () => set({ isOpen: false })
 }))
 
+export const useAdminUnBanModal = create<AdminModalStore>((set) => ({
+    isOpen: false,
+    onOpen: () => set({ isOpen: true }),
+    onClose: () => set({ isOpen: false })
+}))
+
+export const useAdminUpRoleModal = create<AdminModalStore>((set) => ({
+    isOpen: false,
+    onOpen: () => set({ isOpen: true }),
+    onClose: () => set({ isOpen: false })
+}))
+
+export const useAdminDownRoleModal = create<AdminModalStore>((set) => ({
+    isOpen: false,
+    onOpen: () => set({ isOpen: true }),
+    onClose: () => set({ isOpen: false })
+}))
+
 export const useAdminDeletePostModal = create<AdminDeletePostModalStore>((set) => ({
     isOpen: false,
     postId: null,

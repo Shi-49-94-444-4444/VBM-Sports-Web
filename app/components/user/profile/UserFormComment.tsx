@@ -54,7 +54,7 @@ const UserFormComment = ({ id }: { id: string }) => {
     }
 
     return (
-        <form className={`relative gap-5 py-10 ${user && user.id && user.id.toString() === id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : "flex flex-col"}`} onSubmit={handleSubmit(onSubmit)}>
+        <form className={`relative gap-5 py-10 ${user && user.id && user.id.toString() === id.toString() || user && user.role && user.role.toLowerCase() !== "user" ? "hidden" : "flex flex-col"}`} onSubmit={handleSubmit(onSubmit)}>
             <div className="md:text-4xl text-3xl font-semibold text-gray-600">
                 Bình luận
             </div>

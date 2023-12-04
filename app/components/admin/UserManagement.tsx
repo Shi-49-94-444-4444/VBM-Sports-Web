@@ -7,7 +7,7 @@ import { AxiosClient } from "@/services"
 import useSWR from "swr";
 import { GlobalContext } from "@/contexts"
 import { ManageUser, ManageUserData } from "@/types";
-import { useOutsideClick } from "@/utils"
+import { removeVietnameseTones, useOutsideClick } from "@/utils"
 import ReactPaginate from "react-paginate"
 import * as XLSX from 'xlsx'
 
@@ -110,7 +110,7 @@ const TableUser: React.FC<TableUserProps> = ({ listUser }) => {
                                     <ul className="space-y-2 list-none">
                                         {listAction.map((action, index) => (
                                             <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                <button type="button" onClick={() => { router.push(`${action.src(user.userId)}?fullName=${user.fullName}&role=${user.role}`) }}>
+                                                <button type="button" onClick={() => { router.push(`${action.src(user.userId)}`) }}>
                                                     {action.title}
                                                 </button>
                                             </li>
@@ -133,7 +133,7 @@ const UserManagement = () => {
 
     const { data: listManageUser, error, isLoading } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : "", fetcher, { refreshInterval: 10000 })
 
-    const filteredUsers = listManageUser && listManageUser.data && listManageUser.data.filter(user => user.fullName && user.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
+    const filteredUsers = listManageUser && listManageUser.data && listManageUser.data.filter(user => user.fullName && removeVietnameseTones(user.fullName).includes(removeVietnameseTones(searchTerm)))
 
     const [currentPage, setCurrentPage] = useState(0)
     const itemsPerPage = 13

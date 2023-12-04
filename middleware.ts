@@ -38,7 +38,7 @@ export async function middleware(req: NextRequest) {
 
             if (token) {
                 const { payload } = await jose.jwtVerify(token, secret)
-                if (payload.Role !== "1") {
+                if (payload.Role !== "1" && payload.Role !== "3") {
                     return NextResponse.redirect(`${url.origin}/unauthorized`)
                 }
             }

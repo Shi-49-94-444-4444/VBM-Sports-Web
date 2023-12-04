@@ -28,7 +28,7 @@ const NavLink = () => {
         setOpenItemId(null);
     }
 
-    const links = user && user.role && user.role.toLowerCase() === "admin" ? navLinksAdmin : navLinks
+    const links = user && user.role && user.role.toLowerCase() !== "user" ? navLinksAdmin : navLinks
 
     return (
         <ul

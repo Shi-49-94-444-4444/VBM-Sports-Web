@@ -7,7 +7,7 @@ import { BiSearch } from "react-icons/bi"
 import useSWR from "swr"
 import SearchResult from "./SearchResult"
 import { GlobalContext } from "@/contexts"
-import { useOutsideClick } from "@/utils"
+import { removeVietnameseTones, useOutsideClick } from "@/utils"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
@@ -22,7 +22,7 @@ const SearchBar = () => {
             if (setSearchResults) setSearchResults([]);
         } else {
             const filterResult = listProduct?.data.filter((result) => {
-                return result.title?.trim().toLowerCase().includes(value.trim().toLowerCase())
+                return result && result.title && removeVietnameseTones(result.title).includes(removeVietnameseTones(value))
             })
 
             if (setSearchResults) setSearchResults(filterResult ?? [])

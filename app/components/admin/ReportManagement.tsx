@@ -1,11 +1,13 @@
 "use client"
 
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { DownMetalBtn, Search } from "../providers"
 import { useOutsideClick } from "@/utils";
+import { GlobalContext } from "@/contexts";
 
 const ReportManagement = () => {
-    const [showToggleItemID, setShowToggleItemID] = useState<string | null>(null);
+    const [showToggleItemID, setShowToggleItemID] = useState<string | null>(null)
+    const { user } = useContext(GlobalContext) || {}
 
     const handleToggle = (itemID: string) => {
         if (showToggleItemID === itemID) {
@@ -61,6 +63,14 @@ const ReportManagement = () => {
         { title: "Xem chi tiết" },
     ]
 
+    if (user && user.role && user.role.toLowerCase() === "staff") {
+        return (
+            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
+                Bạn không đủ quyền hạn!!!
+            </div>
+        )
+    }
+
     return (
         <section className="relative flex flex-col px-6 py-10">
             <div className="
@@ -81,7 +91,7 @@ const ReportManagement = () => {
                     Quản lý doanh thu
                 </h1>
                 <div className="flex gap-3 flex-col md:flex-row transition-all duration-500 flex-wrap justify-end">
-                    <DownMetalBtn onClick={() => {}}/>
+                    <DownMetalBtn onClick={() => { }} />
                     <div className="flex flex-col space-y-1 md:w-auto w-full transition-all duration-500">
                         <Search value={""} onChange={() => { }} style="w-full" />
                     </div>

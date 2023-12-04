@@ -5,6 +5,7 @@ import UserReportManagement from "./UserReportManagement"
 import ReportManagement from "./ReportManagement"
 import AdminLayout from "./AdminLayout"
 import UserDetailManage from "./UserDetailManage"
+import CreateBlog from "./CreateBlog"
 
 export {
     PostManagement,
@@ -13,5 +14,6 @@ export {
     UserManagement,
     UserReportManagement,
     AdminLayout,
-    UserDetailManage
+    UserDetailManage,
+    CreateBlog
 }

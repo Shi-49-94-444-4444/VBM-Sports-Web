@@ -69,7 +69,13 @@ const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem }) => 
                     <tr key={index}>
                         <td className="py-2 border-r border-black border-opacity-10">{item.time}</td>
                         <td className="py-2 border-r border-black border-opacity-10">Nạp tiền</td>
-                        <td className="py-2 border-r border-black border-opacity-10 text-green-500 font-semibold">{item.status}</td>
+                        <td className="py-2 border-r border-black border-opacity-10 font-semibold">
+                            {item.status === "Success" ? (
+                                <span className="text-green-500">{item.status}</span>
+                            ) : (
+                                <span className="text-red-500">{item.status}</span>
+                            )}
+                        </td>
                         <td className="py-2 font-semibold">
                             {item.amount.toString().startsWith("-") ? (
                                 <span className="text-red-500">{formatMoney(new Decimal(item.amount))}</span>

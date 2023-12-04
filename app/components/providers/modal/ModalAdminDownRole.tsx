@@ -1,23 +1,23 @@
 "use client"
 
-import { useAdminBanModal } from "@/hooks"
+import { useAdminDownRoleModal } from "@/hooks"
 import CustomModal from "./Modal"
 import { Button } from "../form"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { adminBanUserService } from "@/services"
+import { adminDownRoleService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
 
-const ModalAdminBan = ({ user_id }: { user_id: string }) => {
-    const adminBanModal = useAdminBanModal()
+const ModalAdminDownRole = ({ user_id }: { user_id: string }) => {
+    const adminDownRoleModal = useAdminDownRoleModal()
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
 
     const handleBanUser = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id) {
-            const res = await adminBanUserService({
+            const res = await adminDownRoleService({
                 admin_id: user.id,
                 user_id: user_id
             })
@@ -26,15 +26,15 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                adminBanModal.onClose()
+                adminDownRoleModal.onClose()
                 if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
 
-            toast.success("Khóa tài khoản thành công", {
+            toast.success("Cấp quyền thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
-            adminBanModal.onClose()
+            adminDownRoleModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -46,20 +46,20 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
 
     return (
         <CustomModal
-            isOpen={adminBanModal.isOpen}
-            onClose={adminBanModal.onClose}
+            isOpen={adminDownRoleModal.isOpen}
+            onClose={adminDownRoleModal.onClose}
             width="md:w-auto w-full"
             height="h-auto"
         >
             <form className="flex flex-col md:px-10 pb-5 gap-3 justify-center items-center">
-                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn khóa tài khoản này không?</label>
+                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn tước quyền của tài khoảng này không?</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button
                         title="Không"
                         color="border-primary-blue-cus bg-white"
                         text="text-primary-blue-cus"
                         style="py-3 px-8"
-                        onClick={adminBanModal.onClose}
+                        onClick={adminDownRoleModal.onClose}
                     />
                     <Button
                         title="Có"
@@ -73,4 +73,4 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
     )
 }
 
-export default ModalAdminBan
+export default ModalAdminDownRole

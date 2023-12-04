@@ -12,7 +12,7 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const ChatRoomPage = () => {
     const { user } = useContext(GlobalContext) || {}
-    const { data: listRoom, error } = useSWR<ChatRoom>(user && user.id ? `/api/chat/user/${user.id}/rooms` : null, fetcher)
+    const { data: listRoom, error } = useSWR<ChatRoom>(user && user.id ? `/api/chat/user/${user.id}/rooms` : null, fetcher, { refreshInterval: 3000 })
 
     const isLoading = !listRoom && !error
 

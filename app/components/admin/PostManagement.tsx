@@ -1,12 +1,16 @@
 "use client"
 
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react"
 import { Button, DownMetalBtn, Search } from "../providers"
-import { useOutsideClick } from "@/utils";
-import { IoMdAdd } from "react-icons/io";
+import { useOutsideClick } from "@/utils"
+import { IoMdAdd } from "react-icons/io"
+import { useRouter } from "next/router"
+import { GlobalContext } from "@/contexts"
 
 const PostManagement = () => {
-    const [showToggleItemID, setShowToggleItemID] = useState<string | null>(null);
+    const [showToggleItemID, setShowToggleItemID] = useState<string | null>(null)
+    const { user } = useContext(GlobalContext) || {}
+    const router = useRouter()
 
     const handleToggle = (itemID: string) => {
         if (showToggleItemID === itemID) {
@@ -17,7 +21,7 @@ const PostManagement = () => {
     }
 
     const handleOutsideClick = () => {
-        setShowToggleItemID(null);
+        setShowToggleItemID(null)
     }
 
     const ref = useRef<HTMLDivElement | null>(null)
@@ -136,14 +140,16 @@ const PostManagement = () => {
                     </tbody>
                 </table>
             </section>
-            <div className="fixed bottom-5 right-5">
-                <Button
-                    title="Tạo tin tức"
-                    iconLeft={<IoMdAdd size={30} />}
-                    style="px-4 py-3"
-                    onClick={() => { }}
-                />
-            </div>
+            {user && user.role && user.role.toLowerCase() === "staff" && (
+                <div className="fixed bottom-5 right-5">
+                    <Button
+                        title="Tạo tin tức"
+                        iconLeft={<IoMdAdd size={30} />}
+                        style="px-4 py-3"
+                        onClick={() => router.push("/admin/create-blog")}
+                    />
+                </div>
+            )}
         </>
     )
 }

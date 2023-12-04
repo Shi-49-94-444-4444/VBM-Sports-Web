@@ -140,7 +140,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                     >
                         {isAuthUser ? (
                             <ul className="space-y-2 list-none whitespace-nowrap">
-                                {user && user.role && user.role.toLowerCase() === "admin" ? (
+                                {user && user.role && user.role.toLowerCase() !== "user" ? (
                                     <></>
                                 ) : (
                                     <li className="hover:bg-slate-200 hover:text-primary-blue-cus">

@@ -22,8 +22,16 @@ export interface ManageUserData {
 export interface UserDetailManage {
     message: string
     data: {
-        postId?: string | null
-        title?: string | null
-    }[]
+        id: string
+        fullName: string
+        role: string
+        isBanded: boolean
+        posts?: {
+            id: string
+            title: string
+            postTime: string
+            numOfReport: number
+        }[]
+    }
 }
 

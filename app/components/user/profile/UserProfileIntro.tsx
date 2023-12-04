@@ -55,7 +55,7 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                                     Báo cáo người dùng
                                 </button>
                             ) : (
-                                <button className={`text-gray-500 text-lg font-medium underline cursor-pointer ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={reportUserModal.onOpen}>
+                                <button className={`text-gray-500 text-lg font-medium underline cursor-pointer ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() !== "user" ? "hidden" : ""}`} type="button" onClick={reportUserModal.onOpen}>
                                     Báo cáo người dùng
                                 </button>
                             )}
@@ -64,13 +64,13 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                                     Chặn người dùng
                                 </button>
                             ) : (
-                                <button className={`text-gray-500 text-lg font-medium underline cursor-pointer ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
+                                <button className={`text-gray-500 text-lg font-medium underline cursor-pointer ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() !== "user" ? "hidden" : ""}`} type="button" onClick={banUserModal.onOpen}>
                                     Chặn người dùng
                                 </button>
                             )}
                         </div>
                     </div>
-                    <div className={`sm:relative md:items-center sm:gap-5 hidden transition-all duration-500 ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() === "admin" ? "hidden" : "sm:flex md:flex-row sm:flex-col"}`}>
+                    <div className={`sm:relative md:items-center sm:gap-5 hidden transition-all duration-500 ${user && user.id && user.id.toString() === id && id.toString() || user && user.role && user.role.toLowerCase() !== "user" ? "hidden" : "sm:flex md:flex-row sm:flex-col"}`}>
                         <div className="relative">
                             {!user ? (
                                 <Button

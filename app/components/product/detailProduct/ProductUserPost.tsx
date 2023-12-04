@@ -10,6 +10,7 @@ import { VscLinkExternal } from "react-icons/vsc";
 import { useReportPostModal, useUnauthorizeModal } from "@/hooks";
 import { useContext } from "react";
 import { GlobalContext } from "@/contexts";
+import { toast } from "react-toastify";
 
 const ProductUserPost: React.FC<ProductDetailContentData> = ({
     id,
@@ -31,6 +32,23 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
 
     const reportPostModal = useReportPostModal()
     const unauthorizeModal = useUnauthorizeModal()
+
+    const handleShare = () => {
+        const url = window.location.href;
+        const width = 600;
+        const height = 600;
+        const left = window.innerWidth / 2 - width / 2;
+        const top = window.innerHeight / 2 - height / 2;
+        const features = `width=${width},height=${height},left=${left},top=${top}`;
+        const newWindow = window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', features);
+    }
+
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(window.location.href)
+        toast.success("Đã lấy đường link thành công!", {
+            position: toast.POSITION.TOP_RIGHT
+        })
+    }
 
     return (
         <div className="relative py-10" key={id}>
@@ -84,8 +102,8 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                         Chia sẻ về bài viết này:
                     </div>
                     <div className="flex flex-row items-center space-x-5">
-                        <BsFacebook size={40} className="text-blue-600 cursor-pointer" />
-                        <VscLinkExternal size={40} className="cursor-pointer" />
+                        <BsFacebook size={40} className="text-blue-600 cursor-pointer" onClick={handleShare} />
+                        <VscLinkExternal size={40} className="cursor-pointer" onClick={handleCopyLink} />
                         <div className="flex-grow"></div>
                         {!user ? (
                             <button
@@ -101,7 +119,7 @@ const ProductUserPost: React.FC<ProductDetailContentData> = ({
                                 Báo cáo bài đăng
                             </button>
                         ) : (
-                            user && user.id && user.id.toString() === userId || user && user.role && user.role.toLowerCase() === "admin" ? (
+                            user && user.id && user.id.toString() === userId || user && user.role && user.role.toLowerCase() !== "user" ? (
                                 <></>
                             ) : (
                                 <button

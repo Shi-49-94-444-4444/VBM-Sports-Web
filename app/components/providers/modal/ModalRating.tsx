@@ -20,7 +20,7 @@ const ModalRating = () => {
                 <div className="flex flex-col gap-3 relative w-full">
                     <div className="flex gap-5 w-full relative flex-wrap  justify-between">
                         <div className="text-2xl font-semibold">
-                            Chủ sân: Shi
+                            Chủ sân: {ratingModal.name}
                         </div>
                         <div className="flex flex-wrap gap-3 text-xl font-medium text-gray-gray-600 text-left justify-between">
                             <div className="grid grid-cols-2 gap-3">
@@ -61,7 +61,7 @@ const ModalRating = () => {
                     <Button
                         title="Gửi"
                         style="py-2 px-12 text-xl"
-                        onClick={() => { }}
+                        onClick={ratingModal.onClose}
                     />
                 </div>
             </form>

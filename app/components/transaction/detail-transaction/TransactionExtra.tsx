@@ -5,13 +5,15 @@ import { Button } from "../../providers"
 import { TransactionPaymentDetailData } from "@/types"
 import { add, isBefore, parse } from "date-fns"
 import { useTransactionModal } from "@/hooks"
+import { useState } from "react"
 
 const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
     total,
     isCancel,
-    post
+    post,
 }) => {
-    const endTime = post && parse(post.endTime, "dd/MM/yyyy HH:mm", new Date());
+    const [status, setStatus] = useState(true)
+    const endTime = post && parse(post.endTime, "dd/MM/yyyy HH:mm", new Date())
     const currentTime = new Date();
 
     const isBefore24Hours = endTime && isBefore(currentTime, add(endTime, { hours: -24 }))
@@ -61,20 +63,25 @@ const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
                 </div>
             </div>
             <div className="relative flex justify-center">
-                {isCancel ? (
+                {/* {isCancel ? ( */}
+                {status && (
                     <Button
                         title="Thanh toán ngay"
                         style="py-3 text-lg"
-                        onClick={transactionModal.onOpen}
+                        onClick={() => {
+                            transactionModal.onOpen()
+                            setStatus(false)
+                        }}
                     />
-                ) : (
+                )}
+                {/* ) : (
                     isBefore24Hours && (
                         <Button
                             title="Hủy chỗ đặt"
                             style="py-3 text-lg"
                         />
                     )
-                )}
+                )} */}
             </div>
         </div>
     )

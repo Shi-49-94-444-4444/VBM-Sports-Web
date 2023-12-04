@@ -78,7 +78,7 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                         Người chơi đã tham gia:
                     </span>
                     <span>
-                        {bookedInfos.length}
+                        {bookedInfos.reduce((total, info) => total + info.bookedSlot, 0)}
                     </span>
                 </section>
                 <section className="space-x-3 text-xl">

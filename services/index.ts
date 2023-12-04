@@ -10,6 +10,7 @@ export * from "./transaction"
 export * from "./admin"
 export * from "./chat"
 export * from "./report"
+export * from "./blog"
 
 export {
     AxiosClient,

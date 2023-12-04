@@ -165,7 +165,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
 
                     return (
                         <div className="break-words flex flex-wrap items-center gap-2 border border-black border-opacity-10 rounded-lg p-2" key={index}>
-                            {user && user.id === userId || user && user.role && user.role.toLowerCase() === "admin" ? (
+                            {user && user.id === userId || user && user.role && user.role.toLowerCase() !== "user" ? (
                                 <></>
                             ) : (
                                 <input
@@ -199,7 +199,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                                     {formatMoney(new Decimal(item.price))}/Chỗ
                                 </span>
                             </div>
-                            {user && user.id === userId || user && user.role && user.role.toLowerCase() === "admin" ? (
+                            {user && user.id === userId || user && user.role && user.role.toLowerCase() !== "user" ? (
                                 <section className="flex space-x-1 items-center">
                                     <label>
                                         Số chỗ còn lại:
@@ -251,7 +251,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     </span>
                 </section>
             </div>
-            {user && user.id === userId || user && user.role && user.role.toLowerCase() === "admin" ? (
+            {user && user.id === userId || user && user.role && user.role.toLowerCase() !== "user" ? (
                 <></>
             ) : (
                 <ProductMethod onCheckedChange={handleCheckedMethod} />
@@ -281,7 +281,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     style="py-4 justify-center"
                     onClick={unauthorizeModal.onOpen}
                 />
-            ) : user && user.role && user.role.toLowerCase() === "admin" ? (
+            ) : user && user.role && user.role.toLowerCase() !== "user" ? (
                 <></>
             ) : (
                 <Button

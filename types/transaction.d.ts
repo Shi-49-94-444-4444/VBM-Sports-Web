@@ -67,7 +67,7 @@ export interface ListTransaction {
         coverImage: string
         bookedInfos: {
             createSlot: string
-            bookedSlot: string
+            bookedSlot: number
             imageUrls: string[]
         }[]
         chatRoomId: string
@@ -87,7 +87,7 @@ export interface ListTransactionData {
     coverImage: string
     bookedInfos: {
         createSlot: string
-        bookedSlot: string
+        bookedSlot: number
         imageUrls: string[]
     }[]
     chatRoomId: string

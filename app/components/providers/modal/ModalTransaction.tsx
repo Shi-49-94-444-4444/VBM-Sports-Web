@@ -21,22 +21,23 @@ const ModalTransaction = ({ tran_id }: { tran_id: string }) => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id) {
-            const res = await transactionStatusService({ tran_id: tran_id, status_info: 3})
- 
+            const res = await transactionStatusService({ tran_id: tran_id, status_info: 3 })
+
             if (res.data == null) {
-                toast.error(res.message, {
+                toast.error("Lỗi!", {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 transactionModal.onClose()
                 if (setIsLoadingModal) setIsLoadingModal(false)
+                return
             }
 
-            toast.success(res.message, {
+            toast.success("Thanh toán thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
 
             transactionModal.onClose()
-            ratingModal.onOpen()
+            ratingModal.onOpen(tran_id)
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
