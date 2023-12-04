@@ -11,7 +11,7 @@ import { LoadingActionPayment } from "../loader"
 import { transactionStatusService } from "@/services"
 import { toast } from "react-toastify"
 
-const ModalTransaction = ({ tran_id }: { tran_id: string }) => {
+const ModalTransaction = ({ tran_id, creator }: { tran_id: string, creator: string }) => {
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
     const transactionModal = useTransactionModal()
@@ -37,7 +37,7 @@ const ModalTransaction = ({ tran_id }: { tran_id: string }) => {
             })
 
             transactionModal.onClose()
-            ratingModal.onOpen(tran_id)
+            ratingModal.onOpen(creator)
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
