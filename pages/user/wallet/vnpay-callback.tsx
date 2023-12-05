@@ -1,16 +1,20 @@
 "use client"
 
 import { LoadingActionWallet } from "@/app/components";
+import { GlobalContext } from "@/contexts";
+import { walletService } from "@/services";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 export default function VnPayCallback() {
-    const router = useRouter();
-    const { vnp_ResponseCode, vnp_TransactionStatus } = router.query
+    const router = useRouter()
+    const { user } = useContext(GlobalContext) || {}
+    const { vnp_ResponseCode, vnp_TransactionStatus, vnp_Amount } = router.query
 
     useEffect(() => {
-        if (vnp_ResponseCode && vnp_TransactionStatus) {
+        if (vnp_ResponseCode && vnp_TransactionStatus && vnp_Amount && user && user.id) {
             if (vnp_ResponseCode == "00" && vnp_TransactionStatus == "00") {
+                walletService({ id: user.id, money: Number(vnp_Amount.toString()) })
                 router.push('/user/wallet/wallet-success')
                 window.opener.postMessage('payment completed', '*')
             } else {
@@ -18,7 +22,7 @@ export default function VnPayCallback() {
                 window.opener.postMessage('payment completed', '*')
             }
         }
-    }, [router, vnp_ResponseCode, vnp_TransactionStatus])
+    }, [router, vnp_ResponseCode, vnp_TransactionStatus, vnp_Amount, user])
 
     return (
         <div className="h-screen flex items-center justify-center">
