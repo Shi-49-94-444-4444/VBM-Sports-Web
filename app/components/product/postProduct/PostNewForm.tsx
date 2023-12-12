@@ -89,6 +89,8 @@ const PostNewForm = () => {
 
         setDateRange(newValue)
         setSelectedDays([])
+        setForms([])
+        setSlots([])
         setShowDateField(true)
     }
 
@@ -569,11 +571,11 @@ const PostNewForm = () => {
                                                     start: addDays(new Date(), 1),
                                                     end: addDays(new Date(), 1),
                                                 }
-                                            }, 
+                                            },
                                             next3Days: {
                                                 text: "Chọn 3 ngày",
                                                 period: {
-                                                    start: addDays(new Date(), 1) ,
+                                                    start: addDays(new Date(), 1),
                                                     end: addDays(new Date(), 3)
                                                 },
                                             },

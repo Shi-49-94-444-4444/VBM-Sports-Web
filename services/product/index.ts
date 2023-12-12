@@ -58,8 +58,9 @@ export const getAllDistrictService = async () => {
 }
 
 export const postBadmintonService = async (data: CreateBadmintonForm) => {
+    console.log(data)
+
     try {
-        // //console.log(data)
         const response = await AxiosClient.post(`/api/posts/create_by/${data.id}`, {
             title: data.title,
             address: data.address,

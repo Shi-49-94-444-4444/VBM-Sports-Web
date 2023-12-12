@@ -38,6 +38,20 @@ export function isValidUrl(url: string | undefined | null) {
     return true;
 }
 
+export function isValidBase64(url: string | undefined | null) {
+    if (!url || url.trim() === "") {
+        return false
+    }
+
+    try {
+        btoa(atob(url)) == url
+    } catch (_) {
+        return false
+    }
+
+    return true
+}
+
 export function validateDate(value: string | undefined | null) {
     if (!value) {
         const date = new Date()

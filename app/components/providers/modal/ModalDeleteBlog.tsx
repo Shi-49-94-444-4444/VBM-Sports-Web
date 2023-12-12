@@ -1,43 +1,49 @@
 "use client"
 
-import { useAdminBanModal } from "@/hooks"
+import { useDeleteBLogModal } from "@/hooks"
 import CustomModal from "./Modal"
 import { Button } from "../form"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { adminBanUserService } from "@/services"
+import { DeleteBlogService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
 import { mutate } from "swr"
 
-const ModalAdminBan = ({ user_id }: { user_id: string }) => {
-    const adminBanModal = useAdminBanModal()
-    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+const ModalDeleteBlog = () => {
+    const deleteBlogModal = useDeleteBLogModal()
+    const { user } = useContext(GlobalContext) || {}
+    const { setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
 
     const handleBanUser = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
-        if (user && user.id) {
-            const res = await adminBanUserService({
-                admin_id: user.id,
-                user_id: user_id
+        if (user && user.id && deleteBlogModal.blogId) {
+            const res = await DeleteBlogService({
+                user_id: user.id,
+                blog_id: deleteBlogModal.blogId
             })
 
             if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                adminBanModal.onClose()
+                deleteBlogModal.onClose()
                 if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
 
-            toast.success("Khóa tài khoản thành công", {
+            toast.success("Xóa tin tức thành công!", {
                 position: toast.POSITION.TOP_RIGHT
             })
 
-            mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
-            adminBanModal.onClose()
+            if (user.role && user.role.toLowerCase() === "admin") {
+                mutate("/api/blogs")
+            } else {
+                mutate(`/api/blogs?user_id=${user.id}`)
+            }
+
+            deleteBlogModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -49,20 +55,20 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
 
     return (
         <CustomModal
-            isOpen={adminBanModal.isOpen}
-            onClose={adminBanModal.onClose}
+            isOpen={deleteBlogModal.isOpen}
+            onClose={deleteBlogModal.onClose}
             width="md:w-auto w-full"
             height="h-auto"
         >
             <form className="flex flex-col md:px-10 pb-5 gap-3 justify-center items-center">
-                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn khóa tài khoản này không?</label>
+                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn xóa tin tức này không?</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button
                         title="Không"
                         color="border-primary-blue-cus bg-white"
                         text="text-primary-blue-cus"
                         style="py-3 px-8"
-                        onClick={adminBanModal.onClose}
+                        onClick={deleteBlogModal.onClose}
                     />
                     <Button
                         title="Có"
@@ -76,4 +82,4 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
     )
 }
 
-export default ModalAdminBan
+export default ModalDeleteBlog

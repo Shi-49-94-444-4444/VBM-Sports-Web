@@ -8,6 +8,7 @@ import { GlobalContext } from "@/contexts"
 import { adminBanUserService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
+import { mutate } from "swr"
 
 const ModalAdminUnBan = ({ user_id }: { user_id: string }) => {
     const adminUnBanModal = useAdminUnBanModal()
@@ -31,9 +32,11 @@ const ModalAdminUnBan = ({ user_id }: { user_id: string }) => {
                 return
             }
 
-            toast.success("Khóa tài khoản thành công", {
+            toast.success("Mở tài khoản thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
+
+            mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
             adminUnBanModal.onClose()
         }
 

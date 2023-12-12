@@ -131,7 +131,7 @@ const UserManagement = () => {
 
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listManageUser, error, isLoading } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : "", fetcher, { refreshInterval: 10000 })
+    const { data: listManageUser, error, isLoading } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : null, fetcher, { refreshInterval: 10000 })
 
     const filteredUsers = listManageUser && listManageUser.data && listManageUser.data.filter(user => user.fullName && removeVietnameseTones(user.fullName).includes(removeVietnameseTones(searchTerm)))
 
@@ -180,7 +180,7 @@ const UserManagement = () => {
                 <div className="h-screen flex items-center justify-center">
                     <LoadingFullScreen loading={isLoading} />
                 </div>
-            ) : !listManageUser || !filteredUsers || listManageUser.data == null ? (
+            ) : !listManageUser || !filteredUsers || listManageUser.data.length === 0 ? (
                 <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
                     Không có người dùng nào tồn tại
                 </div>
@@ -190,7 +190,7 @@ const UserManagement = () => {
                 </div>
             ) : filteredUsers && filteredUsers.length === 0 ? (
                 <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
-                    Người này dùng không tồn tại
+                    Người dùng này không tồn tại
                 </div>
             ) : (
                 <>

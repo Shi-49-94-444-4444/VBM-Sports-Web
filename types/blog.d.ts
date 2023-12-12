@@ -1,10 +1,10 @@
 export interface Blog {
-    id: string;
-    src: string;
-    title: string;
-    date?: string;
-    description?: string;
-    poster?: string;
+    id: string
+    src: string
+    title: string
+    date?: string
+    description?: string
+    poster?: string
 }
 
 export interface ListBlog {
@@ -13,4 +13,29 @@ export interface ListBlog {
 
 export interface CreateBlogForm {
     title: string
+    highlightImg?: string
+    summary: string
+    description?: string
+}
+
+export interface ListBlogs {
+    message: string
+    data: {
+        id: string,
+        summary: string,
+        imgUrl: string,
+        title: string,
+        createTime: string,
+        shortDescription: string,
+        userCreateName: string
+    }[]
+}
+export interface ListBlogsData {
+    id: string,
+    summary: string,
+    imgUrl: string,
+    title: string,
+    createTime: string,
+    shortDescription: string,
+    userCreateName: string
 }

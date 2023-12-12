@@ -13,14 +13,6 @@ import {
     FormatTime
 } from "@/utils";
 
-interface FormatSlot {
-    date: string,
-    startTime: string,
-    endTime: string,
-    priceSlot: string,
-    available: string
-}
-
 const ProductOther: React.FC<ListProductData> = ({
     idPost,
     title,

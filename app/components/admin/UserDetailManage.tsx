@@ -1,27 +1,29 @@
 "use client"
 
 import { AxiosClient } from "@/services"
-import { UserDetailManage } from "@/types"
+import { UserDetailManage, UserManagePostData } from "@/types"
 import { useRouter } from "next/router"
 import { IoMdArrowRoundBack } from "react-icons/io"
 import useSWR from "swr"
-import { Button, LoadingFullScreen, ModalAdminBan, ModalAdminDeletePost, ModalAdminDownRole, ModalAdminUnBan, ModalAdminUpRole } from "../providers"
+import { Button, LoadingFullScreen, ModalAdminBan, ModalAdminDeletePost, ModalAdminDownRole, ModalAdminUnBan, ModalAdminUpRole, ModalSendNoticeUser } from "../providers"
 import { useContext, useRef, useState } from "react"
 import { useOutsideClick, validateTitle } from "@/utils"
-import { useAdminBanModal, useAdminDeletePostModal, useAdminDownRoleModal, useAdminUnBanModal, useAdminUpRoleModal } from "@/hooks"
+import { useAdminBanModal, useAdminDeletePostModal, useAdminDownRoleModal, useAdminUnBanModal, useAdminUpRoleModal, useSendNoticeUserModal } from "@/hooks"
 import { GlobalContext } from "@/contexts"
+import ReactPaginate from "react-paginate"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
-const UserDetailManage = () => {
+interface TablePostProps {
+    listItem: UserManagePostData[]
+}
+
+const TablePost: React.FC<TablePostProps> = ({
+    listItem
+}) => {
     const [showToggleItemID, setShowToggleItemID] = useState<number | null>(null)
-    const router = useRouter()
-    const adminBanModal = useAdminBanModal()
-    const adminUnBanModal = useAdminUnBanModal()
-    const adminUpRoleModal = useAdminUpRoleModal()
-    const adminDownRoleModal = useAdminDownRoleModal()
     const adminDeletePostModal = useAdminDeletePostModal()
-    const { user } = useContext(GlobalContext) || {}
+    const router = useRouter()
 
     const handleToggle = (itemID: number) => {
         if (showToggleItemID === itemID) {
@@ -34,11 +36,8 @@ const UserDetailManage = () => {
     const handleOutsideClick = () => {
         setShowToggleItemID(null)
     }
-
     const ref = useRef<HTMLDivElement | null>(null)
     useOutsideClick(ref, handleOutsideClick)
-
-    const { id } = router.query
 
     const listTitleUserDetail = [
         { title: "ID" },
@@ -54,9 +53,75 @@ const UserDetailManage = () => {
         { title: "Xoá bài viết", src: (postId: string) => { adminDeletePostModal.onOpen(postId) } },
     ]
 
+    return (
+        <table className="table-auto border-separate border border-black border-opacity-10 rounded-lg text-lg text-center text-gray-600 bg-[#EFEFEF]">
+            <thead>
+                <tr>
+                    {listTitleUserDetail.map((item, index) => (
+                        <th className="font-semibold py-3 border-b border-black border-opacity-10" key={index}>
+                            {item.title}
+                        </th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                {listItem.map((item, index) => (
+                    <tr key={index}>
+                        <td className="py-3">{item.id ?? ""}</td>
+                        <td className="py-3">{validateTitle(item.title)}</td>
+                        <td className="py-3">{item.postTime ?? ""}</td>
+                        <td className="py-3">{item.numOfReport ?? 0}</td>
+                        <td className="py-3 relative">
+                            <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
+                                ...
+                            </button>
+                            {showToggleItemID === index && (
+                                <div className="absolute right-[13rem] md:right-[17rem] lg:right-[17rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
+                                    <ul className="space-y-2 list-none">
+                                        {listAction.map((action, index) => (
+                                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
+                                                <button type="button" onClick={() => action.src(item.id ? item.id : "")}>
+                                                    {action.title}
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    )
+}
+
+const UserDetailManage = () => {
+    const router = useRouter()
+    const adminBanModal = useAdminBanModal()
+    const adminUnBanModal = useAdminUnBanModal()
+    const adminUpRoleModal = useAdminUpRoleModal()
+    const adminDownRoleModal = useAdminDownRoleModal()
+    const sendNoticeUser = useSendNoticeUserModal()
+    const { user } = useContext(GlobalContext) || {}
+
+    const { id } = router.query
+
     const { data: listPostForUser, error } = useSWR<UserDetailManage>(user && user.id && id ? `/api/users/admin/${user.id}/user/${id}/detail` : null, fetcher, { refreshInterval: 10000 })
 
     const isLoadingData = !listPostForUser && !error
+
+    const [currentPage, setCurrentPage] = useState(0)
+    const itemsPerPage = 10
+    const pageCount = Math.ceil(listPostForUser && listPostForUser.data && listPostForUser.data.posts ? listPostForUser.data.posts.length / itemsPerPage : 0)
+
+    const handlePageChange = (selectedPage: { selected: number }) => {
+        setCurrentPage(selectedPage.selected)
+    }
+
+    const startIndex = currentPage * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    const visibleItems = listPostForUser && listPostForUser.data && listPostForUser.data.posts && listPostForUser.data.posts.length > 0 ? listPostForUser.data.posts.slice(startIndex, endIndex) : []
 
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
@@ -65,6 +130,7 @@ const UserDetailManage = () => {
             <ModalAdminUnBan user_id={id ? id.toString() : ""} />
             <ModalAdminUpRole user_id={id ? id.toString() : ""} />
             <ModalAdminDownRole user_id={id ? id.toString() : ""} />
+            <ModalSendNoticeUser user_id={id ? id.toString() : ""} />
             <div className="
                     flex 
                     text-gray-600 
@@ -95,7 +161,7 @@ const UserDetailManage = () => {
                 </div>
                 {isLoadingData ? (
                     <LoadingFullScreen loading={isLoadingData} />
-                ) : !listPostForUser || !listPostForUser.data.posts ? (
+                ) : !listPostForUser || listPostForUser.data.posts && listPostForUser.data.posts.length === 0 ? (
                     <div className="flex items-center justify-center text-3xl text-primary-blue-cus font-semibold h-40">
                         Không có sân nào
                     </div>
@@ -104,45 +170,29 @@ const UserDetailManage = () => {
                         Lỗi API
                     </div>
                 ) : (
-                    <table className="table-auto border-separate border border-black border-opacity-10 rounded-lg text-lg text-center max-h-full text-gray-600 bg-[#EFEFEF]">
-                        <thead>
-                            <tr>
-                                {listTitleUserDetail.map((item, index) => (
-                                    <th className="font-semibold py-3 border-b border-black border-opacity-10" key={index}>
-                                        {item.title}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {listPostForUser.data.posts.map((item, index) => (
-                                <tr key={index}>
-                                    <td className="py-3">{item.id ?? ""}</td>
-                                    <td className="py-3">{validateTitle(item.title)}</td>
-                                    <td className="py-3">{item.postTime ?? ""}</td>
-                                    <td className="py-3">{item.numOfReport ?? 0}</td>
-                                    <td className="py-3 relative">
-                                        <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
-                                            ...
-                                        </button>
-                                        {showToggleItemID === index && (
-                                            <div className="absolute right-[13rem] md:right-[17rem] lg:right-[17rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
-                                                <ul className="space-y-2 list-none">
-                                                    {listAction.map((action, index) => (
-                                                        <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                            <button type="button" onClick={() => action.src(item.id ? item.id : "")}>
-                                                                {action.title}
-                                                            </button>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <>
+                        <TablePost listItem={visibleItems} />
+                        {pageCount > 0 && (
+                            <div className="flex justify-center mt-5 text-base font-semibold">
+                                <ReactPaginate
+                                    pageCount={pageCount}
+                                    pageRangeDisplayed={4}
+                                    marginPagesDisplayed={1}
+                                    onPageChange={handlePageChange}
+                                    containerClassName="pagination flex p-0 m-0"
+                                    activeClassName="text-gray-400 bg-gray-200"
+                                    previousLabel="<"
+                                    nextLabel=">"
+                                    pageClassName="border-2 px-4 py-2"
+                                    previousClassName="border-2 px-4 py-2"
+                                    nextClassName="border-2 px-4 py-2"
+                                    pageLinkClassName="pagination-link"
+                                    nextLinkClassName="pagination-link"
+                                    breakClassName="pagination-items border-2 px-3 py-2"
+                                />
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
             <div className="flex flex-col gap-5">
@@ -176,6 +226,7 @@ const UserDetailManage = () => {
                             title="Gửi nhắc nhở"
                             color="bg-emerald-500 hover:bg-emerald-700 border-emerald-500 hover:border-emerald-700"
                             style="py-1 px-4"
+                            onClick={sendNoticeUser.onOpen}
                         />
                     ) : (
                         <></>

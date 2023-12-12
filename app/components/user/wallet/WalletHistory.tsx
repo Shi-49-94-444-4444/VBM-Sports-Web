@@ -29,7 +29,7 @@ const exportToExcel = (listItem: HistoryTransactionData[]) => {
 
     const data = listItem.map(item => [
         item.time,
-        "Nạp tiền",
+        item.type,
         item.status,
         formatMoney(new Decimal(item.amount)),
     ])
@@ -68,7 +68,7 @@ const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem }) => 
                 {listItem.map((item, index) => (
                     <tr key={index}>
                         <td className="py-2 border-r border-black border-opacity-10">{item.time}</td>
-                        <td className="py-2 border-r border-black border-opacity-10">Nạp tiền</td>
+                        <td className="py-2 border-r border-black border-opacity-10">{item.type}</td>
                         <td className="py-2 border-r border-black border-opacity-10 font-semibold">
                             {item.status === "Success" ? (
                                 <span className="text-green-500">{item.status}</span>

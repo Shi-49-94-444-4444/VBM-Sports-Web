@@ -15,6 +15,8 @@ import ModalTransaction from "./ModalTransaction"
 import ModalAdminUnBan from "./ModalAdminUnBan"
 import ModalAdminUpRole from "./ModalAdminUpRole"
 import ModalAdminDownRole from "./ModalAdminDownRole"
+import ModalSendNoticeUser from "./ModalSendNoticeUser"
+import ModalDeleteBlog from "./ModalDeleteBlog"
 
 export {
     ModalReportUser,
@@ -33,5 +35,7 @@ export {
     ModalTransaction,
     ModalAdminUnBan,
     ModalAdminDownRole,
-    ModalAdminUpRole
+    ModalAdminUpRole,
+    ModalSendNoticeUser,
+    ModalDeleteBlog
 }

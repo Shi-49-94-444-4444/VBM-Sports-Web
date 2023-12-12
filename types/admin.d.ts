@@ -1,3 +1,4 @@
+import { UserReportManagement } from '@/app/components';
 export interface ManageUser {
     message: string
     data: {
@@ -33,5 +34,35 @@ export interface UserDetailManage {
             numOfReport: number
         }[]
     }
+}
+
+export interface UserManagePostData {
+    id: string
+    title: string
+    postTime: string
+    numOfReport: number
+}
+
+export interface UserReportManagement {
+    message: string
+    data: {
+        id: string
+        content: string
+        title: string | null
+        dateReceive: string
+        status: string | null
+        navigationId: string
+        objectNavigation: string
+    }[]
+}
+
+export interface UserReportManagementData {
+    id: string
+    content: string
+    title: string | null
+    dateReceive: string
+    status: string | null
+    navigationId: string
+    objectNavigation: string
 }
 

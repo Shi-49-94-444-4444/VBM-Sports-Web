@@ -119,3 +119,18 @@ export const settingPasswordSchema = yup.object().shape({
 export const sendMessageSchema = yup.object().shape({
     message: yup.string().required()
 })
+
+export const sendNoticeSchema = yup.object().shape({
+    value: yup.string().required("Không được để trống")
+})
+
+export const createBlogSchema = yup.object().shape({
+    title: yup.string().
+        required("Tiêu đề không được để trống").
+        min(4, "Tối thiểu 4 kí tự").
+        max(100, "Nhiều nhất 100 kí tự"),
+    summary: yup.string().
+        required("Đoạn trích không được để trống").
+        min(50, "Tối thiểu 50 kí tự").
+        max(500, "Nhiều nhất 500 kí tự"),
+}).required()

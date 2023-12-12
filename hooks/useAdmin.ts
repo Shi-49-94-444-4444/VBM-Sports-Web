@@ -13,6 +13,13 @@ interface AdminDeletePostModalStore {
     onClose: () => void;
 }
 
+interface DeleteBlogModalStore {
+    isOpen: boolean;
+    blogId: string | null;
+    onOpen: (blogId: string) => void;
+    onClose: () => void;
+}
+
 export const useAdminBanModal = create<AdminModalStore>((set) => ({
     isOpen: false,
     onOpen: () => set({ isOpen: true }),
@@ -42,4 +49,17 @@ export const useAdminDeletePostModal = create<AdminDeletePostModalStore>((set) =
     postId: null,
     onOpen: (postId: string) => set({ isOpen: true, postId }),
     onClose: () => set({ isOpen: false, postId: null })
+}))
+
+export const useSendNoticeUserModal = create<AdminModalStore>((set) => ({
+    isOpen: false,
+    onOpen: () => set({ isOpen: true }),
+    onClose: () => set({ isOpen: false })
+}))
+
+export const useDeleteBLogModal = create<DeleteBlogModalStore>((set) => ({
+    isOpen: false,
+    blogId: null,
+    onOpen: (blogId) => set({ isOpen: true, blogId }),
+    onClose: () => set({ isOpen: false, blogId: null })
 }))

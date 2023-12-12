@@ -8,6 +8,7 @@ import { GlobalContext } from "@/contexts"
 import { adminDownRoleService } from "@/services"
 import { toast } from "react-toastify"
 import { LoadingActionWallet } from "../loader"
+import { mutate } from "swr"
 
 const ModalAdminDownRole = ({ user_id }: { user_id: string }) => {
     const adminDownRoleModal = useAdminDownRoleModal()
@@ -34,6 +35,8 @@ const ModalAdminDownRole = ({ user_id }: { user_id: string }) => {
             toast.success("Cấp quyền thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
+
+            mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
             adminDownRoleModal.onClose()
         }
 

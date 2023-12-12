@@ -102,6 +102,7 @@ export interface HistoryTransaction {
         amount: number
         status: string
         time: string
+        type: string
     }[]
 }
 export interface HistoryTransactionData {
@@ -111,4 +112,5 @@ export interface HistoryTransactionData {
     amount: number
     status: string
     time: string
+    type: string
 }

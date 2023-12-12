@@ -55,3 +55,35 @@ export const adminDownRoleService = async ({ admin_id, user_id }: { admin_id: st
         }
     }
 }
+
+export const sendNoticePostService = async ({ post_id, message }: { post_id: string, message: string }) => {
+    try {
+        const response = await AxiosClient.post(`/api/posts/notice/to/${post_id}`, {
+            message: message
+        })
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
+export const sendNoticeUserService = async ({ user_id, message }: { user_id: string, message: string }) => {
+    try {
+        const response = await AxiosClient.post(`/api/users/notice/to/{user_id}`, {
+            message: message
+        })
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}

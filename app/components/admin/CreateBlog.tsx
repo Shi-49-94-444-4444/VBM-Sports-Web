@@ -11,6 +11,8 @@ import { GlobalContext } from "@/contexts";
 import { createBlogService } from "@/services";
 import { CreateBlogForm } from "@/types";
 import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createBlogSchema, isValidBase64, isValidUrl, processBase64Image } from "@/utils";
 
 const ReactQuill = dynamic(
     () => import('react-quill'),
@@ -23,7 +25,9 @@ const CreateBlog = () => {
     const [value, setValue] = useState("")
     const { user, isLoading, setIsLoading } = useContext(GlobalContext) || {}
 
-    const { register, handleSubmit, formState: { errors } } = useForm<CreateBlogForm>()
+    const { register, handleSubmit, formState: { errors }, setError } = useForm<CreateBlogForm>({
+        resolver: yupResolver(createBlogSchema)
+    })
 
     const handleChange = (content: any, delta: any, source: any, editor: any) => {
         setValue(editor.getHTML());
@@ -49,11 +53,30 @@ const CreateBlog = () => {
     const onSubmit = async (data: CreateBlogForm) => {
         if (setIsLoading) setIsLoading(true)
 
+        if (!value || value.trim() === "" || value.length < 100 || !url || !isValidUrl(url) || !isValidBase64(url)) {
+            if (!value || value.trim() === "") {
+                setError("description", { message: "Mô tả không được để trống" })
+            } else if (value.length < 100) {
+                setError("description", { message: "Mô tả ít nhất 100 kí tự" })
+            }
+
+            if (!url) {
+                setError("highlightImg", { message: "Hình ảnh không được để trống" })
+            } else if (!isValidUrl(url) || !isValidBase64(url)) {
+                setError("highlightImg", { message: "Hình ảnh phải là link hoặc base64" })
+            }
+
+            return
+        }
+
         if (user && user.id) {
             const res = await createBlogService({
                 user_id: user.id,
                 title: data.title,
-                description: value
+                summary: data.summary,
+                description: value,
+                imgUrls: [processBase64Image(url)],
+                highlightImg: processBase64Image(url),
             })
 
             if (res.data === null) {
@@ -119,6 +142,7 @@ const CreateBlog = () => {
                                     value={url}
                                     onChange={(e) => setUrl(e.target.value)}
                                     colorInput="text-lg w-full"
+                                    errors={errors}
                                 />
                             </div>
                             <div className="flex-shrink-0">
@@ -145,6 +169,10 @@ const CreateBlog = () => {
                             flagInput
                             placeholder="Nhập đoạn trích"
                             colorInput="text-lg"
+                            name="summary"
+                            id="summary"
+                            register={register}
+                            errors={errors}
                         />
                     </div>
                 </div>
@@ -184,7 +212,7 @@ const CreateBlog = () => {
                 <div className="relative flex pt-20 justify-end">
                     {isLoading ? (
                         <Button
-                            title={<Loading loading={isLoading} color="white"/>}
+                            title={<Loading loading={isLoading} color="white" />}
                             type="submit"
                             style="py-3 text-lg"
                             isHover={false}

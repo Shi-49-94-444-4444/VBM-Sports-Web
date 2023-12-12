@@ -36,8 +36,9 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
             toast.success("Xóa bài đăng thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
+
+            mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
             adminDeletePostModal.onClose()
-            mutate(`/api/posts/${user_id}/managed_all_post`)
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
