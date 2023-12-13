@@ -34,7 +34,7 @@ const BlogOtherExtra = () => {
                                 duration-500
                             "
                         >
-                            Các bài viết khác
+                            Các tin tức khác
                         </div>
                         <div className="
                                 w-1/3 

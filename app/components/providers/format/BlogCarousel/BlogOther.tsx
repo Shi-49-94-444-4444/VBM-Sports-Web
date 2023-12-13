@@ -1,15 +1,16 @@
 "use client"
 
-import { Blog } from "@/types";
+import { ListBlogsData } from "@/types";
+import { validateURLProduct } from "@/utils";
 import Image from "next/image"
 import Link from "next/link";
 
-const BlogItemOther: React.FC<Blog> = ({
+const BlogItemOther: React.FC<ListBlogsData> = ({
     id,
-    src,
     title,
-    description,
-    date
+    imgUrl,
+    createTime,
+    summary
 }) => {
     return (
         <Link href={`/blog/${id}`}>
@@ -43,13 +44,15 @@ const BlogItemOther: React.FC<Blog> = ({
                         "
                     >
                         <Image
-                            src={src}
+                            src={validateURLProduct(imgUrl)}
                             alt="blog"
                             className="
-                            rounded-xl 
-                            object-cover
-                        "
+                                rounded-xl 
+                                object-cover
+                            "
                             fill
+                            placeholder="blur"
+                            blurDataURL={validateURLProduct(imgUrl)}
                             draggable="false"
                         />
                     </div>
@@ -60,11 +63,11 @@ const BlogItemOther: React.FC<Blog> = ({
                             {title}
                         </h1>
                         <p className="text-gray-500 text-lg line-clamp-5 min-h-[8.75rem]">
-                            {description}
+                            {summary}
                         </p>
                     </section>
                     <div className="text-[#8B96A5] text-lg ml-auto">
-                        {date}
+                        {createTime}
                     </div>
                 </div>
             </div>
