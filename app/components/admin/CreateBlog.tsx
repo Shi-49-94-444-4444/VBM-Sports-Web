@@ -53,7 +53,7 @@ const CreateBlog = () => {
     const onSubmit = async (data: CreateBlogForm) => {
         if (setIsLoading) setIsLoading(true)
 
-        if (!value || value.trim() === "" || value.length < 100 || !url || !isValidUrl(url) || !isValidBase64(url)) {
+        if (!value || value.trim() === "" || value.length < 100 || !url || !isValidUrl(url) && !isValidBase64(url)) {
             if (!value || value.trim() === "") {
                 setError("description", { message: "Mô tả không được để trống" })
             } else if (value.length < 100) {
@@ -62,10 +62,13 @@ const CreateBlog = () => {
 
             if (!url) {
                 setError("highlightImg", { message: "Hình ảnh không được để trống" })
-            } else if (!isValidUrl(url) || !isValidBase64(url)) {
-                setError("highlightImg", { message: "Hình ảnh phải là link hoặc base64" })
+            } else {
+                if (!isValidUrl(url) && !isValidBase64(url)) {
+                    setError("highlightImg", { message: "Hình ảnh phải là link hoặc base64" })
+                }
             }
 
+            if (setIsLoading) setIsLoading(false)
             return
         }
 
@@ -90,6 +93,8 @@ const CreateBlog = () => {
             toast.success(res.message, {
                 position: toast.POSITION.TOP_RIGHT
             })
+
+            router.push("/admin/post-management")
         }
 
         if (setIsLoading) setIsLoading(false)
@@ -156,6 +161,7 @@ const CreateBlog = () => {
                                 <label htmlFor="file" className="custom-file-upload text-lg text-white font-semibold bg-primary-blue-cus px-4 py-4 rounded-lg cursor-pointer hover:text-primary-blue-cus hover:bg-white border border-primary-blue-cus">
                                     Chọn hình ảnh
                                 </label>
+                                <div className="h-4"/>
                             </div>
                         </div>
                     </div>

@@ -47,7 +47,7 @@ export const navLinks = [
 export const navLinksAdmin = [
     {
         id: "1",
-        label: "Quản lý người dùng",
+        label: "Trang quản lý",
         href: "/admin/user-management"
     },
     {

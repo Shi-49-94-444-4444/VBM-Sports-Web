@@ -125,7 +125,7 @@ const BannerIntro = () => {
                         </div>
                     </button>
                     {showToggleCity && (
-                        <div className="absolute -bottom-28 w-full shadow-md">
+                        <div className="absolute -bottom-28 w-full shadow-md transition-all duration-500">
                             <ul className="bg-white h-full rounded-lg py-2 relative">
                                 {locationCity.map((item) => (
                                     <li
@@ -144,7 +144,7 @@ const BannerIntro = () => {
                         </div>
                     )}
                     {showToggleDistrict && (
-                        <div className="absolute -bottom-28 left-56 min-w-[700px] max-w-[600px] shadow-md z-[99999]" onMouseEnter={() => { setShowToggleCity(true) }}>
+                        <div className="absolute -bottom-28 left-56 min-w-[700px] max-w-[600px] shadow-md z-[99999] transition-all duration-500" onMouseEnter={() => { setShowToggleCity(true) }}>
                             <div className={`bg-white min-h-full max-h-96 rounded-lg py-2 relative text-black flex flex-col flex-wrap ${city === 1 ? "w-auto" : "w-1/3"}`}>
                                 {locationDistrict.map((item) => (
                                     <button
