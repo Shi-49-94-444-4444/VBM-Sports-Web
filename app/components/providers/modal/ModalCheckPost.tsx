@@ -30,6 +30,7 @@ const ModalCheckPost = () => {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 if (setIsLoadingModal) setIsLoadingModal(true)
+                checkPostModal.onClose()
                 return
             }
 
@@ -38,6 +39,7 @@ const ModalCheckPost = () => {
             })
 
             mutate(`/api/posts/${checkPostModal.value.id}/post_suggestion`)
+            checkPostModal.onClose()
             router.push("/")
         }
 
