@@ -8,7 +8,7 @@ import Datepicker from "react-tailwindcss-datepicker"
 import { useContext, useState } from "react"
 import { addDays, addMonths, differenceInDays, differenceInHours, eachDayOfInterval, format, isBefore, isSameDay, setHours, setMinutes, startOfDay } from 'date-fns'
 import { vi } from 'date-fns/locale'
-import { AxiosClient, postBadmintonService } from "@/services"
+import { AxiosClient, checkFreePostService, postBadmintonService } from "@/services"
 import useSWR, { mutate } from "swr"
 import { ListCity, ListDistrict, ListWard } from "@/types"
 import { customStyles, handleChange, processBase64Image } from "@/utils"
@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
+import { useCheckPostModal } from "@/hooks"
 
 interface Option {
     id: string;
@@ -26,6 +27,7 @@ interface Option {
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const PostNewForm = () => {
+    const checkPostModal = useCheckPostModal()
     const [formGlobal, setFormGlobal] = useState({
         title: "",
         address: "",
@@ -420,11 +422,28 @@ const PostNewForm = () => {
             }
         })
 
-        const processedImages = uploadImages.map(image => processBase64Image(image));
-
-        // //console.log(formattedSlots)
+        const processedImages = uploadImages.map(image => processBase64Image(image))
 
         if (user && user.id) {
+            const check = await checkFreePostService(user.id)
+
+            if (check.data === null) {
+                checkPostModal.onOpen(check.message, {
+                    id: user.id,
+                    title: formGlobal.title,
+                    address: `${selectCity.value}, ${selectDistrict.value}, ${selectWard.value}, ${formGlobal.address}`,
+                    slots: formattedSlots,
+                    levelSlot: selectLevel.value,
+                    categorySlot: selectCategory.value,
+                    description: formGlobal.description,
+                    highlightUrl: processedImages[0],
+                    imgUrls: processedImages
+                })
+
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
             const res = await postBadmintonService({
                 id: user.id,
                 title: formGlobal.title,
@@ -457,7 +476,6 @@ const PostNewForm = () => {
 
         if (setIsLoading) setIsLoading(false)
     }
-
 
     return (
         <form className="grid lg:grid-cols-2 grid-cols-1 gap-10" onSubmit={handleSubmit(onSubmit)}>

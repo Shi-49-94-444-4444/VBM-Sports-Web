@@ -1,10 +1,11 @@
-import { Container, PostNewForm, } from '@/app/components';
+import { Container, ModalCheckPost, PostNewForm, } from '@/app/components';
 import Layout from '@/app/layout';
 import Link from 'next/link';
 
 const PostBadmintonPage = () => {
     return (
         <Layout>
+            <ModalCheckPost />
             <Container>
                 <div className="relative mb-10">
                     <div className="relative py-10">

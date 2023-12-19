@@ -25,8 +25,18 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
     onclick
 }) => {
     const [showToggle, setShowToggle] = useState(false);
+    const [showNotify, setShowNotify] = useState(false)
     const router = useRouter()
-    const { isAuthUser, setIsAuthUser, setUser, user, setIsRefresh, listNotify, showNotify, setShowNotify, showMenu, isLoadingNotify } = useContext(GlobalContext) || {}
+    const {
+        isAuthUser,
+        setIsAuthUser,
+        setUser,
+        user,
+        setIsRefresh,
+        listNotify,
+        showMenu,
+        isLoadingNotify
+    } = useContext(GlobalContext) || {}
     const unauthorizeModal = useUnauthorizeModal()
 
     const handleToggle = () => {
@@ -47,7 +57,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
     }
 
     const handleOutsideClickNotify = () => {
-        if (setShowNotify) setShowNotify(false)
+        setShowNotify(false)
     }
 
     const handleLogout = async () => {
@@ -65,6 +75,21 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
     }
 
     const filterRead = listNotify && listNotify.filter((item) => item.isRead !== true)
+
+    
+    const handleRouterNotify = (value: string, id: string) => {
+        if (value.toLowerCase() === "post") {
+            return router.push(`/product/detail-product/${id}`)
+        }
+
+        if (value.toLowerCase()  === "User") {
+            return router.push(`/user/profile-user/${id}`)
+        }
+
+        if (value.toLowerCase()  === "Tran") {
+            return router.push(`/transaction/detail-transaction/${id}`)
+        }
+    }
 
     const ref = useRef<HTMLLIElement | null>(null)
     useOutsideClick(ref, handleOutsideClick)
@@ -301,19 +326,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                                 text-left
                                                 justify-around
                                             "
-                                            onClick={() => {
-                                                if (item.about === "Post") {
-                                                    return router.push(`/product/detail-product/${item.referenceId}`)
-                                                }
-
-                                                if (item.about === "User") {
-                                                    return router.push(`/user/profile-user/${item.referenceId}`)
-                                                }
-
-                                                if (item.about === "Tran") {
-                                                    return router.push(`/transaction/detail-transaction/${item.referenceId}`)
-                                                }
-                                            }}
+                                            onClick={() => handleRouterNotify(item.about, item.referenceId)}
                                         >
                                             <div className="text-base font-medium truncate">
                                                 {item.title}

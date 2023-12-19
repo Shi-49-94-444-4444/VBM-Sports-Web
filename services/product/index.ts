@@ -57,6 +57,20 @@ export const getAllDistrictService = async () => {
     }
 }
 
+export const checkFreePostService = async (user_id: string) => {
+    try {
+        const response = await AxiosClient.put(`/api/posts/${user_id}/check_user_post`)
+
+        return response.data;
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
 export const postBadmintonService = async (data: CreateBadmintonForm) => {
     // console.log(data)
 

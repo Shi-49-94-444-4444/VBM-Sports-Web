@@ -60,7 +60,7 @@ const Input: React.FC<InputProps> = ({
                             id={id}
                             typeof={type}
                             rows={rowArea || 5}
-                            maxLength={maxLength || 100}
+                            maxLength={maxLength || 1000}
                             name={name}
                             value={value}
                             placeholder={placeholder}
@@ -92,7 +92,7 @@ const Input: React.FC<InputProps> = ({
                             {...registerProps}
                             disabled={disabled}
                             onChange={handleChange}
-                            maxLength={maxLength || 50}
+                            maxLength={maxLength || 200}
                             className={`
                                 ${colorInput}
                                 w-full 
@@ -117,7 +117,7 @@ const Input: React.FC<InputProps> = ({
                             id={id}
                             typeof={type}
                             rows={rowArea || 5}
-                            maxLength={maxLength || 100}
+                            maxLength={maxLength || 1000}
                             name={name}
                             value={value}
                             placeholder={placeholder}
@@ -147,7 +147,7 @@ const Input: React.FC<InputProps> = ({
                             placeholder={placeholder}
                             {...registerProps}
                             disabled={disabled}
-                            maxLength={maxLength || 50}
+                            maxLength={maxLength || 200}
                             className={`
                                 ${colorInput}
                                 w-full 

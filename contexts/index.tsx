@@ -48,8 +48,6 @@ interface GlobalContextProps {
     setIsLoadingPage: React.Dispatch<React.SetStateAction<boolean | null>>
     showMenu: boolean | null
     setShowMenu: React.Dispatch<React.SetStateAction<boolean | null>>
-    showNotify: boolean | null
-    setShowNotify: React.Dispatch<React.SetStateAction<boolean | null>>
     isRefresh: boolean | null
     setIsRefresh: React.Dispatch<React.SetStateAction<boolean | null>>
     fetchUser: boolean | null
@@ -79,7 +77,6 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [isLoadingModal, setIsLoadingModal] = useState<boolean | null>(false)
     const [isLoadingPage, setIsLoadingPage] = useState<boolean | null>(false)
     const [showMenu, setShowMenu] = useState<boolean | null>(false)
-    const [showNotify, setShowNotify] = useState<boolean | null>(false)
     const [isRefresh, setIsRefresh] = useState<boolean | null>(false)
     const [fetchUser, setFetchUser] = useState<boolean | null>(false)
     const [searchValue, setSearchValue] = useState<string | null>("")
@@ -178,8 +175,6 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 setSaveDistrict,
                 listDistrict,
                 setListDistrict,
-                showNotify,
-                setShowNotify,
                 listNotify,
                 setListNotify,
                 isLoadingNotify,

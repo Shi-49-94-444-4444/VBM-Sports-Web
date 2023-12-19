@@ -4,8 +4,10 @@ import { useRatingModal } from "@/hooks"
 import CustomModal from "./Modal"
 import { Button, Input } from "../form"
 import { RatingFilter } from "../format"
+import { useRouter } from "next/router"
 
 const ModalRating = () => {
+    const router = useRouter()
     const ratingModal = useRatingModal()
 
     return (
@@ -61,7 +63,10 @@ const ModalRating = () => {
                     <Button
                         title="Gửi"
                         style="py-2 px-12 text-xl"
-                        onClick={ratingModal.onClose}
+                        onClick={() => {
+                            router.reload()
+                            ratingModal.onClose()
+                        }}
                     />
                 </div>
             </form>
