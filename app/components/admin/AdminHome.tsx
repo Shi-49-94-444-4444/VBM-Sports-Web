@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useEffect, useState } from "react"
-import { Button, DownMetalBtn, Input, LoadingFullScreen, Search } from "../providers"
+import { Button, DownMetalBtn, Input, Loading, LoadingFullScreen, Search } from "../providers"
 import { AxiosClient, updateSettingAdminService } from "@/services"
 import useSWR from "swr";
 import { GlobalContext } from "@/contexts"
@@ -108,9 +108,9 @@ const AdminHome = () => {
     const { data: listHistoryWallet, error, isLoading } = useSWR<HistoryTransaction>(user ? `/api/wallet/user/${user.id}/history` : null, fetcher, { refreshInterval: 10000 })
     const { data: listSetting, mutate } = useSWR<AdminSetting>(`/api/Settings/get_listSetting`, fetcher, { refreshInterval: 10000 })
 
-    const { register, handleSubmit, formState: { errors }, setValue, setError } = useForm<AdminSettingListData>({
+    const { register, handleSubmit, setValue, watch } = useForm<AdminSettingListData>({
         defaultValues: {
-            listSettingData: listSetting?.data
+            listSettingData: listSetting?.data,
         }
     })
 
@@ -121,56 +121,74 @@ const AdminHome = () => {
     }, [listSetting, setValue])
 
     const onSubmit = async (data: AdminSettingListData) => {
-        if (setIsLoadingModal) setIsLoadingModal(true)
+        if (setIsLoadingModal) setIsLoadingModal(true);
 
-        for (const setting of data.listSettingData) {
-            if (setting.settingName === "postingFee" && 0 > setting.settingAmount || setting.settingName === "postingFee" && setting.settingAmount > 1000000) {
-                toast.error("Phí đăng bài phải từ 0-1.000.000 VNĐ", {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-            }
+        const dataAll = watch();
 
-            if (setting.settingName === "bookingFee" && 0 > setting.settingAmount || setting.settingName === "bookingFee" && setting.settingAmount > 100) {
-                toast.error("Phí hoa hồng phải từ 0%-100%", {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-            }
+        for (const [settingName, settingValue] of Object.entries(dataAll)) {
+            const setting = data.listSettingData.find(item => item.settingName === settingName);
 
-            if (setting.settingName === "freeNumberPost" && 0 > setting.settingAmount || setting.settingName === "freeNumberPost" && setting.settingAmount > 10) {
-                toast.error("Lượt miễn phí từ 0-10 lượt/tháng", {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-            }
+            // Kiểm tra nếu settingValue không phải undefined và setting tồn tại
+            if (settingValue !== undefined && setting) {
+                if (settingName === "postingFee" && (settingValue < 0 || settingValue > 1000000)) {
+                    toast.error("Phí đăng bài phải từ 0-1.000.000 VNĐ", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    if (setIsLoadingModal) setIsLoadingModal(false);
+                    return;
+                }
 
-            if (setting.settingName === "boostPostFree" && 0 > setting.settingAmount || setting.settingName === "boostPostFree" && setting.settingAmount > 1000000) {
-                toast.error("Phí đẩy bài phải từ 0-1.000.000 VNĐ", {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-            }
+                if (settingName === "bookingFee" && (settingValue < 0 || settingValue > 100)) {
+                    toast.error("Phí hoa hồng phải từ 0%-100%", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    if (setIsLoadingModal) setIsLoadingModal(false);
+                    return;
+                }
 
-            const res = await updateSettingAdminService({
-                SettingId: setting.settingId,
-                SettingAmount: setting.settingAmount
-            })
+                if (settingName === "freeNumberPost" && (settingValue < 0 || settingValue > 10)) {
+                    toast.error("Lượt miễn phí từ 0-10 lượt/tháng", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    if (setIsLoadingModal) setIsLoadingModal(false);
+                    return;
+                }
 
-            console.log(res)
+                if (settingName === "boostPostFree" && (settingValue < 0 || settingValue > 1000000)) {
+                    toast.error("Phí đẩy bài phải từ 0-1.000.000 VNĐ", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    if (setIsLoadingModal) setIsLoadingModal(false);
+                    return;
+                }
 
-            if (res.data === null) {
-                toast.error(res.message, {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-                return
+                // console.log(setting.settingId, settingValue)
+
+                const res = await updateSettingAdminService({
+                    SettingId: setting.settingId,
+                    SettingAmount: settingValue
+                });
+
+                // console.log(res);
+
+                if (res.data === null) {
+                    toast.error(res.message, {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    return;
+                }
             }
         }
 
         toast.success("Cập nhập thành công", {
             position: toast.POSITION.TOP_RIGHT
-        })
+        });
 
-        mutate()
+        mutate();
 
-        if (setIsLoadingModal) setIsLoadingModal(true)
-    }
+        if (setIsLoadingModal) setIsLoadingModal(false);
+    };
+
 
     const filterHistoryWallet = listHistoryWallet && listHistoryWallet.data && listHistoryWallet.data.filter(history => history.time && history.time.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()))
 
@@ -237,13 +255,23 @@ const AdminHome = () => {
                             />
                         </div>
                     ) : (
-                        <div className="relative">
-                            <Button
-                                title="Lưu"
-                                style="px-12 text-xl"
-                                type="submit"
-                            />
-                        </div>
+                        isLoadingModal ? (
+                            <div className="relative">
+                                <Button
+                                    title={<Loading loading={isLoadingModal} color="white" />}
+                                    style="px-12 text-xl"
+                                    isHover={false}
+                                />
+                            </div>
+                        ) : (
+                            <div className="relative">
+                                <Button
+                                    title="Lưu"
+                                    style="px-12 text-xl"
+                                    type="submit"
+                                />
+                            </div>
+                        )
                     )}
                 </div>
             </form >
