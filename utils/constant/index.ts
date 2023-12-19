@@ -2,7 +2,7 @@ import { Option } from "@/types";
 import { AiFillMail } from "react-icons/ai";
 import { BiSolidBellRing, BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from "react-icons/bi";
 import { BsFileEarmarkPost, BsFillFileEarmarkPostFill, BsFillFileEarmarkRuledFill } from "react-icons/bs";
-import { FaPollH, FaUserEdit, FaUserFriends, FaUserSlash } from "react-icons/fa";
+import { FaHome, FaPollH, FaUserEdit, FaUserFriends, FaUserSlash } from "react-icons/fa";
 import { IoShieldCheckmark } from "react-icons/io5";
 
 export const navLinks = [
@@ -47,8 +47,8 @@ export const navLinks = [
 export const navLinksAdmin = [
     {
         id: "1",
-        label: "Trang quản lý",
-        href: "/admin/user-management"
+        label: "Quản lý chung",
+        href: "/admin/admin-home"
     },
     {
         id: "2",
@@ -61,16 +61,21 @@ export const navLinksAdmin = [
             },
             {
                 id: "2",
+                label: "Quản lý người dùng",
+                href: "/admin/user-management"
+            },
+            {
+                id: "3",
                 label: "Quản lý bài viết",
                 href: "/admin/post-management"
             },
             {
-                id: "3",
+                id: "4",
                 label: "Quản lý báo cáo",
                 href: "/admin/user-report-management"
             },
             {
-                id: "4",
+                id: "5",
                 label: "Quản lý doanh thu",
                 href: "/product/report-management"
             },
@@ -205,11 +210,12 @@ export const settingOptions: Option[] = [
 ]
 
 export const adminOptions: Option[] = [
-    { id: 1, label: "Quản lý người dùng", icon: FaUserFriends },
-    { id: 2, label: "Quản lý tin tức", icon: BsFillFileEarmarkPostFill },
-    { id: 3, label: "Quản lý doanh thu", icon: BsFillFileEarmarkRuledFill },
-    { id: 4, label: "Chính sách", icon: FaPollH },
-    { id: 5, label: "Quản lý báo cáo", icon: BsFileEarmarkPost },
+    { id: 1, label: "Quản lý chung", icon: FaHome },
+    { id: 2, label: "Quản lý người dùng", icon: FaUserFriends },
+    { id: 3, label: "Quản lý tin tức", icon: BsFillFileEarmarkPostFill },
+    { id: 4, label: "Quản lý doanh thu", icon: BsFillFileEarmarkRuledFill },
+    { id: 5, label: "Chính sách", icon: FaPollH },
+    { id: 6, label: "Quản lý báo cáo", icon: BsFileEarmarkPost },
 ]
 
 export const beforeNavUser = [

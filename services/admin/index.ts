@@ -87,3 +87,17 @@ export const sendNoticeUserService = async ({ user_id, message }: { user_id: str
         }
     }
 }
+
+export const updateSettingAdminService = async ({ SettingId, SettingAmount }: { SettingId: string, SettingAmount: number }) => {
+    try {
+        const response = await AxiosClient.put(`/api/Settings/${SettingId}&${SettingAmount}/set_Setting`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}

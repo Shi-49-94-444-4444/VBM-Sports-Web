@@ -19,6 +19,7 @@ const Input: React.FC<InputProps> = ({
     rowArea,
     maxLength,
     isMoney,
+    defaultValue
 }) => {
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         if (isMoney) {
@@ -63,6 +64,7 @@ const Input: React.FC<InputProps> = ({
                             maxLength={maxLength || 1000}
                             name={name}
                             value={value}
+                            defaultValue={defaultValue}
                             placeholder={placeholder}
                             {...registerProps}
                             disabled={disabled}
@@ -88,6 +90,7 @@ const Input: React.FC<InputProps> = ({
                             type={type}
                             name={name}
                             value={value}
+                            defaultValue={defaultValue}
                             placeholder={placeholder}
                             {...registerProps}
                             disabled={disabled}
@@ -120,6 +123,7 @@ const Input: React.FC<InputProps> = ({
                             maxLength={maxLength || 1000}
                             name={name}
                             value={value}
+                            defaultValue={defaultValue}
                             placeholder={placeholder}
                             {...registerProps}
                             disabled={disabled}
@@ -144,6 +148,7 @@ const Input: React.FC<InputProps> = ({
                             type={type}
                             name={name}
                             value={value}
+                            defaultValue={defaultValue}
                             placeholder={placeholder}
                             {...registerProps}
                             disabled={disabled}

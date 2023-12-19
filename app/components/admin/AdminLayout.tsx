@@ -17,20 +17,23 @@ const AdminLayout: React.FC<LayoutProps> = ({
 
     useEffect(() => {
         switch (router.pathname) {
-            case '/admin/user-management':
+            case '/admin/admin-home':
                 setSelectedOption(1);
                 break;
-            case '/admin/post-management':
+            case '/admin/user-management':
                 setSelectedOption(2);
                 break;
-            case '/admin/report-management':
+            case '/admin/post-management':
                 setSelectedOption(3);
                 break;
-            case '/admin/rule-list':
+            case '/admin/report-management':
                 setSelectedOption(4);
                 break;
-            case '/admin/user-report-management':
+            case '/admin/rule-list':
                 setSelectedOption(5);
+                break;
+            case '/admin/user-report-management':
+                setSelectedOption(6);
                 break;
             default:
                 setSelectedOption(0);
@@ -42,18 +45,21 @@ const AdminLayout: React.FC<LayoutProps> = ({
         setSelectedOption(id)
         switch (id) {
             case 1:
-                router.push('/admin/user-management');
+                router.push('/admin/admin-home');
                 break;
             case 2:
-                router.push('/admin/post-management');
+                router.push('/admin/user-management');
                 break;
             case 3:
-                router.push('/admin/report-management');
+                router.push('/admin/post-management');
                 break;
             case 4:
-                router.push('/admin/rule-list');
+                router.push('/admin/report-management');
                 break;
             case 5:
+                router.push('/admin/rule-list');
+                break;
+            case 6:
                 router.push('/admin/user-report-management');
                 break;
         }

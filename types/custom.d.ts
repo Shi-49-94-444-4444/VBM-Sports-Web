@@ -22,6 +22,7 @@ export interface InputProps {
     name?: string
     placeholder?: string
     value?: string | number
+    defaultValue?: string | number
     type?: string
     disabled?: boolean
     register?: UseFormRegister<FieldValues>

@@ -66,3 +66,42 @@ export interface UserReportManagementData {
     objectNavigation: string
 }
 
+export interface AdminSetting {
+    message: string
+    data: {
+        settingId: string
+        settingName: string
+        settingAmount: number
+    }[]
+}
+
+export interface AdminSettingData {
+    settingId: string
+    settingName: string
+    settingAmount: number
+}
+export interface AdminSettingListData {
+    listSettingData: AdminSettingData[]
+}
+
+export interface ManagementReportData {
+    id: string
+    amount: number
+    status: string
+    time: string
+    type: string
+}
+
+export interface ManagementReport {
+    message: string
+    data: {
+        historyWalletModels: {
+            id: string
+            amount: number
+            status: string
+            time: string
+            type: string
+        }[]
+        total: number
+    }
+}
