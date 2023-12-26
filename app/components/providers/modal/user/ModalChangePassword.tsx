@@ -1,17 +1,17 @@
 "use client"
 
 import { useChangePasswordModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button, Input } from "../form"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { settingPasswordService } from "@/services"
 import { toast } from "react-toastify"
-import { Loading } from "../loader"
 import { useForm } from "react-hook-form"
 import { settingPasswordInputs, settingPasswordSchema } from "@/utils"
 import { SettingPasswordFormData } from "@/types"
 import { yupResolver } from "@hookform/resolvers/yup"
+import CustomModal from "../Modal"
+import { Button, Input } from "../../form"
+import { Loading } from "../../loader"
 
 const ModalChangePassword = () => {
     const changePasswordModal = useChangePasswordModal()

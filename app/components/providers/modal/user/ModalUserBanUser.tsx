@@ -1,13 +1,13 @@
 "use client"
 
 import { useUserBanUserModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button } from "../form"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { userBanUserService } from "@/services"
 import { toast } from "react-toastify"
-import { Loading } from "../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
+import { Loading } from "../../loader"
 
 const ModalUserBanUser = ({ id }: { id: string }) => {
     const banUserModal = useUserBanUserModal()

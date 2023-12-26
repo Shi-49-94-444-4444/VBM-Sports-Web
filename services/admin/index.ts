@@ -72,6 +72,20 @@ export const sendNoticePostService = async ({ post_id, message }: { post_id: str
     }
 }
 
+export const getSettingService = async () => {
+    try {
+        const response = await AxiosClient.get(`/api/Settings/get_listSetting`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
 export const sendNoticeUserService = async ({ user_id, message }: { user_id: string, message: string }) => {
     try {
         const response = await AxiosClient.post(`/api/users/notice/to/{user_id}`, {

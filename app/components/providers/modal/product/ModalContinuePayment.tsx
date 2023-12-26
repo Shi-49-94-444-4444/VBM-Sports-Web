@@ -4,11 +4,12 @@ import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { bookingService, joinChatRoomService } from "@/services"
 import { useContinuePaymentModal, useFailPaymentModal, useFeaturingModal, useSuccessPaymentModal } from "@/hooks"
-import CustomModal from "./Modal"
 import Image from "next/image"
-import { Button } from "../form"
 import { useContext } from "react"
-import { LoadingActionPayment } from "../loader"
+import { mutate } from "swr"
+import { LoadingActionPayment } from "../../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
 
 const ModalContinuePayment = () => {
     const { user, setIsLoadingModal, isLoadingModal, setFetchUser } = useContext(GlobalContext) || {}
@@ -53,6 +54,7 @@ const ModalContinuePayment = () => {
             continuePaymentModal.onClose()
             if (setFetchUser) setFetchUser(true)
             successPaymentModal.onOpen(res.data.transactionId)
+            mutate(`/api/wallet/${user.id}/user_wallet`)
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)

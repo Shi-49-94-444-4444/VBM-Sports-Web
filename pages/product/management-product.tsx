@@ -1,9 +1,11 @@
-import { Container, MPItems, MPUserSlot } from "@/app/components"
+import { Container, MPItems, ModalBoostProduct, ModalRoomByProduct } from "@/app/components"
 import Layout from "@/app/layout"
 
 const ManagementBadmintonPage = () => {
     return (
         <Layout>
+            <ModalRoomByProduct />
+            <ModalBoostProduct />
             <Container>
                 <div className="relative">
                     <div className="flex justify-center py-10">

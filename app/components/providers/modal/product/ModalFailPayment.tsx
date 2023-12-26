@@ -1,10 +1,10 @@
 "use client"
 
 import { useFailPaymentModal } from "@/hooks"
-import CustomModal from "./Modal"
 import Image from "next/image"
-import { Button } from "../form"
 import { useRouter } from "next/navigation"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
 
 const ModalFailPayment = () => {
     const router = useRouter()

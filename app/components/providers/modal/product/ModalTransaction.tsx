@@ -3,13 +3,13 @@
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { useRatingModal, useTransactionModal } from "@/hooks"
-import CustomModal from "./Modal"
 import Image from "next/image"
-import { Button } from "../form"
 import { useContext } from "react"
-import { LoadingActionPayment } from "../loader"
 import { transactionStatusService } from "@/services"
 import { toast } from "react-toastify"
+import { LoadingActionPayment } from "../../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
 
 const ModalTransaction = ({ tran_id, creator }: { tran_id: string, creator: string }) => {
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}

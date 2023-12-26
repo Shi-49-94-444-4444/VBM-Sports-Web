@@ -99,7 +99,7 @@ const FilterCus = () => {
                                                 w-full
                                                 text-left
                                                 text-lg
-                                                ${saveDistrict && saveDistrict.id === item.id ? "text-primary-blue-cus" : "text-gray-600"}
+                                                ${saveDistrict && saveDistrict.id.toString() === item.id.toString() ? "text-primary-blue-cus" : "text-gray-600"}
                                             `}
                                             onClick={() => {
                                                 if (setSaveDistrict) setSaveDistrict(item)

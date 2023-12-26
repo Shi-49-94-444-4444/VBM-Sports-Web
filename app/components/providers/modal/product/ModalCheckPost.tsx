@@ -1,20 +1,21 @@
 "use client"
 
 import { useCheckPostModal } from "@/hooks"
-import CustomModal from "./Modal"
 import Image from "next/image"
-import { Button } from "../form"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { LoadingActionPayment } from "../loader"
 import { postBadmintonService } from "@/services"
 import { toast } from "react-toastify"
 import { mutate } from "swr"
+import { LoadingActionPayment } from "../../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
 
 const ModalCheckPost = () => {
     const router = useRouter()
+    const { user } = useContext(GlobalContext) || {}
     const { setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
     const checkPostModal = useCheckPostModal()
@@ -39,6 +40,7 @@ const ModalCheckPost = () => {
             })
 
             mutate(`/api/posts/${checkPostModal.value.id}/post_suggestion`)
+            if (user) mutate(`/api/wallet/${user.id}/user_wallet`)
             checkPostModal.onClose()
             router.push("/")
         }

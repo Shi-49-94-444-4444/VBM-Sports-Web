@@ -1,27 +1,29 @@
 "use client"
 
-import { useReportUserModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button } from "../form"
+import { useReportTransactionModal } from "@/hooks"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { reportUserService } from "@/services"
-import { Loading } from "../loader"
+import { reportTransactionService } from "@/services"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
+import { Loading } from "../../loader"
 
-const ModalReportUser = ({ id }: { id: string }) => {
-    const reportUserModal = useReportUserModal()
-    const [selectedReport, setSelectedReport] = useState("")
-    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+const ModalReportTransaction = () => {
+    const reportTransactionModal = useReportTransactionModal()
+    const [selectedReport, setSelectedReport] = useState({
+        label: "",
+        value: ""
+    })
+    const { setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     const listReport = [
-        { label: "Lừa đảo" },
-        { label: "Trùng bài viết" },
-        { label: "Không thể liên hệ với người đăng" },
-        { label: "Thông tin bài đăng không chính xác" },
-        { label: "Lý do khác" },
+        { label: "SCAM", value: "Người đăng bài không tham gia" },
+        { label: "LỪA ĐẢO", value: "Có dấu hiệu lừa đảo" },
+        { label: "BUÔN BÁN", value: "Bài đăng đã bị trùng với bài đăng khác" },
+        { label: "GIAO TIẾP", value: "Người tham gia bài đăng có lời nói thô tục, khiếm nhã đối với những người dùng khác (cung cấp tên người dùng)" },
     ]
 
     const onSubmit = async () => {
@@ -35,15 +37,15 @@ const ModalReportUser = ({ id }: { id: string }) => {
             return
         }
 
-        if (user && user.id) {
-            const res = await reportUserService({
-                fromUserID: user.id,
-                content: selectedReport,
-                toUserID: id
+        if (reportTransactionModal.tran_id) {
+            const res = await reportTransactionService({
+                tran_id: reportTransactionModal.tran_id,
+                reportContent: selectedReport.value,
+                reportTitle: selectedReport.label
             })
 
             //console.log(res)
-            
+
             if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
@@ -56,7 +58,7 @@ const ModalReportUser = ({ id }: { id: string }) => {
                 position: toast.POSITION.TOP_RIGHT
             })
 
-            reportUserModal.onClose()
+            reportTransactionModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -64,9 +66,9 @@ const ModalReportUser = ({ id }: { id: string }) => {
 
     return (
         <CustomModal
-            isOpen={reportUserModal.isOpen}
-            onClose={reportUserModal.onClose}
-            title="Báo cáo bài đăng"
+            isOpen={reportTransactionModal.isOpen}
+            onClose={reportTransactionModal.onClose}
+            title="Báo cáo hóa đơn"
             width="md:w-auto w-full"
             height="h-auto"
         >
@@ -78,13 +80,13 @@ const ModalReportUser = ({ id }: { id: string }) => {
                             id={`report-${index}`}
                             name="report"
                             value={report.label}
-                            checked={selectedReport === report.label}
-                            onChange={() => setSelectedReport(report.label)}
+                            checked={selectedReport.label === report.label}
+                            onChange={() => setSelectedReport(report)}
                             className="hidden"
                         />
                         <label htmlFor={`report-${index}`} className="flex items-center cursor-pointer">
                             <span className={`w-5 h-5 inline-block mr-2 rounded-full border border-gray-300 relative bg-white`}>
-                                {selectedReport === report.label && <span className="absolute inset-0 m-auto h-3 w-3 bg-primary-blue-cus rounded-full"></span>}
+                                {selectedReport.label === report.label && <span className="absolute inset-0 m-auto h-3 w-3 bg-primary-blue-cus rounded-full"></span>}
                             </span>
                             {report.label}
                         </label>
@@ -103,7 +105,6 @@ const ModalReportUser = ({ id }: { id: string }) => {
                             title="Xác nhận"
                             style=""
                             type="submit"
-                            disabled={user ? user.id?.toString() === id.toString() : false}
                         />
                     )}
                 </div>
@@ -112,4 +113,4 @@ const ModalReportUser = ({ id }: { id: string }) => {
     )
 }
 
-export default ModalReportUser
+export default ModalReportTransaction

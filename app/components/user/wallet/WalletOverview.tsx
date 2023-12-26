@@ -2,16 +2,23 @@
 
 import { GlobalContext } from "@/contexts"
 import { useFeaturingModal, useRechargeModal, useWithdrawModal } from "@/hooks"
+import { AxiosClient } from "@/services"
+import { WalletUserData } from "@/types"
 import { formatMoney } from "@/utils"
 import Decimal from "decimal.js"
 import Image from "next/image"
 import { useContext } from "react"
+import useSWR from "swr"
+
+const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const WalletOverview = () => {
     const { user } = useContext(GlobalContext) || {}
     const withdrawModal = useWithdrawModal()
     const rechargeModal = useRechargeModal()
     const featuringModal = useFeaturingModal()
+
+    const { data: userWallet } = useSWR<WalletUserData>(user ? `/api/wallet/${user.id}/user_wallet` : null, fetcher, { refreshInterval: 5 })
 
     const handleWithdrawModal = () => {
         // withdrawModal.onOpen()
@@ -39,7 +46,7 @@ const WalletOverview = () => {
                         Số dư ví
                     </label>
                     <p className="font-semibold text-3xl ease-in-out transition-all duration-500">
-                        {formatMoney(new Decimal(user?.balance ?? 0))}
+                        {formatMoney(new Decimal(userWallet ? userWallet.data.balance : 0))}
                     </p>
                 </section>
             </div>

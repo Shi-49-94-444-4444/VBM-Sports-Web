@@ -1,5 +1,4 @@
-import { Container, TransactionItems } from '@/app/components'
-import ModalReportTransaction from '@/app/components/providers/modal/ModalReportTransaction'
+import { Container, ModalReportTransaction, TransactionItems } from '@/app/components'
 import Layout from '@/app/layout'
 
 const TransactionDetailPage = () => {

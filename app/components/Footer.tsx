@@ -3,6 +3,7 @@ import { BsApple } from "react-icons/bs"
 import { AiFillYoutube } from "react-icons/ai"
 import { BiLogoFacebook } from "react-icons/bi"
 import { Container } from "./providers"
+import { listContentFooter, listOverviewFooter, listTitleFooter } from "@/utils"
 
 const Footer = () => {
   return (
@@ -23,135 +24,48 @@ const Footer = () => {
             duration-500
           "
         >
-          <div className="
-              lg:col-span-4
-              md:col-span-6
-              col-span-12
-              flex 
-              flex-col 
-              gap-5
-              text-base
-              transition-all 
-              duration-500
-            "
-          >
-            <h1 className="
-                uppercase 
-                text-xl 
-                font-bold
-              "
-            >
-              Thông Tin chung
-            </h1>
-            <div className="space-x-1">
-              <span className="font-bold">
-                VBM Sports
-              </span>
-              <span>
-                Là hệ thống cửa hàng cầu lông với hơn 50 chi nhánh trên toàn quốc,
-                cung cấp sỉ và lẻ các mặt hàng dụng cụ cầu lông từ phong trào tới chuyên nghiệp
-              </span>
-            </div>
-            <div className="space-x-1">
-              <span className="font-bold">
-                Với sứ mệnh:
-              </span>
-              <span>
-                Với sứ mệnh: VBM cam kết mang đến những sản phẩm, dịch vụ chất lượng tốt nhất phục vụ cho
-                người chơi thể thao để nâng cao sức khỏe của chính mình
-              </span>
-            </div>
-            <div className="space-x-1">
-              <span className="font-bold">
-                Tầm nhìn:
-              </span>
-              <span>
-                Trở thành nhà phân phối và sản xuất thể thao lớn nhất Việt Nam
-              </span>
-            </div>
-          </div>
-          <div className="lg:flex-grow lg:block hidden" />
-          <div className="
-              lg:col-span-4
-              md:col-span-6
-              col-span-12
-              flex 
-              flex-col 
-              gap-3
-              transition-all 
-              duration-500
-              text-base
-            "
-          >
-            <h1 className="
-                uppercase 
-                text-xl
-                font-bold
-              "
-            >
-              Thông Tin Liên hệ
-            </h1>
-            <div className="whitespace-nowrap mb-3 space-x-1">
-              <span className="font-bold">
-                Hệ thống cửa hàng:
-              </span>
-              <span>
-                56 cửa hàng trên toàn quốc
-              </span>
-            </div>
-            <h2 className="font-bold">
-              Xem tất cả các cửa hàng VBM
-            </h2>
-            <div className="whitespace-nowrap space-x-1">
-              <span className="font-bold">
-                Hotline:
-              </span>
-              <span className="">
-                0788612959 | 0788612959
-              </span>
-            </div>
-            <div className="whitespace-nowrap space-x-1">
-              <span className="font-bold">
-                Email:
-              </span>
-              <span className="">
-                info@shopVBM.com
-              </span>
-            </div>
-            <div className="whitespace-nowrap space-x-1">
-              <span className="font-bold">
-                Hợp tác kinh doanh:
-              </span>
-              <span className="">
-                0947342259
-              </span>
-            </div>
-            <div className="whitespace-nowrap space-x-1">
-              <span className="font-bold">
-                Hotline bán sỉ:
-              </span>
-              <span className="">
-                032.63.67.618
-              </span>
-            </div>
-            <div className="whitespace-nowrap space-x-1">
-              <span className="font-bold">
-                Nhượng quyền thương hiệu:
-              </span>
-              <span className="">
-                0334.741.141
-              </span>
-            </div>
-            <div className="whitespace-nowrap space-x-1">
-              <span className="font-bold">
-                Than phiền dịch vụ:
-              </span>
-              <span className="">
-                0334.741.141
-              </span>
-            </div>
-          </div>
-          <div className="lg:flex-grow lg:block hidden" />
+          {listTitleFooter.map((item, index) => (
+            <>
+              <div className="
+                  lg:col-span-4
+                  md:col-span-6
+                  col-span-12
+                  flex 
+                  flex-col 
+                  gap-5
+                  text-base
+                  transition-all 
+                  duration-500
+                "
+                key={index}
+              >
+                <h1 className="
+                    uppercase 
+                    text-xl 
+                    font-bold
+                  "
+                >
+                  {item.title}
+                </h1>
+                {index === 0 ? (
+                  listOverviewFooter.map((overview, odx) => (
+                    <div className="space-x-1" key={odx}>
+                      <span className="font-bold">{overview.label}</span>
+                      <span>{overview.content}</span>
+                    </div>
+                  ))
+                ) : (
+                  listContentFooter.map((overview, odx) => (
+                    <div className="space-x-1" key={odx}>
+                      <span className="font-bold">{overview.label}</span>
+                      <span>{overview.content}</span>
+                    </div>
+                  ))
+                )}
+              </div>
+              <div className="lg:flex-grow lg:block hidden" />
+            </>
+          ))}
           <div className="
               lg:col-span-2
               md:col-span-6
@@ -170,7 +84,7 @@ const Footer = () => {
               "
             >
               <h1 className="font-semibold text-xl text-gray-300">
-                Get the App
+                Tải ứng dụng
               </h1>
               <button className="
                   relative 

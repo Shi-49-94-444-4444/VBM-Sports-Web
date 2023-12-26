@@ -1,43 +1,44 @@
 "use client"
 
-import { useAdminBanModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button } from "../form"
+import { useAdminDeletePostModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { adminBanUserService } from "@/services"
 import { toast } from "react-toastify"
-import { LoadingActionWallet } from "../loader"
+import { adminDeletePostService } from "@/services"
 import { mutate } from "swr"
+import { LoadingActionWallet } from "../../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
 
-const ModalAdminBan = ({ user_id }: { user_id: string }) => {
-    const adminBanModal = useAdminBanModal()
+const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
+    const adminDeletePostModal = useAdminDeletePostModal()
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+    const post_id = adminDeletePostModal.postId
 
-    const handleBanUser = async () => {
+    const handleDeletePost = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
-        if (user && user.id) {
-            const res = await adminBanUserService({
+        if (user && user.id && post_id) {
+            const res = await adminDeletePostService({
                 admin_id: user.id,
-                user_id: user_id
+                post_id: post_id
             })
 
             if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                adminBanModal.onClose()
+                adminDeletePostModal.onClose()
                 if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
 
-            toast.success("Khóa tài khoản thành công", {
+            toast.success("Xóa bài đăng thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
 
             mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
-            adminBanModal.onClose()
+            adminDeletePostModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -49,26 +50,26 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
 
     return (
         <CustomModal
-            isOpen={adminBanModal.isOpen}
-            onClose={adminBanModal.onClose}
+            isOpen={adminDeletePostModal.isOpen}
+            onClose={adminDeletePostModal.onClose}
             width="md:w-auto w-full"
             height="h-auto"
         >
             <form className="flex flex-col md:px-10 pb-5 gap-3 justify-center items-center">
-                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn khóa tài khoản này không?</label>
+                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn xóa bài đăng này không?</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button
                         title="Không"
                         color="border-primary-blue-cus bg-white"
                         text="text-primary-blue-cus"
                         style="py-3 px-8"
-                        onClick={adminBanModal.onClose}
+                        onClick={adminDeletePostModal.onClose}
                     />
                     <Button
                         title="Có"
                         isHover={false}
                         style="py-3 px-8"
-                        onClick={handleBanUser}
+                        onClick={handleDeletePost}
                     />
                 </div>
             </form>
@@ -76,4 +77,4 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
     )
 }
 
-export default ModalAdminBan
+export default ModalAdminDeletePost

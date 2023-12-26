@@ -20,7 +20,8 @@ import { useChangePasswordModal } from "./useChangePassword"
 import { useFeaturingModal } from "./useFeaturing"
 import { useRatingModal } from "./useRating"
 import { useTransactionModal } from "./useTransaction"
-import { useCheckPostModal } from "./useProduct"
+import { useCheckPostModal, useRoomByProductModal, useBoostProductModal } from "./useProduct"
+import { usePolicyModal } from "./usePolicy"
 
 export {
     useRechargeModal,
@@ -44,5 +45,8 @@ export {
     useAdminUnBanModal,
     useSendNoticeUserModal,
     useDeleteBLogModal,
-    useCheckPostModal
+    useCheckPostModal,
+    useRoomByProductModal,
+    useBoostProductModal,
+    usePolicyModal
 }

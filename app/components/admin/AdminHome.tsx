@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react"
 import { Button, DownMetalBtn, Input, Loading, LoadingFullScreen, Search } from "../providers"
 import { AxiosClient, updateSettingAdminService } from "@/services"
 import useSWR from "swr";
-import { GlobalContext } from "@/contexts"
+import { GlobalContext, SettingNames } from "@/contexts"
 import { AdminSetting, AdminSettingListData, HistoryTransaction, HistoryTransactionData } from "@/types";
 import { formatMoney } from "@/utils"
 import ReactPaginate from "react-paginate"
@@ -27,10 +27,10 @@ const listTitleHistoryWallet = [
 ]
 
 const listTitleSetting = [
-    { settingName: "postingFee", label: "Phí đăng bài (VND)", isMoney: true },
-    { settingName: "bookingFee", label: "Phí hoa hồng (% theo giao dịch)" },
-    { settingName: "freeNumberPost", label: "Lượt miên phí đăng bài/tháng" },
-    { settingName: "boostPostFree", label: "Phí đẩy bài", isMoney: true },
+    { settingName: SettingNames.PostingFee, label: "Phí đăng bài (VND)", isMoney: true },
+    { settingName: SettingNames.BookingFee, label: "Phí hoa hồng (% theo giao dịch)" },
+    { settingName: SettingNames.FreeNumberPost, label: "Lượt miên phí đăng bài/tháng" },
+    { settingName: SettingNames.BoostPostFree, label: "Phí đẩy bài", isMoney: true },
 ]
 
 const exportToExcel = (listItem: HistoryTransactionData[]) => {
@@ -130,7 +130,7 @@ const AdminHome = () => {
 
             // Kiểm tra nếu settingValue không phải undefined và setting tồn tại
             if (settingValue !== undefined && setting) {
-                if (settingName === "postingFee" && (settingValue < 0 || settingValue > 1000000)) {
+                if (settingName === SettingNames.PostingFee && (settingValue < 0 || settingValue > 1000000)) {
                     toast.error("Phí đăng bài phải từ 0-1.000.000 VNĐ", {
                         position: toast.POSITION.TOP_RIGHT
                     });
@@ -138,7 +138,7 @@ const AdminHome = () => {
                     return;
                 }
 
-                if (settingName === "bookingFee" && (settingValue < 0 || settingValue > 100)) {
+                if (settingName === SettingNames.BookingFee && (settingValue < 0 || settingValue > 100)) {
                     toast.error("Phí hoa hồng phải từ 0%-100%", {
                         position: toast.POSITION.TOP_RIGHT
                     });
@@ -146,7 +146,7 @@ const AdminHome = () => {
                     return;
                 }
 
-                if (settingName === "freeNumberPost" && (settingValue < 0 || settingValue > 10)) {
+                if (settingName === SettingNames.FreeNumberPost && (settingValue < 0 || settingValue > 10)) {
                     toast.error("Lượt miễn phí từ 0-10 lượt/tháng", {
                         position: toast.POSITION.TOP_RIGHT
                     });
@@ -154,7 +154,7 @@ const AdminHome = () => {
                     return;
                 }
 
-                if (settingName === "boostPostFree" && (settingValue < 0 || settingValue > 1000000)) {
+                if (settingName === SettingNames.BoostPostFree && (settingValue < 0 || settingValue > 1000000)) {
                     toast.error("Phí đẩy bài phải từ 0-1.000.000 VNĐ", {
                         position: toast.POSITION.TOP_RIGHT
                     });
@@ -185,10 +185,10 @@ const AdminHome = () => {
         });
 
         mutate();
+        setDisable(true)
 
-        if (setIsLoadingModal) setIsLoadingModal(false);
+        if (setIsLoadingModal) setIsLoadingModal(false)
     };
-
 
     const filterHistoryWallet = listHistoryWallet && listHistoryWallet.data && listHistoryWallet.data.filter(history => history.time && history.time.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()))
 
@@ -247,7 +247,7 @@ const AdminHome = () => {
                         <div className="relative">
                             <Button
                                 title="Chỉnh sữa"
-                                style="px-12 text-xl"
+                                style="px-5 text-xl"
                                 onClick={(event) => {
                                     event.preventDefault()
                                     setDisable(!disable)

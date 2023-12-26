@@ -31,6 +31,8 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     const [checkedStatus, setCheckedStatus] = useState<{ [key: string]: boolean }>({})
     const [methodChecked, setMethodChecked] = useState<boolean>(false)
 
+    const checkUser = user && user.id === userId || user && user.role && user.role.toLowerCase() !== "user"
+
     const handleCheckboxChange = (date: string, isChecked: boolean, price: number, item: any) => {
         if (item.availableSlot === 0) {
             toast.error(`Không có chỗ nào khả dụng`, {
@@ -164,72 +166,72 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     const endTime = format(parseISO(item.endTime), 'HH:mm')
 
                     return (
-                        <div className="break-words flex flex-wrap items-center gap-2 border border-black border-opacity-10 rounded-lg p-2" key={index}>
-                            {user && user.id === userId || user && user.role && user.role.toLowerCase() !== "user" ? (
-                                <></>
-                            ) : (
-                                <input
-                                    type="checkbox"
-                                    checked={checkedStatus[date] || false}
-                                    onChange={(e) => handleCheckboxChange(date, e.target.checked, item.price, item)}
-                                    className="ring-0 outline-none focus:ring-0 focus:outline-none"
-                                />
-                            )}
-                            <div className="flex space-x-1 items-center w-28">
-                                <span>
-                                    <MdOutlineDateRange size={20} color="#204D94" />
-                                </span>
-                                <span>
-                                    {date}
-                                </span>
-                            </div>
-                            <div className="flex space-x-1 items-center w-36">
-                                <span>
-                                    <IoTimeOutline size={20} color="#204D94" />
-                                </span>
-                                <span>
-                                    <FormatTime timeString={startTime} /> - <FormatTime timeString={endTime} />
-                                </span>
-                            </div>
-                            <div className="flex items-center w-44 max-w-full">
-                                <span>
-                                    <MdOutlineAttachMoney size={20} color="#204D94" />
-                                </span>
-                                <span className="text-primary-blue-cus">
-                                    {formatMoney(new Decimal(item.price))}/Chỗ
-                                </span>
-                            </div>
-                            {user && user.id === userId || user && user.role && user.role.toLowerCase() !== "user" ? (
-                                <section className="flex space-x-1 items-center">
-                                    <label>
-                                        Số chỗ còn lại:
-                                    </label>
-                                    <span>
-                                        {item.availableSlot}
-                                    </span>
-                                </section>
-                            ) : (
-                                <section className="flex space-x-1 items-center">
-                                    <label>
-                                        Số chỗ đặt:
-                                    </label>
+                        item.availableSlot > 0 && (
+                            <div className="break-words flex flex-wrap items-center gap-2 border border-black border-opacity-10 rounded-lg p-2" key={index}>
+                                {!checkUser && (
                                     <input
-                                        type="number"
-                                        pattern="^(0|[1-9][0-9]*)$"
-                                        min={selectedSlots[date] || 0}
-                                        max={item.availableSlot}
-                                        value={selectedSlots[date] || 0}
-                                        disabled={!selectedSlots[date]}
-                                        onChange={(e) => handleInputChange(date, Number(e.target.value), item)}
-                                        onKeyPress={handleKeyPress}
-                                        className={`px-1 py-1 w-8 text-center ${selectedSlots[date] ? '' : 'cursor-not-allowed bg-gray-300'}`}
+                                        type="checkbox"
+                                        checked={checkedStatus[date] || false}
+                                        onChange={(e) => handleCheckboxChange(date, e.target.checked, item.price, item)}
+                                        className="ring-0 outline-none focus:ring-0 focus:outline-none"
                                     />
+                                )}
+                                <div className="flex space-x-1 items-center w-28">
                                     <span>
-                                        /{item.availableSlot}
+                                        <MdOutlineDateRange size={20} color="#204D94" />
                                     </span>
-                                </section>
-                            )}
-                        </div>
+                                    <span>
+                                        {date}
+                                    </span>
+                                </div>
+                                <div className="flex space-x-1 items-center w-36">
+                                    <span>
+                                        <IoTimeOutline size={20} color="#204D94" />
+                                    </span>
+                                    <span>
+                                        <FormatTime timeString={startTime} /> - <FormatTime timeString={endTime} />
+                                    </span>
+                                </div>
+                                <div className="flex items-center w-44 max-w-full">
+                                    <span>
+                                        <MdOutlineAttachMoney size={20} color="#204D94" />
+                                    </span>
+                                    <span className="text-primary-blue-cus">
+                                        {formatMoney(new Decimal(item.price))}/Chỗ
+                                    </span>
+                                </div>
+                                {checkUser ? (
+                                    <section className="flex space-x-1 items-center">
+                                        <label>
+                                            Số chỗ còn lại:
+                                        </label>
+                                        <span>
+                                            {item.availableSlot}
+                                        </span>
+                                    </section>
+                                ) : (
+                                    <section className="flex space-x-1 items-center">
+                                        <label>
+                                            Số chỗ đặt:
+                                        </label>
+                                        <input
+                                            type="number"
+                                            pattern="^(0|[1-9][0-9]*)$"
+                                            min={selectedSlots[date] || 0}
+                                            max={item.availableSlot}
+                                            value={selectedSlots[date] || 0}
+                                            disabled={!selectedSlots[date]}
+                                            onChange={(e) => handleInputChange(date, Number(e.target.value), item)}
+                                            onKeyPress={handleKeyPress}
+                                            className={`px-1 py-1 w-8 text-center ${selectedSlots[date] ? '' : 'cursor-not-allowed bg-gray-300'}`}
+                                        />
+                                        <span>
+                                            /{item.availableSlot}
+                                        </span>
+                                    </section>
+                                )}
+                            </div>
+                        )
                     )
                 })}
             </section>
@@ -251,19 +253,19 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     </span>
                 </section>
             </div>
-            {user && user.id === userId || user && user.role && user.role.toLowerCase() !== "user" ? (
-                <></>
-            ) : (
+            {!checkUser && (
                 <ProductMethod onCheckedChange={handleCheckedMethod} />
             )}
-            <section className="relative flex gap-3 font-semibold items-end">
-                <label className="whitespace-nowrap text-gray-600">
-                    Tổng tiền:
-                </label>
-                <span className="break-words text-primary-blue-cus text-xl">
-                    {formatMoney(new Decimal(totalPrice))}
-                </span>
-            </section>
+            {!checkUser && (
+                <section className="relative flex gap-3 font-semibold items-end">
+                    <label className="whitespace-nowrap text-gray-600">
+                        Tổng tiền:
+                    </label>
+                    <span className="break-words text-primary-blue-cus text-xl">
+                        {formatMoney(new Decimal(totalPrice))}
+                    </span>
+                </section>
+            )}
             {user && user.id === userId ? (
                 <div className="flex gap-3 w-full relative">
                     <Button
@@ -281,9 +283,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     style="py-4 justify-center"
                     onClick={unauthorizeModal.onOpen}
                 />
-            ) : user && user.role && user.role.toLowerCase() !== "user" ? (
-                <></>
-            ) : (
+            ) : !checkUser && (
                 <Button
                     title="Đặt chỗ ngay"
                     style="py-4 justify-center"

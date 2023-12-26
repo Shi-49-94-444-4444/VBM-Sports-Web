@@ -20,7 +20,7 @@ const MPItems = () => {
     const isLoading = !listItem && !error
 
     const [currentPage, setCurrentPage] = useState(0)
-    const itemsPerPage = 10
+    const itemsPerPage = 5
     const pageCount = Math.ceil(listItem ? listItem.data.length / itemsPerPage : 0)
 
     const handlePageChange = (selectedPage: { selected: number }) => {
@@ -40,7 +40,7 @@ const MPItems = () => {
             ) : listItem && listItem.data.length === 0 ? (
                 <div className="relative h-screen flex flex-col items-center justify-center gap-5 text-primary-blue-cus font-semibold">
                     <div className="flex space-x-3 items-center flex-wrap justify-center transition-all duration-500">
-                        <h1 className="md:text-4xl text-3xl transition-all duration-500">Không có sân nào cả!</h1>
+                        <h1 className="md:text-4xl text-3xl transition-all duration-500">Bạn chưa đăng bài nào cả!</h1>
                         <div className="relative">
                             <Image
                                 src="/images/sad.gif"
@@ -51,7 +51,7 @@ const MPItems = () => {
                             />
                         </div>
                     </div>
-                    <p className="md:text-3xl text-xl text-center transition-all duration-500">Vui lòng thử lại sau...</p>
+                    <p className="md:text-3xl text-xl text-center transition-all duration-500">Vui lòng đăng bài...</p>
                 </div>
             ) : (
                 <>

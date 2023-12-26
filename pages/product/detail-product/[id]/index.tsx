@@ -6,14 +6,14 @@ import {
     ProductOtherExtra,
     ModalFailPayment,
     ModalSuccessPayment,
-    ModalReportPost
+    ModalReportPost,
+    ModalContinuePayment
 } from "@/app/components";
 import { getListProductService, getProductService } from "@/services/product";
 import { ProductDetailContent, ProductDetailContentData } from "@/types";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Custom500 from '@/pages/500';
 import Custom404 from '@/pages/404';
-import ModalContinuePayment from '@/app/components/providers/modal/ModalContinuePayment';
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const products = await getListProductService()

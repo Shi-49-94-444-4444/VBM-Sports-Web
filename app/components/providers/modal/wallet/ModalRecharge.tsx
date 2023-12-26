@@ -1,9 +1,7 @@
 "use client"
 
 import { useRechargeModal } from "@/hooks"
-import CustomModal from "./Modal"
 import Image from "next/image"
-import { Button, Input } from "../form"
 import { useForm } from "react-hook-form"
 import { WalletFrom } from "@/types"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -12,7 +10,10 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { VNPAYService } from "@/services"
 import { toast } from "react-toastify"
-import { LoadingActionWallet } from "../loader"
+import { mutate } from "swr"
+import { LoadingActionWallet } from "../../loader"
+import CustomModal from "../Modal"
+import { Button, Input } from "../../form"
 
 const ModalRecharge = () => {
     const rechargeModal = useRechargeModal()
@@ -60,6 +61,7 @@ const ModalRecharge = () => {
         const handleMessage = (event: MessageEvent) => {
             if (event.data === 'payment completed') {
                 if (setFetchUser) setFetchUser(true)
+                if (user) mutate(`/api/wallet/${user.id}/user_wallet`)
                 if (setIsLoadingModal) setIsLoadingModal(false)
             }
         }
@@ -69,7 +71,7 @@ const ModalRecharge = () => {
         return () => {
             window.removeEventListener('message', handleMessage)
         }
-    }, [setIsLoadingModal, setFetchUser])
+    }, [setIsLoadingModal, setFetchUser, user])
 
     useEffect(() => {
         let checkWindowClosed: NodeJS.Timeout;

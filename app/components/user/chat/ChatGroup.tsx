@@ -3,7 +3,7 @@
 import { GlobalContext } from "@/contexts"
 import { ChatRoomData } from "@/types"
 import Image from "next/image"
-import { useContext } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { validateURLAvatar } from "@/utils"
 
 interface ChatGroupProps {
@@ -14,11 +14,21 @@ const ChatGroup: React.FC<ChatGroupProps> = ({
     listRoom
 }) => {
     const { setRoomId, roomId } = useContext(GlobalContext) || {}
+    const roomRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
+    const [hasScrolled, setHasScrolled] = useState(false)
+
+    useEffect(() => {
+        if (roomId && roomRefs.current[roomId] && !hasScrolled) {
+            roomRefs.current[roomId]?.scrollIntoView({ behavior: "smooth" })
+            setHasScrolled(true)
+        }
+    }, [roomId, hasScrolled])
 
     return (
         <div className="md:col-span-3 col-span-2 overflow-y-auto overflow-x-hidden flex flex-col border-r border-black border-opacity-10 w-24 md:w-auto h-[52rem]">
             {listRoom.map((room) => (
                 <div
+                    ref={(ref) => (roomRefs.current[room.roomId] = ref)}
                     className={`flex flex-row space-x-2 items-center cursor-pointer px-4 py-1 ${room.roomId === roomId ? 'bg-gray-300' : ''}`}
                     key={room.roomId}
                     onClick={() => {

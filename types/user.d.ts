@@ -146,3 +146,10 @@ export interface NotifyData {
     isRead: boolean
     referenceId: string
 }
+
+export interface WalletUserData {
+    message: string
+    data: {
+        balance: string
+    }
+}

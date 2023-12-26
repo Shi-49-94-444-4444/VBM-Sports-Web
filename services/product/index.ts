@@ -71,6 +71,20 @@ export const checkFreePostService = async (user_id: string) => {
     }
 }
 
+export const boostProductService = async (postId: string) => {
+    try {
+        const response = await AxiosClient.put(`/api/posts/${postId}/boost_post`)
+
+        return response.data;
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
 export const postBadmintonService = async (data: CreateBadmintonForm) => {
     // console.log(data)
 

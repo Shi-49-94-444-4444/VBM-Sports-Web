@@ -66,7 +66,7 @@ const BannerIntro = () => {
                 </p>
                 <div className="
                         relative
-                        md:flex 
+                        lg:flex 
                         mt-5
                         hidden
                     "
@@ -166,7 +166,7 @@ const BannerIntro = () => {
                         relative
                         flex 
                         mt-5
-                        md:hidden
+                        lg:hidden
                     "
                 >
                     <button

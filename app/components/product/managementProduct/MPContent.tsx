@@ -4,12 +4,13 @@ import Image from "next/image"
 import { Button } from "../../providers"
 import { ListRoom, ManagePostData } from "@/types"
 import { FormatTime, formatDateFunc, validateAddress, validateDes, validateTitle, validateURLProduct } from "@/utils"
+import { RiMessage3Line } from "react-icons/ri"
+import { useRouter } from "next/navigation"
+import { useBoostProductModal, useRoomByProductModal } from "@/hooks"
 import { AxiosClient } from "@/services"
 import useSWR from "swr"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { RiMessage3Line } from "react-icons/ri"
-import { useRouter } from "next/navigation"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
@@ -22,8 +23,10 @@ const MPContent: React.FC<ManagePostData> = ({
     availableSlot,
     postImgUrl
 }) => {
-    const { setRoomId } = useContext(GlobalContext) || {}
+    const roomByRoleModal = useRoomByProductModal()
     const { data: listRoom } = useSWR<ListRoom>(postId ? `/api/posts/${postId}/chat_rooms` : null, fetcher)
+    const { setRoomId } = useContext(GlobalContext) || {}
+    const boostProductModal = useBoostProductModal()
     const router = useRouter()
 
     let date: string | undefined;
@@ -57,11 +60,16 @@ const MPContent: React.FC<ManagePostData> = ({
                         <h1 className="text-2xl font-semibold truncate">
                             {validateTitle(title)}
                         </h1>
-                        <p className="line-clamp-3 h-[5rem]">
-                            Mô tả ngắn: {validateDes(sortDescript)}
-                        </p>
+                        <section className="line-clamp-3 h-[5rem] space-x-1">
+                            <span className="text-gray-500 font-semibold">
+                                Mô tả ngắn:
+                            </span>
+                            <span>
+                                {validateDes(sortDescript)}
+                            </span>
+                        </section>
                         <section className="space-x-1 transition duration-500">
-                            <span className="">
+                            <span className="text-gray-500 font-semibold">
                                 Địa chỉ:
                             </span>
                             <span className="">
@@ -69,7 +77,7 @@ const MPContent: React.FC<ManagePostData> = ({
                             </span>
                         </section>
                         <section className="flex space-x-1 truncate">
-                            <label>
+                            <label className="text-gray-500 font-semibold">
                                 Thời gian:
                             </label>
                             <p>
@@ -77,7 +85,7 @@ const MPContent: React.FC<ManagePostData> = ({
                             </p>
                         </section>
                         <section className="space-x-1 gap-1">
-                            <label>
+                            <label className="text-gray-500 font-semibold">
                                 Ngày bắt đầu:
                             </label>
                             <span>
@@ -85,7 +93,7 @@ const MPContent: React.FC<ManagePostData> = ({
                             </span>
                         </section>
                         <section className="flex space-x-1">
-                            <span>
+                            <span className="text-gray-500 font-semibold">
                                 Số lượng chỗ còn:
                             </span>
                             <span>
@@ -111,23 +119,47 @@ const MPContent: React.FC<ManagePostData> = ({
                         </div>
                     </div>
                     <div className="relative w-full grid grid-cols-2 gap-3 md:gap-0 md:flex md:space-x-3 lg:flex-col lg:gap-3 lg:space-x-0 ">
-                        {listRoom && listRoom.data.map((room) => (
-                            <div className="relative w-full col-span-1" key={room.id}>
+                        {listRoom && listRoom.data.length > 1 ? (
+                            <div className="relative w-full col-span-1">
                                 <Button
-                                    title={room.playDate}
+                                    title="Nhắn tin"
                                     style="w-full justify-center items-center px-2"
                                     icon={<RiMessage3Line size={20} />}
                                     onClick={() => {
-                                        if (setRoomId) setRoomId(room.id)
-                                        router.push("/user/chat-room")
+                                        if (postId)
+                                            roomByRoleModal.onOpen(listRoom.data)
                                     }}
                                 />
                             </div>
-                        ))}
+                        ) : (
+                            listRoom && listRoom.data.map((item) => (
+                                <div className="relative w-full col-span-1" key={item.id}>
+                                    <Button
+                                        title="Nhắn tin"
+                                        style="w-full justify-center items-center px-2"
+                                        icon={<RiMessage3Line size={20} />}
+                                        onClick={() => {
+                                            if (setRoomId) setRoomId(item.id)
+                                            router.push("/user/chat-room")
+                                        }}
+                                    />
+                                </div>
+                            ))
+                        )}
                         <div className="relative w-full col-span-1">
                             <Button
                                 title="Xoá bài đăng"
                                 style="w-full justify-center items-center px-2"
+                            />
+                        </div>
+                        <div className="relative w-full col-span-1">
+                            <Button
+                                title="Đẩy bài đăng"
+                                style="w-full justify-center items-center px-2"
+                                onClick={() => {
+                                    if (postId)
+                                        boostProductModal.onOpen(postId)
+                                }}
                             />
                         </div>
                         <div className="relative w-full col-span-1">

@@ -2,9 +2,9 @@
 
 import React, { FC, createContext, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
-import { ListDistrictData, ListProductData, NotifyData } from '@/types'
+import { AdminSettingData, ListDistrictData, ListProductData, NotifyData } from '@/types'
 import { useRouter } from 'next/router'
-import { getAllDistrictService, getUserService } from '@/services'
+import { getAllDistrictService, getSettingService, getUserService } from '@/services'
 
 interface GlobalStateProps {
     children: React.ReactNode
@@ -31,6 +31,13 @@ interface User {
         accessToken?: string | null
     }
     uid?: string | null
+}
+
+export enum SettingNames {
+    PostingFee = "postingFee",
+    BookingFee = "bookingFee",
+    FreeNumberPost = "freeNumberPost",
+    BoostPostFree = "boostPostFree",
 }
 
 interface GlobalContextProps {
@@ -64,6 +71,8 @@ interface GlobalContextProps {
     setListDistrict: React.Dispatch<React.SetStateAction<ListDistrictData[] | null>>
     listNotify: NotifyData[] | null
     setListNotify: React.Dispatch<React.SetStateAction<NotifyData[] | null>>
+    listSetting: AdminSettingData[] | null
+    setListSetting: React.Dispatch<React.SetStateAction<AdminSettingData[] | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -84,6 +93,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [searchResults, setSearchResults] = useState<ListProductData[] | null>([])
     const [listDistrict, setListDistrict] = useState<ListDistrictData[] | null>([])
     const [listNotify, setListNotify] = useState<NotifyData[] | null>([])
+    const [listSetting, setListSetting] = useState<AdminSettingData[] | null>([])
     const [roomId, setRoomId] = useState<string | null>(null)
 
     useEffect(() => {
@@ -93,6 +103,15 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         }
 
         fetchDistricts()
+    }, [])
+
+    useEffect(() => {
+        const fetchListSetting = async () => {
+            const res = await getSettingService()
+            setListSetting(res.data)
+        }
+
+        fetchListSetting()
     }, [])
 
     useEffect(() => {
@@ -178,7 +197,9 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 listNotify,
                 setListNotify,
                 isLoadingNotify,
-                setIsLoadingNotify
+                setIsLoadingNotify,
+                listSetting,
+                setListSetting
             }}
         >
             {children}

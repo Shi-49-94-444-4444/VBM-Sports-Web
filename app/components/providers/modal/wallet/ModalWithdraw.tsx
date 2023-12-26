@@ -1,11 +1,8 @@
 "use client"
 
 import { useWithdrawModal } from "@/hooks"
-import CustomModal from "./Modal"
 import Image from "next/image"
-import { Button, Input } from "../form"
 import { toast } from "react-toastify"
-import { LoadingActionWallet } from "../loader"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
@@ -13,6 +10,9 @@ import { WalletFrom } from "@/types"
 import { walletSchema } from "@/utils"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { walletService } from "@/services"
+import { LoadingActionWallet } from "../../loader"
+import CustomModal from "../Modal"
+import { Button, Input } from "../../form"
 
 const ModalWithdraw = () => {
     const withdrawModal = useWithdrawModal()

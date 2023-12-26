@@ -1,27 +1,29 @@
 "use client"
 
-import { useReportTransactionModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button } from "../form"
+import { useReportUserModal } from "@/hooks"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { reportTransactionService } from "@/services"
-import { Loading } from "../loader"
+import { reportUserService } from "@/services"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
+import { Loading } from "../../loader"
 
-const ModalReportTransaction = () => {
-    const reportTransactionModal = useReportTransactionModal()
-    const [selectedReport, setSelectedReport] = useState("")
-    const { setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+const ModalReportUser = ({ id }: { id: string }) => {
+    const reportUserModal = useReportUserModal()
+    const [selectedReport, setSelectedReport] = useState({
+        label: "",
+        value: ""
+    })
+    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     const listReport = [
-        { label: "Lừa đảo" },
-        { label: "Trùng bài viết" },
-        { label: "Không thể liên hệ với người đăng" },
-        { label: "Thông tin bài đăng không chính xác" },
-        { label: "Lý do khác" },
+        { label: "VI PHẠM NỘI DUNG", value: "Người dùng dùng ảnh đại diện không phù hợp (khiêu dâm, bạo lực, chính trị, ...)" },
+        { label: "LỪA ĐẢO", value: "Người dùng này lợi dụng hoặc chuộc lợi từ những người dùng khác trên trang VBM" },
+        { label: "BUÔN BÁN", value: "Người dùng có hành vi buôn bán hoặc trao đổi" },
+        { label: "GIAO TIẾP", value: "Người dùng có lời bình luận khiếm nhã đối với những người dùng khác" },
     ]
 
     const onSubmit = async () => {
@@ -35,11 +37,11 @@ const ModalReportTransaction = () => {
             return
         }
 
-        if (reportTransactionModal.tran_id) {
-            const res = await reportTransactionService({
-                tran_id: reportTransactionModal.tran_id,
-                reportContent: selectedReport,
-                reportTitle: selectedReport
+        if (user && user.id) {
+            const res = await reportUserService({
+                fromUserID: user.id,
+                content: selectedReport.label,
+                toUserID: id
             })
 
             //console.log(res)
@@ -56,7 +58,7 @@ const ModalReportTransaction = () => {
                 position: toast.POSITION.TOP_RIGHT
             })
 
-            reportTransactionModal.onClose()
+            reportUserModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -64,9 +66,9 @@ const ModalReportTransaction = () => {
 
     return (
         <CustomModal
-            isOpen={reportTransactionModal.isOpen}
-            onClose={reportTransactionModal.onClose}
-            title="Báo cáo hóa đơn"
+            isOpen={reportUserModal.isOpen}
+            onClose={reportUserModal.onClose}
+            title="Báo cáo bài đăng"
             width="md:w-auto w-full"
             height="h-auto"
         >
@@ -78,13 +80,13 @@ const ModalReportTransaction = () => {
                             id={`report-${index}`}
                             name="report"
                             value={report.label}
-                            checked={selectedReport === report.label}
-                            onChange={() => setSelectedReport(report.label)}
+                            checked={selectedReport.label === report.label}
+                            onChange={() => setSelectedReport(report)}
                             className="hidden"
                         />
                         <label htmlFor={`report-${index}`} className="flex items-center cursor-pointer">
                             <span className={`w-5 h-5 inline-block mr-2 rounded-full border border-gray-300 relative bg-white`}>
-                                {selectedReport === report.label && <span className="absolute inset-0 m-auto h-3 w-3 bg-primary-blue-cus rounded-full"></span>}
+                                {selectedReport.label === report.label && <span className="absolute inset-0 m-auto h-3 w-3 bg-primary-blue-cus rounded-full"></span>}
                             </span>
                             {report.label}
                         </label>
@@ -103,6 +105,7 @@ const ModalReportTransaction = () => {
                             title="Xác nhận"
                             style=""
                             type="submit"
+                            disabled={user ? user.id?.toString() === id.toString() : false}
                         />
                     )}
                 </div>
@@ -111,4 +114,4 @@ const ModalReportTransaction = () => {
     )
 }
 
-export default ModalReportTransaction
+export default ModalReportUser

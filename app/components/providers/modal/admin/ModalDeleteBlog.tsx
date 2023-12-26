@@ -1,44 +1,49 @@
 "use client"
 
-import { useAdminDeletePostModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button } from "../form"
+import { useDeleteBLogModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
+import { DeleteBlogService } from "@/services"
 import { toast } from "react-toastify"
-import { LoadingActionWallet } from "../loader"
-import { adminDeletePostService } from "@/services"
 import { mutate } from "swr"
+import { LoadingActionWallet } from "../../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
 
-const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
-    const adminDeletePostModal = useAdminDeletePostModal()
-    const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
-    const post_id = adminDeletePostModal.postId
+const ModalDeleteBlog = () => {
+    const deleteBlogModal = useDeleteBLogModal()
+    const { user } = useContext(GlobalContext) || {}
+    const { setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
 
-    const handleDeletePost = async () => {
+    const handleBanUser = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
-        if (user && user.id && post_id) {
-            const res = await adminDeletePostService({
-                admin_id: user.id,
-                post_id: post_id
+        if (user && user.id && deleteBlogModal.blogId) {
+            const res = await DeleteBlogService({
+                user_id: user.id,
+                blog_id: deleteBlogModal.blogId
             })
 
             if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                adminDeletePostModal.onClose()
+                deleteBlogModal.onClose()
                 if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
 
-            toast.success("Xóa bài đăng thành công", {
+            toast.success("Xóa tin tức thành công!", {
                 position: toast.POSITION.TOP_RIGHT
             })
 
-            mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
-            adminDeletePostModal.onClose()
+            if (user.role && user.role.toLowerCase() === "admin") {
+                mutate("/api/blogs")
+            } else {
+                mutate(`/api/blogs?user_id=${user.id}`)
+            }
+
+            deleteBlogModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -50,26 +55,26 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
 
     return (
         <CustomModal
-            isOpen={adminDeletePostModal.isOpen}
-            onClose={adminDeletePostModal.onClose}
+            isOpen={deleteBlogModal.isOpen}
+            onClose={deleteBlogModal.onClose}
             width="md:w-auto w-full"
             height="h-auto"
         >
             <form className="flex flex-col md:px-10 pb-5 gap-3 justify-center items-center">
-                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn xóa bài đăng này không?</label>
+                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn xóa tin tức này không?</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button
                         title="Không"
                         color="border-primary-blue-cus bg-white"
                         text="text-primary-blue-cus"
                         style="py-3 px-8"
-                        onClick={adminDeletePostModal.onClose}
+                        onClick={deleteBlogModal.onClose}
                     />
                     <Button
                         title="Có"
                         isHover={false}
                         style="py-3 px-8"
-                        onClick={handleDeletePost}
+                        onClick={handleBanUser}
                     />
                 </div>
             </form>
@@ -77,4 +82,4 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
     )
 }
 
-export default ModalAdminDeletePost
+export default ModalDeleteBlog

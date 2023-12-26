@@ -41,9 +41,14 @@ export interface SendMessForm {
 }
 
 export interface ListRoom {
-    message:string
+    message: string
     data: {
         playDate: string
         id: string
     }[]
+}
+
+export interface ListRoomData {
+    playDate: string
+    id: string
 }

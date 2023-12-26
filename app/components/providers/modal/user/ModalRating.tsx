@@ -1,10 +1,10 @@
 "use client"
 
 import { useRatingModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button, Input } from "../form"
-import { RatingFilter } from "../format"
 import { useRouter } from "next/router"
+import CustomModal from "../Modal"
+import { RatingFilter } from "../../format"
+import { Button, Input } from "../../form"
 
 const ModalRating = () => {
     const router = useRouter()

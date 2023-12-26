@@ -1,27 +1,29 @@
 "use client"
 
 import { useReportPostModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button } from "../form"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { reportPostService } from "@/services"
-import { Loading } from "../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
+import { Loading } from "../../loader"
 
 const ModalReportPost = ({ id }: { id: string }) => {
     const reportPostModal = useReportPostModal()
-    const [selectedReport, setSelectedReport] = useState("")
+    const [selectedReport, setSelectedReport] = useState({
+        label: "",
+        value: ""
+    })
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     const listReport = [
-        { label: "Lừa đảo" },
-        { label: "Trùng bài viết" },
-        { label: "Không thể liên hệ với người đăng" },
-        { label: "Thông tin bài đăng không chính xác" },
-        { label: "Lý do khác" },
+        { label: "VI PHẠM NỘI DUNG", value: "Nội dung bài đăng bao gồm hình ảnh có nội dung hoặc yếu tố không phù hợp (khiêu dâm, bạo lực, chính trị, ...)" },
+        { label: "LỪA ĐẢO", value: "Lừa đảo" },
+        { label: "TRÙNG BÀI ĐĂNG", value: "Bài đăng đã bị trùng với bài đăng khác" },
+        { label: "KHÔNG THỂ LIÊN HỆ", value: "Không thể liên hệ với người đăng bài" },
     ]
 
     const onSubmit = async () => {
@@ -39,12 +41,12 @@ const ModalReportPost = ({ id }: { id: string }) => {
             const res = await reportPostService({
                 user_id: user.id,
                 post_id: id,
-                reportContent: selectedReport,
-                reportTitle: selectedReport
+                reportContent: selectedReport.value,
+                reportTitle: selectedReport.label
             })
 
             //console.log(res)
-            
+
             if (res.data == null) {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
@@ -79,13 +81,13 @@ const ModalReportPost = ({ id }: { id: string }) => {
                             id={`report-${index}`}
                             name="report"
                             value={report.label}
-                            checked={selectedReport === report.label}
-                            onChange={() => setSelectedReport(report.label)}
+                            checked={selectedReport.label === report.label}
+                            onChange={() => setSelectedReport(report)}
                             className="hidden"
                         />
                         <label htmlFor={`report-${index}`} className="flex items-center cursor-pointer">
                             <span className={`w-5 h-5 inline-block mr-2 rounded-full border border-gray-300 relative bg-white`}>
-                                {selectedReport === report.label && <span className="absolute inset-0 m-auto h-3 w-3 bg-primary-blue-cus rounded-full"></span>}
+                                {selectedReport.label === report.label && <span className="absolute inset-0 m-auto h-3 w-3 bg-primary-blue-cus rounded-full"></span>}
                             </span>
                             {report.label}
                         </label>

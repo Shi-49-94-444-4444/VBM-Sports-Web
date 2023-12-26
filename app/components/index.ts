@@ -9,6 +9,7 @@ export * from "./product"
 export * from "./blog"
 export * from "./admin"
 export * from "./transaction"
+export * from "./section"
 
 export {
     ClientOnly,

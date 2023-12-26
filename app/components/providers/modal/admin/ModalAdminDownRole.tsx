@@ -1,24 +1,24 @@
 "use client"
 
-import { useAdminUpRoleModal } from "@/hooks"
-import CustomModal from "./Modal"
-import { Button } from "../form"
+import { useAdminDownRoleModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { adminUpRoleService } from "@/services"
+import { adminDownRoleService } from "@/services"
 import { toast } from "react-toastify"
-import { LoadingActionWallet } from "../loader"
 import { mutate } from "swr"
+import { LoadingActionWallet } from "../../loader"
+import CustomModal from "../Modal"
+import { Button } from "../../form"
 
-const ModalAdminUpRole = ({ user_id }: { user_id: string }) => {
-    const adminUpRoleModal = useAdminUpRoleModal()
+const ModalAdminDownRole = ({ user_id }: { user_id: string }) => {
+    const adminDownRoleModal = useAdminDownRoleModal()
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
 
     const handleBanUser = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id) {
-            const res = await adminUpRoleService({
+            const res = await adminDownRoleService({
                 admin_id: user.id,
                 user_id: user_id
             })
@@ -27,7 +27,7 @@ const ModalAdminUpRole = ({ user_id }: { user_id: string }) => {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                adminUpRoleModal.onClose()
+                adminDownRoleModal.onClose()
                 if (setIsLoadingModal) setIsLoadingModal(false)
                 return
             }
@@ -37,7 +37,7 @@ const ModalAdminUpRole = ({ user_id }: { user_id: string }) => {
             })
 
             mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
-            adminUpRoleModal.onClose()
+            adminDownRoleModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)
@@ -49,20 +49,20 @@ const ModalAdminUpRole = ({ user_id }: { user_id: string }) => {
 
     return (
         <CustomModal
-            isOpen={adminUpRoleModal.isOpen}
-            onClose={adminUpRoleModal.onClose}
+            isOpen={adminDownRoleModal.isOpen}
+            onClose={adminDownRoleModal.onClose}
             width="md:w-auto w-full"
             height="h-auto"
         >
             <form className="flex flex-col md:px-10 pb-5 gap-3 justify-center items-center">
-                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn cấp quyền cho tài khoản này không?</label>
+                <label className="text-gray-600 font-semibold text-3xl">Bạn có chắc chắn muốn tước quyền của tài khoảng này không?</label>
                 <div className="flex flex-row gap-5 pt-5">
                     <Button
                         title="Không"
                         color="border-primary-blue-cus bg-white"
                         text="text-primary-blue-cus"
                         style="py-3 px-8"
-                        onClick={adminUpRoleModal.onClose}
+                        onClick={adminDownRoleModal.onClose}
                     />
                     <Button
                         title="Có"
@@ -76,4 +76,4 @@ const ModalAdminUpRole = ({ user_id }: { user_id: string }) => {
     )
 }
 
-export default ModalAdminUpRole
+export default ModalAdminDownRole
