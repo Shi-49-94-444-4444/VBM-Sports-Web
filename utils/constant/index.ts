@@ -40,6 +40,11 @@ export const navLinks = [
                 label: "Quản lý đơn đặt",
                 href: "/transaction/list-transaction"
             },
+            {
+                id: "5",
+                label: "Các điều khoản",
+                href: "/policy"
+            },
         ]
     }
 ]

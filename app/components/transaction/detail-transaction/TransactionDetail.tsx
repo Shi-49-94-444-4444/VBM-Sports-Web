@@ -1,7 +1,7 @@
 import { TransactionPaymentDetailData } from "@/types"
 import { formatDateFunc } from "@/utils"
 import { format, parse } from "date-fns"
-import { enUS, vi } from "date-fns/locale"
+import { vi } from "date-fns/locale"
 
 const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
     id,
@@ -11,7 +11,7 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
     payTime,
     post
 }) => {
-    const date = payTime && parse(payTime, 'EEEE, dd MMMM yyyy HH:mm', new Date(), { locale: enUS })
+    const date = payTime && parse(payTime, 'dd/MM/yyyy HH:mm', new Date())
     const formattedDate = date && format(date, 'EEEE, dd MMMM yyyy HH:mm', { locale: vi })
 
     return (

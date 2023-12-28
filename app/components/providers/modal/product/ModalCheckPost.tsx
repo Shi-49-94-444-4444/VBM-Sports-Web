@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { postBadmintonService } from "@/services"
+import { postBadmintonService, postChargeService,  } from "@/services"
 import { toast } from "react-toastify"
 import { mutate } from "swr"
 import { LoadingActionPayment } from "../../loader"
@@ -23,6 +23,19 @@ const ModalCheckPost = () => {
     const onSubmit = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
+        if(user && user.id) {
+            const charge = await postChargeService(user.id)
+
+            if(charge.data === null) {
+                toast.error(charge.message, {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                if (setIsLoadingModal) setIsLoadingModal(false)
+                checkPostModal.onClose()
+                return
+            }
+        }
+
         if (checkPostModal.value) {
             const res = await postBadmintonService(checkPostModal.value)
 
@@ -30,7 +43,7 @@ const ModalCheckPost = () => {
                 toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-                if (setIsLoadingModal) setIsLoadingModal(true)
+                if (setIsLoadingModal) setIsLoadingModal(false)
                 checkPostModal.onClose()
                 return
             }
