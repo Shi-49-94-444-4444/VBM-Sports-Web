@@ -1,24 +1,44 @@
 "use client"
 
 import { GlobalContext } from "@/contexts"
-import { locationCity, locationDistrict_HCM, locationDistrict_TD } from "@/utils"
+import { useUnauthorizeModal } from "@/hooks"
+import { postSuggestionAIService } from "@/services"
+// import { GlobalContext } from "@/contexts"
+// import { locationCity, locationDistrict_HCM, locationDistrict_TD } from "@/utils"
 import { useRouter } from "next/navigation"
-import { useContext, useState } from "react"
+import { useContext } from "react"
+// import { useContext, useState } from "react"
 import { AiOutlineDown } from "react-icons/ai"
+import { toast } from "react-toastify"
 
 const BannerIntro = () => {
-    const { setSaveDistrict } = useContext(GlobalContext) || {}
-    const [showToggleCity, setShowToggleCity] = useState(false)
-    const [city, setCity] = useState<number | null>(null)
-    const [showToggleDistrict, setShowToggleDistrict] = useState(false)
+    // const { setSaveDistrict } = useContext(GlobalContext) || {}
+    // const [showToggleCity, setShowToggleCity] = useState(false)
+    // const [city, setCity] = useState<number | null>(null)
+    // const [showToggleDistrict, setShowToggleDistrict] = useState(false)
+
+    const { user } = useContext(GlobalContext) || {}
+    const unauthorizeModal = useUnauthorizeModal()
+
+    const handleClick = async() => {
+        if (!user) {
+            return unauthorizeModal.onOpen()
+        }
+
+        if (user && user.id) {
+            const res = await postSuggestionAIService(user.id)
+
+            router.push(`/product/detail-product/${res.data.postId.result}`)
+        }
+    }
 
     const router = useRouter()
 
-    const handleAdditionalButtonClick = () => {
-        setShowToggleCity(!showToggleCity)
-    }
+    // const handleAdditionalButtonClick = () => {
+    //     setShowToggleCity(!showToggleCity)
+    // }
 
-    const locationDistrict = city && city === 1 ? locationDistrict_HCM : locationDistrict_TD
+    // const locationDistrict = city && city === 1 ? locationDistrict_HCM : locationDistrict_TD
 
     return (
         <div className="lg:col-span-2 pb-5">
@@ -64,7 +84,7 @@ const BannerIntro = () => {
                 >
                     VBM là trang mạng xã hội về cầu lông dành cho những người đam mê thể thao nói chung và cầu lông nói riêng. Tại đây các bạn sẽ được gặp gỡ những người chơi thân thiện và hòa đồng. Hãy cùng chúng tôi phát triển một cộng đồng cầu lông và phát triển sức khỏe nhé.
                 </p>
-                <div className="
+                {/* <div className="
                         relative
                         lg:flex 
                         mt-5
@@ -161,19 +181,20 @@ const BannerIntro = () => {
                             </div>
                         </div>
                     )}
-                </div>
+                </div> */}
                 <div className="
                         relative
                         flex 
                         mt-5
-                        lg:hidden
                     "
                 >
                     <button
                         className={`
                             hover:text-white
                             hover:bg-primary-blue-cus
-                            px-8 
+                            bg-white
+                            text-primary-blue-cus
+                            px-12 
                             py-4 
                             rounded-lg
                             font-bold
@@ -181,9 +202,8 @@ const BannerIntro = () => {
                             cursor-pointer
                             flex
                             items-center
-                            ${showToggleCity ? "bg-primary-blue-cus text-white" : "bg-white text-primary-blue-cus"}
                         `}
-                        onClick={() => router.push("/product/list-product")}
+                        onClick={handleClick}
                         type="button"
 
                     >
@@ -195,25 +215,8 @@ const BannerIntro = () => {
                             "
                         >
                             <span>
-                                Mời chọn khu vực
+                                Tìm sân nhanh
                             </span>
-                            <div className="inline-block ml-2">
-                                <div className="
-                                        inline-flex 
-                                        items-center 
-                                        align-middle
-                                    "
-                                >
-                                    <div className="
-                                            inline-flex 
-                                            items-center 
-                                            align-middle
-                                        "
-                                    >
-                                        <AiOutlineDown size={15} />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </button>
                 </div>

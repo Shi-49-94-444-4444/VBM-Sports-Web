@@ -4,6 +4,7 @@ import { AiFillYoutube } from "react-icons/ai"
 import { BiLogoFacebook } from "react-icons/bi"
 import { Container } from "./providers"
 import { listContentFooter, listOverviewFooter, listTitleFooter } from "@/utils"
+import React from "react"
 
 const Footer = () => {
   return (
@@ -25,7 +26,7 @@ const Footer = () => {
           "
         >
           {listTitleFooter.map((item, index) => (
-            <>
+            <React.Fragment key={index}>
               <div className="
                   lg:col-span-4
                   md:col-span-6
@@ -37,7 +38,6 @@ const Footer = () => {
                   transition-all 
                   duration-500
                 "
-                key={index}
               >
                 <h1 className="
                     uppercase 
@@ -55,8 +55,8 @@ const Footer = () => {
                     </div>
                   ))
                 ) : (
-                  listContentFooter.map((overview, odx) => (
-                    <div className="space-x-1" key={odx}>
+                  listContentFooter.map((overview, idx) => (
+                    <div className="space-x-1" key={idx}>
                       <span className="font-bold">{overview.label}</span>
                       <span>{overview.content}</span>
                     </div>
@@ -64,7 +64,7 @@ const Footer = () => {
                 )}
               </div>
               <div className="lg:flex-grow lg:block hidden" />
-            </>
+            </React.Fragment>
           ))}
           <div className="
               lg:col-span-2
