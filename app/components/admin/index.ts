@@ -7,6 +7,7 @@ import AdminLayout from "./AdminLayout"
 import UserDetailManage from "./UserDetailManage"
 import CreateBlog from "./CreateBlog"
 import AdminHome from "./AdminHome"
+import UserReportDetail from "./UserReportDetail"
 
 export {
     PostManagement,
@@ -17,5 +18,6 @@ export {
     AdminLayout,
     UserDetailManage,
     CreateBlog,
-    AdminHome
+    AdminHome,
+    UserReportDetail
 }

@@ -7,7 +7,7 @@ const nextConfig = {
     CHECK_MAP: process.env.CHECK_MAP,
   },
   images: {
-    domains: ["res.cloudinary.com", "lh3.googleusercontent.com"],
+    domains: ["res.cloudinary.com", "lh3.googleusercontent.com", "api.vietqr.io", "vietqr.net"],
   },
   experimental: {
     largePageDataBytes: 128 * 100000,

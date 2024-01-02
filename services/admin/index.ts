@@ -86,9 +86,23 @@ export const getSettingService = async () => {
     }
 }
 
+export const getReportDetailService = async (id: string, report_type: string) => {
+    try {
+        const response = await AxiosClient.get(`/api/reports/${id}&${report_type}/report_detail`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
 export const sendNoticeUserService = async ({ user_id, message }: { user_id: string, message: string }) => {
     try {
-        const response = await AxiosClient.post(`/api/users/notice/to/{user_id}`, {
+        const response = await AxiosClient.post(`/api/users/notice/to/${user_id}`, {
             message: message
         })
 
@@ -105,6 +119,20 @@ export const sendNoticeUserService = async ({ user_id, message }: { user_id: str
 export const updateSettingAdminService = async ({ SettingId, SettingAmount }: { SettingId: string, SettingAmount: number }) => {
     try {
         const response = await AxiosClient.put(`/api/Settings/${SettingId}&${SettingAmount}/set_Setting`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
+export const createGroupChatService = async ({ admin_id, report_id }: { admin_id: string, report_id: string }) => {
+    try {
+        const response = await AxiosClient.post(`/api/chat/by_admin/${admin_id}/report/${report_id}`)
 
         return response.data
     } catch (error: any) {

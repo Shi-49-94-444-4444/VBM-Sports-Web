@@ -17,8 +17,7 @@ export async function middleware(req: NextRequest) {
             url.pathname.startsWith("/product/post-product") ||
             url.pathname.startsWith("/product/management-product") ||
             url.pathname.startsWith("/transaction") ||
-            url.pathname.startsWith("/user/wallet") ||
-            url.pathname.startsWith("/user/chat-room")) {
+            url.pathname.startsWith("/user/wallet")) {
             if (!token) {
                 return NextResponse.redirect(`${url.origin}/unauthorized`)
             }

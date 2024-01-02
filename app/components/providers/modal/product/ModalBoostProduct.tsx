@@ -14,7 +14,7 @@ import Decimal from "decimal.js"
 
 const ModalBoostProduct = () => {
     const boostProductModal = useBoostProductModal()
-    const { user, setIsLoadingModal, isLoadingModal, listSetting, setFetchUser } = useContext(GlobalContext) || {}
+    const { user, setIsLoadingModal, isLoadingModal, listSetting } = useContext(GlobalContext) || {}
     const post_id = boostProductModal.postId
 
     const boostPostSetting = listSetting && listSetting.find(setting => setting.settingName === SettingNames.BoostPostFree)
@@ -22,38 +22,24 @@ const ModalBoostProduct = () => {
     const handleDeletePost = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
-        if (user) {
-            if (user.balance && boostPostSetting) {
-                if (setFetchUser) setFetchUser(true)
-                if (user.balance - boostPostSetting.settingAmount < 0) {
-                    toast.error("Ví của bạn không đủ tiền, vui lòng nạp tiền", {
-                        position: toast.POSITION.TOP_RIGHT
-                    })
-                    boostProductModal.onClose()
-                    if (setIsLoadingModal) setIsLoadingModal(false)
-                    return
-                }
-            }
+        if (user && user.id && post_id) {
+            const res = await boostProductService(user.id, post_id)
 
-            if (post_id) {
-                const res = await boostProductService(post_id)
-
-                if (res.data == null) {
-                    toast.error(res.message, {
-                        position: toast.POSITION.TOP_RIGHT
-                    })
-                    boostProductModal.onClose()
-                    if (setIsLoadingModal) setIsLoadingModal(false)
-                    return
-                }
-
-                toast.success("Đẩy bài đăng thành công", {
+            if (res.data == null) {
+                toast.error(res.message, {
                     position: toast.POSITION.TOP_RIGHT
                 })
-
-                mutate(`/api/posts/${user.id}/post_suggestion`)
                 boostProductModal.onClose()
+                if (setIsLoadingModal) setIsLoadingModal(false)
+                return
             }
+
+            toast.success("Đẩy bài đăng thành công", {
+                position: toast.POSITION.TOP_RIGHT
+            })
+
+            mutate(`/api/posts/${user.id}/post_suggestion`)
+            boostProductModal.onClose()
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)

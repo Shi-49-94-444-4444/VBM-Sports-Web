@@ -1,4 +1,4 @@
-import { CheckSlotFormData, BuySlotFormData } from "@/types"
+import { CheckSlotFormData, BuySlotFormData, WalletFrom } from "@/types"
 import AxiosClient from "../AxiosInstance"
 
 export const bookingService = async (data: CheckSlotFormData) => {
@@ -86,6 +86,28 @@ export const getTransactionDetailService = async (id: string) => {
 export const getListTransactionService = async (id: string) => {
     try {
         const response = await AxiosClient.get(`/api/posts/user/${id}/joined`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
+export const sendRequestWithdrawService = async (data: WalletFrom) => {
+    // console.log(data)
+    
+    try {
+        const response = await AxiosClient.put(`/api/transactions/create_withdraw_request`, {
+            idUser: Number(data.idUser),
+            money: Number(data.money),
+            bankName: data.bankName,
+            accountName: data.accountName,
+            bankNumber: data.bankNumber
+        })
 
         return response.data
     } catch (error: any) {

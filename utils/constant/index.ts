@@ -66,21 +66,26 @@ export const navLinksAdmin = [
             },
             {
                 id: "2",
+                label: "Nhắn tin",
+                href: "/user/chat-room"
+            },
+            {
+                id: "3",
                 label: "Quản lý người dùng",
                 href: "/admin/user-management"
             },
             {
-                id: "3",
+                id: "4",
                 label: "Quản lý bài viết",
                 href: "/admin/post-management"
             },
             {
-                id: "4",
+                id: "5",
                 label: "Quản lý báo cáo",
                 href: "/admin/user-report-management"
             },
             {
-                id: "5",
+                id: "6",
                 label: "Quản lý doanh thu",
                 href: "/product/report-management"
             },
@@ -605,4 +610,14 @@ export const listContentFooter = [
     { label: "Hợp tác kinh doanh:", content: "0947342259" },
     { label: "Hotline bán sỉ:", content: "032.63.67.618" },
     { label: "Than phiền dịch vụ:", content: "0334.741.141" },
+]
+
+export const Status = [
+    { statusEN: "success", statusVI: "Thành công" },
+    { statusEN: "fail", statusVI: "Thất bại" },
+]
+
+export const StatusReport = [
+    { statusEN: "pending", statusVI: "Đang xử lý" },
+    { statusEN: "complete", statusVI: "Đã xử lý" },
 ]

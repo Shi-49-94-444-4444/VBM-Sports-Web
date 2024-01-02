@@ -31,6 +31,7 @@ const ModalRoomByProduct = () => {
                                 onClick={() => {
                                     if (setRoomId) setRoomId(item.id)
                                     router.push("/user/chat-room")
+                                    roomByRoleModal.onClose()
                                 }}
                             />
                         </div>

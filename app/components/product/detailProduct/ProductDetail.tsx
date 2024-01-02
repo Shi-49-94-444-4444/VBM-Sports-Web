@@ -10,7 +10,7 @@ import { addHours, format, parse, parseISO } from "date-fns"
 import Decimal from "decimal.js"
 import { IoTimeOutline } from "react-icons/io5"
 import { MdOutlineAttachMoney, MdOutlineDateRange } from "react-icons/md"
-import { useContinuePaymentModal, useUnauthorizeModal } from "@/hooks"
+import { useContinuePaymentModal, usePolicyModal, useUnauthorizeModal } from "@/hooks"
 import ProductMethod from "./ProductMethod"
 
 const ProductDetail: React.FC<ProductDetailContentData> = ({
@@ -25,6 +25,7 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
     const { user, isAuthUser } = useContext(GlobalContext) || {}
     const unauthorizeModal = useUnauthorizeModal()
     const continuePaymentModal = useContinuePaymentModal()
+    const policyModal = usePolicyModal()
 
     const [selectedSlots, setSelectedSlots] = useState<{ [key: string]: number }>({})
     const [totalPrice, setTotalPrice] = useState(0)
@@ -118,6 +119,13 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
             const newDateObj = addHours(dateObj, 7);
             const slotInfo = { dateRegis: newDateObj.toISOString(), numSlots: slot }
             slotsInfoArray.push(slotInfo)
+        }
+
+        if (user && user.id) {
+            if (!user.isPolicy) {
+                policyModal.onOpen(user.id)
+                return
+            }
         }
 
         if (id) {

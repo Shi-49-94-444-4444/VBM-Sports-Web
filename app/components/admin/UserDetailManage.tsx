@@ -67,9 +67,9 @@ const TablePost: React.FC<TablePostProps> = ({
             <tbody>
                 {listItem.map((item, index) => (
                     <tr key={index}>
-                        <td className="py-3">{item.id ?? ""}</td>
+                        <td className="py-3">{item.id ?? "chưa có"}</td>
                         <td className="py-3">{validateTitle(item.title)}</td>
-                        <td className="py-3">{item.postTime ?? ""}</td>
+                        <td className="py-3">{item.postTime ?? "chưa có"}</td>
                         <td className="py-3">{item.numOfReport ?? 0}</td>
                         <td className="py-3 relative">
                             <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
@@ -123,6 +123,10 @@ const UserDetailManage = () => {
     const endIndex = startIndex + itemsPerPage
     const visibleItems = listPostForUser && listPostForUser.data && listPostForUser.data.posts && listPostForUser.data.posts.length > 0 ? listPostForUser.data.posts.slice(startIndex, endIndex) : []
 
+    const checkAdminToUser = user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user"
+    const checkAdminToStaff = user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "staff"
+    const checkStaffToUser = user && user.role && user.role.toLowerCase() === "staff" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user"
+
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
             <ModalAdminBan user_id={id ? id.toString() : ""} />
@@ -144,7 +148,7 @@ const UserDetailManage = () => {
                     <IoMdArrowRoundBack size={40} />
                 </button>
                 <h1 className="md:text-4xl text-3xl">
-                    Quản lý người dùng
+                    Thông tin chi tiết người dùng
                 </h1>
             </div>
             <div className="flex justify-between pb-5">
@@ -200,40 +204,31 @@ const UserDetailManage = () => {
                     Lựa chọn xử lý
                 </div>
                 <div className="relative flex gap-3">
-                    {user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user" ? (
+                    {checkAdminToUser && (
                         <Button
                             title="Cấp quyền"
                             color="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700"
                             style="py-1 px-4"
                             onClick={adminUpRoleModal.onOpen}
                         />
-                    ) : (
-                        <></>
                     )}
-                    {user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "staff" ? (
+                    {checkAdminToStaff && (
                         <Button
                             title="Tước quyền"
                             color="bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700"
                             style="py-1 px-4"
                             onClick={adminDownRoleModal.onOpen}
                         />
-                    ) : (
-                        <></>
                     )}
-                    {user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user" ||
-                        user && user.role && user.role.toLowerCase() === "staff" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user" ? (
+                    {(checkAdminToUser || checkStaffToUser) && (
                         <Button
                             title="Gửi nhắc nhở"
                             color="bg-emerald-500 hover:bg-emerald-700 border-emerald-500 hover:border-emerald-700"
                             style="py-1 px-4"
                             onClick={sendNoticeUser.onOpen}
                         />
-                    ) : (
-                        <></>
                     )}
-                    {user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user" ||
-                        user && user.role && user.role.toLowerCase() === "staff" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user" ||
-                        user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "staff" ? (
+                    {(checkAdminToUser || checkStaffToUser || checkAdminToStaff) && (
                         listPostForUser && listPostForUser.data.isBanded === true && (
                             <Button
                                 title="Mở khoá"
@@ -242,12 +237,8 @@ const UserDetailManage = () => {
                                 onClick={adminUnBanModal.onOpen}
                             />
                         )
-                    ) : (
-                        <></>
                     )}
-                    {user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user" ||
-                        user && user.role && user.role.toLowerCase() === "staff" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user" ||
-                        user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "staff" ? (
+                    {(checkAdminToUser || checkStaffToUser || checkAdminToStaff) && (
                         listPostForUser && listPostForUser.data.isBanded === false && (
                             <Button
                                 title="Khoá tài khoản"
@@ -256,8 +247,6 @@ const UserDetailManage = () => {
                                 onClick={adminBanModal.onOpen}
                             />
                         )
-                    ) : (
-                        <></>
                     )}
                 </div>
             </div>

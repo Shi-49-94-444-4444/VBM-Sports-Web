@@ -51,6 +51,7 @@ const BlogItemOther: React.FC<ListBlogsData> = ({
                                 object-cover
                             "
                             fill
+                            sizes="(max-width: 600px) 100vw, 600px"
                             placeholder="blur"
                             blurDataURL={validateURLProduct(imgUrl)}
                             draggable="false"

@@ -21,7 +21,8 @@ const MPContent: React.FC<ManagePostData> = ({
     address,
     time,
     availableSlot,
-    postImgUrl
+    postImgUrl,
+    status
 }) => {
     const roomByRoleModal = useRoomByProductModal()
     const { data: listRoom } = useSWR<ListRoom>(postId ? `/api/posts/${postId}/chat_rooms` : null, fetcher)
@@ -113,9 +114,15 @@ const MPContent: React.FC<ManagePostData> = ({
                             <span className="text-gray-600">
                                 Tình trạng bài viết:
                             </span>
-                            <span className="text-green-600 font-semibold">
-                                Hoạt động
-                            </span>
+                            {status ? (
+                                <span className="text-green-600 font-semibold">
+                                    Hoạt động
+                                </span>
+                            ) : (
+                                <span className="text-red-600 font-semibold">
+                                    Hết hoạt động
+                                </span>
+                            )}
                         </div>
                     </div>
                     <div className="relative w-full grid grid-cols-2 gap-3 md:gap-0 md:flex md:space-x-3 lg:flex-col lg:gap-3 lg:space-x-0 ">

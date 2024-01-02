@@ -99,11 +99,16 @@ export interface CreateBadmintonForm {
 
 export interface ReportUserFormData {
     fromUserID: string
+    tittle: string
     content: string
     toUserID: string
 }
 
 export interface WalletFrom {
+    idUser?: string
+    bankName?: string
+    accountName: string
+    bankNumber: string
     money: number
 }
 

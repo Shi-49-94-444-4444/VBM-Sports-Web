@@ -105,3 +105,60 @@ export interface ManagementReport {
         total: number
     }
 }
+
+export interface UserReportDetailForm {
+    message: string
+    data: {
+        reportId?: string | null
+        userReportId?: string | null
+        userSendId?: string | null
+        sendUserName?: string | null
+        reportStatus?: number | null
+        reportUserName?: string | null
+        reportType?: number | null
+        titleReport?: string | null
+        contentReport?: string | null
+        isBan?: boolean | null
+        reportPost?: {
+            postId?: string | null
+            postName?: string | null
+            postContent?: string | null
+            postDate?: string | null
+            postAddress?: string | null
+            postImage?: string | null
+        }
+        reportTrans?: {
+            transId?: string | null
+            transDate?: string | null
+            transMoney?: string | null
+        }
+    }
+}
+
+export interface UserReportDetailData {
+    data: {
+        reportId?: string | null
+        userReportId?: string | null
+        sendUserName?: string | null
+        userSendId?: string | null
+        reportStatus?: number | null
+        reportUserName?: string | null
+        reportType?: number | null
+        titleReport?: string | null
+        contentReport?: string | null
+        isBan?: boolean | null
+        reportPost?: {
+            postId?: string | null
+            postName?: string | null
+            postContent?: string | null
+            postDate?: string | null
+            postAddress?: string | null
+            postImage?: string | null
+        }
+        reportTrans?: {
+            transId?: string | null
+            transDate?: string | null
+            transMoney?: string | null
+        }
+    }
+}

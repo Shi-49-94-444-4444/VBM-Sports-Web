@@ -1,6 +1,6 @@
 "use client"
 
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { VscAccount } from "react-icons/vsc"
 import { IoIosNotifications, IoIosNotificationsOutline } from "react-icons/io"
 import { IoSettingsOutline } from "react-icons/io5"
@@ -72,11 +72,11 @@ const Access = () => {
             return router.push(`/product/detail-product/${id}`)
         }
 
-        if (value.toLowerCase()  === "User") {
+        if (value.toLowerCase()  === "user") {
             return router.push(`/user/profile-user/${id}`)
         }
 
-        if (value.toLowerCase()  === "Tran") {
+        if (value.toLowerCase()  === "tran") {
             return router.push(`/transaction/detail-transaction/${id}`)
         }
     }

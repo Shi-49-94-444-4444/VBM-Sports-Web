@@ -1,8 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import { ListProductData } from "@/types"
 import { FormatTime, formatMoney, validateAddress, validateDes, validateName, validateURLAvatar, validateURLProduct } from "@/utils"
 import Decimal from "decimal.js"
@@ -24,14 +22,6 @@ const ProductContent: React.FC<ListProductData> = ({
     userImgUrl,
     userId
 }) => {
-    const [isLiked, setIsLiked] = useState(false)
-
-    const handleLikeClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation()
-        event.preventDefault()
-        setIsLiked(!isLiked)
-    }
-
     return (
         <Link className="
                 grid 
@@ -80,38 +70,6 @@ const ProductContent: React.FC<ListProductData> = ({
                             sizes="(max-width: 600px) 100vw, 600px"
                             fill
                         />
-                    </div>
-                    <div
-                        className="
-                            absolute 
-                            top-0 
-                            left-0 
-                            m-4
-                            cursor-pointer
-                        "
-                        onClick={handleLikeClick}
-                    >
-                        {isLiked ? (
-                            <AiFillHeart
-                                size={30}
-                                className="
-                                    text-red-500 
-                                    bg-white 
-                                    rounded-full 
-                                    p-1
-                                "
-                            />
-                        ) : (
-                            <AiOutlineHeart
-                                size={30}
-                                className="
-                                    text-red-500 
-                                    bg-white 
-                                    rounded-full 
-                                    p-1
-                                "
-                            />
-                        )}
                     </div>
                 </div>
             </div>

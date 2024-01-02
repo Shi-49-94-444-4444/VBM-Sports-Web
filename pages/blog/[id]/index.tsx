@@ -2,18 +2,61 @@
 
 import { BlogContent, BlogOtherExtra, Container, Share } from "@/app/components"
 import Layout from "@/app/layout"
-import { listBlog } from "@/utils"
-import { useRouter } from "next/router"
+import Custom404 from "@/pages/404"
+import Custom500 from "@/pages/500"
+import { getDetailBlogService, getListBlogService } from "@/services"
+import { BlogsDetailForm, ListBlogsData } from "@/types"
+import { GetStaticPaths, GetStaticProps } from "next"
 
-const BlogPage = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+    const blogs = await getListBlogService()
+    const paths = blogs.data.map((blog: ListBlogsData) => ({
+        params: { id: blog?.id?.toString() },
+    }))
 
-    const router = useRouter()
-    const { id } = router.query
+    return { paths, fallback: true }
+}
 
-    const selectItem = listBlog.find(blog => blog.id === id)
+export const getStaticProps: GetStaticProps = async (context) => {
+    const id = context.params?.id
 
-    if (!selectItem) {
-        return <div>Sản phẩm không tồn tại</div>;
+    if (!id || Array.isArray(id)) {
+        return {
+            notFound: true,
+        }
+    }
+
+    try {
+        const Blog = await getDetailBlogService(id)
+        if (Blog.data == null) {
+            return {
+                notFound: true,
+            }
+        }
+
+        return {
+            props: {
+                Blog,
+                id
+            },
+            revalidate: 5
+        }
+    } catch (error) {
+        return {
+            props: {
+                internalError: true
+            }
+        }
+    }
+}
+
+const BlogPage = ({ Blog, internalError, id }: { Blog: BlogsDetailForm, internalError?: boolean, id: string }) => {
+    if (!Blog) {
+        return <Custom404 />
+    }
+
+    if (internalError) {
+        return <Custom500 />
     }
 
     return (
@@ -21,13 +64,11 @@ const BlogPage = () => {
             <Container>
                 <div className="relative py-5">
                     <BlogContent
-                        key={selectItem.id}
-                        id={selectItem.id}
-                        src={selectItem.src}
-                        title={selectItem.title}
-                        description={selectItem.description}
-                        date={selectItem.date}
-                        poster={selectItem.poster}
+                        id={id}
+                        createTime={Blog.data.createTime}
+                        description={Blog.data.description}
+                        title={Blog.data.title}
+                        userCreateName={Blog.data.userCreateName}
                     />
                     <div className="relative py-10">
                         <Share />

@@ -39,3 +39,21 @@ export interface ListBlogsData {
     shortDescription: string,
     userCreateName: string
 }
+
+export interface BlogsDetail {
+    id: string,
+    description: string,
+    title: string,
+    createTime: string,
+    userCreateName: string
+}
+
+export interface BlogsDetailForm {
+    data: {
+        id: string,
+        description: string,
+        title: string,
+        createTime: string,
+        userCreateName: string
+    }
+}

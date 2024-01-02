@@ -61,7 +61,7 @@ const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
                 </div>
             </div>
             <div className="relative flex justify-center">
-                {isCancel ? (
+                {!isCancel ? (
                     <Button
                         title="Thanh toán ngay"
                         style="py-3 text-lg"

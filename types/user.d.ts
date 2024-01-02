@@ -153,3 +153,9 @@ export interface WalletUserData {
         balance: string
     }
 }
+
+export interface CheckSub {
+    data: {
+        subed: boolean
+    }
+}

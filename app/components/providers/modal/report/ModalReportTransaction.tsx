@@ -69,7 +69,7 @@ const ModalReportTransaction = () => {
             isOpen={reportTransactionModal.isOpen}
             onClose={reportTransactionModal.onClose}
             title="Báo cáo hóa đơn"
-            width="md:w-auto w-full"
+            width="md:w-96 w-full"
             height="h-auto"
         >
             <form className="flex flex-col gap-3 justify-center p-2" onSubmit={handleSubmit(onSubmit)}>
@@ -96,14 +96,14 @@ const ModalReportTransaction = () => {
                     {isLoadingModal ? (
                         <Button
                             title={<Loading loading={isLoadingModal} color="white" />}
-                            style=""
+                            style="px-6 text-lg"
                             type="submit"
                             isHover={false}
                         />
                     ) : (
                         <Button
                             title="Xác nhận"
-                            style=""
+                            style="px-6 text-lg"
                             type="submit"
                         />
                     )}

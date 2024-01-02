@@ -12,12 +12,15 @@ import ReactPaginate from "react-paginate"
 import * as XLSX from 'xlsx'
 
 interface TableUserProps {
-    listUser: ManageUserData[]
+    listUser: ManageUserData[],
+    currentPage: number,
+    itemsPerPage: number,
 }
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const listTitleUserManagement = [
+    { title: "#" },
     { title: "ID" },
     { title: "Họ và tên" },
     { title: "Ngày tạo" },
@@ -28,7 +31,7 @@ const listTitleUserManagement = [
 ]
 
 const exportToExcel = (listUser: ManageUserData[]) => {
-    const headers = listTitleUserManagement.slice(0, 6).map(item => item.title)
+    const headers = listTitleUserManagement.slice(1, 7).map(item => item.title)
 
     const data = listUser.map(user => [
         user.userId,
@@ -49,9 +52,10 @@ const exportToExcel = (listUser: ManageUserData[]) => {
     XLSX.writeFile(workbook, "Quản lý người dùng.xlsx")
 }
 
-const TableUser: React.FC<TableUserProps> = ({ listUser }) => {
+const TableUser: React.FC<TableUserProps> = ({ listUser, currentPage, itemsPerPage }) => {
     const [showToggleItemID, setShowToggleItemID] = useState<number | null>(null)
     const router = useRouter()
+    const startIndex = currentPage * itemsPerPage
 
     const handleToggle = (itemID: number) => {
         if (showToggleItemID === itemID) {
@@ -81,6 +85,8 @@ const TableUser: React.FC<TableUserProps> = ({ listUser }) => {
                         <th className={`
                                 font-semibold 
                                 py-3 
+                                md:whitespace-nowrap
+                                px-1
                                 ${index < listTitleUserManagement.length - 1 ?
                                 "border-r border-b border-black border-opacity-10" :
                                 "border-b"
@@ -93,34 +99,45 @@ const TableUser: React.FC<TableUserProps> = ({ listUser }) => {
                 </tr>
             </thead>
             <tbody className="text-base font-medium">
-                {listUser.map((user, index) => (
-                    <tr key={index}>
-                        <td className="py-3 border-r border-black border-opacity-10">{user.userId}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{user.fullName}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{user.createDate}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{user.role}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{user.status}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{user.lastLogin}</td>
-                        <td className="py-3 relative">
-                            <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
-                                ...
-                            </button>
-                            {showToggleItemID === index && (
-                                <div className="absolute right-[15rem] md:right-[17rem] lg:right-[18rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
-                                    <ul className="space-y-2 list-none">
-                                        {listAction.map((action, index) => (
-                                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                <button type="button" onClick={() => { router.push(`${action.src(user.userId)}`) }}>
-                                                    {action.title}
-                                                </button>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-                        </td>
-                    </tr>
-                ))}
+                {listUser.map((user, index) => {
+                    const totalIndex = startIndex + index + 1
+
+                    return (
+                        <tr key={index}>
+                            <td className="py-3 border-r border-black border-opacity-10">{totalIndex}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{user.userId}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{user.fullName}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{user.createDate}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{user.role}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">
+                                {user.status?.toLowerCase() === "active" ? (
+                                    "Hoạt động"
+                                ) : (
+                                    "Bị khóa"
+                                )}
+                            </td>
+                            <td className="py-3 border-r border-black border-opacity-10">{user.lastLogin}</td>
+                            <td className="py-3 relative">
+                                <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
+                                    ...
+                                </button>
+                                {showToggleItemID === index && (
+                                    <div className="absolute right-[15rem] md:right-[17rem] lg:right-[18rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
+                                        <ul className="space-y-2 list-none">
+                                            {listAction.map((action, index) => (
+                                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
+                                                    <button type="button" onClick={() => { router.push(`${action.src(user.userId)}`) }}>
+                                                        {action.title}
+                                                    </button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )
@@ -194,7 +211,7 @@ const UserManagement = () => {
                 </div>
             ) : (
                 <>
-                    <TableUser listUser={visibleItems} />
+                    <TableUser listUser={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
                     {pageCount > 0 && (
                         <div className="flex justify-center mt-10 text-base font-semibold">
                             <ReactPaginate

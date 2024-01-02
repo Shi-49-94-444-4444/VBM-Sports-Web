@@ -71,9 +71,9 @@ export const checkFreePostService = async (user_id: string) => {
     }
 }
 
-export const boostProductService = async (postId: string) => {
+export const boostProductService = async (user_id: string, post_id: string) => {
     try {
-        const response = await AxiosClient.put(`/api/posts/${postId}/boost_post`)
+        const response = await AxiosClient.put(`/api/posts/${user_id}&${post_id}/create_boost_charge`)
 
         return response.data;
     } catch (error: any) {

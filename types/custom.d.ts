@@ -66,3 +66,11 @@ export interface OptionsOverviewProps {
     selectedOption: number
     onOptionSelect: (id: number) => void
 }
+
+export interface ListBank {
+    data: {
+        name: string
+        shortName: string
+        logo: string
+    }[]
+}

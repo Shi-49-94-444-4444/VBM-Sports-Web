@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useRef, useState } from "react"
-import { Button, DownMetalBtn, LoadingFullScreen, ModalDeleteBlog, Search } from "../providers"
+import { Button, LoadingFullScreen, ModalDeleteBlog, Search } from "../providers"
 import { removeVietnameseTones, useOutsideClick } from "@/utils"
 import { IoMdAdd } from "react-icons/io"
 import { useRouter } from "next/router"
@@ -15,12 +15,15 @@ import { useDeleteBLogModal } from "@/hooks"
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 interface TableBlogProps {
-    listItem: ListBlogsData[]
+    listItem: ListBlogsData[],
+    currentPage: number,
+    itemsPerPage: number,
 }
 
-const TableBLog: React.FC<TableBlogProps> = ({ listItem }) => {
+const TableBLog: React.FC<TableBlogProps> = ({ listItem, currentPage, itemsPerPage }) => {
     const deleteBlogModal = useDeleteBLogModal()
     const [showToggleItemID, setShowToggleItemID] = useState<string | null>(null)
+    const startIndex = currentPage * itemsPerPage
 
     const router = useRouter()
 
@@ -40,6 +43,7 @@ const TableBLog: React.FC<TableBlogProps> = ({ listItem }) => {
     useOutsideClick(ref, handleOutsideClick)
 
     const listTitlePostManagement = [
+        { title: "#" },
         { title: "ID" },
         { title: "Tên bài viết" },
         { title: "Ngày đăng bài" },
@@ -58,36 +62,41 @@ const TableBLog: React.FC<TableBlogProps> = ({ listItem }) => {
             <thead>
                 <tr>
                     {listTitlePostManagement.map((items, index) => (
-                        <th className="text-lg font-semibold border border-black border-opacity-10 py-2" key={index}>{items.title}</th>
+                        <th className="text-lg font-semibold border border-black border-opacity-10 py-2 md:whitespace-nowrap px-1" key={index}>{items.title}</th>
                     ))}
                 </tr>
             </thead>
             <tbody className="border-b border-black border-opacity-10 font-medium">
-                {listItem.map((items) => (
-                    <tr key={items.id}>
-                        <td className="py-3 border-l border-r border-black border-opacity-10">{items.id}</td>
-                        <td className="py-3 border-r border-black border-opacity-10 max-w-[10rem] md:max-w-md truncate">{items.title}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{items.createTime}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">Hoạt động</td>
-                        <td className="py-3 border-r border-black border-opacity-10">50</td>
-                        <td className="py-3 border-r border-black border-opacity-10 relative">
-                            <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
-                                ...
-                            </button>
-                            {showToggleItemID === items.id && (
-                                <div className="absolute right-[13rem] md:right-[15rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
-                                    <ul className="space-y-2 list-none">
-                                        {listAction.map((item, index) => (
-                                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index} onClick={() => item.action(items.id)}>
-                                                {item.title}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-                        </td>
-                    </tr>
-                ))}
+                {listItem.map((items, index) => {
+                    const totalIndex = startIndex + index + 1
+
+                    return (
+                        <tr key={items.id}>
+                            <td className="py-3 border-l border-r border-black border-opacity-10">{totalIndex}</td>
+                            <td className="py-3 border-l border-r border-black border-opacity-10">{items.id}</td>
+                            <td className="py-3 border-r border-black border-opacity-10 max-w-[10rem] md:max-w-md truncate">{items.title}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{items.createTime}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">Hoạt động</td>
+                            <td className="py-3 border-r border-black border-opacity-10">50</td>
+                            <td className="py-3 border-r border-black border-opacity-10 relative">
+                                <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
+                                    ...
+                                </button>
+                                {showToggleItemID === items.id && (
+                                    <div className="absolute right-[13rem] md:right-[15rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
+                                        <ul className="space-y-2 list-none">
+                                            {listAction.map((item, index) => (
+                                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index} onClick={() => item.action(items.id)}>
+                                                    {item.title}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )
@@ -159,7 +168,7 @@ const PostManagement = () => {
                     </div>
                 ) : (
                     <>
-                        <TableBLog listItem={visibleItems} />
+                        <TableBLog listItem={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
                         {pageCount > 0 && (
                             <div className="flex justify-center mt-10 text-base font-semibold">
                                 <ReactPaginate

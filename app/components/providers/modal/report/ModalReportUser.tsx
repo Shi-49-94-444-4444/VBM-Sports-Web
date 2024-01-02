@@ -40,7 +40,8 @@ const ModalReportUser = ({ id }: { id: string }) => {
         if (user && user.id) {
             const res = await reportUserService({
                 fromUserID: user.id,
-                content: selectedReport.label,
+                tittle: selectedReport.label,
+                content: selectedReport.value,
                 toUserID: id
             })
 
@@ -69,7 +70,7 @@ const ModalReportUser = ({ id }: { id: string }) => {
             isOpen={reportUserModal.isOpen}
             onClose={reportUserModal.onClose}
             title="Báo cáo bài đăng"
-            width="md:w-auto w-full"
+            width="md:w-96 w-full"
             height="h-auto"
         >
             <form className="flex flex-col gap-3 justify-center p-2" onSubmit={handleSubmit(onSubmit)}>
@@ -96,14 +97,14 @@ const ModalReportUser = ({ id }: { id: string }) => {
                     {isLoadingModal ? (
                         <Button
                             title={<Loading loading={isLoadingModal} color="white" />}
-                            style=""
+                            style="px-6 text-lg"
                             type="submit"
                             isHover={false}
                         />
                     ) : (
                         <Button
                             title="Xác nhận"
-                            style=""
+                            style="px-6 text-lg"
                             type="submit"
                             disabled={user ? user.id?.toString() === id.toString() : false}
                         />

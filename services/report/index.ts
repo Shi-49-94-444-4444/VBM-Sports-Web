@@ -38,6 +38,7 @@ export const reportPostService = async ({ user_id, post_id, reportContent, repor
 export const reportUserService = async (data: ReportUserFormData) => {
     try {
         const response = await AxiosClient.post(`/api/users/report/${data.fromUserID}?userreport_id=${data.toUserID}`, {
+            tittle: data.tittle,
             content: data.content
         })
 

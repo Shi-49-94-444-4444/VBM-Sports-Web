@@ -1,17 +1,21 @@
 "use client"
 
 import { useContext, useRef, useState } from "react"
-import { DownMetalBtn, LoadingFullScreen, Search } from "../providers"
+import { LoadingFullScreen, Search } from "../providers"
 import { removeVietnameseTones, useOutsideClick } from "@/utils"
 import { GlobalContext } from "@/contexts"
 import { UserReportManagement, UserReportManagementData } from "@/types"
 import { AxiosClient } from "@/services"
 import useSWR from "swr"
 import ReactPaginate from "react-paginate"
+import { useRouter } from "next/router"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 interface TableUserReportProps {
-    listItem: UserReportManagementData[]
+    listItem: UserReportManagementData[],
+    selected: string,
+    currentPage: number,
+    itemsPerPage: number,
 }
 
 const options = [
@@ -21,9 +25,14 @@ const options = [
 ]
 
 const TableUserReport: React.FC<TableUserReportProps> = ({
-    listItem
+    listItem,
+    selected,
+    currentPage,
+    itemsPerPage
 }) => {
+    const router = useRouter()
     const [showToggleItemID, setShowToggleItemID] = useState<string | null>(null)
+    const startIndex = currentPage * itemsPerPage
 
     const handleToggle = (itemID: string) => {
         if (showToggleItemID === itemID) {
@@ -41,6 +50,7 @@ const TableUserReport: React.FC<TableUserReportProps> = ({
     useOutsideClick(ref, handleOutsideClick)
 
     const listTitleReportManagement = [
+        { title: "#" },
         { title: "ID" },
         { title: "Lỗi vi phạm" },
         { title: "Nội dung" },
@@ -50,8 +60,15 @@ const TableUserReport: React.FC<TableUserReportProps> = ({
     ]
 
     const listAction = [
-        { title: "Xem chi tiết" },
-        { title: "Xóa" },
+        {
+            title: "Xem chi tiết",
+            action: (id: string, report_type: string) => {
+                router.push({
+                    pathname: `/admin/user-report-detail/${id}`,
+                    query: { report_type: report_type },
+                });
+            },
+        }
     ]
 
     return (
@@ -59,36 +76,47 @@ const TableUserReport: React.FC<TableUserReportProps> = ({
             <thead>
                 <tr>
                     {listTitleReportManagement.map((items, index) => (
-                        <th className="font-semibold border border-black border-opacity-10 py-2" key={index}>{items.title}</th>
+                        <th className="font-semibold border border-black border-opacity-10 py-2 md:whitespace-nowrap px-1" key={index}>{items.title}</th>
                     ))}
                 </tr>
             </thead>
             <tbody className="border-b border-black border-opacity-10 font-medium">
-                {listItem.map((items) => (
-                    <tr key={items.id}>
-                        <td className="py-3 border-l border-r border-black border-opacity-10">{items.id}</td>
-                        <td className="py-3 border-r border-black border-opacity-10 truncate">{items.title ?? "Chưa có"}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{items.content}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{items.dateReceive}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{items.status ?? "Chưa có"}</td>
-                        <td className="py-3 border-r border-black border-opacity-10 relative">
-                            <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
-                                ...
-                            </button>
-                            {showToggleItemID === items.id && (
-                                <div className="absolute right-[10rem] sm:right-[12rem] md:right-[13rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
-                                    <ul className="space-y-2 list-none">
-                                        {listAction.map((items, index) => (
-                                            <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={index}>
-                                                {items.title}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
-                        </td>
-                    </tr>
-                ))}
+                {listItem.map((items, index) => {
+                    const totalIndex = startIndex + index + 1
+
+                    return (
+                        <tr key={items.id}>
+                            <td className="py-3 border-l border-r border-black border-opacity-10 px-1">{totalIndex}</td>
+                            <td className="py-3 border-l border-r border-black border-opacity-10 px-1">{items.id}</td>
+                            <td className="py-3 border-r border-black border-opacity-10 truncate px-1">{items.title ?? "Chưa có"}</td>
+                            <td className="py-3 border-r border-black border-opacity-10 px-1">{items.content}</td>
+                            <td className="py-3 border-r border-black border-opacity-10 px-1">{items.dateReceive}</td>
+                            <td className="py-3 border-r border-black border-opacity-10 px-1">
+                                {items.status?.toLowerCase() === "pending" ? (
+                                    "Đang xử lý"
+                                ) : (
+                                    "Đã xử lý"
+                                )}
+                            </td>
+                            <td className="py-3 border-r border-black border-opacity-10 relative">
+                                <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
+                                    ...
+                                </button>
+                                {showToggleItemID === items.id && (
+                                    <div className="absolute right-[10rem] sm:right-[12rem] md:right-[13rem] sm:bottom-4 bottom-5 bg-gray-100 shadow-md rounded-lg w-auto translate-x-full translate-y-full transition p-2 z-[1001] text-left whitespace-nowrap" ref={ref}>
+                                        <ul className="space-y-2 list-none">
+                                            {listAction.map((action, idx) => (
+                                                <li className="hover:bg-slate-200 hover:text-primary-blue-cus p-2 cursor-pointer" key={idx} onClick={() => action.action(items.id, selected)}>
+                                                    {action.title}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )
@@ -179,7 +207,7 @@ const UserReportManagement = () => {
                 </div>
             ) : (
                 <>
-                    <TableUserReport listItem={visibleItems} />
+                    <TableUserReport listItem={visibleItems} selected={selectOption.value.toString()} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
                     {pageCount > 0 && (
                         <div className="flex justify-center mt-10 text-base font-semibold">
                             <ReactPaginate

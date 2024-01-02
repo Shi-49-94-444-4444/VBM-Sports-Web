@@ -1,14 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import { BsFillChatDotsFill } from "react-icons/bs"
-import { UserProfileData } from "@/types"
+import { CheckSub, UserProfileData } from "@/types"
 import { Button } from "../../providers"
 import { validateDes, validateName, validateURLAvatar } from "@/utils"
 import { useReportUserModal, useUnauthorizeModal, useUserBanUserModal } from "@/hooks"
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
-import { subscribeService } from "@/services"
+import { AxiosClient, subscribeService } from "@/services"
+import useSWR from "swr"
+
+const fetcher = (url: string) => AxiosClient.put(url).then(res => res.data)
 
 const UserProfileIntro: React.FC<UserProfileData> = ({
     id,
@@ -20,12 +22,13 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
     const reportUserModal = useReportUserModal()
     const banUserModal = useUserBanUserModal()
     const unauthorizeModal = useUnauthorizeModal()
-    const [subscribe, setSubscribe] = useState(false)
 
-    const handleSubscribe = () => {
+    const { data: checkSub, mutate } = useSWR<CheckSub>(user && id ? `/api/users/${user.id}/check_sub/${id}` : null, fetcher)
+
+    const handleSubscribe = async () => {
         if (user && user.id && id) {
-            subscribeService({ user_id: user.id, target_id: id })
-            setSubscribe(true)
+            await subscribeService({ user_id: user.id, target_id: id })
+            mutate()
         }
     }
 
@@ -79,18 +82,19 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                                     onClick={unauthorizeModal.onOpen}
                                 />
                             ) : (
-                                subscribe ? (
+                                !checkSub?.data || !checkSub?.data.subed ? (
+                                    <Button
+                                        title="Đăng ký"
+                                        style="py-3 px-12 text-xl"
+                                        onClick={handleSubscribe}
+                                    />
+                                ) : (
                                     <Button
                                         title="Đã đăng ký"
                                         style="py-3 px-12 text-xl"
                                         color="bg-gray-400"
                                         text="text-gray-600"
                                         isHover={false}
-                                    />
-                                ) : (
-                                    <Button
-                                        title="Đăng ký"
-                                        style="py-3 px-12 text-xl"
                                         onClick={handleSubscribe}
                                     />
                                 )
@@ -116,18 +120,19 @@ const UserProfileIntro: React.FC<UserProfileData> = ({
                             onClick={unauthorizeModal.onOpen}
                         />
                     ) : (
-                        subscribe ? (
+                        !checkSub?.data || !checkSub?.data.subed ? (
+                            <Button
+                                title="Đăng ký"
+                                style="py-3 px-12 text-xl"
+                                onClick={handleSubscribe}
+                            />
+                        ) : (
                             <Button
                                 title="Đã đăng ký"
                                 style="py-3 px-12 text-xl"
                                 color="bg-gray-400"
                                 text="text-gray-600"
                                 isHover={false}
-                            />
-                        ) : (
-                            <Button
-                                title="Đăng ký"
-                                style="py-3 px-12 text-xl"
                                 onClick={handleSubscribe}
                             />
                         )

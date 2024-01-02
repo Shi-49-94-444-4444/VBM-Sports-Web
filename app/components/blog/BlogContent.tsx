@@ -1,14 +1,15 @@
-import { Blog } from "@/types"
-import { FormatDate } from "@/utils"
-import Image from "next/image"
+"use client"
 
-const BlogContent: React.FC<Blog> = ({
+import { BlogsDetail } from "@/types"
+import { FormatDate } from "@/utils"
+import ReactHtmlParser from 'react-html-parser'
+
+const BlogContent: React.FC<BlogsDetail> = ({
     id,
-    src,
     title,
-    date,
-    description,
-    poster
+    createTime,
+    userCreateName,
+    description
 }) => {
     return (
         <section className="flex flex-col gap-10" key={id}>
@@ -17,49 +18,12 @@ const BlogContent: React.FC<Blog> = ({
                     {title}
                 </h1>
                 <h2 className="text-gray-500 text-xl font-normal">
-                    <FormatDate dateString={date!} />
+                    <FormatDate dateString={createTime} />
                 </h2>
             </section>
-            <section className="flex flex-col gap-5 text-gray-600 text-xl font-normal">
-                <p>
-                    {description}
-                </p>
-                <p>
-                    {description}
-                </p>
-                <div className="
-                        relative
-                        pb-[50%]
-                        transition
-                        duration-300
-                        overflow-hidden
-                    "
-                >
-                    <div className="
-                            absolute 
-                            top-0 
-                            left-0 
-                            w-full 
-                            h-full
-                        "
-                    >
-                        <Image
-                            src={src}
-                            alt="blog"
-                            className="object-cover"
-                            fill
-                        />
-                    </div>
-                </div>
-                <p>
-                    {description}
-                </p>
-                <p>
-                    {description}
-                </p>
-            </section>
+            <div className="relative flex flex-col items-center text-left gap-3 w-full">{ReactHtmlParser(description)}</div>
             <div className="ml-auto font-medium text-xl italic">
-                By: {poster}
+                By: {userCreateName}
             </div>
         </section>
     )

@@ -12,7 +12,11 @@ import {
     useAdminUpRoleModal,
     useAdminUnBanModal,
     useSendNoticeUserModal,
-    useDeleteBLogModal
+    useDeleteBLogModal,
+    useSendNoticePostModal,
+    useChangeMoneyToModal,
+    useTrackingReportModal,
+    useGoToMessModal
 } from "./useAdmin"
 import { useUnauthorizeModal } from "./useUnauthorize"
 import { useUserBanUserModal } from "./useUserBanUser"
@@ -48,5 +52,9 @@ export {
     useCheckPostModal,
     useRoomByProductModal,
     useBoostProductModal,
-    usePolicyModal
+    usePolicyModal,
+    useSendNoticePostModal,
+    useChangeMoneyToModal,
+    useTrackingReportModal,
+    useGoToMessModal
 }

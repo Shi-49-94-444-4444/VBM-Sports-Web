@@ -3,7 +3,7 @@
 import { GlobalContext } from "@/contexts"
 import { AxiosClient } from "@/services"
 import { HistoryTransaction, HistoryTransactionData } from "@/types"
-import { formatMoney } from "@/utils"
+import { Status, formatMoney } from "@/utils"
 import Decimal from "decimal.js"
 import { useContext, useState } from "react"
 import useSWR from "swr"
@@ -12,12 +12,15 @@ import ReactPaginate from "react-paginate"
 import * as XLSX from 'xlsx'
 
 interface TableHistoryWalletProps {
-    listItem: HistoryTransactionData[]
+    listItem: HistoryTransactionData[],
+    currentPage: number,
+    itemsPerPage: number,
 }
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const listTitleHistoryWallet = [
+    { title: "#" },
     { title: "Thời gian" },
     { title: "Thao tác" },
     { title: "Trạng thái" },
@@ -44,7 +47,9 @@ const exportToExcel = (listItem: HistoryTransactionData[]) => {
     XLSX.writeFile(workbook, "Lịch sử giao dịch.xlsx")
 }
 
-const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem }) => {
+const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem, currentPage, itemsPerPage }) => {
+    const startIndex = currentPage * itemsPerPage
+
     return (
         <table className="table-auto border-separate border border-black border-opacity-10 rounded-2xl text-sm sm:text-lg md:text-xl text-center">
             <thead>
@@ -65,26 +70,37 @@ const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem }) => 
                 </tr>
             </thead>
             <tbody>
-                {listItem.map((item, index) => (
-                    <tr key={index}>
-                        <td className="py-2 border-r border-black border-opacity-10">{item.time}</td>
-                        <td className="py-2 border-r border-black border-opacity-10">{item.type}</td>
-                        <td className="py-2 border-r border-black border-opacity-10 font-semibold">
-                            {item.status === "Success" ? (
-                                <span className="text-green-500">{item.status}</span>
-                            ) : (
-                                <span className="text-red-500">{item.status}</span>
-                            )}
-                        </td>
-                        <td className="py-2 font-semibold">
-                            {item.amount.toString().startsWith("-") ? (
-                                <span className="text-red-500">{formatMoney(new Decimal(item.amount))}</span>
-                            ) : (
-                                <span className="text-green-500">{formatMoney(new Decimal(item.amount))}</span>
-                            )}
-                        </td>
-                    </tr>
-                ))}
+                {listItem.map((item, index) => {
+                    const statusObject = Status.find(obj => obj.statusEN.toLowerCase() === item.status.toLowerCase())
+                    
+                    const totalIndex = startIndex + index + 1
+
+                    return (
+                        <tr key={index}>
+                            <td className="py-2 border-r border-black border-opacity-10">{totalIndex}</td>
+                            <td className="py-2 border-r border-black border-opacity-10">{item.time}</td>
+                            <td className="py-2 border-r border-black border-opacity-10">{item.type}</td>
+                            <td className="py-2 border-r border-black border-opacity-10 font-semibold">
+                                {statusObject ? (
+                                    item.status.toLowerCase() === "success" ? (
+                                        <span className="text-green-500">{statusObject.statusVI}</span>
+                                    ) : (
+                                        <span className="text-red-500">{statusObject.statusVI}</span>
+                                    )
+                                ) : (
+                                    <span className="text-red-500">Unknown Status</span>
+                                )}
+                            </td>
+                            <td className="py-2 font-semibold">
+                                {item.amount.toString().startsWith("-") ? (
+                                    <span className="text-red-500">{formatMoney(new Decimal(item.amount))}</span>
+                                ) : (
+                                    <span className="text-green-500">{formatMoney(new Decimal(item.amount))}</span>
+                                )}
+                            </td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )
@@ -138,7 +154,7 @@ const WalletHistory = () => {
                 </div>
             ) : (
                 <>
-                    <TableHistoryWallet listItem={visibleItems} />
+                    <TableHistoryWallet listItem={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
                     {pageCount > 0 && (
                         <div className="flex justify-center mt-10 text-base font-semibold">
                             <ReactPaginate

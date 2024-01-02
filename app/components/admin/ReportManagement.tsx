@@ -2,7 +2,7 @@
 
 import { useContext, useState } from "react";
 import { DownMetalBtn, LoadingFullScreen, Search } from "../providers"
-import { formatMoney, removeVietnameseTones } from "@/utils"
+import { Status, formatMoney, removeVietnameseTones } from "@/utils"
 import { GlobalContext } from "@/contexts"
 import { ManagementReport, ManagementReportData } from "@/types"
 import useSWR from "swr";
@@ -10,13 +10,39 @@ import { AxiosClient } from "@/services"
 import ReactPaginate from "react-paginate"
 import Datepicker from "react-tailwindcss-datepicker"
 import { endOfMonth, format, parse, startOfMonth } from "date-fns"
-import { Line } from 'react-chartjs-2'
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineController, LineElement } from 'chart.js';
+import { Line, Pie } from 'react-chartjs-2'
 import Decimal from "decimal.js";
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineController, LineElement)
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineController,
+    LineElement,
+    ArcElement,
+    PieController,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js';
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineController,
+    LineElement,
+    ArcElement,
+    PieController,
+    Title,
+    Tooltip,
+    Legend
+);
+
 
 interface TableReportProps {
-    listItem: ManagementReportData[]
+    listItem: ManagementReportData[],
+    currentPage: number,
+    itemsPerPage: number,
 }
 
 const listTitleUserManagement = [
@@ -25,11 +51,14 @@ const listTitleUserManagement = [
     { title: "Thời gian" },
     { title: "Trạng thái" },
     { title: "Thao tác" },
+    { title: "Số tiền" },
 ]
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
-const TableReport: React.FC<TableReportProps> = ({ listItem }) => {
+const TableReport: React.FC<TableReportProps> = ({ listItem, currentPage, itemsPerPage }) => {
+    const startIndex = currentPage * itemsPerPage
+
     return (
         <table className="table-auto border-separate border border-black border-opacity-10 rounded-lg text-sm sm:text-base md:text-lg text-gray-600 text-center table">
             <thead>
@@ -38,6 +67,8 @@ const TableReport: React.FC<TableReportProps> = ({ listItem }) => {
                         <th className={`
                                 font-semibold 
                                 py-3 
+                                md:whitespace-nowrap
+                                px-1
                                 ${index < listTitleUserManagement.length - 1 ?
                                 "border-r border-b border-black border-opacity-10" :
                                 "border-b"
@@ -50,15 +81,21 @@ const TableReport: React.FC<TableReportProps> = ({ listItem }) => {
                 </tr>
             </thead>
             <tbody className="text-base font-medium">
-                {listItem.map((item, index) => (
-                    <tr key={index}>
-                        <td className="py-3 border-r border-black border-opacity-10">{index}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{item.id}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{item.time}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{item.status}</td>
-                        <td className="py-3 border-r border-black border-opacity-10">{item.type}</td>
-                    </tr>
-                ))}
+                {listItem.map((item, index) => {
+                    const statusObject = Status.find(obj => obj.statusEN.toLowerCase() === item.status.toLowerCase())
+                    const totalIndex = startIndex + index + 1
+
+                    return (
+                        <tr key={index}>
+                            <td className="py-3 border-r border-black border-opacity-10">{totalIndex}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{item.id}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{item.time}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{statusObject?.statusVI}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{item.type}</td>
+                            <td className="py-3 border-r border-black border-opacity-10">{formatMoney(new Decimal(item.amount))}</td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )
@@ -76,7 +113,7 @@ const ReportManagement = () => {
     const { data: listIncoming, error, isLoading } = useSWR<ManagementReport>(dateRange.endDate && dateRange.startDate ? `/api/reports/${encodeURIComponent(dateRange.startDate)}&${encodeURIComponent(dateRange.endDate)}/report_income_Month` : null, fetcher, { refreshInterval: 10000 })
 
     const filteredIncoming = listIncoming && listIncoming.data && listIncoming.data.historyWalletModels.filter(item => item.time && removeVietnameseTones(item.time).includes(removeVietnameseTones(searchTerm)))
-
+    const total = listIncoming?.data ? listIncoming.data.total : 0
     const [currentPage, setCurrentPage] = useState(0)
     const itemsPerPage = 10
     const pageCount = Math.ceil(filteredIncoming ? filteredIncoming.length / itemsPerPage : 0)
@@ -91,7 +128,6 @@ const ReportManagement = () => {
 
     const dataByDate = listIncoming && listIncoming.data.historyWalletModels.reduce((acc: any, item) => {
         const date = format(parse(item.time, "dd/MM/yyyy HH:mm", new Date()), "dd/MM/yyyy")
-        // const date = format(parseExact(item.time), 'dd/MM/yyyy hh:mm')
 
         if (!acc[date]) {
             acc[date] = 0;
@@ -102,6 +138,40 @@ const ReportManagement = () => {
 
     const labels = listIncoming && listIncoming.data.historyWalletModels ? Object.keys(dataByDate) : []
     const data = listIncoming && listIncoming.data.historyWalletModels ? Object.values(dataByDate) : []
+
+    let dataByType = listIncoming && listIncoming.data.historyWalletModels.reduce((acc: any, item) => {
+        let formattedType = item.type;
+
+        // Tạo điều kiện để xác định và gom nhóm các tên giống nhau thành một tên duy nhất
+        if (formattedType.includes("Nhận tiền đẩy bài đăng của đơn hàng") || formattedType.includes("Thanh toán phí đẩy bài đăng")) {
+            formattedType = "Đẩy bài";
+        } else if (formattedType.includes("Nhận tiền hoa hồng book sân của đơn hàng") || formattedType.includes("Nhận tiền hoa hồng đặt sân của đơn hàng")) {
+            formattedType = "Hoa hồng";
+        } else if (formattedType === "Thanh toán phí đăng bài" || formattedType.includes("Nhận tiền hoa hồng đăng bài của đơn hàng")) {
+            formattedType = "Đăng bài";
+        } else {
+            formattedType = "Các khoảng khác"
+        }
+
+        if (!acc[formattedType]) {
+            acc[formattedType] = 0;
+        }
+        acc[formattedType] += parseFloat(item.amount.toString())
+        return acc;
+    }, {});
+
+    let dataPercentages: any[] = [];
+    let labelsPie: string[] = []
+
+    if (dataByType) {
+        dataPercentages = Object.entries(dataByType).map(([type, amount]) => ({
+            type,
+            amount,
+            percentage: ((amount as number) / total) * 100
+        }));
+
+        labelsPie = Object.keys(dataByType);
+    }
 
     if (user && user.role && user.role.toLowerCase() === "staff") {
         return (
@@ -152,65 +222,120 @@ const ReportManagement = () => {
                     inputClassName="light w-full bg-[#F5F5F5] border-none py-3 px-6 focus:ring-0 rounded-lg"
                 />
             </div>
-            <div className="
-                    flex 
-                    flex-row
-                    text-gray-600 
-                    justify-between
-                    transition-all
-                    duration-500
-                    flex-wrap
-                "
-            >
-                <h1 className="font-semibold md:text-3xl text-2xl flex-shrink-0">
-                    Biểu đồ doanh thu
-                </h1>
-                <div className="flex flex-row gap-5">
-                    <div className="flex flex-row gap-3">
-                        <div className="md:text-lg font-medium">
-                            Số lượng:
-                        </div>
-                        <div className="text-primary-blue-cus md:text-2xl text-xl font-semibold">
-                            {listIncoming && listIncoming.data.historyWalletModels.length > 0 ? listIncoming.data.historyWalletModels.length : 0}
+            <div className="md:grid md:grid-cols-3 flex flex-col gap-5">
+                <div className="col-span-2">
+                    <div className="
+                            flex 
+                            flex-col
+                            text-gray-600 
+                            justify-between
+                            transition-all
+                            duration-500
+                            flex-wrap
+                        "
+                    >
+                        <h1 className="font-semibold md:text-3xl text-2xl flex-shrink-0">
+                            Biểu đồ doanh thu
+                        </h1>
+                        <div className="flex flex-row gap-5">
+                            <div className="flex flex-row gap-3">
+                                <div className="md:text-lg font-medium">
+                                    Số lượng:
+                                </div>
+                                <div className="text-primary-blue-cus md:text-2xl text-xl font-semibold">
+                                    {listIncoming && listIncoming.data.historyWalletModels.length > 0 ? listIncoming.data.historyWalletModels.length : 0}
+                                </div>
+                            </div>
+                            <div className="flex flex-row gap-3">
+                                <div className="md:text-lg font-medium">
+                                    Tổng:
+                                </div>
+                                <div className="text-primary-blue-cus md:text-2xl text-xl font-semibold">
+                                    {listIncoming && listIncoming.data.historyWalletModels.length > 0 ? formatMoney(new Decimal(listIncoming.data.total)) : formatMoney(new Decimal(0))}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="flex flex-row gap-3">
-                        <div className="md:text-lg font-medium">
-                            Tổng:
-                        </div>
-                        <div className="text-primary-blue-cus md:text-2xl text-xl font-semibold">
-                            {listIncoming && listIncoming.data.historyWalletModels.length > 0 ? formatMoney(new Decimal(listIncoming.data.total)) : formatMoney(new Decimal(0))}
-                        </div>
+                    <div className="relative w-full">
+                        {isLoading ? (
+                            <div className="h-96 flex items-center justify-center">
+                                <LoadingFullScreen loading={isLoading} />
+                            </div>
+                        ) : !listIncoming || listIncoming.data.historyWalletModels.length === 0 ? (
+                            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
+                                Không có doanh thu nào tồn tại
+                            </div>
+                        ) : error ? (
+                            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
+                                Lỗi API
+                            </div>
+                        ) : (
+                            <div className="relative w-full h-[300px] sm:h-[500px] md:h-[300px] lg:h-[500px]">
+                                <Line
+                                    data={{
+                                        labels: labels,
+                                        datasets: [{
+                                            label: "Lịch sử ví",
+                                            data: data,
+                                            fill: false,
+                                            backgroundColor: 'rgb(75, 192, 192)',
+                                            borderColor: 'rgba(75, 192, 192, 0.2)',
+                                        }]
+                                    }}
+                                    options={{
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                    }}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
-            </div>
-            <div className="relative w-full">
-                {isLoading ? (
-                    <div className="h-96 flex items-center justify-center">
-                        <LoadingFullScreen loading={isLoading} />
+                <div className="col-span-1">
+                    <div className="
+                            text-gray-600 
+                            justify-between
+                            transition-all
+                            duration-500
+                            flex-wrap
+                        "
+                    >
+                        <h1 className="font-semibold md:text-3xl text-2xl flex-shrink-0">
+                            Các khoảng doanh thu
+                        </h1>
                     </div>
-                ) : !listIncoming || listIncoming.data.historyWalletModels.length === 0 ? (
-                    <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
-                        Không có doanh thu nào tồn tại
+                    <div className="relative w-full">
+                        {isLoading ? (
+                            <div className="h-96 flex items-center justify-center">
+                                <LoadingFullScreen loading={isLoading} />
+                            </div>
+                        ) : !listIncoming || listIncoming.data.historyWalletModels.length === 0 ? (
+                            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
+                                Không có doanh thu nào tồn tại
+                            </div>
+                        ) : error ? (
+                            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
+                                Lỗi API
+                            </div>
+                        ) : (
+                            <div className="relative w-full h-[300px] sm:h-[500px] md:h-[300px] lg:h-[500px]">
+                                <Pie
+                                    data={{
+                                        labels: labelsPie,
+                                        datasets: [{
+                                            data: dataPercentages.map(item => item.percentage),
+                                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                                        }]
+                                    }}
+                                    options={{
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                    }}
+                                />
+                            </div>
+                        )}
                     </div>
-                ) : error ? (
-                    <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
-                        Lỗi API
-                    </div>
-                ) : (
-                    <Line
-                        data={{
-                            labels: labels,
-                            datasets: [{
-                                label: 'Lịch sử ví',
-                                data: data,
-                                fill: false,
-                                backgroundColor: 'rgb(75, 192, 192)',
-                                borderColor: 'rgba(75, 192, 192, 0.2)',
-                            }]
-                        }}
-                    />
-                )}
+                </div>
             </div>
             <div className="
                     flex 
@@ -253,7 +378,7 @@ const ReportManagement = () => {
                 </div>
             ) : (
                 <>
-                    <TableReport listItem={visibleItems} />
+                    <TableReport listItem={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
                     {pageCount > 0 && (
                         <div className="flex justify-center mt-10 text-base font-semibold">
                             <ReactPaginate

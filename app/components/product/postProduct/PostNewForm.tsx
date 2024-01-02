@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
-import { useCheckPostModal } from "@/hooks"
+import { useCheckPostModal, usePolicyModal } from "@/hooks"
 
 interface Option {
     id: string;
@@ -48,6 +48,7 @@ const PostNewForm = () => {
     const [forms, setForms] = useState<JSX.Element[]>([])
     const [slots, setSlots] = useState<{ day: Date; startTime: string; endTime: string; price: number; availableSlot: number; }[]>([])
     const router = useRouter()
+    const policyModal = usePolicyModal()
 
     const listLevel = [
         { id: "1", value: "Mới chơi", label: "Mới chơi" },
@@ -425,6 +426,12 @@ const PostNewForm = () => {
         const processedImages = uploadImages.map(image => processBase64Image(image))
 
         if (user && user.id) {
+            if (!user.isPolicy) {
+                policyModal.onOpen(user.id)
+                if (setIsLoading) setIsLoading(false)
+                return
+            }
+
             const check = await checkFreePostService(user.id)
 
             if (check.data === null) {

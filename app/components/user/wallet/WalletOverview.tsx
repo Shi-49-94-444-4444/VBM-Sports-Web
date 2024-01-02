@@ -1,7 +1,7 @@
 "use client"
 
 import { GlobalContext } from "@/contexts"
-import { useFeaturingModal, useRechargeModal, useWithdrawModal } from "@/hooks"
+import { useRechargeModal, useWithdrawModal } from "@/hooks"
 import { AxiosClient } from "@/services"
 import { WalletUserData } from "@/types"
 import { formatMoney } from "@/utils"
@@ -16,13 +16,13 @@ const WalletOverview = () => {
     const { user } = useContext(GlobalContext) || {}
     const withdrawModal = useWithdrawModal()
     const rechargeModal = useRechargeModal()
-    const featuringModal = useFeaturingModal()
+    // const featuringModal = useFeaturingModal()
 
-    const { data: userWallet } = useSWR<WalletUserData>(user ? `/api/wallet/${user.id}/user_wallet` : null, fetcher, { refreshInterval: 5 })
+    const { data: userWallet } = useSWR<WalletUserData>(user ? `/api/wallet/${user.id}/user_wallet` : null, fetcher, { refreshInterval: 5000 })
 
     const handleWithdrawModal = () => {
-        // withdrawModal.onOpen()
-        featuringModal.onOpen()
+        withdrawModal.onOpen()
+        // featuringModal.onOpen()
     }
 
     const handleRechargeModal = () => {

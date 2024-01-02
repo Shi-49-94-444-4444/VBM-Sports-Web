@@ -27,10 +27,7 @@ interface User {
     balance?: number | null
     displayName?: string | null
     role?: "User" | "Staff" | "Admin"
-    stsTokenManager?: {
-        accessToken?: string | null
-    }
-    uid?: string | null
+    isPolicy: boolean
 }
 
 export enum SettingNames {

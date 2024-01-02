@@ -82,6 +82,20 @@ export const postCommentService = async (data: CommentFormData) => {
     }
 }
 
+export const updatePolicyService = async (user_id: string) => {
+    try {
+        const response = await AxiosClient.put(`/api/users/updatePolicy/${user_id}`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+
 export const getCommentService = async (id: string) => {
     try {
         const response = await AxiosClient.get(`/api/users/${id}/comments`)

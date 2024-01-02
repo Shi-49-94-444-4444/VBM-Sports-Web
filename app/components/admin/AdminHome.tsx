@@ -5,21 +5,25 @@ import { Button, DownMetalBtn, Input, Loading, LoadingFullScreen, Search } from 
 import { AxiosClient, updateSettingAdminService } from "@/services"
 import useSWR from "swr";
 import { GlobalContext, SettingNames } from "@/contexts"
-import { AdminSetting, AdminSettingListData, HistoryTransaction, HistoryTransactionData } from "@/types";
-import { formatMoney } from "@/utils"
+import { AdminSetting, AdminSettingListData, HistoryTransaction, HistoryTransactionData, WalletUserData } from "@/types";
+import { Status, formatMoney } from "@/utils"
 import ReactPaginate from "react-paginate"
 import * as XLSX from 'xlsx'
 import Decimal from "decimal.js"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
+import Image from "next/image";
 
 interface TableHistoryWalletProps {
-    listItem: HistoryTransactionData[]
+    listItem: HistoryTransactionData[],
+    currentPage: number,
+    itemsPerPage: number,
 }
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const listTitleHistoryWallet = [
+    { title: "#" },
     { title: "Thời gian" },
     { title: "Thao tác" },
     { title: "Trạng thái" },
@@ -34,7 +38,7 @@ const listTitleSetting = [
 ]
 
 const exportToExcel = (listItem: HistoryTransactionData[]) => {
-    const headers = listTitleHistoryWallet.map(item => item.title)
+    const headers = listTitleHistoryWallet.slice(1, 5).map(item => item.title)
 
     const data = listItem.map(item => [
         item.time,
@@ -53,16 +57,20 @@ const exportToExcel = (listItem: HistoryTransactionData[]) => {
     XLSX.writeFile(workbook, "Quản lý lịch sử giao dịch.xlsx")
 }
 
-const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem }) => {
+const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem, currentPage, itemsPerPage }) => {
+    const startIndex = currentPage * itemsPerPage
+
     return (
-        <table className="table-auto border-separate border border-black border-opacity-10 rounded-2xl text-sm sm:text-lg md:text-xl text-center">
+        <table className="table-auto border-separate border border-black text-gray-600 border-opacity-10 rounded-2xl text-sm sm:text-lg md:text-xl text-center">
             <thead>
                 <tr>
                     {listTitleHistoryWallet.map((item, index) => (
                         <th className={`
-                                    font-semibold 
-                                    py-3 
-                                    ${index < listTitleHistoryWallet.length - 1 ?
+                                font-semibold 
+                                py-3 
+                                md:whitespace-nowrap
+                                px-1
+                                ${index < listTitleHistoryWallet.length - 1 ?
                                 "border-r border-b border-black border-opacity-10" :
                                 "border-b"
                             }`}
@@ -74,26 +82,36 @@ const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem }) => 
                 </tr>
             </thead>
             <tbody>
-                {listItem.map((item, index) => (
-                    <tr key={index}>
-                        <td className="py-2 border-r border-black border-opacity-10">{item.time}</td>
-                        <td className="py-2 border-r border-black border-opacity-10">{item.type}</td>
-                        <td className="py-2 border-r border-black border-opacity-10 font-semibold">
-                            {item.status === "Success" ? (
-                                <span className="text-green-500">{item.status}</span>
-                            ) : (
-                                <span className="text-red-500">{item.status}</span>
-                            )}
-                        </td>
-                        <td className="py-2 font-semibold">
-                            {item.amount.toString().startsWith("-") ? (
-                                <span className="text-red-500">{formatMoney(new Decimal(item.amount))}</span>
-                            ) : (
-                                <span className="text-green-500">{formatMoney(new Decimal(item.amount))}</span>
-                            )}
-                        </td>
-                    </tr>
-                ))}
+                {listItem.map((item, index) => {
+                    const statusObject = Status.find(obj => obj.statusEN.toLowerCase() === item.status.toLowerCase())
+                    const totalIndex = startIndex + index + 1
+
+                    return (
+                        <tr key={index}>
+                            <td className="py-2 border-r border-black border-opacity-10">{totalIndex}</td>
+                            <td className="py-2 border-r border-black border-opacity-10">{item.time}</td>
+                            <td className="py-2 border-r border-black border-opacity-10">{item.type}</td>
+                            <td className="py-2 border-r border-black border-opacity-10 font-semibold">
+                                {statusObject ? (
+                                    item.status.toLowerCase() === "success" ? (
+                                        <span className="text-green-500">{statusObject.statusVI}</span>
+                                    ) : (
+                                        <span className="text-red-500">{statusObject.statusVI}</span>
+                                    )
+                                ) : (
+                                    <span className="text-red-500">Unknown Status</span>
+                                )}
+                            </td>
+                            <td className="py-2 font-semibold">
+                                {item.amount.toString().startsWith("-") ? (
+                                    <span className="text-red-500">{formatMoney(new Decimal(item.amount))}</span>
+                                ) : (
+                                    <span className="text-green-500">{formatMoney(new Decimal(item.amount))}</span>
+                                )}
+                            </td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </table>
     )
@@ -107,6 +125,7 @@ const AdminHome = () => {
 
     const { data: listHistoryWallet, error, isLoading } = useSWR<HistoryTransaction>(user ? `/api/wallet/user/${user.id}/history` : null, fetcher, { refreshInterval: 10000 })
     const { data: listSetting, mutate } = useSWR<AdminSetting>(`/api/Settings/get_listSetting`, fetcher, { refreshInterval: 10000 })
+    const { data: userWallet } = useSWR<WalletUserData>(user ? `/api/wallet/${user.id}/user_wallet` : null, fetcher, { refreshInterval: 5000 })
 
     const { register, handleSubmit, setValue, watch } = useForm<AdminSettingListData>({
         defaultValues: {
@@ -206,6 +225,42 @@ const AdminHome = () => {
 
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
+            <div className="flex md:flex-row flex-col gap-5 justify-between items-start transition-all duration-500">
+                <div className="
+                        flex 
+                        flex-col 
+                        text-gray-600 
+                        gap-5
+                        md:flex-row 
+                        md:justify-between 
+                        md:items-center 
+                        md:gap-0
+                    "
+                >
+                    <h1 className="font-semibold md:text-4xl text-3xl flex-shrink-0">
+                        Quản lý chung
+                    </h1>
+                </div>
+                <div className="flex space-x-4">
+                    <div className="relative flex-shrink-0 h-full">
+                        <Image
+                            src="/images/walletIcon.png"
+                            alt="walletIcon"
+                            width={200}
+                            height={100}
+                            className="object-contain w-20 h-full"
+                        />
+                    </div>
+                    <section className="flex flex-col gap-3">
+                        <label className="font-semibold text-2xl">
+                            Số dư ví
+                        </label>
+                        <p className="font-semibold text-3xl ease-in-out transition-all duration-500">
+                            {formatMoney(new Decimal(userWallet ? userWallet.data.balance : 0))}
+                        </p>
+                    </section>
+                </div>
+            </div>
             <div className="
                     flex 
                     flex-col 
@@ -217,11 +272,11 @@ const AdminHome = () => {
                     md:gap-0
                 "
             >
-                <h1 className="font-semibold md:text-4xl text-3xl flex-shrink-0">
-                    Quản lý chung
+                <h1 className="font-semibold md:text-3xl text-2xl flex-shrink-0">
+                    Các khoản tiền
                 </h1>
             </div>
-            <form className="grid grid-cols-2 gap-3" onSubmit={handleSubmit(onSubmit)}>
+            <form className="md:grid md:grid-cols-2 flex flex-col gap-3 transition-all duration-500" onSubmit={handleSubmit(onSubmit)}>
                 {listSetting && listSetting.data.map((item) => {
                     const title = listTitleSetting.find(title => title.settingName === item.settingName)
 
@@ -318,7 +373,7 @@ const AdminHome = () => {
                     </div>
                 ) : (
                     <>
-                        <TableHistoryWallet listItem={visibleItems} />
+                        <TableHistoryWallet listItem={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
                         {pageCount > 0 && (
                             <div className="flex justify-center mt-5 text-base font-semibold">
                                 <ReactPaginate
