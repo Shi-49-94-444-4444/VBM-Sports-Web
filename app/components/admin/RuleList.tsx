@@ -1,12 +1,14 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "../providers";
 import rules from "../../../utils/rules.json";
+import { GlobalContext } from "@/contexts";
 
 const RuleList = () => {
   const [json, setJson] = useState(JSON.stringify(rules, null, 2));
   const [isEditing, setIsEditing] = useState(false);
+  const { user } = useContext(GlobalContext) || {}
 
   const handleJsonChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
@@ -22,6 +24,14 @@ const RuleList = () => {
       //console.error("Lỗi xử lý JSON:", error);
     }
   };
+
+  if (user && user.role && user.role.toLowerCase() === "staff") {
+    return (
+      <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
+        Bạn không đủ quyền hạn!!!
+      </div>
+    )
+  }
 
   return (
     <section className="relative flex flex-col px-6 py-10">

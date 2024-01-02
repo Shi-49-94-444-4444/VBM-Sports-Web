@@ -127,6 +127,14 @@ const UserDetailManage = () => {
     const checkAdminToStaff = user && user.role && user.role.toLowerCase() === "admin" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "staff"
     const checkStaffToUser = user && user.role && user.role.toLowerCase() === "staff" && listPostForUser && listPostForUser.data.role.toString().toLowerCase() === "user"
 
+    if (user && user.role && user.role.toLowerCase() === "staff") {
+        return (
+            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
+                Bạn không đủ quyền hạn!!!
+            </div>
+        )
+    }
+
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
             <ModalAdminBan user_id={id ? id.toString() : ""} />

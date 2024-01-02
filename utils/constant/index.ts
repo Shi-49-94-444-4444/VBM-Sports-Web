@@ -108,6 +108,11 @@ export const navLinksStaff = [
                 label: "Danh sách sân",
                 href: "/product/list-product"
             },
+            {
+                id: "2",
+                label: "Quản lý báo cáo",
+                href: "/admin/user-report-management"
+            },
         ]
     }
 ]

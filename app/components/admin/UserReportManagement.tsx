@@ -143,14 +143,6 @@ const UserReportManagement = () => {
     const endIndex = startIndex + itemsPerPage
     const visibleItems = filteredUserReport && filteredUserReport.length > 0 ? filteredUserReport.slice(startIndex, endIndex) : []
 
-    if (user && user.role && user.role.toLowerCase() === "staff") {
-        return (
-            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
-                Bạn không đủ quyền hạn!!!
-            </div>
-        )
-    }
-
     return (
         <section className="relative flex flex-col px-6 py-10">
             <div className="
@@ -207,7 +199,7 @@ const UserReportManagement = () => {
                 </div>
             ) : (
                 <>
-                    <TableUserReport listItem={visibleItems} selected={selectOption.value.toString()} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
+                    <TableUserReport listItem={visibleItems} selected={selectOption.value.toString()} currentPage={currentPage} itemsPerPage={itemsPerPage} />
                     {pageCount > 0 && (
                         <div className="flex justify-center mt-10 text-base font-semibold">
                             <ReactPaginate
