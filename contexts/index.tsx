@@ -27,7 +27,7 @@ interface User {
     balance?: number | null
     displayName?: string | null
     role?: "User" | "Staff" | "Admin"
-    isPolicy: boolean
+    isPolicy?: boolean | null
 }
 
 export enum SettingNames {
