@@ -1,7 +1,7 @@
 "use client"
 
 import { AiOutlineDown } from "react-icons/ai"
-import { navLinks, navLinksAdmin } from "@/utils"
+import { navLinks, navLinksAdmin, navLinksStaff } from "@/utils"
 import { useContext, useState } from "react";
 import NavlinkItem from "./NavlinkItem";
 import Link from "next/link";
@@ -28,7 +28,7 @@ const NavLink = () => {
         setOpenItemId(null);
     }
 
-    const links = user && user.role && user.role.toLowerCase() !== "user" ? navLinksAdmin : navLinks
+    const links = user && user.role && user.role.toLowerCase() === "user" ? navLinks : user && user.role && user.role.toLowerCase() === "admin" ? navLinksAdmin : navLinksStaff 
 
     return (
         <ul

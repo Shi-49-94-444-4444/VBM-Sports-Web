@@ -1,6 +1,6 @@
 "use client"
 
-import { navLinks, navLinksAdmin, useOutsideClick } from '@/utils'
+import { navLinks, navLinksAdmin, navLinksStaff, useOutsideClick } from '@/utils'
 import { useContext, useRef, useState } from 'react'
 import { AiOutlineDown } from 'react-icons/ai'
 import IsMobileItem from './IsMobileItem'
@@ -29,7 +29,7 @@ const IsMobileNavLink = () => {
         }
     }
 
-    const links = user && user.role && user.role.toLowerCase() !== "user" ? navLinksAdmin : navLinks
+    const links = user && user.role && user.role.toLowerCase() === "user" ? navLinks : user && user.role && user.role.toLowerCase() === "admin" ? navLinksAdmin : navLinksStaff 
 
     return (
         <div

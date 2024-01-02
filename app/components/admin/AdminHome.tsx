@@ -223,6 +223,14 @@ const AdminHome = () => {
     const endIndex = startIndex + itemsPerPage
     const visibleItems = filterHistoryWallet && filterHistoryWallet.length > 0 ? filterHistoryWallet.slice(startIndex, endIndex) : []
 
+    if (user && user.role && user.role.toLowerCase() === "staff") {
+        return (
+            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
+                Bạn không đủ quyền hạn!!!
+            </div>
+        )
+    }
+
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
             <div className="flex md:flex-row flex-col gap-5 justify-between items-start transition-all duration-500">

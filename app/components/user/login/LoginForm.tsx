@@ -73,9 +73,11 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
-        if (user && user.role && user.role.toLowerCase() !== "user") {
+        if (user && user.role && user.role.toLowerCase() === "admin") {
             router.push("/admin/admin-home")
-        } else if (user && user.isNewUser) {
+        } else if (user && user.role && user.role.toLowerCase() === "staff") {
+            router.push("/admin/post-management")
+        }else if (user && user.isNewUser) {
             router.push("/verify-otp")
         } else if (user && user.role && user.role.toLowerCase() === "user") {
             router.push("/")

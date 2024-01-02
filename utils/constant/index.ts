@@ -93,6 +93,25 @@ export const navLinksAdmin = [
     }
 ]
 
+export const navLinksStaff = [
+    {
+        id: "1",
+        label: "Quản lý bài viết",
+        href: "/admin/post-management"
+    },
+    {
+        id: "2",
+        label: "Xem thêm",
+        linkItems: [
+            {
+                id: "1",
+                label: "Danh sách sân",
+                href: "/product/list-product"
+            },
+        ]
+    }
+]
+
 export const loginInputs = [
     {
         id: "email",
