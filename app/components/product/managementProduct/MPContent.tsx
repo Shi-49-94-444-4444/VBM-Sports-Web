@@ -114,7 +114,7 @@ const MPContent: React.FC<ManagePostData> = ({
                             <span className="text-gray-600">
                                 Tình trạng bài viết:
                             </span>
-                            {status ? (
+                            {!status ? (
                                 <span className="text-green-600 font-semibold">
                                     Hoạt động
                                 </span>
