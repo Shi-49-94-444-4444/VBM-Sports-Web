@@ -3,7 +3,7 @@
 import { useAdminBanModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
-import { adminBanUserService } from "@/services"
+import { adminBanUserService, updateStatusReportService } from "@/services"
 import { toast } from "react-toastify"
 import { mutate } from "swr"
 import { LoadingActionWallet } from "../../loader"
@@ -13,6 +13,7 @@ import { Button } from "../../form"
 const ModalAdminBan = ({ user_id }: { user_id: string }) => {
     const adminBanModal = useAdminBanModal()
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+    const report_id = adminBanModal.reportId
 
     const handleBanUser = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
@@ -37,6 +38,12 @@ const ModalAdminBan = ({ user_id }: { user_id: string }) => {
             })
 
             mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
+
+            if (report_id) {
+                await updateStatusReportService(report_id, 2)
+                window.location.reload()
+            }
+
             adminBanModal.onClose()
         }
 

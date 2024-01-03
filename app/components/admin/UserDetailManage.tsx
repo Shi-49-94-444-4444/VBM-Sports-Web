@@ -50,7 +50,7 @@ const TablePost: React.FC<TablePostProps> = ({
     const listAction = [
         { title: "Xem bài viết", src: (postId: string) => router.push(`/product/detail-product/${postId}`) },
         { title: "Xem báo cáo", src: () => { } },
-        { title: "Xoá bài viết", src: (postId: string) => { adminDeletePostModal.onOpen(postId) } },
+        { title: "Xoá bài viết", src: (postId: string) => { adminDeletePostModal.onOpen(postId, null) } },
     ]
 
     return (
@@ -233,7 +233,7 @@ const UserDetailManage = () => {
                             title="Gửi nhắc nhở"
                             color="bg-emerald-500 hover:bg-emerald-700 border-emerald-500 hover:border-emerald-700"
                             style="py-1 px-4"
-                            onClick={sendNoticeUser.onOpen}
+                            onClick={() => sendNoticeUser.onOpen(null)}
                         />
                     )}
                     {(checkAdminToUser || checkStaffToUser || checkAdminToStaff) && (
@@ -252,7 +252,7 @@ const UserDetailManage = () => {
                                 title="Khoá tài khoản"
                                 color="bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700"
                                 style="py-1 px-4"
-                                onClick={adminBanModal.onOpen}
+                                onClick={() => adminBanModal.onOpen(null)}
                             />
                         )
                     )}

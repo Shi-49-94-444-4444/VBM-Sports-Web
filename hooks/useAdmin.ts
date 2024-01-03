@@ -6,17 +6,26 @@ interface AdminModalStore {
     onClose: () => void;
 }
 
+interface SendNoticedModalStore {
+    isOpen: boolean;
+    reportId: string | null;
+    onOpen: (reportId: string | null) => void;
+    onClose: () => void;
+}
+
 interface AdminDeletePostModalStore {
     isOpen: boolean;
     postId: string | null;
-    onOpen: (postId: string) => void;
+    reportId: string | null;
+    onOpen: (postId: string, reportId: string | null) => void;
     onClose: () => void;
 }
 
 interface SendNoticePostModalStore {
     isOpen: boolean;
-    postId: string | null;
-    onOpen: (postId: string) => void;
+    postId: string | null
+    reportId: string | null
+    onOpen: (postId: string, reportId: string | null) => void;
     onClose: () => void;
 }
 
@@ -40,7 +49,8 @@ interface ChangeMoneyToModalStore {
     userId: string | null;
     money: string | null;
     title: string | null;
-    onOpen: (userId: string, money: string, title: string) => void;
+    reportId: string | null;
+    onOpen: (userId: string, money: string, title: string, reportId: string | null) => void;
     onClose: () => void;
 }
 interface GoToMessModalStore {
@@ -50,10 +60,11 @@ interface GoToMessModalStore {
     onClose: () => void;
 }
 
-export const useAdminBanModal = create<AdminModalStore>((set) => ({
+export const useAdminBanModal = create<SendNoticedModalStore>((set) => ({
     isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false })
+    reportId: null,
+    onOpen: (reportId) => set({ isOpen: true, reportId }),
+    onClose: () => set({ isOpen: false, reportId: null })
 }))
 
 export const useAdminUnBanModal = create<AdminModalStore>((set) => ({
@@ -77,21 +88,24 @@ export const useAdminDownRoleModal = create<AdminModalStore>((set) => ({
 export const useAdminDeletePostModal = create<AdminDeletePostModalStore>((set) => ({
     isOpen: false,
     postId: null,
-    onOpen: (postId: string) => set({ isOpen: true, postId }),
-    onClose: () => set({ isOpen: false, postId: null })
+    reportId: null,
+    onOpen: (postId, reportId) => set({ isOpen: true, postId, reportId }),
+    onClose: () => set({ isOpen: false, postId: null, reportId: null })
 }))
 
-export const useSendNoticeUserModal = create<AdminModalStore>((set) => ({
+export const useSendNoticeUserModal = create<SendNoticedModalStore>((set) => ({
     isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false })
+    reportId: null,
+    onOpen: (reportId) => set({ isOpen: true, reportId }),
+    onClose: () => set({ isOpen: false, reportId: null })
 }))
 
 export const useSendNoticePostModal = create<SendNoticePostModalStore>((set) => ({
     isOpen: false,
     postId: null,
-    onOpen: (postId) => set({ isOpen: true, postId }),
-    onClose: () => set({ isOpen: false, postId: null })
+    reportId: null,
+    onOpen: (postId, reportId) => set({ isOpen: true, postId, reportId }),
+    onClose: () => set({ isOpen: false, postId: null, reportId: null })
 }))
 
 export const useDeleteBLogModal = create<DeleteBlogModalStore>((set) => ({
@@ -114,8 +128,9 @@ export const useChangeMoneyToModal = create<ChangeMoneyToModalStore>((set) => ({
     userId: null,
     money: null,
     title: null,
-    onOpen: (userId, money, title) => set({ isOpen: true, userId, money, title }),
-    onClose: () => set({ isOpen: false, userId: null, money: null, title: null })
+    reportId: null,
+    onOpen: (userId, money, title, reportId) => set({ isOpen: true, userId, money, title, reportId }),
+    onClose: () => set({ isOpen: false, userId: null, money: null, title: null, reportId: null })
 }))
 
 export const useGoToMessModal = create<GoToMessModalStore>((set) => ({

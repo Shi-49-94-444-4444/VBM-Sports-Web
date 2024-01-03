@@ -4,16 +4,17 @@ import { useAdminDeletePostModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
-import { adminDeletePostService } from "@/services"
+import { adminDeletePostService, updateStatusReportService } from "@/services"
 import { mutate } from "swr"
 import { LoadingActionWallet } from "../../loader"
 import CustomModal from "../Modal"
 import { Button } from "../../form"
 
-const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
+const ModalAdminDeletePost = ({ user_id }: { user_id: string | null }) => {
     const adminDeletePostModal = useAdminDeletePostModal()
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const post_id = adminDeletePostModal.postId
+    const report_id = adminDeletePostModal.reportId
 
     const handleDeletePost = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
@@ -37,8 +38,16 @@ const ModalAdminDeletePost = ({ user_id }: { user_id: string }) => {
                 position: toast.POSITION.TOP_RIGHT
             })
 
-            mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
+            if (user_id) {
+                mutate(`/api/users/admin/${user.id}/user/${user_id}/detail`)
+            }
+
             adminDeletePostModal.onClose()
+
+            if (report_id) {
+                await updateStatusReportService(report_id, 2)
+                window.location.reload()
+            }
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)

@@ -4,7 +4,7 @@ import Link from "next/link"
 const NavAdmin = () => {
     return (
         <div className="relative w-full h-20 flex items-center justify-center bg-white shadow-sm">
-            <Link href="/admin/user-management">
+            <Link href="/admin/admin-home">
                 <section className="flex items-center space-x-2">
                     <Image
                         height="40"

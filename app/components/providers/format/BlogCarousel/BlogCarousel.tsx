@@ -17,7 +17,7 @@ SwiperCore.use([Pagination]);
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const BlogCarousel = () => {
-    const { data: listBlog, isLoading, error } = useSWR<ListBlogs>(`/api/blogs`, fetcher, { refreshInterval: 10000 })
+    const { data: listBlog, isLoading, error } = useSWR<ListBlogs>(`/api/blogs/1`, fetcher, { refreshInterval: 10000 })
 
     if (isLoading) {
         return <LoadingFullScreen loading={isLoading} />

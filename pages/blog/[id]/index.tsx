@@ -9,7 +9,7 @@ import { BlogsDetailForm, ListBlogsData } from "@/types"
 import { GetStaticPaths, GetStaticProps } from "next"
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const blogs = await getListBlogService()
+    const blogs = await getListBlogService("1")
     const paths = blogs.data.map((blog: ListBlogsData) => ({
         params: { id: blog?.id?.toString() },
     }))

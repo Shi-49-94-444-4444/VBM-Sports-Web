@@ -301,7 +301,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                             text-gray-600
                             z-[99999]
                             min-h-[50px]
-                            max-h-[600px]
+                            max-h-[500px]
                             overflow-auto
                             flex 
                             justify-center 
@@ -315,7 +315,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                         ) : !listNotify || listNotify.length === 0 ? (
                             <></>
                         ) : (
-                            <ul className="space-y-2 list-none w-[240px]">
+                            <ul className="space-y-2 list-none w-[240px] max-h-[440px]">
                                 {listNotify.map((item) => (
                                     <li className="hover:bg-slate-200 hover:text-primary-blue-cus text-gray-600" key={item.id}>
                                         <button className="
@@ -331,7 +331,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                             <div className="text-base font-medium truncate">
                                                 {item.title}
                                             </div>
-                                            <div className="text-sm font-normal line-clamp-2 break-words">
+                                            <div className="text-sm font-normal line-clamp-2 break-words w-[208px]">
                                                 {item.content}
                                             </div>
                                             <div className="flex justify-between w-full">

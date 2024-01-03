@@ -37,6 +37,22 @@ export function LoadingFullScreen({ color, loading, size, height }: LoadingProps
     );
 }
 
+export function LoadingFadeSmall({ color, loading, size }: LoadingProps) {
+    return (
+        <span
+            className="flex gap-1 items-center justify-center h-[1.75rem]"
+        >
+            <FadeLoader
+                color={color || "#204D94"}
+                loading={loading}
+                height={size || 15}
+                width={size || 5}
+                data-testid="loader"
+            />
+        </span>
+    );
+}
+
 export function LoadingActionWallet({ color, loading, size }: LoadingProps) {
     return (
         <div className={`fixed top-0 left-0 w-full h-full flex items-center justify-center ${loading ? 'bg-black bg-opacity-50 z-[99999]' : ''}`}>

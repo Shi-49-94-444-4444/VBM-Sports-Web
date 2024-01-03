@@ -301,7 +301,7 @@ const Access = () => {
                             text-gray-600
                             z-[99999]
                             min-h-[50px]
-                            max-h-[600px]
+                            max-h-[500px]
                             overflow-auto
                             flex 
                             justify-center 
@@ -315,9 +315,9 @@ const Access = () => {
                         ) : !listNotify || listNotify.length === 0 ? (
                             <></>
                         ) : (
-                            <ul className="space-y-2 list-none w-[240px]">
+                            <ul className="space-y-2 list-none w-[240px] max-h-[440px]">
                                 {listNotify.map((item) => (
-                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus text-gray-600" key={item.id}>
+                                    <li className="hover:bg-slate-200 hover:text-primary-blue-cus text-gray-600 relative" key={item.id}>
                                         <button className="
                                                 px-4 
                                                 py-2
@@ -325,6 +325,7 @@ const Access = () => {
                                                 flex-col
                                                 text-left
                                                 justify-around
+                                                relative
                                             "
                                             type="button"
                                             onClick={async () => await handleRouterNotify(item.about, item.referenceId)}
@@ -332,10 +333,10 @@ const Access = () => {
                                             <div className="text-base font-medium truncate">
                                                 {item.title}
                                             </div>
-                                            <div className="text-sm font-normal line-clamp-2 break-words">
+                                            <div className="text-sm font-normal line-clamp-2 break-words w-[208px]">
                                                 {item.content}
                                             </div>
-                                            <div className="flex justify-between w-full">
+                                            <div className="flex justify-between w-full flex-wrap">
                                                 {item.isRead ? (
                                                     <div className="text-sm font-medium text-primary-blue-cus">
                                                         Đã xem

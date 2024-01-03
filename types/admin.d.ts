@@ -162,3 +162,18 @@ export interface UserReportDetailData {
         }
     }
 }
+
+export interface ListRequestWithdraw {
+    message: string
+    data: {
+        id: string
+        idUser: string
+        money: number
+        createDate: string
+        acceptDate: string
+        status: number
+        bankName: string
+        accountName: string
+        bankNumber: string
+    }[]
+}

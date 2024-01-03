@@ -29,7 +29,7 @@ const IsMobileNavLink = () => {
         }
     }
 
-    const links = user && user.role && user.role.toLowerCase() === "user" ? navLinks : user && user.role && user.role.toLowerCase() === "admin" ? navLinksAdmin : navLinksStaff 
+    const links = user && user.role && user.role.toLowerCase() === "staff" ? navLinksStaff : user && user.role && user.role.toLowerCase() === "admin" ? navLinksAdmin : navLinks 
 
     return (
         <div

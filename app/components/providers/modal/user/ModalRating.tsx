@@ -1,19 +1,20 @@
 "use client"
 
 import { useRatingModal } from "@/hooks"
-import { useRouter } from "next/router"
 import CustomModal from "../Modal"
 import { RatingFilter } from "../../format"
 import { Button, Input } from "../../form"
 
 const ModalRating = () => {
-    const router = useRouter()
     const ratingModal = useRatingModal()
 
     return (
         <CustomModal
             isOpen={ratingModal.isOpen}
-            onClose={ratingModal.onClose}
+            onClose={() => {
+                ratingModal.onClose()
+                window.location.reload()
+            }}
             width="w-full lg:w-2/4 md:3/4 max-w-full"
             height="h-auto"
         >
@@ -64,8 +65,8 @@ const ModalRating = () => {
                         title="Gửi"
                         style="py-2 px-12 text-xl"
                         onClick={() => {
-                            router.reload()
                             ratingModal.onClose()
+                            window.location.reload()
                         }}
                     />
                 </div>

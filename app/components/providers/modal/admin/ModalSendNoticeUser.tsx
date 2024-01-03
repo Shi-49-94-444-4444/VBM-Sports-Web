@@ -4,7 +4,7 @@ import { useSendNoticeUserModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
-import { sendNoticeUserService } from "@/services"
+import { sendNoticeUserService, updateStatusReportService } from "@/services"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { sendNoticeSchema } from "@/utils"
@@ -22,6 +22,8 @@ const ModalSendNoticeUser = ({ user_id }: { user_id: string }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<Message>({
         resolver: yupResolver(sendNoticeSchema)
     })
+
+    const report_id = sendNoticeModal.reportId
 
     const handleSendNoticeUser = async (data: Message) => {
         if (setIsLoadingModal) setIsLoadingModal(true)
@@ -43,6 +45,12 @@ const ModalSendNoticeUser = ({ user_id }: { user_id: string }) => {
         toast.success("Gửi nhắc nhở thành công!", {
             position: toast.POSITION.TOP_RIGHT
         })
+
+        if (report_id) {
+            await updateStatusReportService(report_id, 2)
+            window.location.reload()
+        }
+
         sendNoticeModal.onClose()
 
         if (setIsLoadingModal) setIsLoadingModal(false)

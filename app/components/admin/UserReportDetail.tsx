@@ -10,6 +10,7 @@ import Decimal from "decimal.js"
 import { useAdminBanModal, useAdminDeletePostModal, useChangeMoneyToModal, useSendNoticePostModal, useSendNoticeUserModal, useTrackingReportModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
+import Link from "next/link"
 
 const UserReportDetail: React.FC<UserReportDetailData> = ({
     data
@@ -116,7 +117,7 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
                     <h2 className="text-gray-600 font-semibold text-2xl">
                         Bài đăng bị báo cáo
                     </h2>
-                    <div className="relative md:grid md:grid-cols-5 flex flex-col gap-3 border border-black border-opacity-10 rounded-lg transition-all duration-500">
+                    <Link href={`/product/detail-product/${res.reportPost?.postId}`} className="relative md:grid md:grid-cols-5 flex flex-col gap-3 border border-black border-opacity-10 rounded-lg transition-all duration-500">
                         <div className="col-span-2 relative md:h-full h-60 sm:h-80 w-full transition-all duration-500">
                             {res.reportPost?.postImage && isValidUrl(res.reportPost?.postImage) ? (
                                 <Image
@@ -165,14 +166,14 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
                                 </div>
                             </section>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             ) : resTypeTran && (
                 <div className="flex flex-col gap-5 md:px-3">
                     <h2 className="text-gray-600 font-semibold text-2xl">
                         Hóa đơn bị báo cáo
                     </h2>
-                    <section className="relative flex flex-col gap-3 border border-black border-opacity-10 rounded-lg px-3 py-3">
+                    <Link href={`/transaction/detail-transaction/${res.reportTrans?.transId}`} className="relative flex flex-col gap-3 border border-black border-opacity-10 rounded-lg px-3 py-3">
                         <div className="space-x-1">
                             <span className="text-gray-500">
                                 Mã đơn hàng:
@@ -197,84 +198,92 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
                                 {formatMoney(new Decimal(res.reportTrans?.transMoney ?? 0))}
                             </span>
                         </div>
-                    </section>
+                    </Link>
                 </div>
             )}
             <div className="border-b border-black border-opacity-10" />
-            <div className="flex flex-col gap-5 md:px-3">
-                <h2 className="text-gray-600 font-semibold text-2xl">
-                    Lựa chọn xử lý
-                </h2>
-                {resTypePost ? (
-                    <div className="relative flex gap-3">
-                        <Button
-                            title="Gửi nhắc nhở"
-                            color="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700"
-                            style="py-1 px-4"
-                            onClick={() => {
-                                if (res.reportPost?.postId)
-                                    sendNoticePostModal.onOpen(res.reportPost.postId)
-                            }}
-                        />
-                        <Button
-                            title="Xóa bài"
-                            color="bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700"
-                            style="py-1 px-4"
-                            onClick={() => {
-                                if (res.reportPost?.postId)
-                                    adminDeletePostModal.onOpen(res.reportPost.postId)
-                            }}
-                        />
-                    </div>
-                ) : resTypeTran ? (
-                    <div className="relative flex gap-3">
-                        <Button
-                            title="Nhắn tin"
-                            color="bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700"
-                            style="py-1 px-4"
-                            onClick={() => {
-                                if (user && user.id && res.reportId)
-                                    trackingReportModal.onOpen(user.id, res.reportId)
-                            }}
-                        />
-                        <Button
-                            title="Chuyển tiền (chủ sân)"
-                            color="bg-emerald-500 hover:bg-emerald-700 border-emerald-500 hover:border-emerald-700"
-                            style="py-1 px-4"
-                            onClick={() => {
-                                if (res.userReportId && res.reportTrans?.transMoney)
-                                    changeToModal.onOpen(res.userReportId, res.reportTrans.transMoney, "chủ sân")
-                            }}
-                        />
-                        <Button
-                            title="Chuyển tiền (người đặt)"
-                            color="bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700"
-                            style="py-1 px-4"
-                            onClick={() => {
-                                if (res.userSendId && res.reportTrans?.transMoney)
-                                    changeToModal.onOpen(res.userSendId, res.reportTrans.transMoney, "người đặt sân")
-                            }}
-                        />
-                    </div>
-                ) : (
-                    <div className="relative flex gap-3">
-                        <Button
-                            title="Gửi nhắc nhở"
-                            color="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700"
-                            style="py-1 px-4"
-                            onClick={sendNoticeModal.onOpen}
-                        />
-                        {!res.isBan && (
+            {res?.reportStatus !== 2 && (
+                <div className="flex flex-col gap-5 md:px-3">
+                    <h2 className="text-gray-600 font-semibold text-2xl">
+                        Lựa chọn xử lý
+                    </h2>
+                    {resTypePost ? (
+                        <div className="relative flex gap-3">
                             <Button
-                                title="Khóa tài khoản"
+                                title="Gửi nhắc nhở"
+                                color="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700"
+                                style="py-1 px-4"
+                                onClick={() => {
+                                    if (res.reportPost?.postId && res.reportId)
+                                        sendNoticePostModal.onOpen(res.reportPost.postId, res.reportId)
+                                }}
+                            />
+                            <Button
+                                title="Xóa bài"
                                 color="bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700"
                                 style="py-1 px-4"
-                                onClick={adminBanModal.onOpen}
+                                onClick={() => {
+                                    if (res.reportPost?.postId && res.reportId)
+                                        adminDeletePostModal.onOpen(res.reportPost.postId, res.reportId)
+                                }}
                             />
-                        )}
-                    </div>
-                )}
-            </div>
+                        </div>
+                    ) : resTypeTran ? (
+                        <div className="relative flex gap-3">
+                            <Button
+                                title="Nhắn tin"
+                                color="bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700"
+                                style="py-1 px-4"
+                                onClick={() => {
+                                    if (user && user.id && res.reportId)
+                                        trackingReportModal.onOpen(user.id, res.reportId)
+                                }}
+                            />
+                            <Button
+                                title="Chuyển tiền (chủ sân)"
+                                color="bg-emerald-500 hover:bg-emerald-700 border-emerald-500 hover:border-emerald-700"
+                                style="py-1 px-4"
+                                onClick={() => {
+                                    if (res.userReportId && res.reportTrans?.transMoney && res.reportId)
+                                        changeToModal.onOpen(res.userReportId, res.reportTrans.transMoney, "chủ sân", res.reportId)
+                                }}
+                            />
+                            <Button
+                                title="Chuyển tiền (người đặt)"
+                                color="bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700"
+                                style="py-1 px-4"
+                                onClick={() => {
+                                    if (res.userSendId && res.reportTrans?.transMoney && res.reportId)
+                                        changeToModal.onOpen(res.userSendId, res.reportTrans.transMoney, "người đặt sân", res.reportId)
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        <div className="relative flex gap-3">
+                            <Button
+                                title="Gửi nhắc nhở"
+                                color="bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700"
+                                style="py-1 px-4"
+                                onClick={() => {
+                                    if (res.reportId)
+                                        sendNoticeModal.onOpen(res.reportId)
+                                }}
+                            />
+                            {!res.isBan && (
+                                <Button
+                                    title="Khóa tài khoản"
+                                    color="bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700"
+                                    style="py-1 px-4"
+                                    onClick={() => {
+                                        if (res.reportId)
+                                            adminBanModal.onOpen(res.reportId)
+                                    }}
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

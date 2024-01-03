@@ -164,7 +164,13 @@ const UserManagement = () => {
     const endIndex = startIndex + itemsPerPage
     const visibleItems = filteredUsers && filteredUsers.length > 0 ? filteredUsers.slice(startIndex, endIndex) : []
 
-    //console.log(searchTerm)
+    if (user && user.role && user.role.toLowerCase() === "staff") {
+        return (
+            <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-screen">
+                Bạn không đủ quyền hạn!!!
+            </div>
+        )
+    }
 
     return (
         <div className="relative flex flex-col px-6 py-10">

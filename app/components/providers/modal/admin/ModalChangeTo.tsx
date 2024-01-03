@@ -4,7 +4,7 @@ import { useChangeMoneyToModal } from "@/hooks"
 import { useContext } from "react"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
-import { walletService } from "@/services"
+import { updateStatusReportService, walletService } from "@/services"
 import { LoadingActionWallet } from "../../loader"
 import CustomModal from "../Modal"
 import { Button } from "../../form"
@@ -16,6 +16,7 @@ const ModalChangeTo = () => {
     const user_id = changeToModal.userId
     const money = changeToModal.money
     const title = changeToModal.title
+    const report_id = changeToModal.reportId
 
     const handleClick = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
@@ -38,6 +39,12 @@ const ModalChangeTo = () => {
             toast.success("Chuyển tiền thành công !", {
                 position: toast.POSITION.TOP_RIGHT
             })
+
+            if (report_id) {
+                await updateStatusReportService(report_id, 2)
+                window.location.reload()
+            }
+
             changeToModal.onClose()
         }
 

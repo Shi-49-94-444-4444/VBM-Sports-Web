@@ -34,9 +34,9 @@ export const DeleteBlogService = async ({ blog_id, user_id }: { blog_id: string,
     }
 }
 
-export const getListBlogService = async () => {
+export const getListBlogService = async (id: string) => {
     try {
-        const response = await AxiosClient.get(`/api/blogs`)
+        const response = await AxiosClient.get(`/api/blogs/${id}`)
 
         return response.data
     } catch (error: any) {

@@ -3,26 +3,30 @@
 import { GlobalContext } from "@/contexts"
 import { useUnauthorizeModal } from "@/hooks"
 import { postSuggestionAIService } from "@/services"
-import { useRouter } from "next/navigation"
 import { useContext } from "react"
+import { Loading } from "../../providers"
 
 const BannerIntro = () => {
-    const { user } = useContext(GlobalContext) || {}
+    const { user, setAIListProduct, isLoading, setIsLoading } = useContext(GlobalContext) || {}
     const unauthorizeModal = useUnauthorizeModal()
 
-    const handleClick = async() => {
+    const handleClick = async () => {
+        if (setIsLoading) setIsLoading(true)
+
         if (!user) {
-            return unauthorizeModal.onOpen()
+            unauthorizeModal.onOpen()
+            if (setIsLoading) setIsLoading(false)
+            return
         }
 
         if (user && user.id) {
             const res = await postSuggestionAIService(user.id)
 
-            router.push(`/product/detail-product/${res.data.postId.result}`)
+            if (setAIListProduct) setAIListProduct(res.data)
         }
-    }
 
-    const router = useRouter()
+        if (setIsLoading) setIsLoading(false)
+    }
 
     return (
         <div className="lg:col-span-2 pb-5">
@@ -74,37 +78,66 @@ const BannerIntro = () => {
                         mt-5
                     "
                 >
-                    <button
-                        className={`
-                            hover:text-white
-                            hover:bg-primary-blue-cus
-                            bg-white
-                            text-primary-blue-cus
-                            px-12 
-                            py-4 
-                            rounded-lg
-                            font-bold
-                            whitespace-nowrap
-                            cursor-pointer
-                            flex
-                            items-center
-                        `}
-                        onClick={handleClick}
-                        type="button"
-
-                    >
-                        <div className="
+                    {isLoading ? (
+                        <button
+                            className={`
+                                bg-white
+                                text-primary-blue-cus
+                                px-[5.5rem] 
+                                py-3
+                                w-[210px]
+                                h-[56px]
+                                rounded-lg
+                                font-bold
+                                whitespace-nowrap
+                                cursor-pointer
                                 flex
-                                flex-nowrap
-                                flew-row
-                                items-start
-                            "
+                                items-center
+                            `}
                         >
-                            <span>
-                                Tìm sân nhanh
-                            </span>
-                        </div>
-                    </button>
+                            <div className="
+                                    flex
+                                    flex-nowrap
+                                    flew-row
+                                    items-start
+                                "
+                            >
+                                <Loading loading={isLoading}/>
+                            </div>
+                        </button>
+                    ) : (
+                        <button
+                            className={`
+                                hover:text-white
+                                hover:bg-primary-blue-cus
+                                bg-white
+                                text-primary-blue-cus
+                                px-12 
+                                py-4 
+                                rounded-lg
+                                font-bold
+                                whitespace-nowrap
+                                cursor-pointer
+                                flex
+                                items-center
+                            `}
+                            onClick={handleClick}
+                            type="button"
+
+                        >
+                            <div className="
+                                    flex
+                                    flex-nowrap
+                                    flew-row
+                                    items-start
+                                "
+                            >
+                                <span>
+                                    Tìm sân nhanh
+                                </span>
+                            </div>
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

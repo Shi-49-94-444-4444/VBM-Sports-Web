@@ -143,3 +143,18 @@ export const createGroupChatService = async ({ admin_id, report_id }: { admin_id
         }
     }
 }
+
+export const updateRequestService = async (id_request: string) => {
+    try {
+        const response = await AxiosClient.put(`/api/transactions/${id_request}/accept_withdraw_request`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}
+

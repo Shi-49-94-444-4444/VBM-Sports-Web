@@ -109,7 +109,7 @@ const PostManagement = () => {
 
     const router = useRouter()
 
-    const { data: listBlogManagement, isLoading, error } = useSWR<ListBlogs>(user && user.role && user.role.toLowerCase() === "staff" ? `/api/blogs?user_id=${user.id}` : `/api/blogs`, fetcher, { refreshInterval: 10000 })
+    const { data: listBlogManagement, isLoading, error } = useSWR<ListBlogs>(user ? `/api/blogs/${user.id}` : null, fetcher, { refreshInterval: 10000 })
 
     const filteredBlogs = listBlogManagement && listBlogManagement.data && listBlogManagement.data.filter(blog => blog.title && removeVietnameseTones(blog.title).includes(removeVietnameseTones(searchTerm)))
 

@@ -6,7 +6,7 @@ import { ListRoom, ManagePostData } from "@/types"
 import { FormatTime, formatDateFunc, validateAddress, validateDes, validateTitle, validateURLProduct } from "@/utils"
 import { RiMessage3Line } from "react-icons/ri"
 import { useRouter } from "next/navigation"
-import { useBoostProductModal, useRoomByProductModal } from "@/hooks"
+import { useAdminDeletePostModal, useBoostProductModal, useRoomByProductModal } from "@/hooks"
 import { AxiosClient } from "@/services"
 import useSWR from "swr"
 import { useContext } from "react"
@@ -28,6 +28,7 @@ const MPContent: React.FC<ManagePostData> = ({
     const { data: listRoom } = useSWR<ListRoom>(postId ? `/api/posts/${postId}/chat_rooms` : null, fetcher)
     const { setRoomId } = useContext(GlobalContext) || {}
     const boostProductModal = useBoostProductModal()
+    const adminDeletePostModal = useAdminDeletePostModal()
     const router = useRouter()
 
     let date: string | undefined;
@@ -157,6 +158,10 @@ const MPContent: React.FC<ManagePostData> = ({
                             <Button
                                 title="Xoá bài đăng"
                                 style="w-full justify-center items-center px-2"
+                                onClick={() => {
+                                    if (postId)
+                                        adminDeletePostModal.onOpen(postId, null)
+                                }}
                             />
                         </div>
                         <div className="relative w-full col-span-1">

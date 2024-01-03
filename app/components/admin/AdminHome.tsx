@@ -1,18 +1,22 @@
 "use client"
 
 import { useContext, useEffect, useState } from "react"
-import { Button, DownMetalBtn, Input, Loading, LoadingFullScreen, Search } from "../providers"
-import { AxiosClient, updateSettingAdminService } from "@/services"
+import { Button, DownMetalBtn, Input, Loading, LoadingFadeSmall, LoadingFullScreen, Search } from "../providers"
+import { AxiosClient, updateRequestService, updateSettingAdminService } from "@/services"
 import useSWR from "swr";
 import { GlobalContext, SettingNames } from "@/contexts"
-import { AdminSetting, AdminSettingListData, HistoryTransaction, HistoryTransactionData, WalletUserData } from "@/types";
+import { AdminSetting, AdminSettingListData, HistoryTransaction, HistoryTransactionData, ListProduct, ListRequestWithdraw, ManageUser, ManagementReport, WalletUserData } from "@/types";
 import { Status, formatMoney } from "@/utils"
 import ReactPaginate from "react-paginate"
 import * as XLSX from 'xlsx'
 import Decimal from "decimal.js"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import Image from "next/image";
+import { IoWalletOutline } from "react-icons/io5";
+import { format } from "date-fns"
+import { GiReceiveMoney } from "react-icons/gi"
+import { FaUserFriends } from "react-icons/fa";
+import { BsBookmarksFill } from "react-icons/bs";
 
 interface TableHistoryWalletProps {
     listItem: HistoryTransactionData[],
@@ -120,18 +124,31 @@ const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem, curre
 const AdminHome = () => {
     const [searchTerm, setSearchTerm] = useState<string>("")
     const [disable, setDisable] = useState<boolean>(true)
+    const [dateRange, setDateRange] = useState({
+        startDate: format(new Date(), 'MM/dd/yyyy'),
+        endDate: format(new Date(), 'MM/dd/yyyy')
+    })
+    const [displayCount, setDisplayCount] = useState(5)
 
-    const { user, isLoadingModal, setIsLoadingModal } = useContext(GlobalContext) || {}
+    const { user, isLoadingModal, setIsLoadingModal, isLoading, setIsLoading } = useContext(GlobalContext) || {}
 
-    const { data: listHistoryWallet, error, isLoading } = useSWR<HistoryTransaction>(user ? `/api/wallet/user/${user.id}/history` : null, fetcher, { refreshInterval: 10000 })
+    const { data: listHistoryWallet, error, isLoading: loadingHistory } = useSWR<HistoryTransaction>(user ? `/api/wallet/user/${user.id}/history` : null, fetcher, { refreshInterval: 10000 })
     const { data: listSetting, mutate } = useSWR<AdminSetting>(`/api/Settings/get_listSetting`, fetcher, { refreshInterval: 10000 })
-    const { data: userWallet } = useSWR<WalletUserData>(user ? `/api/wallet/${user.id}/user_wallet` : null, fetcher, { refreshInterval: 5000 })
+    const { data: userWallet, isLoading: loadingWallet } = useSWR<WalletUserData>(user ? `/api/wallet/${user.id}/user_wallet` : null, fetcher, { refreshInterval: 5000 })
+    const { data: listIncoming, isLoading: loadingIncoming } = useSWR<ManagementReport>(dateRange.endDate && dateRange.startDate ? `/api/reports/${encodeURIComponent(dateRange.startDate)}&${encodeURIComponent(dateRange.endDate)}/report_income_Month` : null, fetcher, { refreshInterval: 10000 })
+    const { data: listUser, isLoading: loadingUser } = useSWR<ManageUser>(user ? `/api/users/managed/${user.id}` : null, fetcher, { refreshInterval: 10000 })
+    const { data: listProduct, isLoading: loadingProduct } = useSWR<ListProduct>(`/api/posts/GetListPost`, fetcher, { refreshInterval: 10000 })
+    const { data: listRequest, isLoading: loadingRequest, mutate: reLoadRequest } = useSWR<ListRequestWithdraw>(`/api/transactions/withdraw_request`, fetcher, { refreshInterval: 10000 })
 
     const { register, handleSubmit, setValue, watch } = useForm<AdminSettingListData>({
         defaultValues: {
             listSettingData: listSetting?.data,
         }
     })
+
+    const handleShowMore = () => {
+        setDisplayCount(prevCount => prevCount + 5);
+    }
 
     useEffect(() => {
         if (listSetting && listSetting.data.length > 0) {
@@ -207,7 +224,29 @@ const AdminHome = () => {
         setDisable(true)
 
         if (setIsLoadingModal) setIsLoadingModal(false)
-    };
+    }
+
+    const handleAcceptRequest = async (id_request: string) => {
+        if (setIsLoading) setIsLoading(true)
+
+        const res = await updateRequestService(id_request)
+
+        if (res.data === null) {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+            if (setIsLoading) setIsLoading(false)
+            return
+        }
+
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT
+        })
+
+        reLoadRequest()
+
+        if (setIsLoading) setIsLoading(false)
+    }
 
     const filterHistoryWallet = listHistoryWallet && listHistoryWallet.data && listHistoryWallet.data.filter(history => history.time && history.time.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()))
 
@@ -232,7 +271,7 @@ const AdminHome = () => {
     }
 
     return (
-        <div className="relative flex flex-col px-6 py-10 gap-5">
+        <div className="relative flex flex-col px-6 py-10 gap-10">
             <div className="flex md:flex-row flex-col gap-5 justify-between items-start transition-all duration-500">
                 <div className="
                         flex 
@@ -249,24 +288,99 @@ const AdminHome = () => {
                         Quản lý chung
                     </h1>
                 </div>
-                <div className="flex space-x-4">
-                    <div className="relative flex-shrink-0 h-full">
-                        <Image
-                            src="/images/walletIcon.png"
-                            alt="walletIcon"
-                            width={200}
-                            height={100}
-                            className="object-contain w-20 h-full"
-                        />
+            </div>
+            <div className="grid lg:grid-cols-4 grid-cols-2 gap-5">
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                    <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
+                        <div className="relative text-primary-blue-cus flex-shrink-0">
+                            <IoWalletOutline size={60} />
+                        </div>
+                        <div className="flex flex-col gap-1 text-center">
+                            {loadingWallet ? (
+                                <div className="relative w-full h-full justify-center items-center">
+                                    <LoadingFadeSmall loading={loadingWallet} />
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="text-2xl font-semibold text-primary-blue-cus">
+                                        {formatMoney(new Decimal(userWallet?.data.balance ?? 0))}
+                                    </div>
+                                    <div className="text-xl font-semibold text-gray-600">
+                                        Ví tiền
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </div>
-                    <section className="flex flex-col gap-3">
-                        <label className="font-semibold text-2xl">
-                            Số dư ví
-                        </label>
-                        <p className="font-semibold text-3xl ease-in-out transition-all duration-500">
-                            {formatMoney(new Decimal(userWallet ? userWallet.data.balance : 0))}
-                        </p>
-                    </section>
+                </div>
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                    <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
+                        <div className="relative text-primary-blue-cus flex-shrink-0">
+                            <GiReceiveMoney size={60} />
+                        </div>
+                        <div className="flex flex-col gap-1 text-center">
+                            {loadingIncoming ? (
+                                <div className="relative w-full h-full justify-center items-center">
+                                    <LoadingFadeSmall loading={loadingIncoming} />
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="text-2xl font-semibold text-primary-blue-cus">
+                                        {formatMoney(new Decimal(listIncoming?.data.total ?? 0))}
+                                    </div>
+                                    <div className="text-xl font-semibold text-gray-600">
+                                        Doanh thu theo ngày
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                    <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
+                        <div className="relative text-primary-blue-cus flex-shrink-0">
+                            <FaUserFriends size={60} />
+                        </div>
+                        <div className="flex flex-col gap-1 text-center">
+                            {loadingUser ? (
+                                <div className="relative w-full h-full justify-center items-center">
+                                    <LoadingFadeSmall loading={loadingUser} />
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="text-2xl font-semibold text-primary-blue-cus">
+                                        {listUser?.data.length ?? 0}
+                                    </div>
+                                    <div className="text-xl font-semibold text-gray-600">
+                                        Người dùng
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                    <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
+                        <div className="relative text-primary-blue-cus flex-shrink-0">
+                            <BsBookmarksFill size={60} />
+                        </div>
+                        <div className="flex flex-col gap-1 text-center">
+                            {loadingProduct ? (
+                                <div className="relative w-full h-full justify-center items-center">
+                                    <LoadingFadeSmall loading={loadingProduct} />
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="text-2xl font-semibold text-primary-blue-cus">
+                                        {listProduct?.data.length ?? 0}
+                                    </div>
+                                    <div className="text-xl font-semibold text-gray-600">
+                                        Bài đăng
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="
@@ -350,6 +464,134 @@ const AdminHome = () => {
                 "
             >
                 <h1 className="font-semibold md:text-3xl text-2xl flex-shrink-0">
+                    Xử lý rút tiền
+                </h1>
+            </div>
+            <div className="flex flex-col gap-3">
+                {loadingRequest ? (
+                    <div className="h-96 flex items-center justify-center">
+                        <LoadingFullScreen loading={loadingRequest} />
+                    </div>
+                ) : !listRequest || listRequest.data.length === 0 ? (
+                    <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
+                        Không có yêu cầu chuyển tiền nào cả!
+                    </div>
+                ) : listRequest?.data.slice(0, displayCount).map((item) => (
+                    <div className="flex flex-row gap-3 border border-black border-opacity-25 rounded-lg p-4 justify-between flex-wrap transition-all duration-500" key={item.id}>
+                        <section className="flex flex-col gap-3">
+                            <h1 className="text-primary-blue-cus md:text-2xl text-xl font-semibold transition-all duration-500">Yêu cầu rút tiền từ người dùng có id: {item.idUser}</h1>
+                            <div className="flex gap-3 flex-wrap">
+                                <div className="space-x-1">
+                                    <span className="text-lg font-semibold text-gray-500">
+                                        Ngân hàng:
+                                    </span>
+                                    <span className="text-lg font-semibold text-gray-600">
+                                        {item.bankName}
+                                    </span>
+                                </div>
+                                <div className="space-x-1">
+                                    <span className="text-lg font-semibold text-gray-500">
+                                        Số tài khoản:
+                                    </span>
+                                    <span className="text-lg font-semibold text-gray-600">
+                                        {item.bankNumber}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="flex gap-3 flex-wrap">
+                                <div className="space-x-1">
+                                    <span className="text-lg font-semibold text-gray-500">
+                                        Tên chủ thẻ:
+                                    </span>
+                                    <span className="text-lg font-semibold text-gray-600">
+                                        {item.accountName}
+                                    </span>
+                                </div>
+                                <div className="space-x-1">
+                                    <span className="text-lg font-semibold text-gray-500">
+                                        Yêu cầu được gửi:
+                                    </span>
+                                    <span className="text-lg font-semibold text-gray-600">
+                                        {item.createDate}
+                                    </span>
+                                </div>
+                            </div>
+                        </section>
+                        <section className="flex flex-col gap-2">
+                            <div className="space-x-1">
+                                <span className="text-lg font-semibold text-gray-500">
+                                    Số tiền rút:
+                                </span>
+                                <span className="md:text-2xl text-xl font-semibold text-primary-blue-cus">
+                                    {formatMoney(new Decimal(item.money))}
+                                </span>
+                            </div>
+                            <div className="space-x-1">
+                                <span className="text-lg font-semibold text-gray-500">
+                                    Trạng thái:
+                                </span>
+                                <span className="text-lg font-semibold">
+                                    {item.status === 0 ? (
+                                        <span className="text-blue-600">
+                                            Đang xử lý
+                                        </span>
+                                    ) : item.status === 1 ? (
+                                        <span className="text-green-600">
+                                            Đã xử lý
+                                        </span>
+                                    ) : (
+                                        <span className="text-red-600">
+                                            Từ chối
+                                        </span>
+                                    )}
+                                </span>
+                            </div>
+                        </section>
+                        <section className="flex flex-col gap-2 justify-center">
+                            {item.status === 0 && (
+                                <>
+                                    {isLoading ? (
+                                        <Button
+                                            title={<Loading loading={isLoading} />}
+                                            isHover={false}
+                                        />
+                                    ) : (
+                                        <Button
+                                            title="Đồng ý"
+                                            onClick={() => handleAcceptRequest(item.id)}
+                                        />
+                                    )}
+                                    <Button
+                                        title="Từ chối"
+                                    />
+                                </>
+                            )}
+                        </section>
+                    </div>
+                ))}
+                {listRequest?.data && listRequest?.data.length > displayCount && (
+                    <div className="flex w-full justify-end">
+                        <Button
+                            title="Hiển thị thêm"
+                            onClick={() => handleShowMore()}
+                            style="text-xl px-6"
+                        />
+                    </div>
+                )}
+            </div>
+            <div className="
+                    flex 
+                    flex-col 
+                    text-gray-600 
+                    gap-5
+                    md:flex-row 
+                    md:justify-between 
+                    md:items-center 
+                    md:gap-0
+                    pt-5
+                "
+            >
+                <h1 className="font-semibold md:text-3xl text-2xl flex-shrink-0">
                     Quản lý ví
                 </h1>
                 <div className="flex gap-3 flex-col md:flex-row justify-end flex-wrap transition-all duration-500">
@@ -363,9 +605,9 @@ const AdminHome = () => {
                 </div>
             </div>
             {
-                isLoading ? (
+                loadingHistory ? (
                     <div className="h-96 flex items-center justify-center">
-                        <LoadingFullScreen loading={isLoading} />
+                        <LoadingFullScreen loading={loadingHistory} />
                     </div>
                 ) : !listHistoryWallet || !filterHistoryWallet || listHistoryWallet.data.length === 0 ? (
                     <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
@@ -381,7 +623,7 @@ const AdminHome = () => {
                     </div>
                 ) : (
                     <>
-                        <TableHistoryWallet listItem={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
+                        <TableHistoryWallet listItem={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage} />
                         {pageCount > 0 && (
                             <div className="flex justify-center mt-5 text-base font-semibold">
                                 <ReactPaginate

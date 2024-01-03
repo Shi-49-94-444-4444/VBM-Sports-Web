@@ -51,3 +51,17 @@ export const reportUserService = async (data: ReportUserFormData) => {
         }
     }
 }
+
+export const updateStatusReportService = async (id_report: string, report_status: number) => {
+    try {
+        const response = await AxiosClient.put(`/api/reports/update_report_status/${id_report}&${report_status}`)
+
+        return response.data
+    } catch (error: any) {
+        //console.log(error)
+
+        if (error && error.response) {
+            return error.response.data
+        }
+    }
+}

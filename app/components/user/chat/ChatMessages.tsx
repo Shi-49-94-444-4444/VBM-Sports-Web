@@ -213,6 +213,14 @@ const ChatMessages = () => {
                                         </div>
                                     </div>
                                 </div>
+                            ) : mess.userId == "65" ? (
+                                <div className="flex flex-col gap-1 text-lg" key={mess.messageId}>
+                                    <div className="flex flex-row space-x-2 items-center w-full justify-center">
+                                        <div className="text-gray-600 transition-all duration-500 text-base font-semibold">
+                                            {mess.message}
+                                        </div>
+                                    </div>
+                                </div>
                             ) : (
                                 <div className="flex flex-col gap-1 text-lg items-start" key={mess.messageId}>
                                     <div className="text-gray-500">

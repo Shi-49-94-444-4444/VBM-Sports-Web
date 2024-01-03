@@ -70,6 +70,8 @@ interface GlobalContextProps {
     setListNotify: React.Dispatch<React.SetStateAction<NotifyData[] | null>>
     listSetting: AdminSettingData[] | null
     setListSetting: React.Dispatch<React.SetStateAction<AdminSettingData[] | null>>
+    AIListProduct: ListProductData[] | null
+    setAIListProduct: React.Dispatch<React.SetStateAction<ListProductData[] | null>>
 }
 
 export const GlobalContext = createContext<GlobalContextProps | null>(null);
@@ -92,6 +94,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [listNotify, setListNotify] = useState<NotifyData[] | null>([])
     const [listSetting, setListSetting] = useState<AdminSettingData[] | null>([])
     const [roomId, setRoomId] = useState<string | null>(null)
+    const [AIListProduct, setAIListProduct] = useState<ListProductData[] | null>(null)
 
     useEffect(() => {
         const fetchDistricts = async () => {
@@ -196,7 +199,9 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 isLoadingNotify,
                 setIsLoadingNotify,
                 listSetting,
-                setListSetting
+                setListSetting,
+                AIListProduct,
+                setAIListProduct
             }}
         >
             {children}
