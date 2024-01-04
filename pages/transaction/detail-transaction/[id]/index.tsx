@@ -79,7 +79,7 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
                                     id={tran_id}
                                     total={transaction.data.total}
                                     isCancel={transaction.data.isCancel}
-                                    post={transaction.data.post}
+                                    TranStatus={transaction.data.TranStatus}
                                 />
                             </div>
                         </div>

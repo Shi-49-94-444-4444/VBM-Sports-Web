@@ -146,7 +146,8 @@ export interface ManagePost {
         postImgUrl?: string | null
         userImgUrl?: string | null
         address?: string | null
-        status?: string | null
+        status?: boolean | null
+        isDelete?: boolean | null
     }[]
 }
 
@@ -161,5 +162,6 @@ export interface ManagePostData {
     postImgUrl?: string | null
     userImgUrl?: string | null
     address?: string | null
-    status?: string | null
+    status?: boolean | null
+    isDelete?: boolean | null
 }

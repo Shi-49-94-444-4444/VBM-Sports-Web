@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react"
 import { Button, DownMetalBtn, Input, Loading, LoadingFadeSmall, LoadingFullScreen, Search } from "../providers"
-import { AxiosClient, updateRequestService, updateSettingAdminService } from "@/services"
+import { AxiosClient, updateRequestAcceptService, updateRequestDeniedService, updateSettingAdminService } from "@/services"
 import useSWR from "swr";
 import { GlobalContext, SettingNames } from "@/contexts"
 import { AdminSetting, AdminSettingListData, HistoryTransaction, HistoryTransactionData, ListProduct, ListRequestWithdraw, ManageUser, ManagementReport, WalletUserData } from "@/types";
@@ -229,7 +229,29 @@ const AdminHome = () => {
     const handleAcceptRequest = async (id_request: string) => {
         if (setIsLoading) setIsLoading(true)
 
-        const res = await updateRequestService(id_request)
+        const res = await updateRequestAcceptService(id_request)
+
+        if (res.data === null) {
+            toast.error(res.message, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+            if (setIsLoading) setIsLoading(false)
+            return
+        }
+
+        toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT
+        })
+
+        reLoadRequest()
+
+        if (setIsLoading) setIsLoading(false)
+    }
+
+    const handleDeniedRequest = async (id_request: string) => {
+        if (setIsLoading) setIsLoading(true)
+
+        const res = await updateRequestDeniedService(id_request)
 
         if (res.data === null) {
             toast.error(res.message, {
@@ -563,6 +585,7 @@ const AdminHome = () => {
                                     )}
                                     <Button
                                         title="Từ chối"
+                                        onClick={() => handleDeniedRequest(item.id)}
                                     />
                                 </>
                             )}

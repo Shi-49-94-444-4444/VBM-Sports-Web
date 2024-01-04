@@ -22,7 +22,8 @@ const MPContent: React.FC<ManagePostData> = ({
     time,
     availableSlot,
     postImgUrl,
-    status
+    status,
+    isDelete
 }) => {
     const roomByRoleModal = useRoomByProductModal()
     const { data: listRoom } = useSWR<ListRoom>(postId ? `/api/posts/${postId}/chat_rooms` : null, fetcher)
@@ -42,6 +43,11 @@ const MPContent: React.FC<ManagePostData> = ({
             [startTime, endTime] = rangeTime.split(" - ")
         }
     }
+
+
+    const checkDisable = (isDelete === false || isDelete === true || !isDelete) && (status === false || !status)
+
+    console.log(checkDisable)
 
     return (
         <div className="lg:grid lg:grid-cols-4 flex flex-col gap-3 transition-all duration-500" key={postId}>
@@ -115,10 +121,16 @@ const MPContent: React.FC<ManagePostData> = ({
                             <span className="text-gray-600">
                                 Tình trạng bài viết:
                             </span>
-                            {!status ? (
-                                <span className="text-green-600 font-semibold">
-                                    Hoạt động
-                                </span>
+                            {!isDelete ? (
+                                status ? (
+                                    <span className="text-green-600 font-semibold">
+                                        Đang hoạt động
+                                    </span>
+                                ) : (
+                                    <span className="text-primary-blue-cus font-semibold">
+                                        Đã ẩn
+                                    </span>
+                                )
                             ) : (
                                 <span className="text-red-600 font-semibold">
                                     Hết hoạt động
@@ -137,6 +149,7 @@ const MPContent: React.FC<ManagePostData> = ({
                                         if (postId)
                                             roomByRoleModal.onOpen(listRoom.data)
                                     }}
+                                    disabled={checkDisable}
                                 />
                             </div>
                         ) : (
@@ -150,6 +163,7 @@ const MPContent: React.FC<ManagePostData> = ({
                                             if (setRoomId) setRoomId(item.id)
                                             router.push("/user/chat-room")
                                         }}
+                                        disabled={checkDisable}
                                     />
                                 </div>
                             ))
@@ -162,6 +176,7 @@ const MPContent: React.FC<ManagePostData> = ({
                                     if (postId)
                                         adminDeletePostModal.onOpen(postId, null)
                                 }}
+                                disabled={isDelete === true}
                             />
                         </div>
                         <div className="relative w-full col-span-1">
@@ -172,6 +187,7 @@ const MPContent: React.FC<ManagePostData> = ({
                                     if (postId)
                                         boostProductModal.onOpen(postId)
                                 }}
+                                disabled={checkDisable}
                             />
                         </div>
                         <div className="relative w-full col-span-1">

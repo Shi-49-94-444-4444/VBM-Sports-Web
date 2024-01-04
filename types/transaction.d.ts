@@ -8,6 +8,7 @@ export interface TransactionPaymentDetail {
             id: string
             playDate: string
         }[]
+        TranStatus: number
         buyerName: string
         payTime: string
         total: string
@@ -34,6 +35,7 @@ export interface TransactionPaymentDetailData {
         id: string
         playDate: string
     }[]
+    TranStatus?: number
     buyerName?: string
     payTime?: string
     total?: string

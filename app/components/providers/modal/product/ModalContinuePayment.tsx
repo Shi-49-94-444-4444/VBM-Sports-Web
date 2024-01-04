@@ -2,7 +2,7 @@
 
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
-import { bookingService, joinChatRoomService } from "@/services"
+import { bookingService } from "@/services"
 import { useContinuePaymentModal, useFailPaymentModal, useFeaturingModal, useSuccessPaymentModal } from "@/hooks"
 import Image from "next/image"
 import { useContext } from "react"
@@ -48,9 +48,6 @@ const ModalContinuePayment = () => {
                 return
             }
 
-            for (let i = 0; i < res.data.chatInfos.length; i++) {
-                await joinChatRoomService({ user_id: user.id, room_id: res.data.chatInfos[i].roomId })
-            }
             continuePaymentModal.onClose()
             if (setFetchUser) setFetchUser(true)
             successPaymentModal.onOpen(res.data.transactionId)
