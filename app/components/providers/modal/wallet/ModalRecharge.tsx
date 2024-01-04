@@ -3,9 +3,9 @@
 import { useRechargeModal } from "@/hooks"
 import Image from "next/image"
 import { useForm } from "react-hook-form"
-import { WalletFrom } from "@/types"
+import { WalletFromRecharge } from "@/types"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { walletSchema } from "@/utils"
+import { walletRechargeSchema } from "@/utils"
 import { useContext, useEffect, useRef, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { VNPAYService } from "@/services"
@@ -21,11 +21,11 @@ const ModalRecharge = () => {
     const newWindowRef = useRef<any>(null)
     const [windowOpened, setWindowOpened] = useState(false)
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<WalletFrom>({
-        resolver: yupResolver(walletSchema)
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<WalletFromRecharge>({
+        resolver: yupResolver(walletRechargeSchema)
     })
 
-    const onSubmit = async (data: WalletFrom) => {
+    const onSubmit = async (data: WalletFromRecharge) => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
         if (user && user.id) {
@@ -105,7 +105,7 @@ const ModalRecharge = () => {
             width="w-full lg:w-2/4 md:3/4 max-w-full"
             height="h-auto"
         >
-            <div className="relative flex flex-col justify-center items-center gap-5 py-5">
+            <form className="relative flex flex-col justify-center items-center gap-5 py-5" onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex items-center space-x-5">
                     <div className="relative flex-shrink-0">
                         <Image
@@ -120,7 +120,7 @@ const ModalRecharge = () => {
                         Thanh toán Vnpay
                     </div>
                 </div>
-                <form className="relative flex flex-col gap-3 w-full px-2 md:px-10" onSubmit={handleSubmit(onSubmit)}>
+                <div className="relative flex flex-col gap-3 w-full px-2 md:px-10">
                     <label className="text-gray-600 text-xl font-semibold text-left">
                         Nhập số tiền cần nạp:
                     </label>
@@ -140,8 +140,8 @@ const ModalRecharge = () => {
                             type="submit"
                         />
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </CustomModal>
     )
 }

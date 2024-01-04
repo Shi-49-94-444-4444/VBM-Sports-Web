@@ -1,4 +1,4 @@
-import { Container, ModalRating, ModalTransaction, TransactionDetail, TransactionExtra } from '@/app/components'
+import { Container, ModalDeleteTransaction, ModalRating, ModalTransaction, TransactionDetail, TransactionExtra } from '@/app/components'
 import Layout from '@/app/layout'
 import Custom500 from '@/pages/500'
 import { getTransactionDetailService } from '@/services'
@@ -41,7 +41,8 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
     return (
         <Layout>
             <ModalRating />
-            <ModalTransaction tran_id={tran_id} creator={transaction.data.post.createUser}/>
+            <ModalDeleteTransaction />
+            <ModalTransaction tran_id={tran_id} creator={transaction.data.post.createUser} />
             <Container>
                 <div className="relative py-10">
                     {transaction.data.slots == null ? (
@@ -75,6 +76,7 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
                                     post={transaction.data.post}
                                 />
                                 <TransactionExtra
+                                    id={tran_id}
                                     total={transaction.data.total}
                                     isCancel={transaction.data.isCancel}
                                     post={transaction.data.post}

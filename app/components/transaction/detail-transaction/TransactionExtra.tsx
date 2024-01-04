@@ -4,15 +4,17 @@ import Image from "next/image"
 import { Button } from "../../providers"
 import { TransactionPaymentDetailData } from "@/types"
 import { add, isBefore, parse } from "date-fns"
-import { useTransactionModal } from "@/hooks"
+import { useDeleteTransactionModal, useTransactionModal } from "@/hooks"
 
 const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
+    id,
     total,
     isCancel,
     post,
 }) => {
     const endTime = post && parse(post.endTime, "dd/MM/yyyy HH:mm", new Date())
-    const currentTime = new Date();
+    const currentTime = new Date()
+    const deleteTransactionModal = useDeleteTransactionModal()
 
     const isBefore24Hours = endTime && isBefore(currentTime, add(endTime, { hours: -24 }))
 
@@ -72,6 +74,10 @@ const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
                         <Button
                             title="Hủy chỗ đặt"
                             style="py-3 text-lg"
+                            onClick={() => {
+                                if (id)
+                                    deleteTransactionModal.onOpen(id)
+                            }}
                         />
                     )
                 )}

@@ -95,6 +95,13 @@ export const commentSchema = yup.object().shape({
         max(500, "Nhiều nhất 500 kí tự"),
 })
 
+export const walletRechargeSchema = yup.object().shape({
+    money: yup.number().
+        required("Không được để trống").
+        min(10000, "Tối thiểu là 10,000 VNĐ").
+        max(100000000, "Tối đa là 100,000,000 VNĐ"),
+})
+
 export const walletSchema = yup.object().shape({
     bankNumber: yup.string().min(10, "Tối thiểu 10 ký tự").max(20, "Nhiều nhất 20 ký tự").required("Không được để trống"),
     accountName: yup.string().required("Không được để trống"),

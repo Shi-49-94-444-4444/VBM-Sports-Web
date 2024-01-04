@@ -104,6 +104,10 @@ export interface ReportUserFormData {
     toUserID: string
 }
 
+export interface WalletFromRecharge {
+    money: number
+}
+
 export interface WalletFrom {
     idUser?: string
     bankName?: string

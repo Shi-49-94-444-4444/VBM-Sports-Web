@@ -23,7 +23,7 @@ import { useUserBanUserModal } from "./useUserBanUser"
 import { useChangePasswordModal } from "./useChangePassword"
 import { useFeaturingModal } from "./useFeaturing"
 import { useRatingModal } from "./useRating"
-import { useTransactionModal } from "./useTransaction"
+import { useTransactionModal, useDeleteTransactionModal } from "./useTransaction"
 import { useCheckPostModal, useRoomByProductModal, useBoostProductModal } from "./useProduct"
 import { usePolicyModal } from "./usePolicy"
 
@@ -56,5 +56,6 @@ export {
     useSendNoticePostModal,
     useChangeMoneyToModal,
     useTrackingReportModal,
-    useGoToMessModal
+    useGoToMessModal,
+    useDeleteTransactionModal
 }

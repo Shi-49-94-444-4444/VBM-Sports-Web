@@ -5,6 +5,7 @@ import ModalCheckPost from "./ModalCheckPost"
 import ModalRoomByProduct from "./ModalRoomByProduct"
 import ModalContinuePayment from "./ModalContinuePayment"
 import ModalBoostProduct from "./ModalBoostProduct"
+import ModalDeleteTransaction from "./ModalDeleteTransaction"
 
 export {
     ModalCheckPost,
@@ -13,5 +14,6 @@ export {
     ModalRoomByProduct,
     ModalSuccessPayment,
     ModalTransaction,
-    ModalBoostProduct
+    ModalBoostProduct,
+    ModalDeleteTransaction
 }

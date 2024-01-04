@@ -41,7 +41,7 @@ export const buySlotService = async (data: BuySlotFormData) => {
     }
 }
 
-export const deleteTransactionService = async ({ tran_id }: { tran_id: string }) => {
+export const deleteTransactionService = async (tran_id: string) => {
     try {
         const response = await AxiosClient.delete(`/api/transactions/${tran_id}/discard`)
 
@@ -99,7 +99,7 @@ export const getListTransactionService = async (id: string) => {
 
 export const sendRequestWithdrawService = async (data: WalletFrom) => {
     // console.log(data)
-    
+
     try {
         const response = await AxiosClient.put(`/api/transactions/create_withdraw_request`, {
             idUser: Number(data.idUser),

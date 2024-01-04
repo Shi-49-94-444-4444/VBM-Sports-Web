@@ -57,7 +57,7 @@ const RuleList = () => {
 
         <div className="relative flex justify-center pt-5">
           {isEditing ? (
-            <Button title="Cập nhập" style="text-xl py-3" onClick={handleUpdateClick} />
+            <Button title="Cập nhật" style="text-xl py-3" onClick={handleUpdateClick} />
           ) : (
             <Button title="Chỉnh sửa" style="text-xl py-3" onClick={() => setIsEditing(true)} />
           )}

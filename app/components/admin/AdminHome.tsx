@@ -13,7 +13,7 @@ import Decimal from "decimal.js"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { IoWalletOutline } from "react-icons/io5";
-import { format } from "date-fns"
+import { addDays, format } from "date-fns"
 import { GiReceiveMoney } from "react-icons/gi"
 import { FaUserFriends } from "react-icons/fa";
 import { BsBookmarksFill } from "react-icons/bs";
@@ -126,7 +126,7 @@ const AdminHome = () => {
     const [disable, setDisable] = useState<boolean>(true)
     const [dateRange, setDateRange] = useState({
         startDate: format(new Date(), 'MM/dd/yyyy'),
-        endDate: format(new Date(), 'MM/dd/yyyy')
+        endDate: format(addDays(new Date(), 1), 'MM/dd/yyyy')
     })
     const [displayCount, setDisplayCount] = useState(5)
 
@@ -290,7 +290,7 @@ const AdminHome = () => {
                 </div>
             </div>
             <div className="grid lg:grid-cols-4 grid-cols-2 gap-5">
-                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg flex items-center justify-center">
                     <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
                         <div className="relative text-primary-blue-cus flex-shrink-0">
                             <IoWalletOutline size={60} />
@@ -313,7 +313,7 @@ const AdminHome = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg flex items-center justify-center">
                     <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
                         <div className="relative text-primary-blue-cus flex-shrink-0">
                             <GiReceiveMoney size={60} />
@@ -336,7 +336,7 @@ const AdminHome = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg flex items-center justify-center">
                     <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
                         <div className="relative text-primary-blue-cus flex-shrink-0">
                             <FaUserFriends size={60} />
@@ -359,7 +359,7 @@ const AdminHome = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-1 border border-black border-opacity-50 rounded-lg">
+                <div className="col-span-1 border border-black border-opacity-50 rounded-lg flex items-center justify-center">
                     <div className="flex xl:flex-row flex-col gap-5 py-3 px-5 items-center justify-around">
                         <div className="relative text-primary-blue-cus flex-shrink-0">
                             <BsBookmarksFill size={60} />
@@ -423,7 +423,7 @@ const AdminHome = () => {
                     {disable ? (
                         <div className="relative">
                             <Button
-                                title="Chỉnh sữa"
+                                title="Chỉnh sửa"
                                 style="px-5 text-xl"
                                 onClick={(event) => {
                                     event.preventDefault()
@@ -531,11 +531,11 @@ const AdminHome = () => {
                                     Trạng thái:
                                 </span>
                                 <span className="text-lg font-semibold">
-                                    {item.status === 0 ? (
+                                    {item.status === 1 ? (
                                         <span className="text-blue-600">
                                             Đang xử lý
                                         </span>
-                                    ) : item.status === 1 ? (
+                                    ) : item.status === 0 ? (
                                         <span className="text-green-600">
                                             Đã xử lý
                                         </span>
@@ -548,7 +548,7 @@ const AdminHome = () => {
                             </div>
                         </section>
                         <section className="flex flex-col gap-2 justify-center">
-                            {item.status === 0 && (
+                            {item.status === 1 && (
                                 <>
                                     {isLoading ? (
                                         <Button
