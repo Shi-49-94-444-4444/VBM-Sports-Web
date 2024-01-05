@@ -9,11 +9,13 @@ const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
     id,
     total,
     isCancel,
-    TranStatus
+    tranStatus
 }) => {
     const deleteTransactionModal = useDeleteTransactionModal()
 
     const transactionModal = useTransactionModal()
+
+    console.log(tranStatus)
 
     return (
         <div className="col-span-4 gap-5 flex flex-col">
@@ -68,7 +70,7 @@ const TransactionExtra: React.FC<TransactionPaymentDetailData> = ({
                         }}
                     />
                 ) : (
-                    TranStatus === 0 || TranStatus === 1 && (
+                    (tranStatus === 0 || tranStatus === 1) && (
                         <Button
                             title="Thanh toán ngay"
                             style="py-3 text-lg"

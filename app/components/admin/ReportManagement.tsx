@@ -150,7 +150,7 @@ const ReportManagement = () => {
         } else if (formattedType === "Thanh toán phí đăng bài" || formattedType.includes("Nhận tiền hoa hồng đăng bài của đơn hàng")) {
             formattedType = "Đăng bài";
         } else {
-            formattedType = "Các khoảng khác"
+            formattedType = "Các khoản khác"
         }
 
         if (!acc[formattedType]) {
