@@ -86,19 +86,19 @@ const TableUserReport: React.FC<TableUserReportProps> = ({
 
                     return (
                         <tr key={items.id}>
-                            <td className="py-3 border-l border-r border-black border-opacity-10 px-1">{totalIndex}</td>
-                            <td className="py-3 border-l border-r border-black border-opacity-10 px-1">{items.id}</td>
-                            <td className="py-3 border-r border-black border-opacity-10 truncate px-1">{items.title ?? "Chưa có"}</td>
-                            <td className="py-3 border-r border-black border-opacity-10 px-1">{items.content}</td>
-                            <td className="py-3 border-r border-black border-opacity-10 px-1">{items.dateReceive}</td>
-                            <td className="py-3 border-r border-black border-opacity-10 px-1">
+                            <td className="py-3 border-l border-r border-b border-black border-opacity-10 px-2 align-text-top">{totalIndex}</td>
+                            <td className="py-3 border-l border-r border-b border-black border-opacity-10 px-2 align-text-top">{items.id}</td>
+                            <td className="py-3 border-r border-b border-black border-opacity-10 px-1 text-left align-text-top">{items.title ?? "Chưa có"}</td>
+                            <td className="py-3 border-r border-b border-black border-opacity-10 px-2 text-left align-text-top">{items.content}</td>
+                            <td className="py-3 border-r border-b border-black border-opacity-10 px-2 align-text-top">{items.dateReceive}</td>
+                            <td className="py-3 border-r border-b border-black border-opacity-10 px-2 align-text-top w-auto whitespace-nowrap">
                                 {items.status?.toLowerCase() === "pending" ? (
                                     "Đang xử lý"
                                 ) : (
                                     "Đã xử lý"
                                 )}
                             </td>
-                            <td className="py-3 border-r border-black border-opacity-10 relative">
+                            <td className="py-3 border-r border-b border-black border-opacity-10 relative">
                                 <button className=" cursor-pointer" type="button" onClick={() => handleToggle(items.id)}>
                                     ...
                                 </button>

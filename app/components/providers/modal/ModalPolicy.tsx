@@ -29,7 +29,7 @@ const ModalPolicy = () => {
                 return
             }
 
-            toast.success(res.message, {
+            toast.success("Cập nhật thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
 

@@ -90,7 +90,7 @@ const CreateBlog = () => {
                 return
             }
 
-            toast.success(res.message, {
+            toast.success("Đăng tin tức thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
 

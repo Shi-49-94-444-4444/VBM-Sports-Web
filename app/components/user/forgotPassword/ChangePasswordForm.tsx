@@ -50,7 +50,7 @@ const ChangePasswordForm = () => {
             return
         }
 
-        toast.success(res.message, {
+        toast.success("Đổi mật khẩu thành công", {
             position: toast.POSITION.TOP_RIGHT,
         })
         localStorage.clear()

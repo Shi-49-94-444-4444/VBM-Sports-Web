@@ -74,6 +74,7 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
                                     buyerName={transaction.data.buyerName}
                                     payTime={transaction.data.payTime}
                                     post={transaction.data.post}
+                                    cancelHour={transaction.data.cancelHour}
                                 />
                                 <TransactionExtra
                                     id={tran_id}

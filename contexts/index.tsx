@@ -35,6 +35,7 @@ export enum SettingNames {
     BookingFee = "bookingFee",
     FreeNumberPost = "freeNumberPost",
     BoostPostFree = "boostPostFree",
+    CancelHour = "cancelHour",
 }
 
 interface GlobalContextProps {

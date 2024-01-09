@@ -50,7 +50,8 @@ interface ChangeMoneyToModalStore {
     money: string | null;
     title: string | null;
     reportId: string | null;
-    onOpen: (userId: string, money: string, title: string, reportId: string | null) => void;
+    tranId: string | null;
+    onOpen: (userId: string, money: string, title: string, reportId: string | null, tranId: string | null) => void;
     onClose: () => void;
 }
 interface GoToMessModalStore {
@@ -129,8 +130,9 @@ export const useChangeMoneyToModal = create<ChangeMoneyToModalStore>((set) => ({
     money: null,
     title: null,
     reportId: null,
-    onOpen: (userId, money, title, reportId) => set({ isOpen: true, userId, money, title, reportId }),
-    onClose: () => set({ isOpen: false, userId: null, money: null, title: null, reportId: null })
+    tranId: null,
+    onOpen: (userId, money, title, reportId, tranId) => set({ isOpen: true, userId, money, title, reportId, tranId }),
+    onClose: () => set({ isOpen: false, userId: null, money: null, title: null, reportId: null, tranId: null })
 }))
 
 export const useGoToMessModal = create<GoToMessModalStore>((set) => ({

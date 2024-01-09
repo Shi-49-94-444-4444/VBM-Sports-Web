@@ -55,7 +55,7 @@ const ModalReportUser = ({ id }: { id: string }) => {
                 return
             }
 
-            toast.success(res.message, {
+            toast.success("Tố cáo thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
 

@@ -42,10 +42,6 @@ const ForgotPasswordForm = () => {
             return
         }
 
-        toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-        })
-
         localStorage.setItem("email", JSON.stringify(data.email))
 
         setIsForgot(true)

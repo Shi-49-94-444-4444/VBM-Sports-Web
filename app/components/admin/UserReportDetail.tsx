@@ -244,8 +244,8 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
                                 color="bg-emerald-500 hover:bg-emerald-700 border-emerald-500 hover:border-emerald-700"
                                 style="py-1 px-4"
                                 onClick={() => {
-                                    if (res.userReportId && res.reportTrans?.transMoney && res.reportId)
-                                        changeToModal.onOpen(res.userReportId, res.reportTrans.transMoney, "chủ sân", res.reportId)
+                                    if (res.userReportId && res.reportTrans && res.reportTrans.transMoney && res.reportId && res.reportTrans.transId)
+                                        changeToModal.onOpen(res.userReportId, res.reportTrans.transMoney, "chủ sân", res.reportId, res.reportTrans.transId)
                                 }}
                             />
                             <Button
@@ -253,8 +253,8 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
                                 color="bg-green-500 hover:bg-green-700 border-green-500 hover:border-green-700"
                                 style="py-1 px-4"
                                 onClick={() => {
-                                    if (res.userSendId && res.reportTrans?.transMoney && res.reportId)
-                                        changeToModal.onOpen(res.userSendId, res.reportTrans.transMoney, "người đặt sân", res.reportId)
+                                    if (res.userSendId && res.reportTrans && res.reportTrans.transMoney && res.reportId && res.reportTrans.transId)
+                                        changeToModal.onOpen(res.userSendId, res.reportTrans.transMoney, "người đặt sân", res.reportId, res.reportTrans.transId)
                                 }}
                             />
                         </div>

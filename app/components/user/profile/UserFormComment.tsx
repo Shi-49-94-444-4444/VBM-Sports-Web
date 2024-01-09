@@ -43,10 +43,6 @@ const UserFormComment = ({ id }: { id: string }) => {
                 return
             }
 
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT
-            })
-
             mutate(`/api/users/${id}/comments`)
         }
 

@@ -58,10 +58,6 @@ const StepperHorizontalContent = ({ }) => {
                 return
             }
 
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
             if (setUser) {
                 setUser(prevUser => {
                     const updatedUser = { ...prevUser, playingArea: user.playingArea }
@@ -95,10 +91,6 @@ const StepperHorizontalContent = ({ }) => {
                 return
             }
 
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
-
             if (setUser) {
                 setUser(prevUser => {
                     const updatedUser = { ...prevUser, playingLevel: user.playingLevel }
@@ -131,10 +123,6 @@ const StepperHorizontalContent = ({ }) => {
                 if (setIsLoading) setIsLoading(false)
                 return
             }
-
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            })
 
             if (setUser) {
                 setUser(prevUser => {

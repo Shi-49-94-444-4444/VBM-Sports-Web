@@ -39,6 +39,7 @@ const listTitleSetting = [
     { settingName: SettingNames.BookingFee, label: "Phí hoa hồng (% theo giao dịch)" },
     { settingName: SettingNames.FreeNumberPost, label: "Lượt miên phí đăng bài/tháng" },
     { settingName: SettingNames.BoostPostFree, label: "Phí đẩy bài", isMoney: true },
+    { settingName: SettingNames.CancelHour, label: "Thời gian hủy bài (giờ)" },
 ]
 
 const exportToExcel = (listItem: HistoryTransactionData[]) => {
@@ -216,7 +217,7 @@ const AdminHome = () => {
             }
         }
 
-        toast.success("Cập nhập thành công", {
+        toast.success("Cập nhật thành công", {
             position: toast.POSITION.TOP_RIGHT
         });
 
@@ -239,7 +240,7 @@ const AdminHome = () => {
             return
         }
 
-        toast.success(res.message, {
+        toast.success("Cập nhật thành công", {
             position: toast.POSITION.TOP_RIGHT
         })
 
@@ -261,7 +262,7 @@ const AdminHome = () => {
             return
         }
 
-        toast.success(res.message, {
+        toast.success("Cập nhật thành công", {
             position: toast.POSITION.TOP_RIGHT
         })
 
@@ -499,8 +500,8 @@ const AdminHome = () => {
                         Không có yêu cầu chuyển tiền nào cả!
                     </div>
                 ) : listRequest?.data.slice(0, displayCount).map((item) => (
-                    <div className="flex flex-row gap-3 border border-black border-opacity-25 rounded-lg p-4 justify-between flex-wrap transition-all duration-500" key={item.id}>
-                        <section className="flex flex-col gap-3">
+                    <div className="grid grid-cols-12 gap-3 border border-black border-opacity-25 rounded-lg p-4 justify-between flex-wrap transition-all duration-500" key={item.id}>
+                        <section className="xl:col-span-7 sm:col-span-9 col-span-12 flex flex-col gap-3">
                             <h1 className="text-primary-blue-cus md:text-2xl text-xl font-semibold transition-all duration-500">Yêu cầu rút tiền từ người dùng có id: {item.idUser}</h1>
                             <div className="flex gap-3 flex-wrap">
                                 <div className="space-x-1">
@@ -539,16 +540,16 @@ const AdminHome = () => {
                                 </div>
                             </div>
                         </section>
-                        <section className="flex flex-col gap-2">
-                            <div className="space-x-1">
+                        <section className="sm:col-span-3 col-span-12 flex flex-col gap-2">
+                            <div className="flex flex-wrap gap-1">
                                 <span className="text-lg font-semibold text-gray-500">
                                     Số tiền rút:
                                 </span>
-                                <span className="md:text-2xl text-xl font-semibold text-primary-blue-cus">
+                                <span className="md:text-2xl text-xl font-semibold text-primary-blue-cus whitespace-nowrap">
                                     {formatMoney(new Decimal(item.money))}
                                 </span>
                             </div>
-                            <div className="space-x-1">
+                            <div className="flex flex-wrap gap-1">
                                 <span className="text-lg font-semibold text-gray-500">
                                     Trạng thái:
                                 </span>
@@ -569,7 +570,7 @@ const AdminHome = () => {
                                 </span>
                             </div>
                         </section>
-                        <section className="flex flex-col gap-2 justify-center">
+                        <section className="xl:col-span-2 col-span-12 flex xl:flex-col gap-2 xl:justify-center xl:items-center">
                             {item.status === 1 && (
                                 <>
                                     {isLoading ? (

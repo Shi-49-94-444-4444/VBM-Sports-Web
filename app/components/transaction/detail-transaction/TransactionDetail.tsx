@@ -9,7 +9,8 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
     slots,
     buyerName,
     payTime,
-    post
+    post,
+    cancelHour
 }) => {
     const date = payTime && parse(payTime, 'dd/MM/yyyy HH:mm', new Date())
     const formattedDate = date && format(date, 'EEEE, dd MMMM yyyy HH:mm', { locale: vi })
@@ -70,7 +71,7 @@ const TransactionDetail: React.FC<TransactionPaymentDetailData> = ({
                 </div>
             </div>
             <div className="text-lg text-gray-500 font-medium relative pt-5">
-                *Lưu ý: 24 giờ trước ngày chơi đầu tiên của bạn sẽ không được hủy đặt sân
+                *Lưu ý: {cancelHour} giờ trước ngày chơi đầu tiên của bạn sẽ không được hủy đặt sân
             </div>
         </div>
     )

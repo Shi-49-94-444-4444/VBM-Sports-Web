@@ -5,10 +5,11 @@ import { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { reportTransactionService } from "@/services"
+import { reportTransactionService, transactionStatusService } from "@/services"
 import CustomModal from "../Modal"
 import { Button } from "../../form"
 import { Loading } from "../../loader"
+import { mutate } from "swr"
 
 const ModalReportTransaction = () => {
     const reportTransactionModal = useReportTransactionModal()
@@ -16,7 +17,7 @@ const ModalReportTransaction = () => {
         label: "",
         value: ""
     })
-    const { setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
+    const { setIsLoadingModal, isLoadingModal, user } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
 
     const listReport = [
@@ -54,7 +55,14 @@ const ModalReportTransaction = () => {
                 return
             }
 
-            toast.success(res.message, {
+            await transactionStatusService({
+                tran_id: reportTransactionModal.tran_id,
+                status_info: 4
+            })
+
+            if (user) mutate(`/api/posts/user/${user.id}/joined`)
+
+            toast.success("Tố cáo thành công", {
                 position: toast.POSITION.TOP_RIGHT
             })
 

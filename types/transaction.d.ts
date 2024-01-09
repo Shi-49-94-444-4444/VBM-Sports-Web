@@ -13,6 +13,7 @@ export interface TransactionPaymentDetail {
         payTime: string
         total: string
         isCancel: boolean
+        cancelHour?: string
         post: {
             id: string,
             title: string,
@@ -40,6 +41,7 @@ export interface TransactionPaymentDetailData {
     payTime?: string
     total?: string
     isCancel?: boolean
+    cancelHour?: string
     post?: {
         id: string,
         title: string,
