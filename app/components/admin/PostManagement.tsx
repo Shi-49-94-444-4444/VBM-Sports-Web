@@ -53,7 +53,7 @@ const TableBLog: React.FC<TableBlogProps> = ({ listItem, currentPage, itemsPerPa
     ]
 
     const listAction = [
-        { title: "Xem bài viết", action: (blogId: string) => router.push("/") },
+        { title: "Xem bài viết", action: (blogId: string) => router.push(`/blog/${blogId}`) },
         { title: "Xoá bài viết", action: (blogId: string) => deleteBlogModal.onOpen(blogId) },
     ]
 

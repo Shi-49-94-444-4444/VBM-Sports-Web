@@ -301,7 +301,7 @@ const ReportManagement = () => {
                         "
                     >
                         <h1 className="font-semibold md:text-3xl text-2xl flex-shrink-0">
-                            Các khoảng doanh thu
+                            Các khoản doanh thu
                         </h1>
                     </div>
                     <div className="relative w-full">
@@ -374,7 +374,7 @@ const ReportManagement = () => {
                 </div>
             ) : filteredIncoming && filteredIncoming.length === 0 ? (
                 <div className="flex items-center justify-center md:text-4xl text-3xl text-primary-blue-cus font-semibold h-96">
-                    Doanh thu trong khoảng này không tồn tại
+                    Doanh thu trong khoản này không tồn tại
                 </div>
             ) : (
                 <>

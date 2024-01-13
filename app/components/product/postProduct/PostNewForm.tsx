@@ -72,7 +72,7 @@ const PostNewForm = () => {
         if (startDate && endDate) {
             const diffInDays = differenceInDays(new Date(endDate), new Date(startDate));
             if (diffInDays > 7) {
-                toast.error('Khoảng cách giữa ngày bắt đầu và ngày kết thúc không được vượt quá 7 ngày', {
+                toast.error('Khoản cách giữa ngày bắt đầu và ngày kết thúc không được vượt quá 7 ngày', {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 setDateRange({ startDate: null, endDate: null })

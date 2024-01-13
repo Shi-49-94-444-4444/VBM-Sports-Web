@@ -21,7 +21,6 @@ const ModalReportTransaction = () => {
     const { handleSubmit } = useForm()
 
     const listReport = [
-        { label: "SCAM", value: "Người đăng bài không tham gia" },
         { label: "LỪA ĐẢO", value: "Có dấu hiệu lừa đảo" },
         { label: "BUÔN BÁN", value: "Bài đăng đã bị trùng với bài đăng khác" },
         { label: "GIAO TIẾP", value: "Người tham gia bài đăng có lời nói thô tục, khiếm nhã đối với những người dùng khác (cung cấp tên người dùng)" },
