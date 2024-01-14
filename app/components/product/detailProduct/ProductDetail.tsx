@@ -3,7 +3,7 @@
 import { ProductDetailContentData } from "@/types"
 import { Button } from "../../providers"
 import { FormatTime, formatMoney, validateAddress, validateTitle } from "@/utils"
-import { useContext, useState } from "react"
+import React, { useContext, useState } from "react"
 import { GlobalContext } from "@/contexts"
 import { toast } from "react-toastify"
 import { addHours, format, parse, parseISO } from "date-fns"
@@ -95,6 +95,12 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
         setMethodChecked(isChecked);
     }
 
+    const handleClickHost = () => {
+        toast.error("Bạn là chủ sân không thể đặt chỗ trong bài đăng của mình", {
+            position: toast.POSITION.TOP_RIGHT
+        })
+    }
+
     const handleClick = () => {
         let slotsInfoArray: { dateRegis: string, numSlots: number }[] = []
 
@@ -172,74 +178,72 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                     const date = format(parseISO(item.startTime), 'dd/MM/yyyy')
                     const startTime = format(parseISO(item.startTime), 'HH:mm')
                     const endTime = format(parseISO(item.endTime), 'HH:mm')
-
+                    
                     return (
-                        item.availableSlot > 0 && (
-                            <div className="break-words flex flex-wrap items-center gap-2 border border-black border-opacity-10 rounded-lg p-2" key={index}>
-                                {!checkUser && (
-                                    <input
-                                        type="checkbox"
-                                        checked={checkedStatus[date] || false}
-                                        onChange={(e) => handleCheckboxChange(date, e.target.checked, item.price, item)}
-                                        className="ring-0 outline-none focus:ring-0 focus:outline-none"
-                                    />
-                                )}
-                                <div className="flex space-x-1 items-center w-28">
-                                    <span>
-                                        <MdOutlineDateRange size={20} color="#204D94" />
-                                    </span>
-                                    <span>
-                                        {date}
-                                    </span>
-                                </div>
-                                <div className="flex space-x-1 items-center w-36">
-                                    <span>
-                                        <IoTimeOutline size={20} color="#204D94" />
-                                    </span>
-                                    <span>
-                                        <FormatTime timeString={startTime} /> - <FormatTime timeString={endTime} />
-                                    </span>
-                                </div>
-                                <div className="flex items-center w-44 max-w-full">
-                                    <span>
-                                        <MdOutlineAttachMoney size={20} color="#204D94" />
-                                    </span>
-                                    <span className="text-primary-blue-cus">
-                                        {formatMoney(new Decimal(item.price))}/Chỗ
-                                    </span>
-                                </div>
-                                {checkUser ? (
-                                    <section className="flex space-x-1 items-center">
-                                        <label>
-                                            Số chỗ còn lại:
-                                        </label>
-                                        <span>
-                                            {item.availableSlot}
-                                        </span>
-                                    </section>
-                                ) : (
-                                    <section className="flex space-x-1 items-center">
-                                        <label>
-                                            Số chỗ đặt:
-                                        </label>
-                                        <input
-                                            type="number"
-                                            pattern="^(0|[1-9][0-9]*)$"
-                                            min={selectedSlots[date] || 0}
-                                            max={item.availableSlot}
-                                            value={selectedSlots[date] || 0}
-                                            disabled={!selectedSlots[date]}
-                                            onChange={(e) => handleInputChange(date, Number(e.target.value), item)}
-                                            onKeyPress={handleKeyPress}
-                                            className={`px-1 py-1 w-8 text-center ${selectedSlots[date] ? '' : 'cursor-not-allowed bg-gray-300'}`}
-                                        />
-                                        <span>
-                                            /{item.availableSlot}
-                                        </span>
-                                    </section>
-                                )}
+                        <div className="break-words flex flex-wrap items-center gap-2 border border-black border-opacity-10 rounded-lg p-2" key={index}>
+                            {!checkUser && (
+                                <input
+                                    type="checkbox"
+                                    checked={checkedStatus[date] || false}
+                                    onChange={(e) => handleCheckboxChange(date, e.target.checked, item.price, item)}
+                                    className="ring-0 outline-none focus:ring-0 focus:outline-none"
+                                />
+                            )}
+                            <div className="flex space-x-1 items-center w-28">
+                                <span>
+                                    <MdOutlineDateRange size={20} color="#204D94" />
+                                </span>
+                                <span>
+                                    {date}
+                                </span>
                             </div>
-                        )
+                            <div className="flex space-x-1 items-center w-36">
+                                <span>
+                                    <IoTimeOutline size={20} color="#204D94" />
+                                </span>
+                                <span>
+                                    <FormatTime timeString={startTime} /> - <FormatTime timeString={endTime} />
+                                </span>
+                            </div>
+                            <div className="flex items-center w-48 max-w-full">
+                                <span>
+                                    <MdOutlineAttachMoney size={20} color="#204D94" />
+                                </span>
+                                <span className="text-primary-blue-cus">
+                                    {formatMoney(new Decimal(item.price))}/Chỗ
+                                </span>
+                            </div>
+                            {checkUser ? (
+                                <section className="flex space-x-1 items-center">
+                                    <label>
+                                        Số chỗ còn lại:
+                                    </label>
+                                    <span>
+                                        {item.availableSlot}
+                                    </span>
+                                </section>
+                            ) : (
+                                <section className="flex space-x-1 items-center">
+                                    <label>
+                                        Số chỗ đặt:
+                                    </label>
+                                    <input
+                                        type="number"
+                                        pattern="^(0|[1-9][0-9]*)$"
+                                        min={selectedSlots[date] || 0}
+                                        max={item.availableSlot}
+                                        value={selectedSlots[date] || 0}
+                                        disabled={!selectedSlots[date]}
+                                        onChange={(e) => handleInputChange(date, Number(e.target.value), item)}
+                                        onKeyPress={handleKeyPress}
+                                        className={`px-1 py-1 w-8 text-center ${selectedSlots[date] ? '' : 'cursor-not-allowed bg-gray-300'}`}
+                                    />
+                                    <span>
+                                        /{item.availableSlot}
+                                    </span>
+                                </section>
+                            )}
+                        </div>
                     )
                 })}
             </section>
@@ -275,26 +279,21 @@ const ProductDetail: React.FC<ProductDetailContentData> = ({
                 </section>
             )}
             {user && user.id === userId ? (
-                <div className="flex gap-3 w-full relative">
-                    <Button
-                        title="Ẩn bài đăng"
-                        style="py-4 justify-center w-full"
-                    />
-                    <Button
-                        title="Xóa bài đăng"
-                        style="py-4 justify-center w-full"
-                    />
-                </div>
+                <Button
+                    title="Đặt chỗ ngay"
+                    style="py-3 justify-center"
+                    onClick={handleClickHost}
+                />
             ) : !isAuthUser ? (
                 <Button
                     title="Đặt chỗ ngay"
-                    style="py-4 justify-center"
+                    style="py-3 justify-center"
                     onClick={unauthorizeModal.onOpen}
                 />
             ) : !checkUser && (
                 <Button
                     title="Đặt chỗ ngay"
-                    style="py-4 justify-center"
+                    style="py-3 justify-center"
                     onClick={handleClick}
                 />
             )}

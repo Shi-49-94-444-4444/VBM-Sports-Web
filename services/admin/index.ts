@@ -160,7 +160,7 @@ export const updateRequestAcceptService = async (id_request: string) => {
 
 export const updateRequestDeniedService = async (id_request: string) => {
     try {
-        const response = await AxiosClient.put(`/api/transactions/{$id_request}/denied_withdraw_request`)
+        const response = await AxiosClient.put(`/api/transactions/${id_request}/denied_withdraw_request`)
 
         return response.data
     } catch (error: any) {

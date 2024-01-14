@@ -29,7 +29,7 @@ const ModalReportUser = ({ id }: { id: string }) => {
     const onSubmit = async () => {
         if (setIsLoadingModal) setIsLoadingModal(true)
 
-        if (!selectedReport) {
+        if (selectedReport.label.trim() === "" || selectedReport.value.trim() === "") {
             toast.error("Chọn tố cáo trước khi tố cáo", {
                 position: toast.POSITION.TOP_RIGHT
             })

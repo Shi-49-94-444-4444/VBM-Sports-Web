@@ -186,11 +186,20 @@ const SettingProfile = () => {
                         </div>
                     ))}
                     <div className="relative flex justify-center">
-                        <Button 
-                            title="Lưu"
-                            type="submit"
-                            style="md:py-2 md:text-xl px-8"
-                        />
+                        {isLoading ? (
+                            <Button
+                                title={<Loading loading={isLoading}/>}
+                                type="submit"
+                                style="py-3 text-xl px-12"
+                                isHover={false}
+                            />
+                        ) : (
+                            <Button
+                                title="Lưu"
+                                type="submit"
+                                style="py-3 text-xl px-12"
+                            />
+                        )}
                     </div>
                 </>
             )}

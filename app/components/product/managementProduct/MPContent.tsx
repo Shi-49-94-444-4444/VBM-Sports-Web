@@ -44,7 +44,6 @@ const MPContent: React.FC<ManagePostData> = ({
         }
     }
 
-
     const checkDisable = (isDelete === false || isDelete === true || !isDelete) && (status === false || !status)
 
     console.log(checkDisable)

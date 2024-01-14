@@ -1,7 +1,7 @@
 "use client"
 
 import { useContext, useEffect, useState } from "react"
-import { Button, DownMetalBtn, Input, Loading, LoadingFadeSmall, LoadingFullScreen, Search } from "../providers"
+import { Button, DownMetalBtn, Input, Loading, LoadingActionWallet, LoadingFadeSmall, LoadingFullScreen, Search } from "../providers"
 import { AxiosClient, updateRequestAcceptService, updateRequestDeniedService, updateSettingAdminService } from "@/services"
 import useSWR from "swr";
 import { GlobalContext, SettingNames } from "@/contexts"
@@ -199,6 +199,14 @@ const AdminHome = () => {
                     return;
                 }
 
+                if (settingName === SettingNames.CancelHour && (settingValue < 0)) {
+                    toast.error("Thời gian hủy hóa đơn không thể âm", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    if (setIsLoadingModal) setIsLoadingModal(false);
+                    return;
+                }
+
                 // console.log(setting.settingId, settingValue)
 
                 const res = await updateSettingAdminService({
@@ -291,6 +299,10 @@ const AdminHome = () => {
                 Bạn không đủ quyền hạn!!!
             </div>
         )
+    }
+
+    if (isLoading) {
+        return <LoadingActionWallet loading={isLoading} />
     }
 
     return (
@@ -573,17 +585,10 @@ const AdminHome = () => {
                         <section className="xl:col-span-2 col-span-12 flex xl:flex-col gap-2 xl:justify-center xl:items-center">
                             {item.status === 1 && (
                                 <>
-                                    {isLoading ? (
-                                        <Button
-                                            title={<Loading loading={isLoading} />}
-                                            isHover={false}
-                                        />
-                                    ) : (
-                                        <Button
-                                            title="Đồng ý"
-                                            onClick={() => handleAcceptRequest(item.id)}
-                                        />
-                                    )}
+                                    <Button
+                                        title="Đồng ý"
+                                        onClick={() => handleAcceptRequest(item.id)}
+                                    />
                                     <Button
                                         title="Từ chối"
                                         onClick={() => handleDeniedRequest(item.id)}
