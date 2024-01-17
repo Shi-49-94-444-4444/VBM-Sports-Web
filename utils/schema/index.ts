@@ -103,7 +103,7 @@ export const walletRechargeSchema = yup.object().shape({
 })
 
 export const walletSchema = yup.object().shape({
-    bankNumber: yup.string().min(10, "Tối thiểu 10 ký tự").max(20, "Nhiều nhất 20 ký tự").required("Không được để trống"),
+    bankNumber: yup.string().required("Không được để trống").min(10, "Tối thiểu 10 ký tự").max(20, "Nhiều nhất 20 ký tự"),
     accountName: yup.string().required("Không được để trống"),
     money: yup.number().
         required("Không được để trống").

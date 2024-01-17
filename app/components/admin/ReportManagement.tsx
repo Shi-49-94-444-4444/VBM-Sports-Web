@@ -324,7 +324,7 @@ const ReportManagement = () => {
                                         labels: labelsPie,
                                         datasets: [{
                                             data: dataPercentages.map(item => item.percentage),
-                                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', "#00FF33"],
                                         }]
                                     }}
                                     options={{

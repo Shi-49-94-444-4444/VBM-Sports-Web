@@ -43,13 +43,11 @@ const TablePost: React.FC<TablePostProps> = ({
         { title: "ID" },
         { title: "Tên bài viết" },
         { title: "Ngày đăng" },
-        { title: "Số lượng báo cáo" },
         { title: "Thao tác" }
     ]
 
     const listAction = [
         { title: "Xem bài viết", src: (postId: string) => router.push(`/product/detail-product/${postId}`) },
-        { title: "Xem báo cáo", src: () => { } },
         { title: "Xoá bài viết", src: (postId: string) => { adminDeletePostModal.onOpen(postId, null) } },
     ]
 
@@ -70,7 +68,6 @@ const TablePost: React.FC<TablePostProps> = ({
                         <td className="py-3">{item.id ?? "chưa có"}</td>
                         <td className="py-3">{validateTitle(item.title)}</td>
                         <td className="py-3">{item.postTime ?? "chưa có"}</td>
-                        <td className="py-3">{item.numOfReport ?? 0}</td>
                         <td className="py-3 relative">
                             <button className=" cursor-pointer" type="button" onClick={() => handleToggle(index)}>
                                 ...
