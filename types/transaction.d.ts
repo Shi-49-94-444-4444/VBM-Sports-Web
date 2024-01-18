@@ -15,8 +15,9 @@ export interface TransactionPaymentDetail {
         isCancel: boolean
         cancelHour?: string
         post: {
-            id: string,
-            title: string,
+            id: string
+            idUser: string
+            title: string
             titleImage: string
             imageUrls: string[]
             pricePerSlot: string
@@ -43,8 +44,8 @@ export interface TransactionPaymentDetailData {
     isCancel?: boolean
     cancelHour?: string
     post?: {
-        id: string,
-        title: string,
+        id: string
+        title: string
         titleImage: string
         imageUrls: string[]
         pricePerSlot: string

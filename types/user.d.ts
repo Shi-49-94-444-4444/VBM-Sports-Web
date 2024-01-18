@@ -147,6 +147,20 @@ export interface NotifyData {
     referenceId: string
 }
 
+export interface RatingForm {
+    idUserRate: string
+    idUserRated: string
+    levelSkill: Number
+    friendly: Number
+    trusted: Number
+    helpful: Number
+    content: string
+    idTransaction: string
+}
+export interface RatingFormData {
+    content: string
+}
+
 export interface WalletUserData {
     message: string
     data: {

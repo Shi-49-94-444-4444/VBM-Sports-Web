@@ -32,38 +32,6 @@ const TransactionContent: React.FC<ListTransactionData> = ({
     const formatStartTime = format(parse(startTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
     const formatEndTime = format(parse(endTime, "dd/MM/yyyy hh:mm:ss a", new Date()), "HH:mm")
 
-    let statusInVietnamese = "";
-    let statusColor = "";
-
-    switch (status) {
-        case "Processing":
-            statusInVietnamese = "Đang xử lý";
-            statusColor="text-blue-600"
-            break;
-        case "PaymentSuccess":
-            statusInVietnamese = "Thanh toán thành công";
-            statusColor="text-green-600"
-            break;
-        case "PaymentFailure":
-            statusInVietnamese = "Thanh toán thất bại";
-            statusColor="text-red-600"
-            break;
-        case "Played":
-            statusInVietnamese = "Đã chơi";
-            statusColor="text-primary-blue-cus"
-            break;
-        case "Reporting":
-            statusInVietnamese = "Đang báo cáo";
-            statusColor="text-red-600"
-            break;
-        case "ReportResolved":
-            statusInVietnamese = "Báo cáo đã được giải quyết";
-            statusColor="text-violet-600"
-            break;
-        default:
-            statusInVietnamese = "Trạng thái không xác định";
-    }
-
     return (
         <div className="lg:grid lg:grid-cols-12 flex flex-col rounded-lg border border-black border-opacity-10 transition-all duration-500" key={transacionId}>
             <div className="lg:col-span-4 relative lg:h-full md:h-96 sm:h-80 h-72 transition duration-300">
@@ -82,8 +50,8 @@ const TransactionContent: React.FC<ListTransactionData> = ({
                     <div className="md:text-3xl text-2xl font-semibold text-gray-600">
                         {validateTitle(postTitle)}
                     </div>
-                    <div className={`text-xl font-semibold ${statusColor}`}>
-                        {statusInVietnamese}
+                    <div className={"text-xl font-semibold text-primary-blue-cus"}>
+                        {status}
                     </div>
                 </div>
                 <section className="space-x-3 text-xl">

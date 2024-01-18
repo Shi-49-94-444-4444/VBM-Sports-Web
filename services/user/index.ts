@@ -1,4 +1,4 @@
-import { CommentFormData, WalletFromData, UserProfileFormData, SettingPasswordForm } from "@/types"
+import { CommentFormData, WalletFromData, UserProfileFormData, SettingPasswordForm, RatingForm } from "@/types"
 import AxiosClient from "../AxiosInstance"
 
 export const getListUserService = async () => {
@@ -215,6 +215,30 @@ export const putNotifyService = async ({ notiIds }: { notiIds: string[] }) => {
     try {
         const response = await AxiosClient.put(`/api/notifications/readed`, {
             notiIds: notiIds
+        })
+
+        return response.data
+    } catch (error: any) {
+        if (error && error.status)
+            //console.log(error)
+
+            if (error && error.response) {
+                return error.response.data
+            }
+    }
+}
+
+export const postRatingService = async (data: RatingForm) => {
+    try {
+        const response = await AxiosClient.post(`/api/users/rating_to`, {
+            idUserRate: Number(data.idUserRate),
+            idUserRated: Number(data.idUserRated),
+            levelSkill: data.levelSkill,
+            friendly: data.friendly,
+            trusted: data.trusted,
+            helpful: data.helpful,
+            content: data.content,
+            idTransaction: Number(data.idTransaction)
         })
 
         return response.data
