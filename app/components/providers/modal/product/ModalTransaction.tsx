@@ -11,7 +11,7 @@ import { LoadingActionPayment } from "../../loader"
 import CustomModal from "../Modal"
 import { Button } from "../../form"
 
-const ModalTransaction = ({ tran_id, creator, idUser }: { tran_id: string, creator: string, idUser: string }) => {
+const ModalTransaction = ({ tran_id, creator, userId }: { tran_id: string, creator: string, userId: string }) => {
     const { user, setIsLoadingModal, isLoadingModal } = useContext(GlobalContext) || {}
     const { handleSubmit } = useForm()
     const transactionModal = useTransactionModal()
@@ -37,7 +37,7 @@ const ModalTransaction = ({ tran_id, creator, idUser }: { tran_id: string, creat
             })
 
             transactionModal.onClose()
-            ratingModal.onOpen(creator, user.id, idUser, tran_id)
+            ratingModal.onOpen(creator, user.id, userId, tran_id)
         }
 
         if (setIsLoadingModal) setIsLoadingModal(false)

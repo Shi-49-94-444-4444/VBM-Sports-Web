@@ -42,7 +42,7 @@ const TransactionDetailPage = ({ transaction, tran_id, internalError }: { transa
         <Layout>
             <ModalRating />
             <ModalDeleteTransaction />
-            <ModalTransaction tran_id={tran_id} creator={transaction.data.post.createUser} idUser={transaction.data.post.idUser}/>
+            <ModalTransaction tran_id={tran_id} creator={transaction.data.post.createUser} userId={transaction.data.post.userId}/>
             <Container>
                 <div className="relative py-10">
                     {transaction.data.slots == null ? (

@@ -16,7 +16,7 @@ export interface TransactionPaymentDetail {
         cancelHour?: string
         post: {
             id: string
-            idUser: string
+            userId: string
             title: string
             titleImage: string
             imageUrls: string[]
