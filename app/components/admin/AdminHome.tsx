@@ -107,7 +107,7 @@ const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem, curre
                                     <span className="text-red-500">Unknown Status</span>
                                 )}
                             </td>
-                            <td className="py-2 font-semibold">
+                            <td className="py-2 font-semibold text-right">
                                 {item.amount.toString().startsWith("-") ? (
                                     <span className="text-red-500">{formatMoney(new Decimal(item.amount))}</span>
                                 ) : (

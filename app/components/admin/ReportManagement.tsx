@@ -37,7 +37,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-
+import * as XLSX from 'xlsx'
 
 interface TableReportProps {
     listItem: ManagementReportData[],
@@ -53,6 +53,27 @@ const listTitleUserManagement = [
     { title: "Thao tác" },
     { title: "Số tiền" },
 ]
+
+const exportToExcel = (listUser: ManagementReportData[]) => {
+    const headers = listTitleUserManagement.slice(1,6).map(item => item.title)
+
+    const data = listUser.map(user => [
+        user.id,
+        user.time,
+        user.status,
+        user.type,
+        user.amount,
+    ])
+
+    data.unshift(headers)
+
+    const worksheet = XLSX.utils.aoa_to_sheet(data);
+
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1")
+
+    XLSX.writeFile(workbook, "Bảng doanh thu chi tiết.xlsx")
+}
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
@@ -92,7 +113,7 @@ const TableReport: React.FC<TableReportProps> = ({ listItem, currentPage, itemsP
                             <td className="py-3 border-r border-black border-opacity-10">{item.time}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{statusObject?.statusVI}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{item.type}</td>
-                            <td className="py-3 border-r border-black border-opacity-10">{formatMoney(new Decimal(item.amount))}</td>
+                            <td className="py-3 border-r border-black border-opacity-10 text-right">{formatMoney(new Decimal(item.amount))}</td>
                         </tr>
                     )
                 })}
