@@ -73,7 +73,7 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
                         Người bị báo cáo:
                     </span>
                     <span className="font-semibold">
-                        {res?.reportUserName ?? "Chưa có"}
+                        {res?.sendUserName ?? "Chưa có"}
                     </span>
                 </div>
                 <div className="space-x-3">
@@ -105,7 +105,7 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
                         Người thực hiện báo cáo:
                     </span>
                     <span className="font-semibold">
-                        {res?.sendUserName ?? "Chưa có"}
+                        {res?.reportUserName ?? "Chưa có"}
                     </span>
                 </div>
             </section>
