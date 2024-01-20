@@ -37,7 +37,7 @@ const listTitleHistoryWallet = [
 const listTitleSetting = [
     { settingName: SettingNames.PostingFee, label: "Phí đăng bài (VND)", isMoney: true },
     { settingName: SettingNames.BookingFee, label: "Phí hoa hồng (% theo giao dịch)" },
-    { settingName: SettingNames.FreeNumberPost, label: "Lượt miên phí đăng bài/tháng" },
+    { settingName: SettingNames.FreeNumberPost, label: "Lượt miễn phí đăng bài/tháng" },
     { settingName: SettingNames.BoostPostFree, label: "Phí đẩy bài", isMoney: true },
     { settingName: SettingNames.CancelHour, label: "Thời gian hủy bài (giờ)" },
 ]
@@ -107,7 +107,7 @@ const TableHistoryWallet: React.FC<TableHistoryWalletProps> = ({ listItem, curre
                                     <span className="text-red-500">Unknown Status</span>
                                 )}
                             </td>
-                            <td className="py-2 font-semibold text-right">
+                            <td className="py-2 font-semibold text-right px-2">
                                 {item.amount.toString().startsWith("-") ? (
                                     <span className="text-red-500">{formatMoney(new Decimal(item.amount))}</span>
                                 ) : (

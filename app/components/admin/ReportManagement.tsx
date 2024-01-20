@@ -113,7 +113,7 @@ const TableReport: React.FC<TableReportProps> = ({ listItem, currentPage, itemsP
                             <td className="py-3 border-r border-black border-opacity-10">{item.time}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{statusObject?.statusVI}</td>
                             <td className="py-3 border-r border-black border-opacity-10">{item.type}</td>
-                            <td className="py-3 border-r border-black border-opacity-10 text-right">{formatMoney(new Decimal(item.amount))}</td>
+                            <td className="py-3 border-r border-black border-opacity-10 text-right px-2">{formatMoney(new Decimal(item.amount))}</td>
                         </tr>
                     )
                 })}
@@ -375,7 +375,10 @@ const ReportManagement = () => {
                     Bảng doanh thu
                 </h1>
                 <div className="flex gap-3 flex-col md:flex-row transition-all duration-500 flex-wrap justify-end">
-                    <DownMetalBtn onClick={() => { }} />
+                    <DownMetalBtn onClick={() => { 
+                        if (listIncoming)
+                            exportToExcel(listIncoming.data.historyWalletModels)
+                    }} />
                     <div className="flex flex-col space-y-1 md:w-auto w-full transition-all duration-500">
                         <Search value={searchTerm} onChange={setSearchTerm} style="w-full" />
                     </div>

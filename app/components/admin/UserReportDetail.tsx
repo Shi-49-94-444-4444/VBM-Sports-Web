@@ -40,9 +40,9 @@ const UserReportDetail: React.FC<UserReportDetailData> = ({
 
     return (
         <div className="relative flex flex-col px-6 py-10 gap-5">
-            <ModalAdminDeletePost user_id={user && user.id ? user.id.toString() : "1"} />
-            <ModalSendNoticeUser user_id={user && user.id ? user.id.toString() : "1"} />
-            <ModalAdminBan user_id={user && user.id ? user.id.toString() : "1"} />
+            <ModalAdminDeletePost user_id={res && res.userReportId ? res.userReportId : ""} />
+            <ModalSendNoticeUser user_id={res && res.userReportId ? res.userReportId : ""} />
+            <ModalAdminBan user_id={res && res.userReportId ? res.userReportId : ""} />
             <div className="
                     flex 
                     text-gray-600 
