@@ -32,6 +32,10 @@ Alternatively, if you want to build the project and then start the server, execu
 Now, you can test and develop the project locally on your machine.
 
 ## Project Functionalities Overview
+This web (app) is designed to connect badminton players in Ho Chi Minh City, addressing the issues of finding players without having to post on forums like Facebook. Our web (app) provides posting features (pricing by day, hour, and number of spots), management functionalities (participants, payment invoices), messaging, payment options, ... . To ensure limited scamming, we also include terms and a reporting section (for resolving complaints).
+
+### Front-end:
+The front-end of the project is built using Next.js, Tailwind CSS, and TypeScript. It has been optimized using SWR (React Hooks library for remote data fetching), SSR (Server-Side Rendering), and SSG (Static Site Generation) to ensure efficient performance and enhanced user experience.
 
 ### General Notes:
 - The project is built in real-time, therefore some playgrounds (products) might be hidden due to expiration.
