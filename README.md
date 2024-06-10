@@ -1,6 +1,6 @@
 # Brand Test UI Documentation
 
-This is a branch test used for viewing the UI directly. All data is sample data, middleware, loading and a few feature (SSR, SSG, router, ...) has been applied for convenient usage.
+This is a ``test`` branch used for viewing the UI directly. All data is sample data, middleware, loading and a few feature (SSR, SSG, router, ...) has been applied for convenient usage.
 
 ## Installation and Usage
 
@@ -72,4 +72,4 @@ Turned off loading fail data and error api
 2. Middleware has been configured for ease of use and UI testing.
 3. Please ensure to check the URLs and middleware before actual deployment.
 
-Thank you for using this branch test!
+Thank you for using this ``test`` branch!
