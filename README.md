@@ -12,6 +12,8 @@
 
 After setting up the backend, follow these steps to run the frontend locally:
 
+Go to ``.env.local`` change ``API_BASE_URL`` = ``Url Backend Deploy local``
+
 1. Install necessary libraries by running the command:
 ```sh
     npm i --force
