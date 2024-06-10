@@ -1,34 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Brand Main - Deployment Notification
 
-## Getting Started
+Currently, the brand main cannot be deployed on the server. You won't be able to access it.
 
-First, run the development server:
+**Please perform one of the following actions:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. Switch to the `dev-test` branch to use the local environment.
+2. Switch to the `test` branch to preview the project with sample data.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local Environment (dev-test)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The `dev-test` branch is where you can experience the project on your local environment. You can test new features and fix bugs without relying on the server.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Sample Data (test)
 
-## Learn More
+The `test` branch provides a preview of the project with sample data. This helps you understand how the project works and check the user interface before official deployment.
 
-To learn more about Next.js, take a look at the following resources:
+Here are some illustrative images of the user interface:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![UI Sample 1](./public/test/test_4.jpg)
+*Illustrative Image 1*
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![UI Sample 2](./public/test/test_5.jpg)
+*Illustrative Image 2*
 
-## Deploy on Vercel
+![UI Sample 3](./public/test/test_1.jpg)
+*Illustrative Image 3*
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![UI Sample 4](./public/test/test_3.jpg)
+*Illustrative Image 4*
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![UI Sample 5](./public/test/test_8.jpg)
+*Illustrative Image 5*
+
+![UI Sample 6](./public/test/test_11.jpg)
+*Illustrative Image 6*
+
+![UI Sample 7](./public/test/test_9.jpg)
+*Illustrative Image 7*
+
+![UI Sample 8](./public/test/test_10.jpg)
+*Illustrative Image 8*
+
+![UI Sample 9](./public/test/test_7.jpg)
+*Illustrative Image 9*
+
