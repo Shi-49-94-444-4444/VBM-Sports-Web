@@ -9,15 +9,18 @@ import { ListTransaction } from "@/types";
 import useSWR from "swr";
 import Image from "next/image";
 import { LoadingFullScreen } from "../../providers";
+import { sampleListTransaction } from "@/utils";
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const TransactionItems = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listItem, error } = useSWR<ListTransaction>(user && user.id ? `/api/posts/user/${user.id}/joined` : null, fetcher, { refreshInterval: 10000 })
+    // const { data: listItem, error } = useSWR<ListTransaction>(user && user.id ? `/api/posts/user/${user.id}/joined` : null, fetcher, { refreshInterval: 10000 })
 
-    const isLoading = !listItem && !error
+    // const isLoading = !listItem && !error
+
+    const listItem = sampleListTransaction
 
     const [currentPage, setCurrentPage] = useState(0)
     const itemsPerPage = 10
@@ -32,28 +35,28 @@ const TransactionItems = () => {
     const visibleItems = listItem && listItem.data.length > 0 ? listItem.data.slice(startIndex, endIndex) : []
 
     return (
-        <>
-            {isLoading ? (
-                <div className="h-screen flex items-center justify-center">
-                    <LoadingFullScreen loading={isLoading} />
-                </div>
-            ) : listItem && listItem.data.length === 0 ? (
-                <div className="relative h-screen flex flex-col items-center justify-center gap-5 text-primary-blue-cus font-semibold">
-                    <div className="flex space-x-3 items-center flex-wrap justify-center transition-all duration-500">
-                        <h1 className="md:text-4xl text-3xl transition-all duration-500 text-center">Bạn chưa có hóa đơn nào cả!</h1>
-                        <div className="relative">
-                            <Image
-                                src="/images/sad.gif"
-                                alt="Gif"
-                                width={100}
-                                height={100}
-                                className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
-                            />
-                        </div>
-                    </div>
-                    <p className="md:text-3xl text-xl text-center transition-all duration-500">Vui lòng thực hiện giao dịch để có hóa đơn</p>
-                </div>
-            ) : (
+        // <>
+        //     {isLoading ? (
+        //         <div className="h-screen flex items-center justify-center">
+        //             <LoadingFullScreen loading={isLoading} />
+        //         </div>
+        //     ) : listItem && listItem.data.length === 0 ? (
+        //         <div className="relative h-screen flex flex-col items-center justify-center gap-5 text-primary-blue-cus font-semibold">
+        //             <div className="flex space-x-3 items-center flex-wrap justify-center transition-all duration-500">
+        //                 <h1 className="md:text-4xl text-3xl transition-all duration-500 text-center">Bạn chưa có hóa đơn nào cả!</h1>
+        //                 <div className="relative">
+        //                     <Image
+        //                         src="/images/sad.gif"
+        //                         alt="Gif"
+        //                         width={100}
+        //                         height={100}
+        //                         className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+        //                     />
+        //                 </div>
+        //             </div>
+        //             <p className="md:text-3xl text-xl text-center transition-all duration-500">Vui lòng thực hiện giao dịch để có hóa đơn</p>
+        //         </div>
+        //     ) : (
                 <>
                     <div className="flex flex-col gap-5">
                         {visibleItems.map((item) => (
@@ -93,8 +96,8 @@ const TransactionItems = () => {
                         />
                     </div>
                 </>
-            )}
-        </>
+        //     )}
+        // </>
     )
 }
 

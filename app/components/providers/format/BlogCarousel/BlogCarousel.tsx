@@ -11,34 +11,37 @@ import useSWR from 'swr';
 import { ListBlogs } from '@/types';
 import Image from 'next/image';
 import { LoadingFullScreen } from '../../loader';
+import { sampleListBlogs } from '@/utils';
 
 SwiperCore.use([Pagination]);
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const BlogCarousel = () => {
-    const { data: listBlog, isLoading, error } = useSWR<ListBlogs>(`/api/blogs/1`, fetcher, { refreshInterval: 10000 })
+    // const { data: listBlog, isLoading, error } = useSWR<ListBlogs>(`/api/blogs/1`, fetcher, { refreshInterval: 10000 })
 
-    if (isLoading) {
-        return <LoadingFullScreen loading={isLoading} />
-    }
+    // if (isLoading) {
+    //     return <LoadingFullScreen loading={isLoading} />
+    // }
 
-    if (error) {
-        return (
-            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="md:text-4xl text-3xl font-semibold text-center">Đã xảy ra lỗi khi tải danh sách tin tức - error 500</p>
-                <div className="relative">
-                    <Image
-                        src="/images/sad.gif"
-                        alt="Gif"
-                        width={100}
-                        height={100}
-                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
-                    />
-                </div>
-            </div>
-        )
-    }
+    // if (error) {
+    //     return (
+    //         <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
+    //             <p className="md:text-4xl text-3xl font-semibold text-center">Đã xảy ra lỗi khi tải danh sách tin tức - error 500</p>
+    //             <div className="relative">
+    //                 <Image
+    //                     src="/images/sad.gif"
+    //                     alt="Gif"
+    //                     width={100}
+    //                     height={100}
+    //                     className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+    //                 />
+    //             </div>
+    //         </div>
+    //     )
+    // }
+
+    const listBlog = sampleListBlogs
 
     if (listBlog && listBlog.data && listBlog.data.length === 0) {
         return (

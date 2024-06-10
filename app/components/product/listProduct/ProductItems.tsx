@@ -9,6 +9,7 @@ import { ListProduct } from '@/types'
 import { LoadingFullScreen, Search } from '../../providers'
 import Image from 'next/image'
 import { GlobalContext } from '@/contexts'
+import { sampleListProduct } from '@/utils'
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
@@ -16,11 +17,13 @@ const ProductItems = () => {
     const [searchTerm, setSearchTerm] = useState<string>("")
     const { saveDistrict } = useContext(GlobalContext) || {}
 
-    const { data: listItem, error } = useSWR<ListProduct>(saveDistrict && saveDistrict.name ? `/api/posts/play_ground/${saveDistrict.name}` : `/api/posts/GetListPost`, fetcher, { refreshInterval: 5000 })
+    // const { data: listItem, error } = useSWR<ListProduct>(saveDistrict && saveDistrict.name ? `/api/posts/play_ground/${saveDistrict.name}` : `/api/posts/GetListPost`, fetcher, { refreshInterval: 5000 })
 
-    const isLoading = !listItem && !error
+    // const isLoading = !listItem && !error
 
-    const filterProduct = listItem && listItem.data && listItem.data.filter(product => product.title && product.title.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()))
+    // const filterProduct = listItem && listItem.data && listItem.data.filter(product => product.title && product.title.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()))
+
+    const filterProduct = sampleListProduct.data
 
     const [currentPage, setCurrentPage] = useState(0)
     const itemsPerPage = 10
@@ -40,7 +43,7 @@ const ProductItems = () => {
                 <h1 className="text-4xl font-semibold text-gray-600 translate-y-0">Bài đăng đặt sân</h1>
                 <Search value={searchTerm} onChange={setSearchTerm} style="w-full md:w-2/4" />
             </div>
-            {isLoading ? (
+            {/* {isLoading ? (
                 <div className="h-screen flex items-center justify-center">
                     <LoadingFullScreen loading={isLoading} />
                 </div>
@@ -77,7 +80,7 @@ const ProductItems = () => {
                     <p className="md:text-3xl text-xl text-center transition-all duration-500">Hãy thử tìm kiếm sân khác...</p>
                 </div>
             ) : (
-                <>
+                <> */}
                     {visibleItems.map((item) => (
                         <ProductContent
                             key={item.idPost}
@@ -116,8 +119,8 @@ const ProductItems = () => {
                             />
                         </div>
                     )}
-                </>
-            )}
+                {/* </>
+            )} */}
         </div>
     )
 }

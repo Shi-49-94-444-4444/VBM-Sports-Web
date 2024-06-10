@@ -26,7 +26,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
 }) => {
     const [showToggle, setShowToggle] = useState(false);
     const [showNotify, setShowNotify] = useState(false)
-    const router = useRouter()
+    // const router = useRouter()
     const {
         isAuthUser,
         setIsAuthUser,
@@ -60,36 +60,36 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
         setShowNotify(false)
     }
 
-    const handleLogout = async () => {
-        if (setIsAuthUser && setUser) {
-            setIsAuthUser(false)
-            setUser(null)
-        }
-        Cookies.remove("token")
-        localStorage.clear()
-        router.push("/").then(() => {
-            if (setIsRefresh) {
-                setIsRefresh(true)
-            }
-        })
-    }
+    // const handleLogout = async () => {
+    //     if (setIsAuthUser && setUser) {
+    //         setIsAuthUser(false)
+    //         setUser(null)
+    //     }
+    //     Cookies.remove("token")
+    //     localStorage.clear()
+    //     router.push("/").then(() => {
+    //         if (setIsRefresh) {
+    //             setIsRefresh(true)
+    //         }
+    //     })
+    // }
 
     const filterRead = listNotify && listNotify.filter((item) => item.isRead !== true)
 
     
-    const handleRouterNotify = (value: string, id: string) => {
-        if (value.toLowerCase() === "post") {
-            return router.push(`/product/detail-product/${id}`)
-        }
+    // const handleRouterNotify = (value: string, id: string) => {
+    //     if (value.toLowerCase() === "post") {
+    //         return router.push(`/product/detail-product/${id}`)
+    //     }
 
-        if (value.toLowerCase()  === "User") {
-            return router.push(`/user/profile-user/${id}`)
-        }
+    //     if (value.toLowerCase()  === "User") {
+    //         return router.push(`/user/profile-user/${id}`)
+    //     }
 
-        if (value.toLowerCase()  === "Tran") {
-            return router.push(`/transaction/detail-transaction/${id}`)
-        }
-    }
+    //     if (value.toLowerCase()  === "Tran") {
+    //         return router.push(`/transaction/detail-transaction/${id}`)
+    //     }
+    // }
 
     const ref = useRef<HTMLLIElement | null>(null)
     useOutsideClick(ref, handleOutsideClick)
@@ -176,7 +176,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                                 py-2
                                             "
                                             type="button"
-                                            onClick={() => router.push(`/user/profile-user/${user?.id ?? "1"}`)}
+                                            // onClick={() => router.push(`/user/profile-user/${user?.id ?? "1"}`)}
                                         >
                                             Hồ sơ
                                         </button>
@@ -190,7 +190,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                        py-2
                                    "
                                         type="button"
-                                        onClick={handleLogout}
+                                        // onClick={handleLogout}
                                     >
                                         Đăng xuất
                                     </button>
@@ -207,7 +207,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                             py-2
                                         "
                                             type="button"
-                                            onClick={() => router.push(item.href)}
+                                            // onClick={() => router.push(item.href)}
                                         >
                                             {item.label}
                                         </button>
@@ -326,7 +326,7 @@ const IsMobileAccess: React.FC<IsMobileAccessPros> = ({
                                                 text-left
                                                 justify-around
                                             "
-                                            onClick={() => handleRouterNotify(item.about, item.referenceId)}
+                                            // onClick={() => handleRouterNotify(item.about, item.referenceId)}
                                         >
                                             <div className="text-base font-medium truncate">
                                                 {item.title}

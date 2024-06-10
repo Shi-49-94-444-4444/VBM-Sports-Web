@@ -9,15 +9,18 @@ import { LoadingFullScreen } from '../../providers'
 import Image from 'next/image'
 import { GlobalContext } from '@/contexts'
 import MPContent from './MPContent'
+import { sampleManagePost } from '@/utils'
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const MPItems = () => {
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listItem, error } = useSWR<ManagePost>(user && user.id ? `/api/posts/${user.id}/managed_all_post` : null, fetcher, { refreshInterval: 10000 })
+    // const { data: listItem, error } = useSWR<ManagePost>(user && user.id ? `/api/posts/${user.id}/managed_all_post` : null, fetcher, { refreshInterval: 10000 })
 
-    const isLoading = !listItem && !error
+    // const isLoading = !listItem && !error
+
+    const listItem = sampleManagePost
 
     const [currentPage, setCurrentPage] = useState(0)
     const itemsPerPage = 5
@@ -33,7 +36,7 @@ const MPItems = () => {
 
     return (
         <>
-            {isLoading ? (
+            {/* {isLoading ? (
                 <div className="h-screen flex items-center justify-center">
                     <LoadingFullScreen loading={isLoading} />
                 </div>
@@ -54,7 +57,7 @@ const MPItems = () => {
                     <p className="md:text-3xl text-xl text-center transition-all duration-500">Vui lòng đăng bài...</p>
                 </div>
             ) : (
-                <>
+                <> */}
                     {visibleItems.map((item) => (
                         <MPContent
                             key={item.postId}
@@ -87,8 +90,8 @@ const MPItems = () => {
                             breakClassName="pagination-items border-2 px-3 py-2"
                         />
                     </div>
-                </>
-            )}
+                {/* </>
+            )} */}
         </>
     )
 }

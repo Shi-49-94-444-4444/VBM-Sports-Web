@@ -13,6 +13,7 @@ import { useContext } from 'react'
 import { GlobalContext } from '@/contexts'
 import { LoadingFullScreen } from '../../loader'
 import Image from 'next/image'
+import { sampleUserProfile } from '@/utils'
 
 SwiperCore.use([Pagination]);
 
@@ -20,28 +21,30 @@ const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const UserCarousel = ({ id }: { id: string }) => {
     const { user } = useContext(GlobalContext) || {}
-    const { data: listUser, error } = useSWR<ListUser>('/api/users/GetListUser', fetcher)
+    // const { data: listUser, error } = useSWR<ListUser>('/api/users/GetListUser', fetcher)
 
-    const isLoading = !error && !listUser
+    // const isLoading = !error && !listUser
 
-    if (isLoading) {
-        return <LoadingFullScreen loading={isLoading} />
-    }
+    // if (isLoading) {
+    //     return <LoadingFullScreen loading={isLoading} />
+    // }
 
-    if (error) {
-        return (
-            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="md:text-4xl text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách người dùng - error 500</p>
-                <Image
-                    src="/images/sad.gif"
-                    alt="Gif"
-                    width={100}
-                    height={100}
-                    className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
-                />
-            </div>
-        )
-    }
+    // if (error) {
+    //     return (
+    //         <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
+    //             <p className="md:text-4xl text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách người dùng - error 500</p>
+    //             <Image
+    //                 src="/images/sad.gif"
+    //                 alt="Gif"
+    //                 width={100}
+    //                 height={100}
+    //                 className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+    //             />
+    //         </div>
+    //     )
+    // }
+
+    const listUser = sampleUserProfile
 
     if (listUser && listUser.data == null) {
         return (

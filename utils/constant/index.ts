@@ -1,4 +1,4 @@
-import { Option } from "@/types";
+import { HistoryTransaction, ListBlogs, ListProduct, ListTransaction, ManagePost, Option, TransactionPaymentDetail, UserProfile } from "@/types";
 import { AiFillMail } from "react-icons/ai";
 import { BiSolidBellRing, BiSolidLockAlt, BiSolidPhoneCall, BiSolidUser } from "react-icons/bi";
 import { BsFileEarmarkPost, BsFillFileEarmarkPostFill, BsFillFileEarmarkRuledFill } from "react-icons/bs";
@@ -645,3 +645,418 @@ export const StatusReport = [
     { statusEN: "pending", statusVI: "Đang xử lý" },
     { statusEN: "complete", statusVI: "Đã xử lý" },
 ]
+
+export const sampleListProduct: ListProduct = {
+    message: "Success",
+    data: [
+        {
+            id: "1",
+            idPost: "101",
+            imgUrl: "/images/item_1.jpg",
+            title: "Product 1",
+            addressSlot: "123 Example Street",
+            days: "Monday, Wednesday, Friday",
+            startTime: "08:00",
+            endTime: "17:00",
+            status: true,
+            contentPost: "This is a sample content post for Product 1.",
+            quantitySlot: 50,
+            fullName: "John Doe",
+            userImgUrl: "/images/avatar.jpg",
+            price: 100,
+            highlightUrl: "/images/item_1.jpg",
+            imgUrlPost: ["/images/item_1.jpg", "/images/item_2.jpg"],
+            userId: "user1"
+        },
+        {
+            id: "2",
+            idPost: "102",
+            imgUrl: "/images/item_1.jpg",
+            title: "Product 2",
+            addressSlot: "456 Another Street",
+            days: "Tuesday, Thursday",
+            startTime: "09:00",
+            endTime: "18:00",
+            status: false,
+            contentPost: "This is a sample content post for Product 2.",
+            quantitySlot: 30,
+            fullName: "Jane Smith",
+            userImgUrl: "/images/avatar.jpg",
+            price: 150,
+            highlightUrl: "/images/item_1.jpg",
+            imgUrlPost: ["/images/item_1.jpg", "/images/item_2.jpg"],
+            userId: "user2"
+        },
+        {
+            id: "3",
+            idPost: "103",
+            imgUrl: "/images/item_1.jpg",
+            title: "Product 3",
+            addressSlot: "789 Some Avenue",
+            days: "Monday, Friday",
+            startTime: "10:00",
+            endTime: "16:00",
+            status: true,
+            contentPost: "This is a sample content post for Product 3.",
+            quantitySlot: 20,
+            fullName: "Alice Johnson",
+            userImgUrl: "/images/avatar.jpg",
+            price: 200,
+            highlightUrl: "/images/item_1.jpg",
+            imgUrlPost: ["/images/item_2.jpg", "/images/item_1.jpg"],
+            userId: "user3"
+        }
+    ]
+};
+
+export const sampleListBlogs: ListBlogs = {
+    message: "Success",
+    data: [
+        {
+            id: "1",
+            summary: "This is a summary of blog 1.",
+            imgUrl: "/images/item_1.jpg",
+            title: "Blog Post 1",
+            createTime: "2024-06-01T10:00:00Z",
+            shortDescription: "This is a short description for blog post 1.",
+            userCreateName: "John Doe",
+        },
+        {
+            id: "2",
+            summary: "This is a summary of blog 2.",
+            imgUrl: "/images/item_1.jpg",
+            title: "Blog Post 2",
+            createTime: "2024-06-05T14:30:00Z",
+            shortDescription: "This is a short description for blog post 2.",
+            userCreateName: "Jane Smith",
+        },
+        {
+            id: "3",
+            summary: "This is a summary of blog 3.",
+            imgUrl: "/images/item_1.jpg",
+            title: "Blog Post 3",
+            createTime: "2024-06-10T09:00:00Z",
+            shortDescription: "This is a short description for blog post 3.",
+            userCreateName: "Alice Johnson",
+        }
+    ]
+};
+
+export const sampleListProducts = {
+    message: "Success",
+    data: [
+        {
+            id: "1",
+            idPost: "101",
+            imageUrls: ["/images/item_1.jpg", "/images/item_2.jpg"],
+            hightLightImage: "/images/item_1.jpg",
+            title: "Product 1",
+            addressSlot: "123 Example Street",
+            levelSlot: "Level 1",
+            contentPost: "This is the content post for Product 1.",
+            fullName: "John Doe",
+            imgUrlUser: "/images/avatar.jpg",
+            sortProfile: "Profile 1",
+            categorySlot: "Category A",
+            totalRate: 4.5,
+            userId: "user1",
+            slotInfos: [
+                {
+                    startTime: "2024-12-10T08:00:00.000Z",
+                    endTime: "2024-12-10T17:00:00.000Z",
+                    price: 100,
+                    availableSlot: 50,
+                    saveData: "Sample data 1"
+                },
+                {
+                    startTime: "2024-12-10T18:00:00.000Z",
+                    endTime: "2024-12-10T21:00:00.000Z",
+                    price: 80,
+                    availableSlot: 30
+                }
+            ]
+        },
+        {
+            id: "2",
+            idPost: "102",
+            imageUrls: "/images/item_2.jpg",
+            hightLightImage: "/images/item_2.jpg",
+            title: "Product 2",
+            addressSlot: "456 Another Street",
+            levelSlot: "Level 2",
+            contentPost: "This is the content post for Product 2.",
+            fullName: "Jane Smith",
+            imgUrlUser: "/images/avatar.jpg",
+            sortProfile: "Profile 2",
+            categorySlot: "Category B",
+            totalRate: 4.0,
+            userId: "user2",
+            slotInfos: [
+                {
+                    startTime: "2024-12-10T08:00:00.000Z",
+                    endTime: "2024-12-10T17:00:00.000Z",
+                    price: 100,
+                    availableSlot: 50,
+                    saveData: "Sample data 1"
+                },
+                {
+                    startTime: "2024-12-10T18:00:00.000Z",
+                    endTime: "2024-12-10T21:00:00.000Z",
+                    price: 80,
+                    availableSlot: 30
+                }
+            ]
+        },
+        {
+            id: "3",
+            idPost: "103",
+            imageUrls: ["/images/item_2.jpg", "/images/item_1.jpg"],
+            hightLightImage: "/images/item_2.jpg",
+            title: "Product 3",
+            addressSlot: "789 Some Avenue",
+            levelSlot: "Level 3",
+            contentPost: "This is the content post for Product 3.",
+            fullName: "Alice Johnson",
+            imgUrlUser: "/images/avatar.jpg",
+            sortProfile: "Profile 3",
+            categorySlot: "Category C",
+            totalRate: 4.8,
+            userId: "user3",
+            slotInfos: [
+                {
+                    startTime: "2024-12-10T08:00:00.000Z",
+                    endTime: "2024-12-10T17:00:00.000Z",
+                    price: 100,
+                    availableSlot: 50,
+                    saveData: "Sample data 1"
+                },
+                {
+                    startTime: "2024-12-10T18:00:00.000Z",
+                    endTime: "2024-12-10T21:00:00.000Z",
+                    price: 80,
+                    availableSlot: 30
+                }
+            ]
+        }
+    ]
+};
+
+export const sampleHistoryTransaction: HistoryTransaction = {
+    message: "Sample message",
+    data: [
+        {
+            id: "1",
+            idWallet: "wallet1",
+            idUser: "user1",
+            amount: 100,
+            status: "success",
+            time: "10/12/2014 10:20",
+            type: "deposit"
+        },
+        {
+            id: "2",
+            idWallet: "wallet2",
+            idUser: "user2",
+            amount: 50,
+            status: "fail",
+            time: "10/12/2014 10:20",
+            type: "withdrawal"
+        }
+        // Các giao dịch khác
+    ]
+};
+
+export const sampleManagePost: ManagePost = {
+    message: "Sample message",
+    data: [
+        {
+            title: "Post 1",
+            postId: "1",
+            userId: "user1",
+            userName: "John Doe",
+            sortDescript: "Description of post 1",
+            time: "2024-06-10T08:00:00.000Z",
+            availableSlot: 10,
+            postImgUrl: "/images/item_1.jpg",
+            userImgUrl: "/images/avatar.jpg",
+            address: "123 Main Street",
+            status: true,
+            isDelete: false
+        },
+        {
+            title: "Post 2",
+            postId: "2",
+            userId: "user2",
+            userName: "Jane Smith",
+            sortDescript: "Description of post 2",
+            time: "2024-06-11T10:30:00.000Z",
+            availableSlot: 5,
+            postImgUrl: "/images/item_2.jpg",
+            userImgUrl: "/images/avatar.jpg",
+            address: "456 Another Street",
+            status: false,
+            isDelete: true
+        }
+        // Các bài đăng khác
+    ]
+};
+
+export const sampleListTransaction: ListTransaction = {
+    message: "Sample message",
+    data: [
+        {
+            postId: "1",
+            postTitle: "Post 1",
+            startTime: "10/12/2024 08:00:00 AM",
+            endTime: "10/12/2024 08:00:00 PM",
+            availableSlot: 5,
+            status: "completed",
+            areaName: "Area 1",
+            moneyPaid: 100,
+            transacionId: "transaction1",
+            coverImage: "/images/cover1.jpg",
+            bookedInfos: [
+                {
+                    createSlot: "2024-06-05T10:00:00.000Z",
+                    bookedSlot: 2,
+                    imageUrls: ["/images/item_1.jpg", "/images/item_2.jpg"]
+                },
+                {
+                    createSlot: "2024-06-07T12:00:00.000Z",
+                    bookedSlot: 3,
+                    imageUrls: ["/images/item_1.jpg", "/images/item_2.jpg"]
+                }
+                // Các thông tin đặt chỗ khác
+            ],
+            chatRoomId: "chatroom1"
+        },
+        {
+            postId: "2",
+            postTitle: "Post 2",
+            startTime: "10/12/2024 08:00:00 AM",
+            endTime: "10/12/2024 08:00:00 PM",
+            availableSlot: 8,
+            status: "pending",
+            areaName: "Area 2",
+            moneyPaid: 80,
+            transacionId: "transaction2",
+            coverImage: "/images/cover2.jpg",
+            bookedInfos: [
+                {
+                    createSlot: "2024-06-06T11:00:00.000Z",
+                    bookedSlot: 4,
+                    imageUrls: ["/images/item_1.jpg", "/images/item_2.jpg"]
+                },
+                {
+                    createSlot: "2024-06-08T14:00:00.000Z",
+                    bookedSlot: 4,
+                    imageUrls: ["/images/item_1.jpg", "/images/item_2.jpg"]
+                }
+                // Các thông tin đặt chỗ khác
+            ],
+            chatRoomId: "chatroom2"
+        }
+        // Các giao dịch khác
+    ]
+};
+
+export const sampleTransactionPaymentDetail = {
+    message: "Sample message",
+    data: [
+        {
+            id: "transaction1",
+            slotCount: 3,
+            slots: [
+                { id: "slot1", playDate: "10/12/2024" },
+                { id: "slot2", playDate: "11/12/2024" },
+                { id: "slot3", playDate: "12/12/2024" }
+            ],
+            tranStatus: 1,
+            buyerName: "John Doe",
+            payTime: "10/12/2024 22:00",
+            total: "300",
+            isCancel: false,
+            cancelHour: "24",
+            post: {
+                id: "post1",
+                userId: "user1",
+                title: "Post 1",
+                titleImage: "/images/item_1.jpg",
+                imageUrls: ["/images/item_1.jpg", "/images/item_2.jpg"],
+                pricePerSlot: "100",
+                address: "123 Main Street",
+                startTime: "2024-06-10T08:00:00.000Z",
+                endTime: "2024-06-10T17:00:00.000Z",
+                createUser: "user1",
+                categorySlot: "Category A"
+            }
+        },
+        {
+            id: "transaction2",
+            slotCount: 3,
+            slots: [
+                { id: "slot1", playDate: "10/12/2024" },
+                { id: "slot2", playDate: "11/12/2024" },
+                { id: "slot3", playDate: "12/12/2024" }
+            ],
+            tranStatus: 1,
+            buyerName: "John Doe",
+            payTime: "10/12/2024 22:00",
+            total: "300",
+            isCancel: false,
+            cancelHour: "24",
+            post: {
+                id: "post1",
+                userId: "user1",
+                title: "Post 1",
+                titleImage: "/images/item_1.jpg",
+                imageUrls: ["/images/item_1.jpg", "/images/item_2.jpg"],
+                pricePerSlot: "100",
+                address: "123 Main Street",
+                startTime: "2024-06-10T08:00:00.000Z",
+                endTime: "2024-06-10T17:00:00.000Z",
+                createUser: "user1",
+                categorySlot: "Category A"
+            }
+        },
+    ]
+};
+
+export const sampleUserProfile = {
+    message: "Sample message",
+    data: [
+        {
+            id: "user1",
+            fullName: "John Doe",
+            totalRate: 4.5,
+            imgUrl: "/images/avatar.jpg",
+            sortProfile: "Profile description",
+            levelSkill: 3,
+            friendly: 4,
+            trusted: 4.5,
+            helpful: 5
+        },
+        {
+            id: "user2",
+            fullName: "John Doe",
+            totalRate: 4.5,
+            imgUrl: "/images/avatar.jpg",
+            sortProfile: "Profile description",
+            levelSkill: 3,
+            friendly: 4,
+            trusted: 4.5,
+            helpful: 5
+        },
+        {
+            id: "user3",
+            fullName: "John Doe",
+            totalRate: 4.5,
+            imgUrl: "/images/avatar.jpg",
+            sortProfile: "Profile description",
+            levelSkill: 3,
+            friendly: 4,
+            trusted: 4.5,
+            helpful: 5
+        },
+    ]
+}

@@ -3,7 +3,7 @@
 import { GlobalContext } from "@/contexts"
 import { AxiosClient } from "@/services"
 import { HistoryTransaction, HistoryTransactionData } from "@/types"
-import { Status, formatMoney } from "@/utils"
+import { Status, formatMoney, sampleHistoryTransaction } from "@/utils"
 import Decimal from "decimal.js"
 import { useContext, useState } from "react"
 import useSWR from "swr"
@@ -110,9 +110,11 @@ const WalletHistory = () => {
     const [searchTerm, setSearchTerm] = useState<string>("")
     const { user } = useContext(GlobalContext) || {}
 
-    const { data: listHistoryWallet, isLoading } = useSWR<HistoryTransaction>(user && user.id ? `/api/wallet/user/${user.id}/history` : null, fetcher, { refreshInterval: 1000 })
+    // const { data: listHistoryWallet, isLoading } = useSWR<HistoryTransaction>(user && user.id ? `/api/wallet/user/${user.id}/history` : null, fetcher, { refreshInterval: 1000 })
 
-    const filterHistoryWallet = listHistoryWallet && listHistoryWallet.data && listHistoryWallet.data.filter(history => history.time && history.time.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()))
+    // const filterHistoryWallet = listHistoryWallet && listHistoryWallet.data && listHistoryWallet.data.filter(history => history.time && history.time.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()))
+
+    const filterHistoryWallet = sampleHistoryTransaction.data
 
     const [currentPage, setCurrentPage] = useState(0)
     const itemsPerPage = 10
@@ -134,15 +136,15 @@ const WalletHistory = () => {
                 </div>
                 <div className="flex gap-3 flex-col md:flex-row justify-between transition-all duration-500">
                     <DownMetalBtn onClick={() => {
-                        if (listHistoryWallet)
-                            exportToExcel(listHistoryWallet.data)
+                        // if (listHistoryWallet)
+                        //     exportToExcel(listHistoryWallet.data)
                     }} />
                     <div className="flex flex-col space-y-1 md:w-auto w-full transition-all duration-500">
                         <Search value={searchTerm} onChange={setSearchTerm} style="w-full" />
                     </div>
                 </div>
             </div>
-            {isLoading ? (
+            {/* {isLoading ? (
                 <LoadingFullScreen loading={isLoading} />
             ) : !listHistoryWallet || !filterHistoryWallet || listHistoryWallet.data.length === 0 ? (
                 <div className="flex items-center justify-center text-primary-blue-cus h-96 md:text-4xl text-3xl font-semibold text-center">
@@ -153,7 +155,7 @@ const WalletHistory = () => {
                     Bạn chưa thực hiện giao dịch nào cả!
                 </div>
             ) : (
-                <>
+                <> */}
                     <TableHistoryWallet listItem={visibleItems} currentPage={currentPage} itemsPerPage={itemsPerPage}/>
                     {pageCount > 0 && (
                         <div className="flex justify-center mt-10 text-base font-semibold">
@@ -175,8 +177,8 @@ const WalletHistory = () => {
                             />
                         </div>
                     )}
-                </>
-            )}
+                {/* </>
+            )} */}
         </div>
     )
 }

@@ -6,17 +6,20 @@ import { AxiosClient } from "@/services"
 import useSWR from 'swr'
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import { sampleListProduct } from "@/utils"
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const QuickList = () => {
     const router = useRouter()
 
-    const { data: listProduct, error, isLoading } = useSWR<ListProduct>(`/api/posts/GetListPost`, fetcher, { refreshInterval: 5000 })
+    // const { data: listProduct, error, isLoading } = useSWR<ListProduct>(`/api/posts/GetListPost`, fetcher, { refreshInterval: 5000 })
 
-    if (isLoading) {
-        return <LoadingFullScreen loading={isLoading} />
-    }
+    // if (isLoading) {
+    //     return <LoadingFullScreen loading={isLoading} />
+    // }
+
+    const listProduct = sampleListProduct
 
     if (!listProduct) {
         return (
@@ -35,22 +38,22 @@ const QuickList = () => {
         )
     }
 
-    if (error) {
-        return (
-            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="md:text-4xl text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
-                <div className="relative">
-                    <Image
-                        src="/images/sad.gif"
-                        alt="Gif"
-                        width={100}
-                        height={100}
-                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
-                    />
-                </div>
-            </div>
-        )
-    }
+    // if (error) {
+    //     return (
+    //         <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
+    //             <p className="md:text-4xl text-3xl font-semibold">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
+    //             <div className="relative">
+    //                 <Image
+    //                     src="/images/sad.gif"
+    //                     alt="Gif"
+    //                     width={100}
+    //                     height={100}
+    //                     className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+    //                 />
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
     const sliceItems = listProduct && listProduct.data.length > 0 ? listProduct.data.slice(0, 12) : []
 

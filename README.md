@@ -1,34 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Brand Test UI Documentation
 
-## Getting Started
+This is a brand test used for viewing the UI directly. All data is sample data, middleware, loading and a few feature (SSR, SSG, router, ...) has been applied for convenient usage.
 
-First, run the development server:
+## Installation and Usage
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+To install the necessary libraries, run:
+
+```sh
+npm i --force
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run project with dev, run:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Run project to use, run:
 
-## Learn More
+```sh
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Note
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The website is fully responsive and customizable
+Role: Guest, User, Staff, Admin
+Because this is a UIview test, it is not possible to see the pages that will change according to role and the detailed functions of each page according to role.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Router URLs
 
-## Deploy on Vercel
+You can directly route to the following URLs:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/`: Home page
+- `/login`: Login page
+- `/register`: Registration page
+- `/forgot-password`: Registration page
+- `/verify-otp`: Verify page (for after register and forgot-password)
+- `/register-stepper`:  Register stepper page (for after verify to about of you)
+- `/forgot-password-success`: Forgot password success page (for after verity-otp with forgot password to success)
+- `/unauthorized`: Not allow page
+- `/404`: 404 page
+- `/500`: 404 page
+- `/policy`: policy page
+- `/product/detail-product/[id]`: Detail product page (Example: /product/detail-product/101, /product/detail-product/102, /product/detail-product/103)
+- `/product/list-product`: List product page
+- `/product/management-product`: Management product page (Management post product)
+- `/product/post-product`: Post product page
+- `/user/setting-profile`: Setting profile page (slide-page, can slide setting-notify, setting-security, setting-ban)
+- `/user/chat-room`: Message page (realtime, can use it after order slot in product) (in view UI don't used)
+- `/user/profile-user/[id]`: Profile user page (Example: /user/profile-user/user1, /user/profile-user/user2, /user/profile-user/user3)
+- `/transaction/list-transaction`: List transaction page 
+- `/transaction/detail-transaction/[id]`: Detail transaction page (Example: /transaction/detail-transaction/transaction1, /transaction/detail-transaction/transaction2)
+- `admin/admin-home`: Global management page (slide-page with any admin page)
+- `admin/post-management`: Blog management page (slide-page with any admin page, blog management)
+- `admin/create-blog`: Create blog page (slide-page with any admin page, button show with role staff in admin/post-management)
+- `admin/user-report-management`: Report management page (slide-page with any admin page, about: report blog, report post, report user)
+- `admin/user-management`: User management page (slide-page with any admin page, user management)
+- `admin/report-management`: Income statement management page (slide-page with any admin page, income statement)
+- `admin/rule-list`:  Policy page (slide-page with any admin page)
+- `admin/user-detail-management/[id]`:  Detail user management page (slide-page with any admin page, detail user, product management, any modal feature)
+- `admin/user-report-detail/[id]`:  Detail report page (slide-page with any admin page, detail report follow report user - post - blog, any modal feature)
++++ Any modal in page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Turned off loading fail data and error api 
+
+## Notes
+
+1. The data on these pages is sample data for UI display purposes only.
+2. Middleware has been configured for ease of use and UI testing.
+3. Please ensure to check the URLs and middleware before actual deployment.
+
+Thank you for using this brand test!

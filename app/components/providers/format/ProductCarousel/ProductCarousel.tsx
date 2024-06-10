@@ -11,37 +11,40 @@ import { AxiosClient } from '@/services'
 import useSWR from 'swr'
 import { LoadingFullScreen } from '../../loader'
 import Image from 'next/image'
+import { sampleListProduct } from '@/utils'
 
 SwiperCore.use([Pagination]);
 
 const fetcher = (url: string) => AxiosClient.get(url).then(res => res.data)
 
 const ProductCarousel = ({ id }: { id: string }) => {
-    const { data: listProduct, error } = useSWR<ListProduct>('/api/posts/GetListPost', fetcher)
+    // const { data: listProduct, error } = useSWR<ListProduct>('/api/posts/GetListPost', fetcher)
 
-    const isLoading = !error && !listProduct
+    // const isLoading = !error && !listProduct
 
-    if (isLoading) {
-        return <LoadingFullScreen loading={isLoading} />
-    }
+    // if (isLoading) {
+    //     return <LoadingFullScreen loading={isLoading} />
+    // }
 
-    if (error) {
-        return (
-            <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
-                <p className="md:text-4xl text-3xl font-semibold text-center">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
-                <div className="relative">
-                    <Image
-                        src="/images/sad.gif"
-                        alt="Gif"
-                        width={100}
-                        height={100}
-                        className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
-                    />
-                </div>
-            </div>
-        )
-    }
+    // if (error) {
+    //     return (
+    //         <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">
+    //             <p className="md:text-4xl text-3xl font-semibold text-center">Đã xảy ra lỗi khi tải danh sách sản phẩm - error 500</p>
+    //             <div className="relative">
+    //                 <Image
+    //                     src="/images/sad.gif"
+    //                     alt="Gif"
+    //                     width={100}
+    //                     height={100}
+    //                     className="object-contain md:w-32 md:h-32 h-20 w-20 transition-all duration-500"
+    //                 />
+    //             </div>
+    //         </div>
+    //     )
+    // }
 
+    const listProduct = sampleListProduct
+    
     if (listProduct && listProduct.data && listProduct.data.length === 0) {
         return (
             <div className="relative flex flex-col space-x-3 items-center justify-center h-96 text-primary-blue-cus">

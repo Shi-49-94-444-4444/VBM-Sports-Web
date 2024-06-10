@@ -97,74 +97,74 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     const [roomId, setRoomId] = useState<string | null>(null)
     const [AIListProduct, setAIListProduct] = useState<ListProductData[] | null>(null)
 
-    useEffect(() => {
-        const fetchDistricts = async () => {
-            const res = await getAllDistrictService()
-            setListDistrict(res.data);
-        }
+    // useEffect(() => {
+    //     const fetchDistricts = async () => {
+    //         const res = await getAllDistrictService()
+    //         setListDistrict(res.data);
+    //     }
 
-        fetchDistricts()
-    }, [])
+    //     fetchDistricts()
+    // }, [])
 
-    useEffect(() => {
-        const fetchListSetting = async () => {
-            const res = await getSettingService()
-            setListSetting(res.data)
-        }
+    // useEffect(() => {
+    //     const fetchListSetting = async () => {
+    //         const res = await getSettingService()
+    //         setListSetting(res.data)
+    //     }
 
-        fetchListSetting()
-    }, [])
+    //     fetchListSetting()
+    // }, [])
 
-    useEffect(() => {
-        if (Cookies.get('token') !== undefined) {
-            setIsAuthUser(true)
-            const userData = JSON.parse(localStorage.getItem('user')!) || {}
-            setUser(userData)
-        } else {
-            setIsAuthUser(false)
-            setUser(null)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (Cookies.get('token') !== undefined) {
+    //         setIsAuthUser(true)
+    //         const userData = JSON.parse(localStorage.getItem('user')!) || {}
+    //         setUser(userData)
+    //     } else {
+    //         setIsAuthUser(false)
+    //         setUser(null)
+    //     }
+    // }, [])
 
-    useEffect(() => {
-        const fetch = async () => {
-            if (user && user.id) {
-                const res = await getUserService({ user_id: user.id })
-                localStorage.setItem('user', JSON.stringify(res.data))
-                setUser(res.data)
-            }
-        }
+    // useEffect(() => {
+    //     const fetch = async () => {
+    //         if (user && user.id) {
+    //             const res = await getUserService({ user_id: user.id })
+    //             localStorage.setItem('user', JSON.stringify(res.data))
+    //             setUser(res.data)
+    //         }
+    //     }
 
-        if (fetchUser) {
-            fetch()
-            setFetchUser(false)
-        }
+    //     if (fetchUser) {
+    //         fetch()
+    //         setFetchUser(false)
+    //     }
 
-        const intervalId = setInterval(fetch, 5 * 60 * 1000)
+    //     const intervalId = setInterval(fetch, 5 * 60 * 1000)
 
-        return () => clearInterval(intervalId)
-    }, [fetchUser, user])
+    //     return () => clearInterval(intervalId)
+    // }, [fetchUser, user])
 
-    useEffect(() => {
-        const handleRouteChange = () => {
-            if (router.pathname === '/product/list-product') {
-                setSaveDistrict(null)
-            }
-        }
+    // useEffect(() => {
+    //     const handleRouteChange = () => {
+    //         if (router.pathname === '/product/list-product') {
+    //             setSaveDistrict(null)
+    //         }
+    //     }
 
-        router.events.on('routeChangeStart', handleRouteChange);
+    //     router.events.on('routeChangeStart', handleRouteChange);
 
-        return () => {
-            router.events.off('routeChangeStart', handleRouteChange);
-        };
-    }, [router.pathname, router.events])
+    //     return () => {
+    //         router.events.off('routeChangeStart', handleRouteChange);
+    //     };
+    // }, [router.pathname, router.events])
 
-    useEffect(() => {
-        if (isRefresh) {
-            router.reload()
-            setIsRefresh(false)
-        }
-    }, [isRefresh, router])
+    // useEffect(() => {
+    //     if (isRefresh) {
+    //         router.reload()
+    //         setIsRefresh(false)
+    //     }
+    // }, [isRefresh, router])
 
     return (
         <GlobalContext.Provider
